@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const { ApolloServer } = require('apollo-server-express');
@@ -6,7 +7,6 @@ const Logger = require('./utils/logger');
 const { typeDefs, resolvers } = require('./schemas');
 const configuredMorgan = require('./utils/morgan.js');
 const { authMiddleware } = require('./utils/auth');
-require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -35,7 +35,11 @@ app.get('*', (req, res) => {
 });
 
 db.once('open', () => {
-  Logger.info(`Connected to mongo`);
+  if(process.env.MONGODB_URI){
+    Logger.info(`Connected to mongo atlas fonxyOps STANCE instance`);
+  } else {
+    Logger.info('Connected to backup mongo at local host')
+  }
   app.listen(PORT, () => {
     Logger.info(`GraphQL api endpoint at http://localhost:${PORT}${server.graphqlPath}`);
   });

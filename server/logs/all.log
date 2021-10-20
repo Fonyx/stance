@@ -124,3 +124,19 @@
 2021-10-20 22:34:31:3431 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
 2021-10-20 22:34:33:3433 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
 2021-10-20 22:34:35:3435 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:38:3438 [32minfo[39m: [32mConnected to mongo[39m
+2021-10-20 22:34:38:3438 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 22:40:15:4015 [32minfo[39m: [32mConnected to mongo[39m
+2021-10-20 22:40:15:4015 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 22:41:45:4145 [32minfo[39m: [32mConnected to mongo[39m
+2021-10-20 22:41:45:4145 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 22:42:35:4235 [32minfo[39m: [32mConnected to mongo[39m
+2021-10-20 22:42:35:4235 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 22:42:53:4253 [32minfo[39m: [32mConnected to mongo[39m
+2021-10-20 22:42:53:4253 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 22:44:49:4449 [32minfo[39m: [32mConnected to mongo[39m
+2021-10-20 22:44:49:4449 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 22:45:34:4534 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-20 22:45:34:4534 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 22:45:47:4547 [32minfo[39m: [32mConnected to backup mongo at local host[39m
+2021-10-20 22:45:47:4547 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
