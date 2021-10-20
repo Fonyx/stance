@@ -9,6 +9,11 @@ const walletSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    online: {
+        type: Boolean,
+        default: true,
+        required: false
+    },
     userGenerated: {
         type: Boolean,
         required: true,
@@ -17,7 +22,15 @@ const walletSchema = new mongoose.Schema({
     website: {
         type: String,
         required: false,
-    }
+    },
+    icon: {
+        type: String,
+        required: false,
+    },
+    tags: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tag"
+    }]
 }, {timestamps: true});
 
 const Wallet = mongoose.model('Wallet', walletSchema);

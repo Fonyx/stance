@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const {goalSchema} = require('Meta');
 
-const portfolioSchema = new mongoose.Schema({
+const stockPortfolioSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -11,13 +11,18 @@ const portfolioSchema = new mongoose.Schema({
         required: false
     },
     goal: goalSchema,
+    tags: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tag"
+    }]
 }, {timestamps: true});
 
 
-const Portfolio = mongoose.model('Portfolio', portfolioSchema)
+
+const StockPortfolio = mongoose.model('StockPortfolio', stockPortfolioSchema);
 
 
 module.exports = {
-    Portfolio,
-    portfolioSchema
+    StockPortfolio,
+    stockPortfolioSchema
 }

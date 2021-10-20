@@ -1,6 +1,7 @@
 const User = require('User');
 const Transaction = require('Transaction');
 const Account = require('Account');
+const Asset = require('Asset');
 const Bank = require('Bank');
 const Portfolio = require('Portfolio');
 const Wallet = require('Wallet');

@@ -1,9 +1,42 @@
 const mongoose = require('mongoose');
-const {styleSchema} = require('Meta');
 
 const assetSchema = new mongoose.Schema({
-
-    style: styleSchema
+    type: {
+        type: String,
+        enum: ['currency', 'coin', 'stock'],
+        default: 'currency'
+    },
+    name: {
+        type: String,
+        required: true,
+        default: "AUD",
+        unique: true
+    },
+    userGenerated:{
+        type: Boolean,
+        required: true,
+    },
+    symbol: {
+        type: String,
+        required: false,
+        default: "$"
+    },
+    code: {
+        type: String,
+        required: false,
+        default: "AUD-USD",
+        unique: true
+    },
+    usdValue: {
+        type: Number,
+        required: true,
+        default: 0.72
+    },
+    marketName: {
+        type: String,
+        required: false,
+        default: "CC"
+    },
 }, {timestamps: true});
 
 userSchema.pre('save', async function (next) {
@@ -16,7 +49,6 @@ userSchema.pre('save', async function (next) {
   
     next();
 });
-
 
 const Asset = mongoose.model('Asset', assetSchema);
 

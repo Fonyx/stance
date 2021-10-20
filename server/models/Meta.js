@@ -88,34 +88,24 @@ const styleSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 
-const currencySchema = new mongoose.Schema({
-    code:{
-        type: String,
-        required: true
-    },
-    name: {
-        type: String,
-        required: false
-    },
-    usdValue: {
-        type: Number,
-        required: true,
-        default: 0
-    }
-}, {timestamps: true});
-
-
 const tagSchema = new mongoose.Schema({
+    userId:{
+        type: mongoose.Types.Schema.ObjectId,
+        ref: "User"
+    },
     name: {
         type: String,
         required: true,
-        default: 'tag'
+        default: 'auto tag'
     },
     style: {
         type: styleSchema,
         default: () => ({})
     }
 }, {timestamps: true});
+
+// a combined index for unique accounts for user by name
+tagSchema.index({userId: 1, name: 1}, {unique: true})
 
 
 const goalSchema = new mongoose.Schema({
@@ -133,24 +123,17 @@ const goalSchema = new mongoose.Schema({
         type: Number,
         required: false,
         default: 5
-    },
-    style: {
-        type: styleSchema,
-        default: () => ({})
     }
 }, {timestamps: true});
 
 
 const Style = mongoose.model('Style', styleSchema);
-const Currency = mongoose.model('Currency', currencySchema);
 const Tag = mongoose.model('Tag', tagSchema);
 const Goal = mongoose.model('Goal', goalSchema);
 
 module.exports = {
     Style,
     styleSchema,
-    Currency,
-    currencySchema,
     Tag,
     tagSchema,
     Goal,

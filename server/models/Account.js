@@ -47,27 +47,16 @@ const accountSchema = new mongoose.Schema({
         type: mongoose.Types.Schema.ObjectId,
         ref: 'Bank'
     },
-    symbolCharacter: {
-        type: String,
-        required: false,
-        default: "$"
-    },
-    code: {
-        type: String,
-        required: false,
-        default: "AUD"
-    },
-    usdValue: {
-        type: Number,
-        required: true
-    },
-    marketName: {
-        type: String,
-        required: false
+    assetId: {
+        type: mongoose.Types.Schema.ObjectId,
+        ref: "Asset"
     },
     style: styleSchema,
     goal: goalSchema,
-    tags: [tagSchema]
+    tags: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tag"
+    }]
 }, {timestamps: true});
 
 // a combined index for unique accounts for user by name
