@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const uniqueVal = require('mongoose-unique-validator');
 
 // https://thinkster.io/tutorials/node-json-api/creating-the-user-model
 

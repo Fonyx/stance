@@ -1,0 +1,126 @@
+2021-10-20 22:28:54:2854 [32minfo[39m: [32mConnected to mongo[39m
+2021-10-20 22:28:54:2854 [32minfo[39m: [32mServer is running http://localhost:4000[39m
+2021-10-20 22:28:54:2854 [32minfo[39m: [32mUse GraphQL at http://localhost:4000/graphql[39m
+2021-10-20 22:29:00:290 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:01:291 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:03:293 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:05:295 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:07:297 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:09:299 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:11:2911 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:13:2913 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:15:2915 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:17:2917 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:19:2919 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:21:2921 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:23:2923 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:29:25:2925 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:03:303 [32minfo[39m: [32mConnected to mongo[39m
+2021-10-20 22:30:03:303 [32minfo[39m: [32mServer is running http://localhost:4000[39m
+2021-10-20 22:30:03:303 [32minfo[39m: [32mUse GraphQL at http://localhost:4000/graphql[39m
+2021-10-20 22:30:03:303 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:03:303 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:03:303 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:03:303 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:05:305 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:07:307 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:09:309 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:11:3011 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:13:3013 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:15:3015 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:17:3017 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:30:21:3021 [32minfo[39m: [32mConnected to mongo[39m
+2021-10-20 22:30:21:3021 [32minfo[39m: [32mServer is running http://localhost:4000[39m
+2021-10-20 22:30:21:3021 [32minfo[39m: [32mUse GraphQL at http://localhost:4000/graphql[39m
+2021-10-20 22:30:29:3029 [35mhttp[39m: [35mGET / 200 3014 - 3.904 ms[39m
+[35m[39m
+2021-10-20 22:30:29:3029 [35mhttp[39m: [35mGET /static/css/main.8c8b27cf.chunk.css 200 3014 - 2.172 ms[39m
+[35m[39m
+2021-10-20 22:30:29:3029 [35mhttp[39m: [35mGET /static/js/2.b0224a98.chunk.js 200 3014 - 2.614 ms[39m
+[35m[39m
+2021-10-20 22:30:29:3029 [35mhttp[39m: [35mGET /static/js/main.36edc3cc.chunk.js 200 3014 - 3.019 ms[39m
+[35m[39m
+2021-10-20 22:30:29:3029 [35mhttp[39m: [35mGET /logo192.png 200 3014 - 0.875 ms[39m
+[35m[39m
+2021-10-20 22:30:29:3029 [35mhttp[39m: [35mGET /favicon.ico 200 3014 - 1.628 ms[39m
+[35m[39m
+2021-10-20 22:30:39:3039 [35mhttp[39m: [35mGET / 304 - - 1.011 ms[39m
+[35m[39m
+2021-10-20 22:30:39:3039 [35mhttp[39m: [35mGET /static/css/main.8c8b27cf.chunk.css 304 - - 0.966 ms[39m
+[35m[39m
+2021-10-20 22:30:39:3039 [35mhttp[39m: [35mGET /static/js/2.b0224a98.chunk.js 304 - - 1.922 ms[39m
+[35m[39m
+2021-10-20 22:30:39:3039 [35mhttp[39m: [35mGET /static/js/main.36edc3cc.chunk.js 304 - - 1.265 ms[39m
+[35m[39m
+2021-10-20 22:30:43:3043 [32minfo[39m: [32mConnected to mongo[39m
+2021-10-20 22:30:43:3043 [32minfo[39m: [32mServer is running http://localhost:4000[39m
+2021-10-20 22:30:43:3043 [32minfo[39m: [32mUse GraphQL at http://localhost:4000/graphql[39m
+2021-10-20 22:30:47:3047 [35mhttp[39m: [35mGET / 304 - - 2.242 ms[39m
+[35m[39m
+2021-10-20 22:30:47:3047 [35mhttp[39m: [35mGET /static/css/main.8c8b27cf.chunk.css 304 - - 1.274 ms[39m
+[35m[39m
+2021-10-20 22:30:47:3047 [35mhttp[39m: [35mGET /static/js/2.b0224a98.chunk.js 304 - - 2.668 ms[39m
+[35m[39m
+2021-10-20 22:30:47:3047 [35mhttp[39m: [35mGET /static/js/main.36edc3cc.chunk.js 304 - - 1.385 ms[39m
+[35m[39m
+2021-10-20 22:33:21:3321 [32minfo[39m: [32mConnected to mongo[39m
+2021-10-20 22:33:21:3321 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 22:33:21:3321 [35mhttp[39m: [35mGET / 304 - - 2.290 ms[39m
+[35m[39m
+2021-10-20 22:33:21:3321 [35mhttp[39m: [35mGET /static/js/2.b0224a98.chunk.js 304 - - 1.457 ms[39m
+[35m[39m
+2021-10-20 22:33:21:3321 [35mhttp[39m: [35mGET /static/js/main.36edc3cc.chunk.js 304 - - 1.560 ms[39m
+[35m[39m
+2021-10-20 22:33:21:3321 [35mhttp[39m: [35mGET /static/css/main.8c8b27cf.chunk.css 304 - - 2.083 ms[39m
+[35m[39m
+2021-10-20 22:33:22:3322 [35mhttp[39m: [35mGET / 304 - - 0.330 ms[39m
+[35m[39m
+2021-10-20 22:33:22:3322 [35mhttp[39m: [35mGET /static/js/2.b0224a98.chunk.js 304 - - 0.855 ms[39m
+[35m[39m
+2021-10-20 22:33:22:3322 [35mhttp[39m: [35mGET /static/js/main.36edc3cc.chunk.js 304 - - 1.337 ms[39m
+[35m[39m
+2021-10-20 22:33:22:3322 [35mhttp[39m: [35mGET /static/css/main.8c8b27cf.chunk.css 304 - - 1.811 ms[39m
+[35m[39m
+2021-10-20 22:33:23:3323 [35mhttp[39m: [35mGET / 304 - - 0.474 ms[39m
+[35m[39m
+2021-10-20 22:33:23:3323 [35mhttp[39m: [35mGET /static/css/main.8c8b27cf.chunk.css 304 - - 0.452 ms[39m
+[35m[39m
+2021-10-20 22:33:23:3323 [35mhttp[39m: [35mGET /static/js/2.b0224a98.chunk.js 304 - - 0.587 ms[39m
+[35m[39m
+2021-10-20 22:33:23:3323 [35mhttp[39m: [35mGET /static/js/main.36edc3cc.chunk.js 304 - - 1.064 ms[39m
+[35m[39m
+2021-10-20 22:33:27:3327 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:28:3328 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:30:3330 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:32:3332 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:34:3334 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:36:3336 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:38:3338 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:40:3340 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:42:3342 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:44:3344 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:46:3346 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:48:3348 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:50:3350 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:52:3352 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:54:3354 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:56:3356 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:33:58:3358 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:00:340 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:02:342 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:04:344 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:06:346 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:08:348 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:10:3410 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:13:3413 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:15:3415 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:17:3417 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:19:3419 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:21:3421 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:23:3423 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:25:3425 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:27:3427 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:29:3429 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:31:3431 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:33:3433 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m
+2021-10-20 22:34:35:3435 [32minfo[39m: [32mToken was not found in request header - authorize, auth failed[39m

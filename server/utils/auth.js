@@ -13,15 +13,14 @@ module.exports = {
     }
     
     if (!token) {
-        Logger.error('Token was not found in request header - authorize, auth failed');
-        return req;
+      return req;
     }
-
+    
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
     } catch {
-      console.log('Invalid token');
+      Logger.warn('Invalid Token');
     }
 
     return req;

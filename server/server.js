@@ -19,10 +19,10 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 // use custom colour server logging as middleware
 app.use(configuredMorgan);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // serve client/build as static assets for production environment
 if (process.env.NODE_ENV === 'production') {
@@ -37,7 +37,6 @@ app.get('*', (req, res) => {
 db.once('open', () => {
   Logger.info(`Connected to mongo`);
   app.listen(PORT, () => {
-    Logger.info('Server is running http://localhost:'+PORT);
-    Logger.info(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+    Logger.info(`GraphQL api endpoint at http://localhost:${PORT}${server.graphqlPath}`);
   });
 });
