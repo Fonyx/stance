@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {goalSchema} = require('Meta');
 
 const portfolioSchema = new mongoose.Schema({
     name: {
@@ -9,7 +10,9 @@ const portfolioSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    goal: goalSchema,
 }, {timestamps: true});
+
 
 const Portfolio = mongoose.model('Portfolio', portfolioSchema)
 

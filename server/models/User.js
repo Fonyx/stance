@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const {goalSchema} = require('Meta')
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -22,7 +23,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
+    goal: goalSchema
 }, {timestamps: true});
 
 userSchema.pre('save', async function (next) {

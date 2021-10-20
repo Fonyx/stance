@@ -18,6 +18,10 @@ const bankSchema = new mongoose.Schema({
     website: {
         type: String,
         required: false,
+    },
+    logo: {
+        type: String,
+        required: false
     }
 }, {timestamps: true});
 
