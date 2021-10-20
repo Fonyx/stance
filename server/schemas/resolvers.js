@@ -5,8 +5,11 @@ const { signToken } = require('../utils/auth');
 const rootResolver = {
     Query:{
         user: async (_, { username }) => {
-            return User.findOne({ username }).populate('thoughts');
+            return await User.findOne({ username }).populate('thoughts');
         },
+        users: async () => {
+            return await User.find({});
+        }
     },
     Mutation:{
         addUser: async (_, { username, email, password }) => {
