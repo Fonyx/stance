@@ -145,3 +145,30 @@
 2021-10-20 22:58:52:5852 [32minfo[39m: [32mSeeding to mongo atlas fonxyOps STANCE instance[39m
 2021-10-20 23:04:13:413 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
 2021-10-20 23:04:13:413 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 23:05:43:543 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-20 23:05:43:543 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 23:16:04:164 [35mhttp[39m: [35mPOST /api 404 143 - 1.244 ms[39m
+[35m[39m
+2021-10-20 23:16:06:166 [35mhttp[39m: [35mPOST /api 404 143 - 0.478 ms[39m
+[35m[39m
+2021-10-20 23:17:13:1713 [35mhttp[39m: [35mPOST /api 404 143 - 0.337 ms[39m
+[35m[39m
+2021-10-20 23:17:13:1713 [35mhttp[39m: [35mPOST /api 404 143 - 0.327 ms[39m
+[35m[39m
+2021-10-20 23:17:14:1714 [35mhttp[39m: [35mPOST /api 404 143 - 0.370 ms[39m
+[35m[39m
+2021-10-20 23:17:15:1715 [35mhttp[39m: [35mPOST /api 404 143 - 0.357 ms[39m
+[35m[39m
+2021-10-20 23:20:15:2015 [35mhttp[39m: [35mPOST /api 404 143 - 0.370 ms[39m
+[35m[39m
+2021-10-20 23:20:39:2039 [35mhttp[39m: [35mPOST /api 404 143 - 0.330 ms[39m
+[35m[39m
+2021-10-20 23:24:04:244 [35mhttp[39m: [35mPOST /api 404 143 - 0.344 ms[39m
+[35m[39m
+2021-10-20 23:24:07:247 [35mhttp[39m: [35mPOST /api 404 143 - 0.348 ms[39m
+[35m[39m
+2021-10-20 23:29:28:2928 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-20 23:29:28:2928 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 23:29:59:2959 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-20 23:29:59:2959 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-20 23:31:40:3140 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
