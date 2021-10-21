@@ -1,4 +1,4 @@
-const currencyCountries = {
+const currencyNames = {
     AED:"United Arab Emirates Dirham",
     AFN:"Afghanistan Afghani",
     ALL:"Albania Lek",
@@ -45,6 +45,7 @@ const currencyCountries = {
     EUR:"Euro Member Countries",
     FJD:"Fiji Dollar",
     FKP:"Falkland Islands (Malvinas) Pound",
+    FOK:"Faroese króna",
     GBP:"United Kingdom Pound",
     GEL:"Georgia Lari",
     GGP:"Guernsey Pound",
@@ -73,6 +74,7 @@ const currencyCountries = {
     KES:"Kenya Shilling",
     KGS:"Kyrgyzstan Som",
     KHR:"Cambodia Riel",
+    KID:"Kiribati dollar",
     KMF:"Comorian Franc",
     KPW:"Korea (North) Won",
     KRW:"Korea (South) Won",
@@ -129,6 +131,7 @@ const currencyCountries = {
     SOS:"Somalia Shilling",
     SPL:"Seborga Luigino",
     SRD:"Suriname Dollar",
+    SSP:"South Sudanese pound",
     STN:"São Tomé and Príncipe Dobra",
     SVC:"El Salvador Colon",
     SYP:"Syria Pound",
@@ -149,6 +152,7 @@ const currencyCountries = {
     UYU:"Uruguay Peso",
     UZS:"Uzbekistan Som",
     VEF:"Venezuela Bolívar",
+    VES:"Venezuela Bolívar",
     VND:"Viet Nam Dong",
     VUV:"Vanuatu Vatu",
     WST:"Samoa Tala",
@@ -163,4 +167,4 @@ const currencyCountries = {
     ZWD:"Zimbabwe Dollar"
 }
 
-module.exports = currencyCountries
+module.exports = currencyNames

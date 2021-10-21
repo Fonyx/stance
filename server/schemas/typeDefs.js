@@ -8,6 +8,17 @@ const typeDefs = gql`
     password: String
   }
 
+  type Asset {
+    _id: ID!
+    type: String
+    name: String
+    userId: String
+    symbol: String
+    code: String
+    usdValue: Float
+    marketName: String
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -17,6 +28,7 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     me: User
+    assets: [Asset]!
   }
 
   type Mutation {

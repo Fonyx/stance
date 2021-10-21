@@ -11,9 +11,9 @@ const assetSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    userGenerated:{
-        type: Boolean,
-        required: true,
+    userId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
     symbol: {
         type: String,
@@ -28,13 +28,11 @@ const assetSchema = new mongoose.Schema({
     },
     usdValue: {
         type: Number,
-        required: true,
-        default: 0.72
+        required: true
     },
     marketName: {
         type: String,
         required: false,
-        default: "CC"
     },
 }, {timestamps: true});
 
