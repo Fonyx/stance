@@ -1,7 +1,12 @@
 const {Asset} = require('../models');
-const Logger = require('../utils/logger')
+const Logger = require('../utils/logger');
+const getCurrencyData = require('../api/getCurrencies');
+const currencyCountries = require('../api/currencyCountry');
 
 async function updateCurrencies(currencyData){
+
+    let currencyData = await getCurrencyData(RapidApiKey);
+
     // if data package has been passed in, create/update all currencies
     if(currencyData){
         for(let [name, usdBuysCount] of Object.entries(currencyData.rates)){

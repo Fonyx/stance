@@ -1,7 +1,6 @@
 // utils for getting current currency values relative to the USD
 var axios = require("axios").default;
 const Logger = require('../utils/logger');
-const updateCurrencies = require('../helpers/updateCurrencies');
 
 async function getCurrencyData(RapidApiKey) {
 
@@ -15,8 +14,7 @@ async function getCurrencyData(RapidApiKey) {
     };
 
     axios.request(options).then(function (response) {
-        // return response.data;
-        updateCurrencies(response.data);
+        return response.data
     }).catch(function (error) {
         Logger.error(error);
     });
