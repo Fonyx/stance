@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const {assetSchema} = require('Asset');
-const {styleSchema, goalSchema, tagSchema} = require('Meta');
+const {assetSchema} = require('./Asset');
+const {styleSchema, goalSchema, tagSchema} = require('./Meta');
 const { walletSchema } = require('./Wallet');
 
 const accountSchema = new mongoose.Schema({
@@ -36,19 +36,19 @@ const accountSchema = new mongoose.Schema({
         default: ['monthly']
     },
     portfolio: {
-        type: mongoose.Types.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Portfolio'
     },
     wallet: {
-        type: mongoose.Types.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Wallet'
     },
     bank: {
-        type: mongoose.Types.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Bank'
     },
     assetId: {
-        type: mongoose.Types.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Asset"
     },
     style: {

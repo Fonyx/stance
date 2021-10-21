@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {goalSchema} = require('./Meta');
 
 const walletSchema = new mongoose.Schema({
     name: {

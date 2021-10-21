@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {goalSchema} = require('Meta');
+const {goalSchema} = require('./Meta');
 
 const stockPortfolioSchema = new mongoose.Schema({
     name: {

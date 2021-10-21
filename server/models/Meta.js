@@ -90,7 +90,7 @@ const styleSchema = new mongoose.Schema({
 
 const tagSchema = new mongoose.Schema({
     userId:{
-        type: mongoose.Types.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
     name: {

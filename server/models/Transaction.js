@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {styleSchema} = require('Meta');
+const {styleSchema} = require('./Meta');
 
 const transactionSchema = new mongoose.Schema({
     toAccount: {
@@ -33,7 +33,7 @@ const transactionSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 
-const Transaction = mongoose.model('Transaction', schemas.transactionSchema);
+const Transaction = mongoose.model('Transaction', transactionSchema);
 
 
 module.exports = {

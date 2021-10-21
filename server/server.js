@@ -7,6 +7,7 @@ const Logger = require('./utils/logger');
 const { typeDefs, resolvers } = require('./schemas');
 const configuredMorgan = require('./utils/morgan.js');
 const { authMiddleware } = require('./utils/auth');
+const updateCurrencies = require('./api/updateCurrencies');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -33,6 +34,13 @@ if (process.env.NODE_ENV === 'production') {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
+
+// setup timeout to update currencies every hour
+setTimeout(async () => {
+  Logger.info(`Updating currencies`)
+  // let currencyData = await updateCurrencies();
+  Logger.info(currencyData.slice[0, 10]);
+}, 1000*60*60)
 
 db.once('open', () => {
   if(process.env.MONGODB_URI){

@@ -39,7 +39,7 @@ const assetSchema = new mongoose.Schema({
     },
 }, {timestamps: true});
 
-userSchema.pre('save', async function (next) {
+assetSchema.pre('save', async function (next) {
     // lookup the usdValue of the asset
     if (this.code) {
       this.usdValue = 500;
