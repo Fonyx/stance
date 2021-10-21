@@ -9,7 +9,6 @@ const assetSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        default: "AUD",
         unique: true
     },
     userGenerated:{
@@ -23,9 +22,9 @@ const assetSchema = new mongoose.Schema({
     },
     code: {
         type: String,
-        required: false,
-        default: "AUD-USD",
-        unique: true
+        unique: true,
+        // https://stackoverflow.com/questions/7955040/mongodb-mongoose-unique-if-not-null
+        sparse: true
     },
     usdValue: {
         type: Number,
@@ -40,11 +39,14 @@ const assetSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 assetSchema.pre('save', async function (next) {
-    // lookup the usdValue of the asset
-    if (this.code) {
-      this.usdValue = 500;
-    } else {
-        this.usdValue = 250;
+    // if the asset isn't initialized with a USD value it must be an asset, it would have this if it was a currency
+    if(!this.usdValue){
+        // lookup the usdValue of the asset
+        if (this.code) {
+          this.usdValue = 500;
+        } else {
+            this.usdValue = 250;
+        }
     }
   
     next();

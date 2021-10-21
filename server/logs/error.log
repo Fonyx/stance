@@ -12,3 +12,4 @@
 2021-10-20 22:29:21:2921 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
 2021-10-20 22:29:23:2923 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
 2021-10-20 22:29:25:2925 [31merror[39m: [31mToken was not found in request header - authorize, auth failed[39m
+2021-10-21 12:23:06:236 [31merror[39m: [31mCannot read property '10' of undefined[39m

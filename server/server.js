@@ -7,17 +7,26 @@ const Logger = require('./utils/logger');
 const { typeDefs, resolvers } = require('./schemas');
 const configuredMorgan = require('./utils/morgan.js');
 const { authMiddleware } = require('./utils/auth');
-const updateCurrencies = require('./api/updateCurrencies');
+const getCurrencyData = require('./api/getCurrencies');
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// get api key for currency updates from env file
+var RapidApiKey = process.env.RAPID_API_KEY;
+
+if(!RapidApiKey){
+  throw new Error('Failed to collect environment variable for rapid api key to update currencies')
+}
+
+// configure apollo server to use authMiddleware
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
 });
-
+// serve the app through the apollo server
 server.applyMiddleware({ app });
 
 // use custom colour server logging as middleware
@@ -38,9 +47,8 @@ app.get('*', (req, res) => {
 // setup timeout to update currencies every hour
 setTimeout(async () => {
   Logger.info(`Updating currencies`)
-  // let currencyData = await updateCurrencies();
-  Logger.info(currencyData.slice[0, 10]);
-}, 1000*60*60)
+  let currencyData = getCurrencyData(RapidApiKey);
+}, 3000)
 
 db.once('open', () => {
   if(process.env.MONGODB_URI){

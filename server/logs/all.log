@@ -174,3 +174,1623 @@
 2021-10-20 23:31:40:3140 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
 2021-10-20 23:32:06:326 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
 2021-10-20 23:32:06:326 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 12:15:53:1553 [32minfo[39m: [32mConnected to backup mongo at local host[39m
+2021-10-21 12:15:53:1553 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:3001/graphql[39m
+2021-10-21 12:16:26:1626 [32minfo[39m: [32mConnected to backup mongo at local host[39m
+2021-10-21 12:16:26:1626 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:3001/graphql[39m
+2021-10-21 12:23:06:236 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 12:23:06:236 [31merror[39m: [31mCannot read property '10' of undefined[39m
+2021-10-21 12:23:07:237 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 12:23:07:237 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 12:24:25:2425 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 12:24:26:2426 [32minfo[39m: [32m{[39m
+[32m  result: 'success',[39m
+[32m  provider: 'https://www.exchangerate-api.com',[39m
+[32m  documentation: 'https://www.exchangerate-api.com/docs/free',[39m
+[32m  terms_of_use: 'https://www.exchangerate-api.com/terms',[39m
+[32m  time_last_update_unix: 1634774552,[39m
+[32m  time_last_update_utc: 'Thu, 21 Oct 2021 00:02:32 +0000',[39m
+[32m  time_next_update_unix: 1634861182,[39m
+[32m  time_next_update_utc: 'Fri, 22 Oct 2021 00:06:22 +0000',[39m
+[32m  time_eol_unix: 0,[39m
+[32m  base_code: 'USD',[39m
+[32m  rates: {[39m
+[32m    USD: 1,[39m
+[32m    AED: 3.67,[39m
+[32m    AFN: 84.75,[39m
+[32m    ALL: 104.63,[39m
+[32m    AMD: 476.79,[39m
+[32m    ANG: 1.79,[39m
+[32m    AOA: 602.58,[39m
+[32m    ARS: 99.28,[39m
+[32m    AUD: 1.33,[39m
+[32m    AWG: 1.79,[39m
+[32m    AZN: 1.7,[39m
+[32m    BAM: 1.67,[39m
+[32m    BBD: 2,[39m
+[32m    BDT: 85.59,[39m
+[32m    BGN: 1.68,[39m
+[32m    BHD: 0.376,[39m
+[32m    BIF: 1984.15,[39m
+[32m    BMD: 1,[39m
+[32m    BND: 1.34,[39m
+[32m    BOB: 6.89,[39m
+[32m    BRL: 5.57,[39m
+[32m    BSD: 1,[39m
+[32m    BTN: 74.93,[39m
+[32m    BWP: 11.16,[39m
+[32m    BYN: 2.44,[39m
+[32m    BZD: 2,[39m
+[32m    CAD: 1.23,[39m
+[32m    CDF: 1983.6,[39m
+[32m    CHF: 0.921,[39m
+[32m    CLP: 811.34,[39m
+[32m    CNY: 6.39,[39m
+[32m    COP: 3742.05,[39m
+[32m    CRC: 628.91,[39m
+[32m    CUC: 1,[39m
+[32m    CUP: 25,[39m
+[32m    CVE: 94.32,[39m
+[32m    CZK: 21.97,[39m
+[32m    DJF: 177.72,[39m
+[32m    DKK: 6.38,[39m
+[32m    DOP: 56.28,[39m
+[32m    DZD: 137.08,[39m
+[32m    EGP: 15.71,[39m
+[32m    ERN: 15,[39m
+[32m    ETB: 47.18,[39m
+[32m    EUR: 0.856,[39m
+[32m    FJD: 2.07,[39m
+[32m    FKP: 0.724,[39m
+[32m    FOK: 6.38,[39m
+[32m    GBP: 0.724,[39m
+[32m    GEL: 3.13,[39m
+[32m    GGP: 0.724,[39m
+[32m    GHS: 6.06,[39m
+[32m    GIP: 0.724,[39m
+[32m    GMD: 52.53,[39m
+[32m    GNF: 9679.21,[39m
+[32m    GTQ: 7.73,[39m
+[32m    GYD: 209.11,[39m
+[32m    HKD: 7.77,[39m
+[32m    HNL: 24.12,[39m
+[32m    HRK: 6.44,[39m
+[32m    HTG: 98.97,[39m
+[32m    HUF: 312.02,[39m
+[32m    IDR: 14029.19,[39m
+[32m    ILS: 3.22,[39m
+[32m    IMP: 0.724,[39m
+[32m    INR: 74.93,[39m
+[32m    IQD: 1458.51,[39m
+[32m    IRR: 42009.4,[39m
+[32m    ISK: 128.97,[39m
+[32m    JMD: 151.23,[39m
+[32m    JOD: 0.709,[39m
+[32m    JPY: 114.31,[39m
+[32m    KES: 110.94,[39m
+[32m    KGS: 84.75,[39m
+[32m    KHR: 4069.67,[39m
+[32m    KID: 1.33,[39m
+[32m    KMF: 420.81,[39m
+[32m    KRW: 1175.28,[39m
+[32m    KWD: 0.3,[39m
+[32m    KYD: 0.833,[39m
+[32m    KZT: 426.02,[39m
+[32m    LAK: 10138.16,[39m
+[32m    LBP: 1507.5,[39m
+[32m    LKR: 200,[39m
+[32m    LRD: 163.36,[39m
+[32m    LSL: 14.45,[39m
+[32m    LYD: 4.56,[39m
+[32m    MAD: 9.03,[39m
+[32m    MDL: 17.35,[39m
+[32m    MGA: 3962.27,[39m
+[32m    MKD: 52.94,[39m
+[32m    MMK: 1892.47,[39m
+[32m    MNT: 2850.54,[39m
+[32m    MOP: 8.01,[39m
+[32m    MRU: 36.17,[39m
+[32m    MUR: 42.52,[39m
+[32m    MVR: 15.42,[39m
+[32m    MWK: 814.42,[39m
+[32m    MXN: 20.21,[39m
+[32m    MYR: 4.16,[39m
+[32m    MZN: 64.02,[39m
+[32m    NAD: 14.45,[39m
+[32m    NGN: 422.64,[39m
+[32m    NIO: 35.22,[39m
+[32m    NOK: 8.35,[39m
+[32m    NPR: 119.89,[39m
+[32m    NZD: 1.39,[39m
+[32m    OMR: 0.384,[39m
+[32m    PAB: 1,[39m
+[32m    PEN: 3.95,[39m
+[32m    PGK: 3.51,[39m
+[32m    PHP: 50.78,[39m
+[32m    PKR: 173.06,[39m
+[32m    PLN: 3.94,[39m
+[32m    PYG: 6869.9,[39m
+[32m    QAR: 3.64,[39m
+[32m    RON: 4.25,[39m
+[32m    RSD: 101.07,[39m
+[32m    RUB: 70.94,[39m
+[32m    RWF: 1016.71,[39m
+[32m    SAR: 3.75,[39m
+[32m    SBD: 7.93,[39m
+[32m    SCR: 13.73,[39m
+[32m    SDG: 437.72,[39m
+[32m    SEK: 8.6,[39m
+[32m    SGD: 1.34,[39m
+[32m    SHP: 0.724,[39m
+[32m    SLL: 10589.89,[39m
+[32m    SOS: 577.88,[39m
+[32m    SRD: 21.46,[39m
+[32m    SSP: 175.04,[39m
+[32m    STN: 20.96,[39m
+[32m    SYP: 1678.18,[39m
+[32m    SZL: 14.45,[39m
+[32m    THB: 33.38,[39m
+[32m    TJS: 11.27,[39m
+[32m    TMT: 3.5,[39m
+[32m    TND: 2.81,[39m
+[32m    TOP: 2.23,[39m
+[32m    TRY: 9.27,[39m
+[32m    TTD: 6.78,[39m
+[32m    TVD: 1.33,[39m
+[32m    TWD: 27.86,[39m
+[32m    TZS: 2303.14,[39m
+[32m    UAH: 26.17,[39m
+[32m    UGX: 3614.58,[39m
+[32m    UYU: 43.78,[39m
+[32m    UZS: 10651.99,[39m
+[32m    VES: 4.15,[39m
+[32m    VND: 22678.95,[39m
+[32m    VUV: 109.94,[39m
+[32m    WST: 2.53,[39m
+[32m    XAF: 561.08,[39m
+[32m    XCD: 2.7,[39m
+[32m    XDR: 0.707,[39m
+[32m    XOF: 561.08,[39m
+[32m    XPF: 102.07,[39m
+[32m    YER: 250.19,[39m
+[32m    ZAR: 14.45,[39m
+[32m    ZMW: 17.04[39m
+[32m  }[39m
+[32m}[39m
+2021-10-21 12:24:26:2426 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 12:24:26:2426 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 12:28:14:2814 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 12:28:14:2814 [32minfo[39m: [32m{[39m
+[32m  status: 200,[39m
+[32m  statusText: 'OK',[39m
+[32m  headers: {[39m
+[32m    'access-control-allow-origin': '*',[39m
+[32m    age: '1961',[39m
+[32m    'alt-svc': 'h3=":443"; ma=86400, h3-29=":443"; ma=86400, h3-28=":443"; ma=86400, h3-27=":443"; ma=86400',[39m
+[32m    'cache-control': 'public, max-age=3600',[39m
+[32m    'cf-cache-status': 'HIT',[39m
+[32m    'cf-ray': '6a16b540781f6a32-SYD',[39m
+[32m    'content-type': 'application/json',[39m
+[32m    date: 'Thu, 21 Oct 2021 01:28:14 GMT',[39m
+[32m    'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',[39m
+[32m    'last-modified': 'Thu, 21 Oct 2021 00:55:33 GMT',[39m
+[32m    nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',[39m
+[32m    'report-to': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=MsHWBNqA%2FvZWQknujqIo%2BbQ%2FUmvUIvJ8At3Hhegh6lPjuSzJJix%2BuJOfAyZKKbMY%2BcfNWRmMbjT8l9TBNwoG9WAoVmIEmRtZREmWkYnGjsqhwoFINzSJWEDfJKgcMoasJ08%3D"}],"group":"cf-nel","max_age":604800}',[39m
+[32m    server: 'RapidAPI-1.2.8',[39m
+[32m    'x-content-type-options': 'NOSNIFF',[39m
+[32m    'x-frame-options': 'SAMEORIGIN',[39m
+[32m    'x-rapidapi-region': 'AWS - ap-southeast-2',[39m
+[32m    'x-rapidapi-version': '1.2.8',[39m
+[32m    'content-length': '2319',[39m
+[32m    connection: 'Close'[39m
+[32m  },[39m
+[32m  config: {[39m
+[32m    transitional: {[39m
+[32m      silentJSONParsing: true,[39m
+[32m      forcedJSONParsing: true,[39m
+[32m      clarifyTimeoutError: false[39m
+[32m    },[39m
+[32m    adapter: [Function: httpAdapter],[39m
+[32m    transformRequest: [ [Function: transformRequest] ],[39m
+[32m    transformResponse: [ [Function: transformResponse] ],[39m
+[32m    timeout: 0,[39m
+[32m    xsrfCookieName: 'XSRF-TOKEN',[39m
+[32m    xsrfHeaderName: 'X-XSRF-TOKEN',[39m
+[32m    maxContentLength: -1,[39m
+[32m    maxBodyLength: -1,[39m
+[32m    validateStatus: [Function: validateStatus],[39m
+[32m    headers: {[39m
+[32m      Accept: 'application/json, text/plain, */*',[39m
+[32m      'x-rapidapi-host': 'exchangerate-api.p.rapidapi.com',[39m
+[32m      'x-rapidapi-key': '9d20b81794msh3353fe733317fafp15261fjsn250e70a8d8f1',[39m
+[32m      'User-Agent': 'axios/0.23.0'[39m
+[32m    },[39m
+[32m    method: 'get',[39m
+[32m    url: 'https://exchangerate-api.p.rapidapi.com/rapid/latest/USD',[39m
+[32m    data: undefined[39m
+[32m  },[39m
+[32m  request: <ref *1> ClientRequest {[39m
+[32m    _events: [Object: null prototype] {[39m
+[32m      abort: [Function (anonymous)],[39m
+[32m      aborted: [Function (anonymous)],[39m
+[32m      connect: [Function (anonymous)],[39m
+[32m      error: [Function (anonymous)],[39m
+[32m      socket: [Function (anonymous)],[39m
+[32m      timeout: [Function (anonymous)],[39m
+[32m      prefinish: [Function: requestOnPrefinish][39m
+[32m    },[39m
+[32m    _eventsCount: 7,[39m
+[32m    _maxListeners: undefined,[39m
+[32m    outputData: [],[39m
+[32m    outputSize: 0,[39m
+[32m    writable: true,[39m
+[32m    destroyed: false,[39m
+[32m    _last: true,[39m
+[32m    chunkedEncoding: false,[39m
+[32m    shouldKeepAlive: false,[39m
+[32m    _defaultKeepAlive: true,[39m
+[32m    useChunkedEncodingByDefault: false,[39m
+[32m    sendDate: false,[39m
+[32m    _removedConnection: false,[39m
+[32m    _removedContLen: false,[39m
+[32m    _removedTE: false,[39m
+[32m    _contentLength: 0,[39m
+[32m    _hasBody: true,[39m
+[32m    _trailer: '',[39m
+[32m    finished: true,[39m
+[32m    _headerSent: true,[39m
+[32m    _closed: false,[39m
+[32m    socket: TLSSocket {[39m
+[32m      _tlsOptions: [Object],[39m
+[32m      _secureEstablished: true,[39m
+[32m      _securePending: false,[39m
+[32m      _newSessionPending: false,[39m
+[32m      _controlReleased: true,[39m
+[32m      secureConnecting: false,[39m
+[32m      _SNICallback: null,[39m
+[32m      servername: 'exchangerate-api.p.rapidapi.com',[39m
+[32m      alpnProtocol: false,[39m
+[32m      authorized: true,[39m
+[32m      authorizationError: null,[39m
+[32m      encrypted: true,[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 10,[39m
+[32m      connecting: false,[39m
+[32m      _hadError: false,[39m
+[32m      _parent: null,[39m
+[32m      _host: 'exchangerate-api.p.rapidapi.com',[39m
+[32m      _readableState: [ReadableState],[39m
+[32m      _maxListeners: undefined,[39m
+[32m      _writableState: [WritableState],[39m
+[32m      allowHalfOpen: false,[39m
+[32m      _sockname: null,[39m
+[32m      _pendingData: null,[39m
+[32m      _pendingEncoding: '',[39m
+[32m      server: undefined,[39m
+[32m      _server: null,[39m
+[32m      ssl: [TLSWrap],[39m
+[32m      _requestCert: true,[39m
+[32m      _rejectUnauthorized: true,[39m
+[32m      parser: null,[39m
+[32m      _httpMessage: [Circular *1],[39m
+[32m      [Symbol(res)]: [TLSWrap],[39m
+[32m      [Symbol(verified)]: true,[39m
+[32m      [Symbol(pendingSession)]: null,[39m
+[32m      [Symbol(async_id_symbol)]: 35,[39m
+[32m      [Symbol(kHandle)]: [TLSWrap],[39m
+[32m      [Symbol(kSetNoDelay)]: false,[39m
+[32m      [Symbol(lastWriteQueueSize)]: 0,[39m
+[32m      [Symbol(timeout)]: null,[39m
+[32m      [Symbol(kBuffer)]: null,[39m
+[32m      [Symbol(kBufferCb)]: null,[39m
+[32m      [Symbol(kBufferGen)]: null,[39m
+[32m      [Symbol(kCapture)]: false,[39m
+[32m      [Symbol(kBytesRead)]: 0,[39m
+[32m      [Symbol(kBytesWritten)]: 0,[39m
+[32m      [Symbol(connect-options)]: [Object],[39m
+[32m      [Symbol(RequestTimeout)]: undefined[39m
+[32m    },[39m
+[32m    _header: 'GET /rapid/latest/USD HTTP/1.1\r\n' +[39m
+[32m      'Accept: application/json, text/plain, */*\r\n' +[39m
+[32m      'x-rapidapi-host: exchangerate-api.p.rapidapi.com\r\n' +[39m
+[32m      'x-rapidapi-key: 9d20b81794msh3353fe733317fafp15261fjsn250e70a8d8f1\r\n' +[39m
+[32m      'User-Agent: axios/0.23.0\r\n' +[39m
+[32m      'Host: exchangerate-api.p.rapidapi.com\r\n' +[39m
+[32m      'Connection: close\r\n' +[39m
+[32m      '\r\n',[39m
+[32m    _keepAliveTimeout: 0,[39m
+[32m    _onPendingData: [Function: nop],[39m
+[32m    agent: Agent {[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 2,[39m
+[32m      _maxListeners: undefined,[39m
+[32m      defaultPort: 443,[39m
+[32m      protocol: 'https:',[39m
+[32m      options: [Object: null prototype],[39m
+[32m      requests: [Object: null prototype] {},[39m
+[32m      sockets: [Object: null prototype],[39m
+[32m      freeSockets: [Object: null prototype] {},[39m
+[32m      keepAliveMsecs: 1000,[39m
+[32m      keepAlive: false,[39m
+[32m      maxSockets: Infinity,[39m
+[32m      maxFreeSockets: 256,[39m
+[32m      scheduling: 'lifo',[39m
+[32m      maxTotalSockets: Infinity,[39m
+[32m      totalSocketCount: 1,[39m
+[32m      maxCachedSessions: 100,[39m
+[32m      _sessionCache: [Object],[39m
+[32m      [Symbol(kCapture)]: false[39m
+[32m    },[39m
+[32m    socketPath: undefined,[39m
+[32m    method: 'GET',[39m
+[32m    maxHeaderSize: undefined,[39m
+[32m    insecureHTTPParser: undefined,[39m
+[32m    path: '/rapid/latest/USD',[39m
+[32m    _ended: true,[39m
+[32m    res: IncomingMessage {[39m
+[32m      _readableState: [ReadableState],[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 3,[39m
+[32m      _maxListeners: undefined,[39m
+[32m      socket: [TLSSocket],[39m
+[32m      httpVersionMajor: 1,[39m
+[32m      httpVersionMinor: 1,[39m
+[32m      httpVersion: '1.1',[39m
+[32m      complete: true,[39m
+[32m      rawHeaders: [Array],[39m
+[32m      rawTrailers: [],[39m
+[32m      aborted: false,[39m
+[32m      upgrade: false,[39m
+[32m      url: '',[39m
+[32m      method: null,[39m
+[32m      statusCode: 200,[39m
+[32m      statusMessage: 'OK',[39m
+[32m      client: [TLSSocket],[39m
+[32m      _consuming: false,[39m
+[32m      _dumped: false,[39m
+[32m      req: [Circular *1],[39m
+[32m      responseUrl: 'https://exchangerate-api.p.rapidapi.com/rapid/latest/USD',[39m
+[32m      redirects: [],[39m
+[32m      [Symbol(kCapture)]: false,[39m
+[32m      [Symbol(kHeaders)]: [Object],[39m
+[32m      [Symbol(kHeadersCount)]: 38,[39m
+[32m      [Symbol(kTrailers)]: null,[39m
+[32m      [Symbol(kTrailersCount)]: 0,[39m
+[32m      [Symbol(RequestTimeout)]: undefined[39m
+[32m    },[39m
+[32m    aborted: false,[39m
+[32m    timeoutCb: null,[39m
+[32m    upgradeOrConnect: false,[39m
+[32m    parser: null,[39m
+[32m    maxHeadersCount: null,[39m
+[32m    reusedSocket: false,[39m
+[32m    host: 'exchangerate-api.p.rapidapi.com',[39m
+[32m    protocol: 'https:',[39m
+[32m    _redirectable: Writable {[39m
+[32m      _writableState: [WritableState],[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 2,[39m
+[32m      _maxListeners: undefined,[39m
+[32m      _options: [Object],[39m
+[32m      _ended: true,[39m
+[32m      _ending: true,[39m
+[32m      _redirectCount: 0,[39m
+[32m      _redirects: [],[39m
+[32m      _requestBodyLength: 0,[39m
+[32m      _requestBodyBuffers: [],[39m
+[32m      _onNativeResponse: [Function (anonymous)],[39m
+[32m      _currentRequest: [Circular *1],[39m
+[32m      _currentUrl: 'https://exchangerate-api.p.rapidapi.com/rapid/latest/USD',[39m
+[32m      [Symbol(kCapture)]: false[39m
+[32m    },[39m
+[32m    [Symbol(kCapture)]: false,[39m
+[32m    [Symbol(kNeedDrain)]: false,[39m
+[32m    [Symbol(corked)]: 0,[39m
+[32m    [Symbol(kOutHeaders)]: [Object: null prototype] {[39m
+[32m      accept: [Array],[39m
+[32m      'x-rapidapi-host': [Array],[39m
+[32m      'x-rapidapi-key': [Array],[39m
+[32m      'user-agent': [Array],[39m
+[32m      host: [Array][39m
+[32m    }[39m
+[32m  },[39m
+[32m  data: {[39m
+[32m    result: 'success',[39m
+[32m    provider: 'https://www.exchangerate-api.com',[39m
+[32m    documentation: 'https://www.exchangerate-api.com/docs/free',[39m
+[32m    terms_of_use: 'https://www.exchangerate-api.com/terms',[39m
+[32m    time_last_update_unix: 1634774552,[39m
+[32m    time_last_update_utc: 'Thu, 21 Oct 2021 00:02:32 +0000',[39m
+[32m    time_next_update_unix: 1634861182,[39m
+[32m    time_next_update_utc: 'Fri, 22 Oct 2021 00:06:22 +0000',[39m
+[32m    time_eol_unix: 0,[39m
+[32m    base_code: 'USD',[39m
+[32m    rates: {[39m
+[32m      USD: 1,[39m
+[32m      AED: 3.67,[39m
+[32m      AFN: 84.75,[39m
+[32m      ALL: 104.63,[39m
+[32m      AMD: 476.79,[39m
+[32m      ANG: 1.79,[39m
+[32m      AOA: 602.58,[39m
+[32m      ARS: 99.28,[39m
+[32m      AUD: 1.33,[39m
+[32m      AWG: 1.79,[39m
+[32m      AZN: 1.7,[39m
+[32m      BAM: 1.67,[39m
+[32m      BBD: 2,[39m
+[32m      BDT: 85.59,[39m
+[32m      BGN: 1.68,[39m
+[32m      BHD: 0.376,[39m
+[32m      BIF: 1984.15,[39m
+[32m      BMD: 1,[39m
+[32m      BND: 1.34,[39m
+[32m      BOB: 6.89,[39m
+[32m      BRL: 5.57,[39m
+[32m      BSD: 1,[39m
+[32m      BTN: 74.93,[39m
+[32m      BWP: 11.16,[39m
+[32m      BYN: 2.44,[39m
+[32m      BZD: 2,[39m
+[32m      CAD: 1.23,[39m
+[32m      CDF: 1983.6,[39m
+[32m      CHF: 0.921,[39m
+[32m      CLP: 811.34,[39m
+[32m      CNY: 6.39,[39m
+[32m      COP: 3742.05,[39m
+[32m      CRC: 628.91,[39m
+[32m      CUC: 1,[39m
+[32m      CUP: 25,[39m
+[32m      CVE: 94.32,[39m
+[32m      CZK: 21.97,[39m
+[32m      DJF: 177.72,[39m
+[32m      DKK: 6.38,[39m
+[32m      DOP: 56.28,[39m
+[32m      DZD: 137.08,[39m
+[32m      EGP: 15.71,[39m
+[32m      ERN: 15,[39m
+[32m      ETB: 47.18,[39m
+[32m      EUR: 0.856,[39m
+[32m      FJD: 2.07,[39m
+[32m      FKP: 0.724,[39m
+[32m      FOK: 6.38,[39m
+[32m      GBP: 0.724,[39m
+[32m      GEL: 3.13,[39m
+[32m      GGP: 0.724,[39m
+[32m      GHS: 6.06,[39m
+[32m      GIP: 0.724,[39m
+[32m      GMD: 52.53,[39m
+[32m      GNF: 9679.21,[39m
+[32m      GTQ: 7.73,[39m
+[32m      GYD: 209.11,[39m
+[32m      HKD: 7.77,[39m
+[32m      HNL: 24.12,[39m
+[32m      HRK: 6.44,[39m
+[32m      HTG: 98.97,[39m
+[32m      HUF: 312.02,[39m
+[32m      IDR: 14029.19,[39m
+[32m      ILS: 3.22,[39m
+[32m      IMP: 0.724,[39m
+[32m      INR: 74.93,[39m
+[32m      IQD: 1458.51,[39m
+[32m      IRR: 42009.4,[39m
+[32m      ISK: 128.97,[39m
+[32m      JMD: 151.23,[39m
+[32m      JOD: 0.709,[39m
+[32m      JPY: 114.31,[39m
+[32m      KES: 110.94,[39m
+[32m      KGS: 84.75,[39m
+[32m      KHR: 4069.67,[39m
+[32m      KID: 1.33,[39m
+[32m      KMF: 420.81,[39m
+[32m      KRW: 1175.28,[39m
+[32m      KWD: 0.3,[39m
+[32m      KYD: 0.833,[39m
+[32m      KZT: 426.02,[39m
+[32m      LAK: 10138.16,[39m
+[32m      LBP: 1507.5,[39m
+[32m      LKR: 200,[39m
+[32m      LRD: 163.36,[39m
+[32m      LSL: 14.45,[39m
+[32m      LYD: 4.56,[39m
+[32m      MAD: 9.03,[39m
+[32m      MDL: 17.35,[39m
+[32m      MGA: 3962.27,[39m
+[32m      MKD: 52.94,[39m
+[32m      MMK: 1892.47,[39m
+[32m      MNT: 2850.54,[39m
+[32m      MOP: 8.01,[39m
+[32m      MRU: 36.17,[39m
+[32m      MUR: 42.52,[39m
+[32m      MVR: 15.42,[39m
+[32m      MWK: 814.42,[39m
+[32m      MXN: 20.21,[39m
+[32m      MYR: 4.16,[39m
+[32m      MZN: 64.02,[39m
+[32m      NAD: 14.45,[39m
+[32m      NGN: 422.64,[39m
+[32m      NIO: 35.22,[39m
+[32m      NOK: 8.35,[39m
+[32m      NPR: 119.89,[39m
+[32m      NZD: 1.39,[39m
+[32m      OMR: 0.384,[39m
+[32m      PAB: 1,[39m
+[32m      PEN: 3.95,[39m
+[32m      PGK: 3.51,[39m
+[32m      PHP: 50.78,[39m
+[32m      PKR: 173.06,[39m
+[32m      PLN: 3.94,[39m
+[32m      PYG: 6869.9,[39m
+[32m      QAR: 3.64,[39m
+[32m      RON: 4.25,[39m
+[32m      RSD: 101.07,[39m
+[32m      RUB: 70.94,[39m
+[32m      RWF: 1016.71,[39m
+[32m      SAR: 3.75,[39m
+[32m      SBD: 7.93,[39m
+[32m      SCR: 13.73,[39m
+[32m      SDG: 437.72,[39m
+[32m      SEK: 8.6,[39m
+[32m      SGD: 1.34,[39m
+[32m      SHP: 0.724,[39m
+[32m      SLL: 10589.89,[39m
+[32m      SOS: 577.88,[39m
+[32m      SRD: 21.46,[39m
+[32m      SSP: 175.04,[39m
+[32m      STN: 20.96,[39m
+[32m      SYP: 1678.18,[39m
+[32m      SZL: 14.45,[39m
+[32m      THB: 33.38,[39m
+[32m      TJS: 11.27,[39m
+[32m      TMT: 3.5,[39m
+[32m      TND: 2.81,[39m
+[32m      TOP: 2.23,[39m
+[32m      TRY: 9.27,[39m
+[32m      TTD: 6.78,[39m
+[32m      TVD: 1.33,[39m
+[32m      TWD: 27.86,[39m
+[32m      TZS: 2303.14,[39m
+[32m      UAH: 26.17,[39m
+[32m      UGX: 3614.58,[39m
+[32m      UYU: 43.78,[39m
+[32m      UZS: 10651.99,[39m
+[32m      VES: 4.15,[39m
+[32m      VND: 22678.95,[39m
+[32m      VUV: 109.94,[39m
+[32m      WST: 2.53,[39m
+[32m      XAF: 561.08,[39m
+[32m      XCD: 2.7,[39m
+[32m      XDR: 0.707,[39m
+[32m      XOF: 561.08,[39m
+[32m      XPF: 102.07,[39m
+[32m      YER: 250.19,[39m
+[32m      ZAR: 14.45,[39m
+[32m      ZMW: 17.04[39m
+[32m    }[39m
+[32m  }[39m
+[32m}[39m
+2021-10-21 12:28:14:2814 [32minfo[39m: [32m{[39m
+[32m  result: 'success',[39m
+[32m  provider: 'https://www.exchangerate-api.com',[39m
+[32m  documentation: 'https://www.exchangerate-api.com/docs/free',[39m
+[32m  terms_of_use: 'https://www.exchangerate-api.com/terms',[39m
+[32m  time_last_update_unix: 1634774552,[39m
+[32m  time_last_update_utc: 'Thu, 21 Oct 2021 00:02:32 +0000',[39m
+[32m  time_next_update_unix: 1634861182,[39m
+[32m  time_next_update_utc: 'Fri, 22 Oct 2021 00:06:22 +0000',[39m
+[32m  time_eol_unix: 0,[39m
+[32m  base_code: 'USD',[39m
+[32m  rates: {[39m
+[32m    USD: 1,[39m
+[32m    AED: 3.67,[39m
+[32m    AFN: 84.75,[39m
+[32m    ALL: 104.63,[39m
+[32m    AMD: 476.79,[39m
+[32m    ANG: 1.79,[39m
+[32m    AOA: 602.58,[39m
+[32m    ARS: 99.28,[39m
+[32m    AUD: 1.33,[39m
+[32m    AWG: 1.79,[39m
+[32m    AZN: 1.7,[39m
+[32m    BAM: 1.67,[39m
+[32m    BBD: 2,[39m
+[32m    BDT: 85.59,[39m
+[32m    BGN: 1.68,[39m
+[32m    BHD: 0.376,[39m
+[32m    BIF: 1984.15,[39m
+[32m    BMD: 1,[39m
+[32m    BND: 1.34,[39m
+[32m    BOB: 6.89,[39m
+[32m    BRL: 5.57,[39m
+[32m    BSD: 1,[39m
+[32m    BTN: 74.93,[39m
+[32m    BWP: 11.16,[39m
+[32m    BYN: 2.44,[39m
+[32m    BZD: 2,[39m
+[32m    CAD: 1.23,[39m
+[32m    CDF: 1983.6,[39m
+[32m    CHF: 0.921,[39m
+[32m    CLP: 811.34,[39m
+[32m    CNY: 6.39,[39m
+[32m    COP: 3742.05,[39m
+[32m    CRC: 628.91,[39m
+[32m    CUC: 1,[39m
+[32m    CUP: 25,[39m
+[32m    CVE: 94.32,[39m
+[32m    CZK: 21.97,[39m
+[32m    DJF: 177.72,[39m
+[32m    DKK: 6.38,[39m
+[32m    DOP: 56.28,[39m
+[32m    DZD: 137.08,[39m
+[32m    EGP: 15.71,[39m
+[32m    ERN: 15,[39m
+[32m    ETB: 47.18,[39m
+[32m    EUR: 0.856,[39m
+[32m    FJD: 2.07,[39m
+[32m    FKP: 0.724,[39m
+[32m    FOK: 6.38,[39m
+[32m    GBP: 0.724,[39m
+[32m    GEL: 3.13,[39m
+[32m    GGP: 0.724,[39m
+[32m    GHS: 6.06,[39m
+[32m    GIP: 0.724,[39m
+[32m    GMD: 52.53,[39m
+[32m    GNF: 9679.21,[39m
+[32m    GTQ: 7.73,[39m
+[32m    GYD: 209.11,[39m
+[32m    HKD: 7.77,[39m
+[32m    HNL: 24.12,[39m
+[32m    HRK: 6.44,[39m
+[32m    HTG: 98.97,[39m
+[32m    HUF: 312.02,[39m
+[32m    IDR: 14029.19,[39m
+[32m    ILS: 3.22,[39m
+[32m    IMP: 0.724,[39m
+[32m    INR: 74.93,[39m
+[32m    IQD: 1458.51,[39m
+[32m    IRR: 42009.4,[39m
+[32m    ISK: 128.97,[39m
+[32m    JMD: 151.23,[39m
+[32m    JOD: 0.709,[39m
+[32m    JPY: 114.31,[39m
+[32m    KES: 110.94,[39m
+[32m    KGS: 84.75,[39m
+[32m    KHR: 4069.67,[39m
+[32m    KID: 1.33,[39m
+[32m    KMF: 420.81,[39m
+[32m    KRW: 1175.28,[39m
+[32m    KWD: 0.3,[39m
+[32m    KYD: 0.833,[39m
+[32m    KZT: 426.02,[39m
+[32m    LAK: 10138.16,[39m
+[32m    LBP: 1507.5,[39m
+[32m    LKR: 200,[39m
+[32m    LRD: 163.36,[39m
+[32m    LSL: 14.45,[39m
+[32m    LYD: 4.56,[39m
+[32m    MAD: 9.03,[39m
+[32m    MDL: 17.35,[39m
+[32m    MGA: 3962.27,[39m
+[32m    MKD: 52.94,[39m
+[32m    MMK: 1892.47,[39m
+[32m    MNT: 2850.54,[39m
+[32m    MOP: 8.01,[39m
+[32m    MRU: 36.17,[39m
+[32m    MUR: 42.52,[39m
+[32m    MVR: 15.42,[39m
+[32m    MWK: 814.42,[39m
+[32m    MXN: 20.21,[39m
+[32m    MYR: 4.16,[39m
+[32m    MZN: 64.02,[39m
+[32m    NAD: 14.45,[39m
+[32m    NGN: 422.64,[39m
+[32m    NIO: 35.22,[39m
+[32m    NOK: 8.35,[39m
+[32m    NPR: 119.89,[39m
+[32m    NZD: 1.39,[39m
+[32m    OMR: 0.384,[39m
+[32m    PAB: 1,[39m
+[32m    PEN: 3.95,[39m
+[32m    PGK: 3.51,[39m
+[32m    PHP: 50.78,[39m
+[32m    PKR: 173.06,[39m
+[32m    PLN: 3.94,[39m
+[32m    PYG: 6869.9,[39m
+[32m    QAR: 3.64,[39m
+[32m    RON: 4.25,[39m
+[32m    RSD: 101.07,[39m
+[32m    RUB: 70.94,[39m
+[32m    RWF: 1016.71,[39m
+[32m    SAR: 3.75,[39m
+[32m    SBD: 7.93,[39m
+[32m    SCR: 13.73,[39m
+[32m    SDG: 437.72,[39m
+[32m    SEK: 8.6,[39m
+[32m    SGD: 1.34,[39m
+[32m    SHP: 0.724,[39m
+[32m    SLL: 10589.89,[39m
+[32m    SOS: 577.88,[39m
+[32m    SRD: 21.46,[39m
+[32m    SSP: 175.04,[39m
+[32m    STN: 20.96,[39m
+[32m    SYP: 1678.18,[39m
+[32m    SZL: 14.45,[39m
+[32m    THB: 33.38,[39m
+[32m    TJS: 11.27,[39m
+[32m    TMT: 3.5,[39m
+[32m    TND: 2.81,[39m
+[32m    TOP: 2.23,[39m
+[32m    TRY: 9.27,[39m
+[32m    TTD: 6.78,[39m
+[32m    TVD: 1.33,[39m
+[32m    TWD: 27.86,[39m
+[32m    TZS: 2303.14,[39m
+[32m    UAH: 26.17,[39m
+[32m    UGX: 3614.58,[39m
+[32m    UYU: 43.78,[39m
+[32m    UZS: 10651.99,[39m
+[32m    VES: 4.15,[39m
+[32m    VND: 22678.95,[39m
+[32m    VUV: 109.94,[39m
+[32m    WST: 2.53,[39m
+[32m    XAF: 561.08,[39m
+[32m    XCD: 2.7,[39m
+[32m    XDR: 0.707,[39m
+[32m    XOF: 561.08,[39m
+[32m    XPF: 102.07,[39m
+[32m    YER: 250.19,[39m
+[32m    ZAR: 14.45,[39m
+[32m    ZMW: 17.04[39m
+[32m  }[39m
+[32m}[39m
+2021-10-21 12:28:14:2814 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 12:28:14:2814 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 12:28:56:2856 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 12:28:56:2856 [32minfo[39m: [32m{[39m
+[32m  status: 200,[39m
+[32m  statusText: 'OK',[39m
+[32m  headers: {[39m
+[32m    'access-control-allow-origin': '*',[39m
+[32m    age: '2003',[39m
+[32m    'alt-svc': 'h3=":443"; ma=86400, h3-29=":443"; ma=86400, h3-28=":443"; ma=86400, h3-27=":443"; ma=86400',[39m
+[32m    'cache-control': 'public, max-age=3600',[39m
+[32m    'cf-cache-status': 'HIT',[39m
+[32m    'cf-ray': '6a16b649ab3a5515-SYD',[39m
+[32m    'content-type': 'application/json',[39m
+[32m    date: 'Thu, 21 Oct 2021 01:28:56 GMT',[39m
+[32m    'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',[39m
+[32m    'last-modified': 'Thu, 21 Oct 2021 00:55:33 GMT',[39m
+[32m    nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',[39m
+[32m    'report-to': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=uBJ7YFCG8ywmk9pTv7KkzmbpNMgWR4JnjYvLjZMc9ys145%2BqWZh%2FAnJusdRmv%2BRXQHMz6x1ZZ1w9KyObzMj%2FXqz0XRKu6psrPtLUHPrdLGJMa02SsTRKHGd8oOd67cZn46Y%3D"}],"group":"cf-nel","max_age":604800}',[39m
+[32m    server: 'RapidAPI-1.2.8',[39m
+[32m    'x-content-type-options': 'NOSNIFF',[39m
+[32m    'x-frame-options': 'SAMEORIGIN',[39m
+[32m    'x-rapidapi-region': 'AWS - ap-southeast-2',[39m
+[32m    'x-rapidapi-version': '1.2.8',[39m
+[32m    'content-length': '2319',[39m
+[32m    connection: 'Close'[39m
+[32m  },[39m
+[32m  config: {[39m
+[32m    transitional: {[39m
+[32m      silentJSONParsing: true,[39m
+[32m      forcedJSONParsing: true,[39m
+[32m      clarifyTimeoutError: false[39m
+[32m    },[39m
+[32m    adapter: [Function: httpAdapter],[39m
+[32m    transformRequest: [ [Function: transformRequest] ],[39m
+[32m    transformResponse: [ [Function: transformResponse] ],[39m
+[32m    timeout: 0,[39m
+[32m    xsrfCookieName: 'XSRF-TOKEN',[39m
+[32m    xsrfHeaderName: 'X-XSRF-TOKEN',[39m
+[32m    maxContentLength: -1,[39m
+[32m    maxBodyLength: -1,[39m
+[32m    validateStatus: [Function: validateStatus],[39m
+[32m    headers: {[39m
+[32m      Accept: 'application/json, text/plain, */*',[39m
+[32m      'x-rapidapi-host': 'exchangerate-api.p.rapidapi.com',[39m
+[32m      'x-rapidapi-key': '9d20b81794msh3353fe733317fafp15261fjsn250e70a8d8f1',[39m
+[32m      'User-Agent': 'axios/0.23.0'[39m
+[32m    },[39m
+[32m    method: 'get',[39m
+[32m    url: 'https://exchangerate-api.p.rapidapi.com/rapid/latest/USD',[39m
+[32m    data: undefined[39m
+[32m  },[39m
+[32m  request: <ref *1> ClientRequest {[39m
+[32m    _events: [Object: null prototype] {[39m
+[32m      abort: [Function (anonymous)],[39m
+[32m      aborted: [Function (anonymous)],[39m
+[32m      connect: [Function (anonymous)],[39m
+[32m      error: [Function (anonymous)],[39m
+[32m      socket: [Function (anonymous)],[39m
+[32m      timeout: [Function (anonymous)],[39m
+[32m      prefinish: [Function: requestOnPrefinish][39m
+[32m    },[39m
+[32m    _eventsCount: 7,[39m
+[32m    _maxListeners: undefined,[39m
+[32m    outputData: [],[39m
+[32m    outputSize: 0,[39m
+[32m    writable: true,[39m
+[32m    destroyed: false,[39m
+[32m    _last: true,[39m
+[32m    chunkedEncoding: false,[39m
+[32m    shouldKeepAlive: false,[39m
+[32m    _defaultKeepAlive: true,[39m
+[32m    useChunkedEncodingByDefault: false,[39m
+[32m    sendDate: false,[39m
+[32m    _removedConnection: false,[39m
+[32m    _removedContLen: false,[39m
+[32m    _removedTE: false,[39m
+[32m    _contentLength: 0,[39m
+[32m    _hasBody: true,[39m
+[32m    _trailer: '',[39m
+[32m    finished: true,[39m
+[32m    _headerSent: true,[39m
+[32m    _closed: false,[39m
+[32m    socket: TLSSocket {[39m
+[32m      _tlsOptions: [Object],[39m
+[32m      _secureEstablished: true,[39m
+[32m      _securePending: false,[39m
+[32m      _newSessionPending: false,[39m
+[32m      _controlReleased: true,[39m
+[32m      secureConnecting: false,[39m
+[32m      _SNICallback: null,[39m
+[32m      servername: 'exchangerate-api.p.rapidapi.com',[39m
+[32m      alpnProtocol: false,[39m
+[32m      authorized: true,[39m
+[32m      authorizationError: null,[39m
+[32m      encrypted: true,[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 10,[39m
+[32m      connecting: false,[39m
+[32m      _hadError: false,[39m
+[32m      _parent: null,[39m
+[32m      _host: 'exchangerate-api.p.rapidapi.com',[39m
+[32m      _readableState: [ReadableState],[39m
+[32m      _maxListeners: undefined,[39m
+[32m      _writableState: [WritableState],[39m
+[32m      allowHalfOpen: false,[39m
+[32m      _sockname: null,[39m
+[32m      _pendingData: null,[39m
+[32m      _pendingEncoding: '',[39m
+[32m      server: undefined,[39m
+[32m      _server: null,[39m
+[32m      ssl: [TLSWrap],[39m
+[32m      _requestCert: true,[39m
+[32m      _rejectUnauthorized: true,[39m
+[32m      parser: null,[39m
+[32m      _httpMessage: [Circular *1],[39m
+[32m      [Symbol(res)]: [TLSWrap],[39m
+[32m      [Symbol(verified)]: true,[39m
+[32m      [Symbol(pendingSession)]: null,[39m
+[32m      [Symbol(async_id_symbol)]: 35,[39m
+[32m      [Symbol(kHandle)]: [TLSWrap],[39m
+[32m      [Symbol(kSetNoDelay)]: false,[39m
+[32m      [Symbol(lastWriteQueueSize)]: 0,[39m
+[32m      [Symbol(timeout)]: null,[39m
+[32m      [Symbol(kBuffer)]: null,[39m
+[32m      [Symbol(kBufferCb)]: null,[39m
+[32m      [Symbol(kBufferGen)]: null,[39m
+[32m      [Symbol(kCapture)]: false,[39m
+[32m      [Symbol(kBytesRead)]: 0,[39m
+[32m      [Symbol(kBytesWritten)]: 0,[39m
+[32m      [Symbol(connect-options)]: [Object],[39m
+[32m      [Symbol(RequestTimeout)]: undefined[39m
+[32m    },[39m
+[32m    _header: 'GET /rapid/latest/USD HTTP/1.1\r\n' +[39m
+[32m      'Accept: application/json, text/plain, */*\r\n' +[39m
+[32m      'x-rapidapi-host: exchangerate-api.p.rapidapi.com\r\n' +[39m
+[32m      'x-rapidapi-key: 9d20b81794msh3353fe733317fafp15261fjsn250e70a8d8f1\r\n' +[39m
+[32m      'User-Agent: axios/0.23.0\r\n' +[39m
+[32m      'Host: exchangerate-api.p.rapidapi.com\r\n' +[39m
+[32m      'Connection: close\r\n' +[39m
+[32m      '\r\n',[39m
+[32m    _keepAliveTimeout: 0,[39m
+[32m    _onPendingData: [Function: nop],[39m
+[32m    agent: Agent {[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 2,[39m
+[32m      _maxListeners: undefined,[39m
+[32m      defaultPort: 443,[39m
+[32m      protocol: 'https:',[39m
+[32m      options: [Object: null prototype],[39m
+[32m      requests: [Object: null prototype] {},[39m
+[32m      sockets: [Object: null prototype],[39m
+[32m      freeSockets: [Object: null prototype] {},[39m
+[32m      keepAliveMsecs: 1000,[39m
+[32m      keepAlive: false,[39m
+[32m      maxSockets: Infinity,[39m
+[32m      maxFreeSockets: 256,[39m
+[32m      scheduling: 'lifo',[39m
+[32m      maxTotalSockets: Infinity,[39m
+[32m      totalSocketCount: 1,[39m
+[32m      maxCachedSessions: 100,[39m
+[32m      _sessionCache: [Object],[39m
+[32m      [Symbol(kCapture)]: false[39m
+[32m    },[39m
+[32m    socketPath: undefined,[39m
+[32m    method: 'GET',[39m
+[32m    maxHeaderSize: undefined,[39m
+[32m    insecureHTTPParser: undefined,[39m
+[32m    path: '/rapid/latest/USD',[39m
+[32m    _ended: true,[39m
+[32m    res: IncomingMessage {[39m
+[32m      _readableState: [ReadableState],[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 3,[39m
+[32m      _maxListeners: undefined,[39m
+[32m      socket: [TLSSocket],[39m
+[32m      httpVersionMajor: 1,[39m
+[32m      httpVersionMinor: 1,[39m
+[32m      httpVersion: '1.1',[39m
+[32m      complete: true,[39m
+[32m      rawHeaders: [Array],[39m
+[32m      rawTrailers: [],[39m
+[32m      aborted: false,[39m
+[32m      upgrade: false,[39m
+[32m      url: '',[39m
+[32m      method: null,[39m
+[32m      statusCode: 200,[39m
+[32m      statusMessage: 'OK',[39m
+[32m      client: [TLSSocket],[39m
+[32m      _consuming: false,[39m
+[32m      _dumped: false,[39m
+[32m      req: [Circular *1],[39m
+[32m      responseUrl: 'https://exchangerate-api.p.rapidapi.com/rapid/latest/USD',[39m
+[32m      redirects: [],[39m
+[32m      [Symbol(kCapture)]: false,[39m
+[32m      [Symbol(kHeaders)]: [Object],[39m
+[32m      [Symbol(kHeadersCount)]: 38,[39m
+[32m      [Symbol(kTrailers)]: null,[39m
+[32m      [Symbol(kTrailersCount)]: 0,[39m
+[32m      [Symbol(RequestTimeout)]: undefined[39m
+[32m    },[39m
+[32m    aborted: false,[39m
+[32m    timeoutCb: null,[39m
+[32m    upgradeOrConnect: false,[39m
+[32m    parser: null,[39m
+[32m    maxHeadersCount: null,[39m
+[32m    reusedSocket: false,[39m
+[32m    host: 'exchangerate-api.p.rapidapi.com',[39m
+[32m    protocol: 'https:',[39m
+[32m    _redirectable: Writable {[39m
+[32m      _writableState: [WritableState],[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 2,[39m
+[32m      _maxListeners: undefined,[39m
+[32m      _options: [Object],[39m
+[32m      _ended: true,[39m
+[32m      _ending: true,[39m
+[32m      _redirectCount: 0,[39m
+[32m      _redirects: [],[39m
+[32m      _requestBodyLength: 0,[39m
+[32m      _requestBodyBuffers: [],[39m
+[32m      _onNativeResponse: [Function (anonymous)],[39m
+[32m      _currentRequest: [Circular *1],[39m
+[32m      _currentUrl: 'https://exchangerate-api.p.rapidapi.com/rapid/latest/USD',[39m
+[32m      [Symbol(kCapture)]: false[39m
+[32m    },[39m
+[32m    [Symbol(kCapture)]: false,[39m
+[32m    [Symbol(kNeedDrain)]: false,[39m
+[32m    [Symbol(corked)]: 0,[39m
+[32m    [Symbol(kOutHeaders)]: [Object: null prototype] {[39m
+[32m      accept: [Array],[39m
+[32m      'x-rapidapi-host': [Array],[39m
+[32m      'x-rapidapi-key': [Array],[39m
+[32m      'user-agent': [Array],[39m
+[32m      host: [Array][39m
+[32m    }[39m
+[32m  },[39m
+[32m  data: {[39m
+[32m    result: 'success',[39m
+[32m    provider: 'https://www.exchangerate-api.com',[39m
+[32m    documentation: 'https://www.exchangerate-api.com/docs/free',[39m
+[32m    terms_of_use: 'https://www.exchangerate-api.com/terms',[39m
+[32m    time_last_update_unix: 1634774552,[39m
+[32m    time_last_update_utc: 'Thu, 21 Oct 2021 00:02:32 +0000',[39m
+[32m    time_next_update_unix: 1634861182,[39m
+[32m    time_next_update_utc: 'Fri, 22 Oct 2021 00:06:22 +0000',[39m
+[32m    time_eol_unix: 0,[39m
+[32m    base_code: 'USD',[39m
+[32m    rates: {[39m
+[32m      USD: 1,[39m
+[32m      AED: 3.67,[39m
+[32m      AFN: 84.75,[39m
+[32m      ALL: 104.63,[39m
+[32m      AMD: 476.79,[39m
+[32m      ANG: 1.79,[39m
+[32m      AOA: 602.58,[39m
+[32m      ARS: 99.28,[39m
+[32m      AUD: 1.33,[39m
+[32m      AWG: 1.79,[39m
+[32m      AZN: 1.7,[39m
+[32m      BAM: 1.67,[39m
+[32m      BBD: 2,[39m
+[32m      BDT: 85.59,[39m
+[32m      BGN: 1.68,[39m
+[32m      BHD: 0.376,[39m
+[32m      BIF: 1984.15,[39m
+[32m      BMD: 1,[39m
+[32m      BND: 1.34,[39m
+[32m      BOB: 6.89,[39m
+[32m      BRL: 5.57,[39m
+[32m      BSD: 1,[39m
+[32m      BTN: 74.93,[39m
+[32m      BWP: 11.16,[39m
+[32m      BYN: 2.44,[39m
+[32m      BZD: 2,[39m
+[32m      CAD: 1.23,[39m
+[32m      CDF: 1983.6,[39m
+[32m      CHF: 0.921,[39m
+[32m      CLP: 811.34,[39m
+[32m      CNY: 6.39,[39m
+[32m      COP: 3742.05,[39m
+[32m      CRC: 628.91,[39m
+[32m      CUC: 1,[39m
+[32m      CUP: 25,[39m
+[32m      CVE: 94.32,[39m
+[32m      CZK: 21.97,[39m
+[32m      DJF: 177.72,[39m
+[32m      DKK: 6.38,[39m
+[32m      DOP: 56.28,[39m
+[32m      DZD: 137.08,[39m
+[32m      EGP: 15.71,[39m
+[32m      ERN: 15,[39m
+[32m      ETB: 47.18,[39m
+[32m      EUR: 0.856,[39m
+[32m      FJD: 2.07,[39m
+[32m      FKP: 0.724,[39m
+[32m      FOK: 6.38,[39m
+[32m      GBP: 0.724,[39m
+[32m      GEL: 3.13,[39m
+[32m      GGP: 0.724,[39m
+[32m      GHS: 6.06,[39m
+[32m      GIP: 0.724,[39m
+[32m      GMD: 52.53,[39m
+[32m      GNF: 9679.21,[39m
+[32m      GTQ: 7.73,[39m
+[32m      GYD: 209.11,[39m
+[32m      HKD: 7.77,[39m
+[32m      HNL: 24.12,[39m
+[32m      HRK: 6.44,[39m
+[32m      HTG: 98.97,[39m
+[32m      HUF: 312.02,[39m
+[32m      IDR: 14029.19,[39m
+[32m      ILS: 3.22,[39m
+[32m      IMP: 0.724,[39m
+[32m      INR: 74.93,[39m
+[32m      IQD: 1458.51,[39m
+[32m      IRR: 42009.4,[39m
+[32m      ISK: 128.97,[39m
+[32m      JMD: 151.23,[39m
+[32m      JOD: 0.709,[39m
+[32m      JPY: 114.31,[39m
+[32m      KES: 110.94,[39m
+[32m      KGS: 84.75,[39m
+[32m      KHR: 4069.67,[39m
+[32m      KID: 1.33,[39m
+[32m      KMF: 420.81,[39m
+[32m      KRW: 1175.28,[39m
+[32m      KWD: 0.3,[39m
+[32m      KYD: 0.833,[39m
+[32m      KZT: 426.02,[39m
+[32m      LAK: 10138.16,[39m
+[32m      LBP: 1507.5,[39m
+[32m      LKR: 200,[39m
+[32m      LRD: 163.36,[39m
+[32m      LSL: 14.45,[39m
+[32m      LYD: 4.56,[39m
+[32m      MAD: 9.03,[39m
+[32m      MDL: 17.35,[39m
+[32m      MGA: 3962.27,[39m
+[32m      MKD: 52.94,[39m
+[32m      MMK: 1892.47,[39m
+[32m      MNT: 2850.54,[39m
+[32m      MOP: 8.01,[39m
+[32m      MRU: 36.17,[39m
+[32m      MUR: 42.52,[39m
+[32m      MVR: 15.42,[39m
+[32m      MWK: 814.42,[39m
+[32m      MXN: 20.21,[39m
+[32m      MYR: 4.16,[39m
+[32m      MZN: 64.02,[39m
+[32m      NAD: 14.45,[39m
+[32m      NGN: 422.64,[39m
+[32m      NIO: 35.22,[39m
+[32m      NOK: 8.35,[39m
+[32m      NPR: 119.89,[39m
+[32m      NZD: 1.39,[39m
+[32m      OMR: 0.384,[39m
+[32m      PAB: 1,[39m
+[32m      PEN: 3.95,[39m
+[32m      PGK: 3.51,[39m
+[32m      PHP: 50.78,[39m
+[32m      PKR: 173.06,[39m
+[32m      PLN: 3.94,[39m
+[32m      PYG: 6869.9,[39m
+[32m      QAR: 3.64,[39m
+[32m      RON: 4.25,[39m
+[32m      RSD: 101.07,[39m
+[32m      RUB: 70.94,[39m
+[32m      RWF: 1016.71,[39m
+[32m      SAR: 3.75,[39m
+[32m      SBD: 7.93,[39m
+[32m      SCR: 13.73,[39m
+[32m      SDG: 437.72,[39m
+[32m      SEK: 8.6,[39m
+[32m      SGD: 1.34,[39m
+[32m      SHP: 0.724,[39m
+[32m      SLL: 10589.89,[39m
+[32m      SOS: 577.88,[39m
+[32m      SRD: 21.46,[39m
+[32m      SSP: 175.04,[39m
+[32m      STN: 20.96,[39m
+[32m      SYP: 1678.18,[39m
+[32m      SZL: 14.45,[39m
+[32m      THB: 33.38,[39m
+[32m      TJS: 11.27,[39m
+[32m      TMT: 3.5,[39m
+[32m      TND: 2.81,[39m
+[32m      TOP: 2.23,[39m
+[32m      TRY: 9.27,[39m
+[32m      TTD: 6.78,[39m
+[32m      TVD: 1.33,[39m
+[32m      TWD: 27.86,[39m
+[32m      TZS: 2303.14,[39m
+[32m      UAH: 26.17,[39m
+[32m      UGX: 3614.58,[39m
+[32m      UYU: 43.78,[39m
+[32m      UZS: 10651.99,[39m
+[32m      VES: 4.15,[39m
+[32m      VND: 22678.95,[39m
+[32m      VUV: 109.94,[39m
+[32m      WST: 2.53,[39m
+[32m      XAF: 561.08,[39m
+[32m      XCD: 2.7,[39m
+[32m      XDR: 0.707,[39m
+[32m      XOF: 561.08,[39m
+[32m      XPF: 102.07,[39m
+[32m      YER: 250.19,[39m
+[32m      ZAR: 14.45,[39m
+[32m      ZMW: 17.04[39m
+[32m    }[39m
+[32m  }[39m
+[32m}[39m
+2021-10-21 12:28:56:2856 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 12:28:56:2856 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 12:45:30:4530 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 12:45:30:4530 [32minfo[39m: [32m{[39m
+[32m  status: 200,[39m
+[32m  statusText: 'OK',[39m
+[32m  headers: {[39m
+[32m    'access-control-allow-origin': '*',[39m
+[32m    age: '2997',[39m
+[32m    'alt-svc': 'h3=":443"; ma=86400, h3-29=":443"; ma=86400, h3-28=":443"; ma=86400, h3-27=":443"; ma=86400',[39m
+[32m    'cache-control': 'public, max-age=3600',[39m
+[32m    'cf-cache-status': 'HIT',[39m
+[32m    'cf-ray': '6a16ce8fa8ec54f1-SYD',[39m
+[32m    'content-type': 'application/json',[39m
+[32m    date: 'Thu, 21 Oct 2021 01:45:30 GMT',[39m
+[32m    'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',[39m
+[32m    'last-modified': 'Thu, 21 Oct 2021 00:55:33 GMT',[39m
+[32m    nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',[39m
+[32m    'report-to': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=z259e37T7MzJrHw1sTg15iD3bOXx1w2%2FTNL%2Fq9kTcPnYQBwjalas%2FddfCFBGQVNEqF9Tii0bl9mwHpaxq3ZYACT37cLefiCxUvLUaQED%2FISpv5d7L%2FBxVmYdtyXY5GE0cSY%3D"}],"group":"cf-nel","max_age":604800}',[39m
+[32m    server: 'RapidAPI-1.2.8',[39m
+[32m    'x-content-type-options': 'NOSNIFF',[39m
+[32m    'x-frame-options': 'SAMEORIGIN',[39m
+[32m    'x-rapidapi-region': 'AWS - ap-southeast-2',[39m
+[32m    'x-rapidapi-version': '1.2.8',[39m
+[32m    'content-length': '2319',[39m
+[32m    connection: 'Close'[39m
+[32m  },[39m
+[32m  config: {[39m
+[32m    transitional: {[39m
+[32m      silentJSONParsing: true,[39m
+[32m      forcedJSONParsing: true,[39m
+[32m      clarifyTimeoutError: false[39m
+[32m    },[39m
+[32m    adapter: [Function: httpAdapter],[39m
+[32m    transformRequest: [ [Function: transformRequest] ],[39m
+[32m    transformResponse: [ [Function: transformResponse] ],[39m
+[32m    timeout: 0,[39m
+[32m    xsrfCookieName: 'XSRF-TOKEN',[39m
+[32m    xsrfHeaderName: 'X-XSRF-TOKEN',[39m
+[32m    maxContentLength: -1,[39m
+[32m    maxBodyLength: -1,[39m
+[32m    validateStatus: [Function: validateStatus],[39m
+[32m    headers: {[39m
+[32m      Accept: 'application/json, text/plain, */*',[39m
+[32m      'x-rapidapi-host': 'exchangerate-api.p.rapidapi.com',[39m
+[32m      'x-rapidapi-key': '9d20b81794msh3353fe733317fafp15261fjsn250e70a8d8f1',[39m
+[32m      'User-Agent': 'axios/0.23.0'[39m
+[32m    },[39m
+[32m    method: 'get',[39m
+[32m    url: 'https://exchangerate-api.p.rapidapi.com/rapid/latest/USD',[39m
+[32m    data: undefined[39m
+[32m  },[39m
+[32m  request: <ref *1> ClientRequest {[39m
+[32m    _events: [Object: null prototype] {[39m
+[32m      abort: [Function (anonymous)],[39m
+[32m      aborted: [Function (anonymous)],[39m
+[32m      connect: [Function (anonymous)],[39m
+[32m      error: [Function (anonymous)],[39m
+[32m      socket: [Function (anonymous)],[39m
+[32m      timeout: [Function (anonymous)],[39m
+[32m      prefinish: [Function: requestOnPrefinish][39m
+[32m    },[39m
+[32m    _eventsCount: 7,[39m
+[32m    _maxListeners: undefined,[39m
+[32m    outputData: [],[39m
+[32m    outputSize: 0,[39m
+[32m    writable: true,[39m
+[32m    destroyed: false,[39m
+[32m    _last: true,[39m
+[32m    chunkedEncoding: false,[39m
+[32m    shouldKeepAlive: false,[39m
+[32m    _defaultKeepAlive: true,[39m
+[32m    useChunkedEncodingByDefault: false,[39m
+[32m    sendDate: false,[39m
+[32m    _removedConnection: false,[39m
+[32m    _removedContLen: false,[39m
+[32m    _removedTE: false,[39m
+[32m    _contentLength: 0,[39m
+[32m    _hasBody: true,[39m
+[32m    _trailer: '',[39m
+[32m    finished: true,[39m
+[32m    _headerSent: true,[39m
+[32m    _closed: false,[39m
+[32m    socket: TLSSocket {[39m
+[32m      _tlsOptions: [Object],[39m
+[32m      _secureEstablished: true,[39m
+[32m      _securePending: false,[39m
+[32m      _newSessionPending: false,[39m
+[32m      _controlReleased: true,[39m
+[32m      secureConnecting: false,[39m
+[32m      _SNICallback: null,[39m
+[32m      servername: 'exchangerate-api.p.rapidapi.com',[39m
+[32m      alpnProtocol: false,[39m
+[32m      authorized: true,[39m
+[32m      authorizationError: null,[39m
+[32m      encrypted: true,[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 10,[39m
+[32m      connecting: false,[39m
+[32m      _hadError: false,[39m
+[32m      _parent: null,[39m
+[32m      _host: 'exchangerate-api.p.rapidapi.com',[39m
+[32m      _readableState: [ReadableState],[39m
+[32m      _maxListeners: undefined,[39m
+[32m      _writableState: [WritableState],[39m
+[32m      allowHalfOpen: false,[39m
+[32m      _sockname: null,[39m
+[32m      _pendingData: null,[39m
+[32m      _pendingEncoding: '',[39m
+[32m      server: undefined,[39m
+[32m      _server: null,[39m
+[32m      ssl: [TLSWrap],[39m
+[32m      _requestCert: true,[39m
+[32m      _rejectUnauthorized: true,[39m
+[32m      parser: null,[39m
+[32m      _httpMessage: [Circular *1],[39m
+[32m      [Symbol(res)]: [TLSWrap],[39m
+[32m      [Symbol(verified)]: true,[39m
+[32m      [Symbol(pendingSession)]: null,[39m
+[32m      [Symbol(async_id_symbol)]: 35,[39m
+[32m      [Symbol(kHandle)]: [TLSWrap],[39m
+[32m      [Symbol(kSetNoDelay)]: false,[39m
+[32m      [Symbol(lastWriteQueueSize)]: 0,[39m
+[32m      [Symbol(timeout)]: null,[39m
+[32m      [Symbol(kBuffer)]: null,[39m
+[32m      [Symbol(kBufferCb)]: null,[39m
+[32m      [Symbol(kBufferGen)]: null,[39m
+[32m      [Symbol(kCapture)]: false,[39m
+[32m      [Symbol(kBytesRead)]: 0,[39m
+[32m      [Symbol(kBytesWritten)]: 0,[39m
+[32m      [Symbol(connect-options)]: [Object],[39m
+[32m      [Symbol(RequestTimeout)]: undefined[39m
+[32m    },[39m
+[32m    _header: 'GET /rapid/latest/USD HTTP/1.1\r\n' +[39m
+[32m      'Accept: application/json, text/plain, */*\r\n' +[39m
+[32m      'x-rapidapi-host: exchangerate-api.p.rapidapi.com\r\n' +[39m
+[32m      'x-rapidapi-key: 9d20b81794msh3353fe733317fafp15261fjsn250e70a8d8f1\r\n' +[39m
+[32m      'User-Agent: axios/0.23.0\r\n' +[39m
+[32m      'Host: exchangerate-api.p.rapidapi.com\r\n' +[39m
+[32m      'Connection: close\r\n' +[39m
+[32m      '\r\n',[39m
+[32m    _keepAliveTimeout: 0,[39m
+[32m    _onPendingData: [Function: nop],[39m
+[32m    agent: Agent {[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 2,[39m
+[32m      _maxListeners: undefined,[39m
+[32m      defaultPort: 443,[39m
+[32m      protocol: 'https:',[39m
+[32m      options: [Object: null prototype],[39m
+[32m      requests: [Object: null prototype] {},[39m
+[32m      sockets: [Object: null prototype],[39m
+[32m      freeSockets: [Object: null prototype] {},[39m
+[32m      keepAliveMsecs: 1000,[39m
+[32m      keepAlive: false,[39m
+[32m      maxSockets: Infinity,[39m
+[32m      maxFreeSockets: 256,[39m
+[32m      scheduling: 'lifo',[39m
+[32m      maxTotalSockets: Infinity,[39m
+[32m      totalSocketCount: 1,[39m
+[32m      maxCachedSessions: 100,[39m
+[32m      _sessionCache: [Object],[39m
+[32m      [Symbol(kCapture)]: false[39m
+[32m    },[39m
+[32m    socketPath: undefined,[39m
+[32m    method: 'GET',[39m
+[32m    maxHeaderSize: undefined,[39m
+[32m    insecureHTTPParser: undefined,[39m
+[32m    path: '/rapid/latest/USD',[39m
+[32m    _ended: true,[39m
+[32m    res: IncomingMessage {[39m
+[32m      _readableState: [ReadableState],[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 3,[39m
+[32m      _maxListeners: undefined,[39m
+[32m      socket: [TLSSocket],[39m
+[32m      httpVersionMajor: 1,[39m
+[32m      httpVersionMinor: 1,[39m
+[32m      httpVersion: '1.1',[39m
+[32m      complete: true,[39m
+[32m      rawHeaders: [Array],[39m
+[32m      rawTrailers: [],[39m
+[32m      aborted: false,[39m
+[32m      upgrade: false,[39m
+[32m      url: '',[39m
+[32m      method: null,[39m
+[32m      statusCode: 200,[39m
+[32m      statusMessage: 'OK',[39m
+[32m      client: [TLSSocket],[39m
+[32m      _consuming: false,[39m
+[32m      _dumped: false,[39m
+[32m      req: [Circular *1],[39m
+[32m      responseUrl: 'https://exchangerate-api.p.rapidapi.com/rapid/latest/USD',[39m
+[32m      redirects: [],[39m
+[32m      [Symbol(kCapture)]: false,[39m
+[32m      [Symbol(kHeaders)]: [Object],[39m
+[32m      [Symbol(kHeadersCount)]: 38,[39m
+[32m      [Symbol(kTrailers)]: null,[39m
+[32m      [Symbol(kTrailersCount)]: 0,[39m
+[32m      [Symbol(RequestTimeout)]: undefined[39m
+[32m    },[39m
+[32m    aborted: false,[39m
+[32m    timeoutCb: null,[39m
+[32m    upgradeOrConnect: false,[39m
+[32m    parser: null,[39m
+[32m    maxHeadersCount: null,[39m
+[32m    reusedSocket: false,[39m
+[32m    host: 'exchangerate-api.p.rapidapi.com',[39m
+[32m    protocol: 'https:',[39m
+[32m    _redirectable: Writable {[39m
+[32m      _writableState: [WritableState],[39m
+[32m      _events: [Object: null prototype],[39m
+[32m      _eventsCount: 2,[39m
+[32m      _maxListeners: undefined,[39m
+[32m      _options: [Object],[39m
+[32m      _ended: true,[39m
+[32m      _ending: true,[39m
+[32m      _redirectCount: 0,[39m
+[32m      _redirects: [],[39m
+[32m      _requestBodyLength: 0,[39m
+[32m      _requestBodyBuffers: [],[39m
+[32m      _onNativeResponse: [Function (anonymous)],[39m
+[32m      _currentRequest: [Circular *1],[39m
+[32m      _currentUrl: 'https://exchangerate-api.p.rapidapi.com/rapid/latest/USD',[39m
+[32m      [Symbol(kCapture)]: false[39m
+[32m    },[39m
+[32m    [Symbol(kCapture)]: false,[39m
+[32m    [Symbol(kNeedDrain)]: false,[39m
+[32m    [Symbol(corked)]: 0,[39m
+[32m    [Symbol(kOutHeaders)]: [Object: null prototype] {[39m
+[32m      accept: [Array],[39m
+[32m      'x-rapidapi-host': [Array],[39m
+[32m      'x-rapidapi-key': [Array],[39m
+[32m      'user-agent': [Array],[39m
+[32m      host: [Array][39m
+[32m    }[39m
+[32m  },[39m
+[32m  data: {[39m
+[32m    result: 'success',[39m
+[32m    provider: 'https://www.exchangerate-api.com',[39m
+[32m    documentation: 'https://www.exchangerate-api.com/docs/free',[39m
+[32m    terms_of_use: 'https://www.exchangerate-api.com/terms',[39m
+[32m    time_last_update_unix: 1634774552,[39m
+[32m    time_last_update_utc: 'Thu, 21 Oct 2021 00:02:32 +0000',[39m
+[32m    time_next_update_unix: 1634861182,[39m
+[32m    time_next_update_utc: 'Fri, 22 Oct 2021 00:06:22 +0000',[39m
+[32m    time_eol_unix: 0,[39m
+[32m    base_code: 'USD',[39m
+[32m    rates: {[39m
+[32m      USD: 1,[39m
+[32m      AED: 3.67,[39m
+[32m      AFN: 84.75,[39m
+[32m      ALL: 104.63,[39m
+[32m      AMD: 476.79,[39m
+[32m      ANG: 1.79,[39m
+[32m      AOA: 602.58,[39m
+[32m      ARS: 99.28,[39m
+[32m      AUD: 1.33,[39m
+[32m      AWG: 1.79,[39m
+[32m      AZN: 1.7,[39m
+[32m      BAM: 1.67,[39m
+[32m      BBD: 2,[39m
+[32m      BDT: 85.59,[39m
+[32m      BGN: 1.68,[39m
+[32m      BHD: 0.376,[39m
+[32m      BIF: 1984.15,[39m
+[32m      BMD: 1,[39m
+[32m      BND: 1.34,[39m
+[32m      BOB: 6.89,[39m
+[32m      BRL: 5.57,[39m
+[32m      BSD: 1,[39m
+[32m      BTN: 74.93,[39m
+[32m      BWP: 11.16,[39m
+[32m      BYN: 2.44,[39m
+[32m      BZD: 2,[39m
+[32m      CAD: 1.23,[39m
+[32m      CDF: 1983.6,[39m
+[32m      CHF: 0.921,[39m
+[32m      CLP: 811.34,[39m
+[32m      CNY: 6.39,[39m
+[32m      COP: 3742.05,[39m
+[32m      CRC: 628.91,[39m
+[32m      CUC: 1,[39m
+[32m      CUP: 25,[39m
+[32m      CVE: 94.32,[39m
+[32m      CZK: 21.97,[39m
+[32m      DJF: 177.72,[39m
+[32m      DKK: 6.38,[39m
+[32m      DOP: 56.28,[39m
+[32m      DZD: 137.08,[39m
+[32m      EGP: 15.71,[39m
+[32m      ERN: 15,[39m
+[32m      ETB: 47.18,[39m
+[32m      EUR: 0.856,[39m
+[32m      FJD: 2.07,[39m
+[32m      FKP: 0.724,[39m
+[32m      FOK: 6.38,[39m
+[32m      GBP: 0.724,[39m
+[32m      GEL: 3.13,[39m
+[32m      GGP: 0.724,[39m
+[32m      GHS: 6.06,[39m
+[32m      GIP: 0.724,[39m
+[32m      GMD: 52.53,[39m
+[32m      GNF: 9679.21,[39m
+[32m      GTQ: 7.73,[39m
+[32m      GYD: 209.11,[39m
+[32m      HKD: 7.77,[39m
+[32m      HNL: 24.12,[39m
+[32m      HRK: 6.44,[39m
+[32m      HTG: 98.97,[39m
+[32m      HUF: 312.02,[39m
+[32m      IDR: 14029.19,[39m
+[32m      ILS: 3.22,[39m
+[32m      IMP: 0.724,[39m
+[32m      INR: 74.93,[39m
+[32m      IQD: 1458.51,[39m
+[32m      IRR: 42009.4,[39m
+[32m      ISK: 128.97,[39m
+[32m      JMD: 151.23,[39m
+[32m      JOD: 0.709,[39m
+[32m      JPY: 114.31,[39m
+[32m      KES: 110.94,[39m
+[32m      KGS: 84.75,[39m
+[32m      KHR: 4069.67,[39m
+[32m      KID: 1.33,[39m
+[32m      KMF: 420.81,[39m
+[32m      KRW: 1175.28,[39m
+[32m      KWD: 0.3,[39m
+[32m      KYD: 0.833,[39m
+[32m      KZT: 426.02,[39m
+[32m      LAK: 10138.16,[39m
+[32m      LBP: 1507.5,[39m
+[32m      LKR: 200,[39m
+[32m      LRD: 163.36,[39m
+[32m      LSL: 14.45,[39m
+[32m      LYD: 4.56,[39m
+[32m      MAD: 9.03,[39m
+[32m      MDL: 17.35,[39m
+[32m      MGA: 3962.27,[39m
+[32m      MKD: 52.94,[39m
+[32m      MMK: 1892.47,[39m
+[32m      MNT: 2850.54,[39m
+[32m      MOP: 8.01,[39m
+[32m      MRU: 36.17,[39m
+[32m      MUR: 42.52,[39m
+[32m      MVR: 15.42,[39m
+[32m      MWK: 814.42,[39m
+[32m      MXN: 20.21,[39m
+[32m      MYR: 4.16,[39m
+[32m      MZN: 64.02,[39m
+[32m      NAD: 14.45,[39m
+[32m      NGN: 422.64,[39m
+[32m      NIO: 35.22,[39m
+[32m      NOK: 8.35,[39m
+[32m      NPR: 119.89,[39m
+[32m      NZD: 1.39,[39m
+[32m      OMR: 0.384,[39m
+[32m      PAB: 1,[39m
+[32m      PEN: 3.95,[39m
+[32m      PGK: 3.51,[39m
+[32m      PHP: 50.78,[39m
+[32m      PKR: 173.06,[39m
+[32m      PLN: 3.94,[39m
+[32m      PYG: 6869.9,[39m
+[32m      QAR: 3.64,[39m
+[32m      RON: 4.25,[39m
+[32m      RSD: 101.07,[39m
+[32m      RUB: 70.94,[39m
+[32m      RWF: 1016.71,[39m
+[32m      SAR: 3.75,[39m
+[32m      SBD: 7.93,[39m
+[32m      SCR: 13.73,[39m
+[32m      SDG: 437.72,[39m
+[32m      SEK: 8.6,[39m
+[32m      SGD: 1.34,[39m
+[32m      SHP: 0.724,[39m
+[32m      SLL: 10589.89,[39m
+[32m      SOS: 577.88,[39m
+[32m      SRD: 21.46,[39m
+[32m      SSP: 175.04,[39m
+[32m      STN: 20.96,[39m
+[32m      SYP: 1678.18,[39m
+[32m      SZL: 14.45,[39m
+[32m      THB: 33.38,[39m
+[32m      TJS: 11.27,[39m
+[32m      TMT: 3.5,[39m
+[32m      TND: 2.81,[39m
+[32m      TOP: 2.23,[39m
+[32m      TRY: 9.27,[39m
+[32m      TTD: 6.78,[39m
+[32m      TVD: 1.33,[39m
+[32m      TWD: 27.86,[39m
+[32m      TZS: 2303.14,[39m
+[32m      UAH: 26.17,[39m
+[32m      UGX: 3614.58,[39m
+[32m      UYU: 43.78,[39m
+[32m      UZS: 10651.99,[39m
+[32m      VES: 4.15,[39m
+[32m      VND: 22678.95,[39m
+[32m      VUV: 109.94,[39m
+[32m      WST: 2.53,[39m
+[32m      XAF: 561.08,[39m
+[32m      XCD: 2.7,[39m
+[32m      XDR: 0.707,[39m
+[32m      XOF: 561.08,[39m
+[32m      XPF: 102.07,[39m
+[32m      YER: 250.19,[39m
+[32m      ZAR: 14.45,[39m
+[32m      ZMW: 17.04[39m
+[32m    }[39m
+[32m  }[39m
+[32m}[39m
+2021-10-21 12:45:30:4530 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 12:45:30:4530 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 12:46:52:4652 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 12:48:43:4843 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 12:48:43:4843 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 12:49:31:4931 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 12:52:27:5227 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 12:54:54:5454 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 12:55:25:5525 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 12:59:08:598 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 13:06:13:613 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 13:06:40:640 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 13:08:06:86 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 13:08:15:815 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 13:08:15:815 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 13:08:58:858 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 13:08:58:858 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 13:08:58:858 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 13:14:16:1416 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 13:14:17:1417 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 13:14:17:1417 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 13:14:55:1455 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 13:15:10:1510 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 13:15:10:1510 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 13:16:03:163 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 13:16:03:163 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 13:16:06:166 [32minfo[39m: [32mUpdating currencies[39m
