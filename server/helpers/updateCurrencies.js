@@ -4,30 +4,54 @@ const getCurrencyData = require('../api/getCurrencies');
 const currencyNames = require('../api/currencyCountry');
 const currencyUnicode = require('../api/currencyUnicode');
 
+const fs = require('fs');
 
-function getSymbolUnicode(code){
+function reformatCode(){
+    var newUnicode = {};
+
     for(let country of currencyUnicode){
-        if(country.Code === code){
-            return country.Character;
+        let result = {
+            currency: country.Currency,
+            symbol: country.Character,
+            unicode_decimal: country['Unicode decimal'],
+            unicode_Hex: country['Unicode Hex']
         }
+        newUnicode[country.Code] = result;
     }
     // if there is no matching symbol return null
-    return null
+    fs.writeFileSync('newUnicode.txt', JSON.stringify(newUnicode, null, 2), 'UTF-8');
 }
 
 async function updateCurrencies(RapidApiKey){
 
+    // reformatCode();
+    // return
     let currencyData = await getCurrencyData(RapidApiKey);
 
     // if data package has been passed in, create/update all currencies
     if(currencyData){
         for(let [code, usdBuys] of Object.entries(currencyData.rates)){
             var name = currencyNames[code];
+            var symbol;
+            var unicode_decimal;
+            var unicode_hex;
+
+            if(currencyUnicode[code]){
+                symbol = currencyUnicode[code]?.symbol;
+                unicode_decimal = currencyUnicode[code]?.unicode_decimal;
+                unicode_hex = currencyUnicode[code]?.unicode_Hex;
+            } else {
+                Logger.info(`No symbol, or unicode for code: ${code}`);
+                symbol = ''
+                unicode_decimal = '';
+                unicode_hex = '';
+            }
+
             if(!name){
                 console.log(`Bang-no name for code: ${code}`);
                 name = code;
             }
-            var symbol = getSymbolUnicode(code);
+
             var searchQuery = {
                 code: code
             }
@@ -39,7 +63,8 @@ async function updateCurrencies(RapidApiKey){
                 code: code,
                 type: "currency",
                 symbol: symbol,
-
+                unicode_decimal: unicode_decimal,
+                unicode_hex: unicode_hex
             }
             // https://stackoverflow.com/questions/13337685/mongoose-js-how-to-implement-create-or-update
             var options = {

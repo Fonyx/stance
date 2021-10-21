@@ -1855,3 +1855,215 @@
 2021-10-21 17:02:20:220 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
 2021-10-21 17:02:20:220 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
 2021-10-21 17:02:26:226 [32minfo[39m: [32mUpdated countries[39m
+2021-10-21 17:40:14:4014 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:40:15:4015 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:40:24:4024 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:40:24:4024 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:40:39:4039 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:40:40:4040 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:40:40:4040 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 17:41:24:4124 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:41:24:4124 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:41:24:4124 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 17:42:31:4231 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:42:53:4253 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:42:54:4254 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:42:54:4254 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 17:43:09:439 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:43:10:4310 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:43:10:4310 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 17:43:28:4328 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:45:03:453 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:45:03:453 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:45:03:453 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 17:45:09:459 [32minfo[39m: [32mUpdated currencies[39m
+2021-10-21 17:45:45:4545 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:45:45:4545 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:45:45:4545 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 17:45:46:4546 [32minfo[39m: [32mNo symbol for code: AED[39m
+2021-10-21 17:45:46:4546 [32minfo[39m: [32mNo symbol for code: AMD[39m
+2021-10-21 17:45:46:4546 [32minfo[39m: [32mNo symbol for code: AOA[39m
+2021-10-21 17:45:46:4546 [32minfo[39m: [32mNo symbol for code: BDT[39m
+2021-10-21 17:45:46:4546 [32minfo[39m: [32mNo symbol for code: BHD[39m
+2021-10-21 17:45:46:4546 [32minfo[39m: [32mNo symbol for code: BIF[39m
+2021-10-21 17:45:47:4547 [32minfo[39m: [32mNo symbol for code: BTN[39m
+2021-10-21 17:45:47:4547 [32minfo[39m: [32mNo symbol for code: CDF[39m
+2021-10-21 17:45:47:4547 [32minfo[39m: [32mNo symbol for code: CUC[39m
+2021-10-21 17:45:47:4547 [32minfo[39m: [32mNo symbol for code: CVE[39m
+2021-10-21 17:45:47:4547 [32minfo[39m: [32mNo symbol for code: DJF[39m
+2021-10-21 17:45:47:4547 [32minfo[39m: [32mNo symbol for code: DZD[39m
+2021-10-21 17:45:47:4547 [32minfo[39m: [32mNo symbol for code: ERN[39m
+2021-10-21 17:45:47:4547 [32minfo[39m: [32mNo symbol for code: ETB[39m
+2021-10-21 17:45:47:4547 [32minfo[39m: [32mNo symbol for code: FOK[39m
+2021-10-21 17:45:47:4547 [32minfo[39m: [32mNo symbol for code: GEL[39m
+2021-10-21 17:45:48:4548 [32minfo[39m: [32mNo symbol for code: GMD[39m
+2021-10-21 17:45:48:4548 [32minfo[39m: [32mNo symbol for code: GNF[39m
+2021-10-21 17:45:48:4548 [32minfo[39m: [32mNo symbol for code: HTG[39m
+2021-10-21 17:45:48:4548 [32minfo[39m: [32mNo symbol for code: IQD[39m
+2021-10-21 17:45:48:4548 [32minfo[39m: [32mNo symbol for code: JOD[39m
+2021-10-21 17:45:48:4548 [32minfo[39m: [32mNo symbol for code: KES[39m
+2021-10-21 17:45:48:4548 [32minfo[39m: [32mNo symbol for code: KID[39m
+2021-10-21 17:45:48:4548 [32minfo[39m: [32mNo symbol for code: KMF[39m
+2021-10-21 17:45:48:4548 [32minfo[39m: [32mNo symbol for code: KWD[39m
+2021-10-21 17:45:49:4549 [32minfo[39m: [32mNo symbol for code: LSL[39m
+2021-10-21 17:45:49:4549 [32minfo[39m: [32mNo symbol for code: LYD[39m
+2021-10-21 17:45:49:4549 [32minfo[39m: [32mNo symbol for code: MAD[39m
+2021-10-21 17:45:49:4549 [32minfo[39m: [32mNo symbol for code: MDL[39m
+2021-10-21 17:45:49:4549 [32minfo[39m: [32mNo symbol for code: MGA[39m
+2021-10-21 17:45:49:4549 [32minfo[39m: [32mNo symbol for code: MMK[39m
+2021-10-21 17:45:49:4549 [32minfo[39m: [32mNo symbol for code: MOP[39m
+2021-10-21 17:45:49:4549 [32minfo[39m: [32mNo symbol for code: MRU[39m
+2021-10-21 17:45:49:4549 [32minfo[39m: [32mNo symbol for code: MVR[39m
+2021-10-21 17:45:49:4549 [32minfo[39m: [32mNo symbol for code: MWK[39m
+2021-10-21 17:45:49:4549 [32minfo[39m: [32mNo symbol for code: PGK[39m
+2021-10-21 17:45:50:4550 [32minfo[39m: [32mNo symbol for code: RWF[39m
+2021-10-21 17:45:50:4550 [32minfo[39m: [32mNo symbol for code: SDG[39m
+2021-10-21 17:45:50:4550 [32minfo[39m: [32mNo symbol for code: SLL[39m
+2021-10-21 17:45:50:4550 [32minfo[39m: [32mNo symbol for code: SSP[39m
+2021-10-21 17:45:50:4550 [32minfo[39m: [32mNo symbol for code: STN[39m
+2021-10-21 17:45:50:4550 [32minfo[39m: [32mNo symbol for code: SZL[39m
+2021-10-21 17:45:50:4550 [32minfo[39m: [32mNo symbol for code: TJS[39m
+2021-10-21 17:45:50:4550 [32minfo[39m: [32mNo symbol for code: TMT[39m
+2021-10-21 17:45:50:4550 [32minfo[39m: [32mNo symbol for code: TND[39m
+2021-10-21 17:45:50:4550 [32minfo[39m: [32mNo symbol for code: TOP[39m
+2021-10-21 17:45:51:4551 [32minfo[39m: [32mNo symbol for code: TZS[39m
+2021-10-21 17:45:51:4551 [32minfo[39m: [32mNo symbol for code: UGX[39m
+2021-10-21 17:45:51:4551 [32minfo[39m: [32mNo symbol for code: VES[39m
+2021-10-21 17:45:51:4551 [32minfo[39m: [32mNo symbol for code: VUV[39m
+2021-10-21 17:45:51:4551 [32minfo[39m: [32mNo symbol for code: WST[39m
+2021-10-21 17:45:51:4551 [32minfo[39m: [32mNo symbol for code: XAF[39m
+2021-10-21 17:45:51:4551 [32minfo[39m: [32mNo symbol for code: XDR[39m
+2021-10-21 17:45:51:4551 [32minfo[39m: [32mNo symbol for code: XOF[39m
+2021-10-21 17:45:51:4551 [32minfo[39m: [32mNo symbol for code: XPF[39m
+2021-10-21 17:45:51:4551 [32minfo[39m: [32mNo symbol for code: ZMW[39m
+2021-10-21 17:45:51:4551 [32minfo[39m: [32mUpdated currencies[39m
+2021-10-21 17:50:10:5010 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:50:10:5010 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:50:10:5010 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 17:50:11:5011 [32minfo[39m: [32mNo symbol for code: AED[39m
+2021-10-21 17:50:11:5011 [32minfo[39m: [32mNo symbol for code: AMD[39m
+2021-10-21 17:50:36:5036 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:50:36:5036 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:50:36:5036 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 17:50:37:5037 [32minfo[39m: [32mNo symbol for code: AED[39m
+2021-10-21 17:50:37:5037 [32minfo[39m: [32mNo symbol for code: AMD[39m
+2021-10-21 17:51:12:5112 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:51:13:5113 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:51:13:5113 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 17:51:14:5114 [32minfo[39m: [32mNo symbol for code: AED[39m
+2021-10-21 17:51:14:5114 [32minfo[39m: [32mNo symbol for code: AMD[39m
+2021-10-21 17:51:14:5114 [32minfo[39m: [32mNo symbol for code: AOA[39m
+2021-10-21 17:51:15:5115 [32minfo[39m: [32mNo symbol for code: BDT[39m
+2021-10-21 17:51:15:5115 [32minfo[39m: [32mNo symbol for code: BHD[39m
+2021-10-21 17:51:15:5115 [32minfo[39m: [32mNo symbol for code: BIF[39m
+2021-10-21 17:51:15:5115 [32minfo[39m: [32mNo symbol for code: BTN[39m
+2021-10-21 17:51:15:5115 [32minfo[39m: [32mNo symbol for code: CDF[39m
+2021-10-21 17:51:15:5115 [32minfo[39m: [32mNo symbol for code: CUC[39m
+2021-10-21 17:51:15:5115 [32minfo[39m: [32mNo symbol for code: CVE[39m
+2021-10-21 17:51:15:5115 [32minfo[39m: [32mNo symbol for code: DJF[39m
+2021-10-21 17:51:16:5116 [32minfo[39m: [32mNo symbol for code: DZD[39m
+2021-10-21 17:51:16:5116 [32minfo[39m: [32mNo symbol for code: ERN[39m
+2021-10-21 17:51:16:5116 [32minfo[39m: [32mNo symbol for code: ETB[39m
+2021-10-21 17:51:16:5116 [32minfo[39m: [32mNo symbol for code: FOK[39m
+2021-10-21 17:51:16:5116 [32minfo[39m: [32mNo symbol for code: GEL[39m
+2021-10-21 17:51:16:5116 [32minfo[39m: [32mNo symbol for code: GMD[39m
+2021-10-21 17:51:16:5116 [32minfo[39m: [32mNo symbol for code: GNF[39m
+2021-10-21 17:51:16:5116 [32minfo[39m: [32mNo symbol for code: HTG[39m
+2021-10-21 17:51:16:5116 [32minfo[39m: [32mNo symbol for code: IQD[39m
+2021-10-21 17:51:16:5116 [32minfo[39m: [32mNo symbol for code: JOD[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: KES[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: KID[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: KMF[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: KWD[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: LSL[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: LYD[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: MAD[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: MDL[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: MGA[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: MMK[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: MOP[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: MRU[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: MVR[39m
+2021-10-21 17:51:17:5117 [32minfo[39m: [32mNo symbol for code: MWK[39m
+2021-10-21 17:51:18:5118 [32minfo[39m: [32mNo symbol for code: PGK[39m
+2021-10-21 17:51:18:5118 [32minfo[39m: [32mNo symbol for code: RWF[39m
+2021-10-21 17:51:18:5118 [32minfo[39m: [32mNo symbol for code: SDG[39m
+2021-10-21 17:51:18:5118 [32minfo[39m: [32mNo symbol for code: SLL[39m
+2021-10-21 17:51:18:5118 [32minfo[39m: [32mNo symbol for code: SSP[39m
+2021-10-21 17:51:18:5118 [32minfo[39m: [32mNo symbol for code: STN[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: SZL[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: TJS[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: TMT[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: TND[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: TOP[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: TZS[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: UGX[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: VES[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: VUV[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: WST[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: XAF[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: XDR[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: XOF[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: XPF[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mNo symbol for code: ZMW[39m
+2021-10-21 17:51:19:5119 [32minfo[39m: [32mUpdated currencies[39m
+2021-10-21 17:51:26:5126 [32minfo[39m: [32mUpdating currencies[39m
+2021-10-21 17:51:26:5126 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-21 17:51:26:5126 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-21 17:51:26:5126 [32minfo[39m: [32mNo symbol for code: AED[39m
+2021-10-21 17:51:26:5126 [32minfo[39m: [32mNo symbol for code: AMD[39m
+2021-10-21 17:51:27:5127 [32minfo[39m: [32mNo symbol for code: AOA[39m
+2021-10-21 17:51:27:5127 [32minfo[39m: [32mNo symbol for code: BDT[39m
+2021-10-21 17:51:27:5127 [32minfo[39m: [32mNo symbol for code: BHD[39m
+2021-10-21 17:51:27:5127 [32minfo[39m: [32mNo symbol for code: BIF[39m
+2021-10-21 17:51:27:5127 [32minfo[39m: [32mNo symbol for code: BTN[39m
+2021-10-21 17:51:27:5127 [32minfo[39m: [32mNo symbol for code: CDF[39m
+2021-10-21 17:51:27:5127 [32minfo[39m: [32mNo symbol for code: CUC[39m
+2021-10-21 17:51:27:5127 [32minfo[39m: [32mNo symbol for code: CVE[39m
+2021-10-21 17:51:28:5128 [32minfo[39m: [32mNo symbol for code: DJF[39m
+2021-10-21 17:51:28:5128 [32minfo[39m: [32mNo symbol for code: DZD[39m
+2021-10-21 17:51:28:5128 [32minfo[39m: [32mNo symbol for code: ERN[39m
+2021-10-21 17:51:28:5128 [32minfo[39m: [32mNo symbol for code: ETB[39m
+2021-10-21 17:51:28:5128 [32minfo[39m: [32mNo symbol for code: FOK[39m
+2021-10-21 17:51:28:5128 [32minfo[39m: [32mNo symbol for code: GEL[39m
+2021-10-21 17:51:28:5128 [32minfo[39m: [32mNo symbol for code: GMD[39m
+2021-10-21 17:51:28:5128 [32minfo[39m: [32mNo symbol for code: GNF[39m
+2021-10-21 17:51:28:5128 [32minfo[39m: [32mNo symbol for code: HTG[39m
+2021-10-21 17:51:28:5128 [32minfo[39m: [32mNo symbol for code: IQD[39m
+2021-10-21 17:51:29:5129 [32minfo[39m: [32mNo symbol for code: JOD[39m
+2021-10-21 17:51:29:5129 [32minfo[39m: [32mNo symbol for code: KES[39m
+2021-10-21 17:51:29:5129 [32minfo[39m: [32mNo symbol for code: KID[39m
+2021-10-21 17:51:29:5129 [32minfo[39m: [32mNo symbol for code: KMF[39m
+2021-10-21 17:51:29:5129 [32minfo[39m: [32mNo symbol for code: KWD[39m
+2021-10-21 17:51:29:5129 [32minfo[39m: [32mNo symbol for code: LSL[39m
+2021-10-21 17:51:29:5129 [32minfo[39m: [32mNo symbol for code: LYD[39m
+2021-10-21 17:51:29:5129 [32minfo[39m: [32mNo symbol for code: MAD[39m
+2021-10-21 17:51:29:5129 [32minfo[39m: [32mNo symbol for code: MDL[39m
+2021-10-21 17:51:29:5129 [32minfo[39m: [32mNo symbol for code: MGA[39m
+2021-10-21 17:51:30:5130 [32minfo[39m: [32mNo symbol for code: MMK[39m
+2021-10-21 17:51:30:5130 [32minfo[39m: [32mNo symbol for code: MOP[39m
+2021-10-21 17:51:30:5130 [32minfo[39m: [32mNo symbol for code: MRU[39m
+2021-10-21 17:51:30:5130 [32minfo[39m: [32mNo symbol for code: MVR[39m
+2021-10-21 17:51:30:5130 [32minfo[39m: [32mNo symbol for code: MWK[39m
+2021-10-21 17:51:30:5130 [32minfo[39m: [32mNo symbol for code: PGK[39m
+2021-10-21 17:51:30:5130 [32minfo[39m: [32mNo symbol for code: RWF[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: SDG[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: SLL[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: SSP[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: STN[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: SZL[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: TJS[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: TMT[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: TND[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: TOP[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: TZS[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: UGX[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: VES[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: VUV[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: WST[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: XAF[39m
+2021-10-21 17:51:31:5131 [32minfo[39m: [32mNo symbol for code: XDR[39m
+2021-10-21 17:51:32:5132 [32minfo[39m: [32mNo symbol for code: XOF[39m
+2021-10-21 17:51:32:5132 [32minfo[39m: [32mNo symbol for code: XPF[39m
+2021-10-21 17:51:32:5132 [32minfo[39m: [32mNo symbol for code: ZMW[39m
+2021-10-21 17:51:32:5132 [32minfo[39m: [32mUpdated currencies[39m

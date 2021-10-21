@@ -26,6 +26,14 @@ const assetSchema = new mongoose.Schema({
         // https://stackoverflow.com/questions/7955040/mongodb-mongoose-unique-if-not-null
         sparse: true
     },
+    unicode_decimal:{
+        type: String,
+        required: false
+    },
+    unicode_hex:{
+        type: String,
+        required: false
+    },
     usdValue: {
         type: Number,
         required: true

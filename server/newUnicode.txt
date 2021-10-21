@@ -1,4 +1,4 @@
-const unicodes = {
+{
   "ALL": {
     "currency": "Albania Lek",
     "symbol": "Lek",
@@ -654,6 +654,3 @@ const unicodes = {
     "unicode_Hex": "5a, 24"
   }
 }
-
-
-module.exports = unicodes
