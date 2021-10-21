@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
+const getCoinValue = require('../api/getCryptoValue');
+
 
 const assetSchema = new mongoose.Schema({
     type: {
         type: String,
         enum: ['currency', 'coin', 'stock'],
-        default: 'currency'
+        required: true
     },
     name: {
         type: String,
@@ -18,7 +20,6 @@ const assetSchema = new mongoose.Schema({
     symbol: {
         type: String,
         required: false,
-        default: "$"
     },
     code: {
         type: String,
@@ -38,20 +39,25 @@ const assetSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    marketName: {
+    market: {
         type: String,
         required: false,
     },
 }, {timestamps: true});
 
+// a combined index for unique type codes
+assetSchema.index({type: 1, code: 1}, {unique: true})
+
 assetSchema.pre('save', async function (next) {
     // if the asset isn't initialized with a USD value it must be an asset, it would have this if it was a currency
-    if(!this.usdValue){
-        // lookup the usdValue of the asset
+    if(this.type === 'coin'){
+        // lookup the usdValue of the coin
         if (this.code) {
-          this.usdValue = 500;
+          let coinDetails = await getCoinValue(this.code);
+          // TODO: this should be smarter, using market open is a bit meh
+          this.usdValue = coinDetails.open !== 'NA'? parseFloat(coinDetails.open): parseFloat(coinDetails.previousClose)
         } else {
-            this.usdValue = 250;
+            throw new Error(`Can"t collect crypto value since instance has no code: ${this}`)
         }
     }
   

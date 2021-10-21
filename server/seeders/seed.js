@@ -1,8 +1,9 @@
 require('dotenv').config();
 const db = require('../config/connection');
-const { User } = require('../models');
-const userSeeds = require('./userSeeds.json');
 const Logger = require('../utils/logger');
+
+const seedUsers = require('./seedUsers');
+const seedCoins = require('./seedCoins');
 
 db.once('open', async () => {
 
@@ -12,14 +13,13 @@ db.once('open', async () => {
     Logger.info('Seeding to backup mongo at local host')
   }
 
-  try {
-    await User.deleteMany({});
+  // await seedUsers();
+  // Logger.info(`Seeded Users`);
 
-    await User.create(userSeeds);
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
-  console.log('all done!');
+  // await seedCoins();
+  // Logger.info('Seeded Coins');
+
+  
+  Logger.info('Concluded seeding');
   process.exit(0);
 });
