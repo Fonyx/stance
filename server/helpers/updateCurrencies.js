@@ -41,7 +41,7 @@ async function updateCurrencies(RapidApiKey){
                 unicode_decimal = currencyUnicode[code]?.unicode_decimal;
                 unicode_hex = currencyUnicode[code]?.unicode_Hex;
             } else {
-                Logger.info(`No symbol, or unicode for code: ${code}`);
+                // Logger.info(`No symbol, or unicode for code: ${code}`);
                 symbol = ''
                 unicode_decimal = '';
                 unicode_hex = '';
