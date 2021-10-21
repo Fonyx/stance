@@ -1,7 +1,7 @@
 const {Asset} = require('../models');
 const Logger = require('../utils/logger');
 const getCurrencyData = require('../api/getCurrencies');
-const currencyNames = require('../api/currencyCountry');
+const currencyNames = require('../api/currencyNames');
 const currencyUnicode = require('../api/currencyUnicode');
 
 async function updateCurrencies(RapidApiKey){

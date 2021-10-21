@@ -4,6 +4,7 @@ const Logger = require('../utils/logger');
 
 const seedUsers = require('./seedUsers');
 const seedCoins = require('./seedCoins');
+const seedExchanges = require('./seedExchanges');
 
 db.once('open', async () => {
 
@@ -18,6 +19,9 @@ db.once('open', async () => {
 
   // await seedCoins();
   // Logger.info('Seeded Coins');
+
+  await seedExchanges();
+  Logger.info('Seeded Exchanges')
 
   
   Logger.info('Concluded seeding');

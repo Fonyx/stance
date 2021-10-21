@@ -6656,3 +6656,17 @@
 2021-10-22 02:10:29:1029 [32minfo[39m: [32mCreating Coin for: BitZyon[39m
 2021-10-22 02:10:30:1030 [32minfo[39m: [32mCreating Coin for: Zyro[39m
 2021-10-22 02:10:31:1031 [32minfo[39m: [32mSeeded Coins[39m
+2021-10-22 10:36:58:3658 [32minfo[39m: [32mSeeding to mongo atlas fonxyOps STANCE instance[39m
+2021-10-22 10:37:16:3716 [32minfo[39m: [32mSeeding to mongo atlas fonxyOps STANCE instance[39m
+2021-10-22 10:37:34:3734 [32minfo[39m: [32mSeeding to mongo atlas fonxyOps STANCE instance[39m
+2021-10-22 10:39:44:3944 [32minfo[39m: [32mSeeding to mongo atlas fonxyOps STANCE instance[39m
+2021-10-22 10:39:45:3945 [33mwarn[39m: [33mDeleting all exchanges to add new records collected[39m
+2021-10-22 10:41:37:4137 [32minfo[39m: [32mSeeding to mongo atlas fonxyOps STANCE instance[39m
+2021-10-22 10:41:38:4138 [33mwarn[39m: [33mDeleting all exchanges to add new records collected[39m
+2021-10-22 10:42:37:4237 [32minfo[39m: [32mSeeding to mongo atlas fonxyOps STANCE instance[39m
+2021-10-22 10:42:37:4237 [33mwarn[39m: [33mDeleting all exchanges to add new records collected[39m
+2021-10-22 10:43:05:435 [32minfo[39m: [32mSeeding to mongo atlas fonxyOps STANCE instance[39m
+2021-10-22 10:43:06:436 [33mwarn[39m: [33mDeleting all exchanges to add new records collected[39m
+2021-10-22 10:44:02:442 [32minfo[39m: [32mSeeding to mongo atlas fonxyOps STANCE instance[39m
+2021-10-22 10:44:03:443 [33mwarn[39m: [33mDeleting all exchanges to add new records collected[39m
+2021-10-22 10:44:05:445 [32minfo[39m: [32mSeeded Exchanges[39m
