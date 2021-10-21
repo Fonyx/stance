@@ -51,8 +51,14 @@ const accountSchema = new mongoose.Schema({
         type: mongoose.Types.Schema.ObjectId,
         ref: "Asset"
     },
-    style: styleSchema,
-    goal: goalSchema,
+    style: {
+        type: styleSchema,
+        default: () => ({})
+    },
+    goal: {
+        type: goalSchema,
+        default: () => ({})
+    },
     tags: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Tag"

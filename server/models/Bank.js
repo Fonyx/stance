@@ -5,11 +5,11 @@ const bankSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
     },
-    userGenerated: {
-        type: Boolean,
-        required: true,
-        default: true
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
     description: {
         type: String,
@@ -18,6 +18,7 @@ const bankSchema = new mongoose.Schema({
     website: {
         type: String,
         required: false,
+        unique: true
     },
     logo: {
         type: String,

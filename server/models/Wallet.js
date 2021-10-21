@@ -5,6 +5,10 @@ const walletSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
     description: {
         type: String,
         required: false
@@ -14,11 +18,6 @@ const walletSchema = new mongoose.Schema({
         default: true,
         required: false
     },
-    userGenerated: {
-        type: Boolean,
-        required: true,
-        default: true
-    },
     website: {
         type: String,
         required: false,
@@ -26,6 +25,10 @@ const walletSchema = new mongoose.Schema({
     icon: {
         type: String,
         required: false,
+    },
+    goal: {
+        type: goalSchema,
+        default: () => ({})
     },
     tags: [{
         type: mongoose.Schema.Types.ObjectId,

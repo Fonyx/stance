@@ -23,7 +23,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    goal: goalSchema
+    goal: {
+        type: goalSchema,
+        default: () => ({})
+    },
 }, {timestamps: true});
 
 userSchema.pre('save', async function (next) {

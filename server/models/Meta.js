@@ -111,7 +111,8 @@ tagSchema.index({userId: 1, name: 1}, {unique: true})
 const goalSchema = new mongoose.Schema({
     amount: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
     date: {
         type: Date,
