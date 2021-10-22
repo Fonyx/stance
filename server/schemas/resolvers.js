@@ -21,23 +21,29 @@ const rootResolver = {
             return { token, user };
         },
         login: async (_, { email, password }) => {
-        const user = await User.findOne({ email });
-    
-        if (!user) {
-            throw new AuthenticationError('No user found with this email address');
-        }
-    
-        const correctPw = await user.isCorrectPassword(password);
-    
-        if (!correctPw) {
-            throw new AuthenticationError('Incorrect credentials');
-        }
-    
-        const token = signToken(user);
-    
-        return { token, user };
+            const user = await User.findOne({ email });
+        
+            if (!user) {
+                throw new AuthenticationError('No user found with this email address');
+            }
+        
+            const correctPw = await user.isCorrectPassword(password);
+        
+            if (!correctPw) {
+                throw new AuthenticationError('Incorrect credentials');
+            }
+        
+            const token = signToken(user);
+        
+            return { token, user };
+            },
         },
-    }
+        createWallet: async (_, args) => {
+            console.log(args);
+        },
+        createPortfolio: async (_, args) => {
+            console.log(args)
+        }
 }
 
 module.exports = rootResolver;
