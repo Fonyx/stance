@@ -1,4 +1,4 @@
-const {Asset} = require('../models');
+const {Currency} = require('../models');
 const Logger = require('../utils/logger');
 const getCurrencyData = require('../api/getCurrencies');
 const currencyNames = require('../api/currencyNames');
@@ -38,7 +38,6 @@ async function updateCurrencies(RapidApiKey){
                 usdValue: perUsd,
                 name: name,
                 code: code,
-                type: "currency",
                 symbol: symbol,
                 unicode_decimal: unicode_decimal,
                 unicode_hex: unicode_hex
@@ -49,13 +48,13 @@ async function updateCurrencies(RapidApiKey){
                 setDefaultsOnInsert: true, 
                 new: true
             }
-            await Asset.findOneAndUpdate(
+            await Currency.findOneAndUpdate(
                 searchQuery, 
                 updateObj, 
                 options
             );
         }
-        Logger.info('Updated currencies');
+        Logger.info(`Updated ${Object.entries(currencyData.rates).length} currencies`);
 
     } else {
         Logger.warn('Failed to update currency objects as no data was received');

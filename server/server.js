@@ -44,10 +44,9 @@ app.get('*', (req, res) => {
 });
 
 // setup timeout to update currencies every hour
-setInterval(async () => {
-  Logger.info(`Updating currencies`)
-  updateCurrencies(RapidApiKey);
-}, 1000*60*60)
+// setInterval(async () => {
+updateCurrencies(RapidApiKey);
+// }, 1000*60*60)
 
 db.once('open', () => {
   if(process.env.MONGODB_URI){

@@ -38,12 +38,6 @@ const rootResolver = {
             return { token, user };
             },
         },
-        createWallet: async (_, args) => {
-            console.log(args);
-        },
-        createPortfolio: async (_, args) => {
-            console.log(args)
-        }
 }
 
 module.exports = rootResolver;

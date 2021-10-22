@@ -21,8 +21,8 @@ db.once('open', async () => {
   // await seedExchanges();
   // Logger.info('Seeded Exchanges');
 
-  await seedStock();
-  Logger.info('Seeded Stocks');
+  // await seedStock();
+  // Logger.info('Seeded Stocks');
 
   // await seedCoins();
   // Logger.info('Seeded Coins');

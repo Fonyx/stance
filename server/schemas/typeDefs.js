@@ -34,9 +34,9 @@ const typeDefs = gql`
 
   type Goal{
     _id: ID
-    amount: Number
+    amount: Float
     date: String
-    priority: Number
+    priority: Int
   }
 
   type Tag{
@@ -76,8 +76,6 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    createWallet(name: String!, userId: String, description: String): Wallet
-    createPortfolio(name: String!, userId: String!, description: String, goal: Goal, tags: [Tag]): Portfolio
   }
 `;
 
