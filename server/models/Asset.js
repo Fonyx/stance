@@ -93,6 +93,9 @@ assetSchema.post('findOne', async function (next) {
 
 const Asset = mongoose.model('Asset', assetSchema);
 
+// index asset table to make it faster
+Asset.index({market: -1, code: -1})
+
 module.exports = {
     Asset,
     assetSchema

@@ -23,11 +23,7 @@ const bankSchema = new mongoose.Schema({
     logo: {
         type: String,
         required: false
-    },
-    tags: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Tag"
-    }]
+    }
 }, {timestamps: true});
 
 const Bank = mongoose.model('Bank', bankSchema);

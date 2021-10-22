@@ -36,7 +36,7 @@ async function seedStock(){
         // create new stock assets for exchange, adding in exchangeId
         for(let i = 0; i < stocks.length; i++){
             let stock = stocks[i]
-            Logger.info(`Creating stock for ${stock.Name}`);
+            // Logger.info(`Creating stock for ${stock.Name}`);
             let createObj = {
                 type: "stock",
                 usdValue: 0,

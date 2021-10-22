@@ -49,7 +49,8 @@ const accountSchema = new mongoose.Schema({
     },
     assetId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Asset"
+        ref: "Asset",
+        required: true
     },
     style: {
         type: styleSchema,
