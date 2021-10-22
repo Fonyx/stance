@@ -36,21 +36,20 @@ const assetSchema = new mongoose.Schema({
     },
     usdValue: {
         type: Number,
-        required: true
+        required: false
     },
     changeP: {
         type: Number,
         required: false
-    },
-    market: {
-        type: String,
-        required: false,
     },
     exchangeId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Exchange'
     },
 }, {timestamps: true});
+
+// index asset table to make it faster
+assetSchema.index({market: -1, code: -1})
 
 // update the value of usdValue and changeP in the incoming data for seed save
 assetSchema.pre('save', async function (next) {
@@ -64,8 +63,11 @@ assetSchema.pre('save', async function (next) {
           this.usdValue = coinDetails.open !== 'NA'? parseFloat(coinDetails.open): parseFloat(coinDetails.previousClose);
           this.changeP = coinDetails.change_p !== 'NA'? parseFloat(coinDetails.change_p): null;
         } else {
-            throw new Error(`Can"t collect crypto value since instance has no code: ${this}`)
+            throw new Error(`Can't collect crypto value since instance has no code: ${this}`)
         }
+    } else if (this.type === 'stock'){
+        // Logger.info('Updating stock value in pre save Hook')
+        this.usdValue = 1
     }
     next();
 });
@@ -92,9 +94,6 @@ assetSchema.post('findOne', async function (next) {
 });
 
 const Asset = mongoose.model('Asset', assetSchema);
-
-// index asset table to make it faster
-Asset.index({market: -1, code: -1})
 
 module.exports = {
     Asset,

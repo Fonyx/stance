@@ -1,5 +1,5 @@
 const getCoins = require('../api/getCoins');
-const {Asset} = require('../models');
+const {Asset, Exchange } = require('../models');
 const wait = require('../utils/wait');
 const Logger = require('../utils/logger');
 
@@ -22,6 +22,12 @@ async function seedCoins(){
     // load in new coins by code, name and type: coin, then allow model method to query specific coin details
     // if performance or api economy becomes a problem, stack up tickers per request, this would also make it much faster so probably worth doing.
     // https://eodhistoricaldata.com/financial-apis/live-realtime-stocks-api/#Multiple_Tickers_with_One_Request
+
+    // since all coins come from the CC exchange, we need the exchange object for CC
+    let ccExchange = await Exchange.findOne({
+        code: "CC"
+    })
+
     for(const coin of coinData){
         // create with no USD value and let presave hook run individual query for coin valuation
         var assetData = {
@@ -29,9 +35,9 @@ async function seedCoins(){
             name: coin.Name,
             code: coin.Code,
             type: "coin",
-            market: coin.Exchange
+            exchangeId: ccExchange.id
         }
-        Logger.info(`Creating Coin for: ${coin.Name}`);
+        // Logger.info(`Creating Coin for: ${coin.Name}`);
         try{
             await Asset.create(assetData);
             // delay the saves 0.05 seconds as the api has a 2000 request per minute limit 0.03 seconds per request hard speed limit
