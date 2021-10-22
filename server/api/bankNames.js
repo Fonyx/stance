@@ -100,3 +100,5 @@ const bankNames = [
     "Gulf International Bank",
     "Arab Banking Corporation"
 ]
+
+module.exports = bankNames;
