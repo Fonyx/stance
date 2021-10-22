@@ -19,3 +19,8 @@
 2021-10-23 10:10:59:1059 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
 2021-10-23 10:10:59:1059 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
 2021-10-23 10:11:07:117 [32minfo[39m: [32mUpdated currencies undefined[39m
+2021-10-23 10:11:35:1135 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-23 10:11:35:1135 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m
+2021-10-23 10:11:44:1144 [32minfo[39m: [32mUpdated currencies 160[39m
+2021-10-23 10:24:30:2430 [32minfo[39m: [32mConnected to mongo atlas fonxyOps STANCE instance[39m
+2021-10-23 10:24:30:2430 [32minfo[39m: [32mGraphQL api endpoint at http://localhost:4000/graphql[39m

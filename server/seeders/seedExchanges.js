@@ -2,7 +2,7 @@
 // utils for getting current currency values relative to the USD
 var axios = require("axios").default;
 const Logger = require('../utils/logger');
-const {Exchange} = require('../models/Exchange');
+const {Exchange, Currency} = require('../models');
 
 /**
  * Function returns all exchanges from api
@@ -45,20 +45,29 @@ async function seedExchanges(){
     Logger.warn('Deleting all exchanges to add new records collected')
     await Exchange.deleteMany({});
 
-    var restructuredExchanges = {};
-
     for(const exchange of exchanges){
-        let exchangeObj = await Exchange.create({
+        // Logger.info(`Creating exchange for: ${exchange.Name}`)
+
+        let currencyObj = await Currency.findOne({
+            code: exchange.Currency
+        })
+
+        let currencyId;
+
+        if(!currencyObj){
+            Logger.warn(`No currency found for exchange: ${exchange.Name} because exchange currency is: ${exchange.Currency} - adding with null currency reference`);
+        } else {
+            currencyId = currencyObj._id;
+        }
+        
+        await Exchange.create({
             name:exchange.Name,
             code:exchange.Code,
             mic:exchange.OperatingMIC,
             country:exchange.Country,
-            currency:exchange.Currency,
+            currencyId: currencyId,
         });
-        Logger.info(`Created exchange: ${exchangeObj.name}`)
     }
-
-    return restructuredExchanges;
 }
 
 module.exports = seedExchanges;

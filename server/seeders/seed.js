@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({path: path.resolve(__dirname, '../.env')});
 const db = require('../config/connection');
 const Logger = require('../utils/logger');
 
@@ -18,8 +19,8 @@ db.once('open', async () => {
   // await seedUsers();
   // Logger.info(`Seeded Users`);
 
-  // await seedExchanges();
-  // Logger.info('Seeded Exchanges');
+  await seedExchanges();
+  Logger.info('Seeded Exchanges');
 
   // await seedStock();
   // Logger.info('Seeded Stocks');

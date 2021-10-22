@@ -1,6 +1,6 @@
-require('dotenv').config();
-const express = require('express');
 const path = require('path');
+require('dotenv').config({path: path.resolve(__dirname, './.env')});
+const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const db = require('./config/connection');
 const Logger = require('./utils/logger');
@@ -44,9 +44,9 @@ app.get('*', (req, res) => {
 });
 
 // setup timeout to update currencies every hour
-// setInterval(async () => {
-updateCurrencies(RapidApiKey);
-// }, 1000*60*60)
+setInterval(async () => {
+  updateCurrencies(RapidApiKey);
+}, 1000*60*60)
 
 db.once('open', () => {
   if(process.env.MONGODB_URI){
