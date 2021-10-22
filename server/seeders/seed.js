@@ -20,8 +20,8 @@ db.once('open', async () => {
   // await seedCoins();
   // Logger.info('Seeded Coins');
 
-  await seedExchanges();
-  Logger.info('Seeded Exchanges')
+  // await seedExchanges();
+  // Logger.info('Seeded Exchanges')
 
   
   Logger.info('Concluded seeding');

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const getCoinValue = require('../api/getCryptoValue');
+const getCoinValues = require('../api/getCryptoValue');
 
 
 const assetSchema = new mongoose.Schema({
@@ -39,6 +39,10 @@ const assetSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    changeP: {
+        type: Number,
+        required: false
+    },
     market: {
         type: String,
         required: false,
@@ -46,21 +50,31 @@ const assetSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 // a combined index for unique type codes
-assetSchema.index({type: 1, code: 1}, {unique: true})
+assetSchema.index({type: 1, code: 1}, {unique: true});
 
-assetSchema.pre('save', async function (next) {
+assetSchema.methods.updateUsdValue = function() {
     // if the asset isn't initialized with a USD value it must be an asset, it would have this if it was a currency
     if(this.type === 'coin'){
         // lookup the usdValue of the coin
         if (this.code) {
-          let coinDetails = await getCoinValue(this.code);
+          let coinDetails = await getCoinValues([this.code]);
           // TODO: this should be smarter, using market open is a bit meh
-          this.usdValue = coinDetails.open !== 'NA'? parseFloat(coinDetails.open): parseFloat(coinDetails.previousClose)
+          this.usdValue = coinDetails.open !== 'NA'? parseFloat(coinDetails.open): parseFloat(coinDetails.previousClose);
+          this.changeP = coinDetails.change_p !== 'NA'? parseFloat(coinDetails.change_p): null;
         } else {
             throw new Error(`Can"t collect crypto value since instance has no code: ${this}`)
         }
     }
-  
+}
+// update the value of the incoming data for seed save
+assetSchema.pre('save', async function (next) {
+    this.updateUsdValue();
+    next();
+});
+
+// update the instance when the instance is found using findOne
+assetSchema.post('findOne', async function (next) {
+    this.updateUsdValue();
     next();
 });
 
