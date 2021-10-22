@@ -66,7 +66,7 @@ assetSchema.methods.updateUsdValue = function() {
         }
     }
 }
-// update the value of the incoming data for seed save
+// update the value of usdValue and changeP in the incoming data for seed save
 assetSchema.pre('save', async function (next) {
     this.updateUsdValue();
     next();
