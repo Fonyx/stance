@@ -24,6 +24,10 @@ const exchangeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    assetIds: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Asset'
+    }],
 }, {timestamps: true});
 
 const Exchange = mongoose.model('Exchange', exchangeSchema);

@@ -48,13 +48,14 @@ async function seedExchanges(){
     var restructuredExchanges = {};
 
     for(const exchange of exchanges){
-        await Exchange.create({
+        let exchangeObj = await Exchange.create({
             name:exchange.Name,
             code:exchange.Code,
             mic:exchange.OperatingMIC,
             country:exchange.Country,
             currency:exchange.Currency,
-        })
+        });
+        Logger.info(`Created exchange: ${exchangeObj.name}`)
     }
 
     return restructuredExchanges;
