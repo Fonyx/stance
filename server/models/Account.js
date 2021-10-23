@@ -125,6 +125,14 @@ accountSchema.pre('findOne', async function (next) {
     next();
 });
 
+// populate the result with currency, exchange and tags before find
+accountSchema.pre('find', async function (next) {
+    this.populate('exchange');
+    this.populate('currency');
+    this.populate('tags');
+    next()
+})
+
 /**
  * export account balance in requested currency
  * @param {str} code Currency Code - defaults to AUD

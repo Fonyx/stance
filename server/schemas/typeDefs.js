@@ -96,7 +96,7 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     me: User
-    assets: [Asset]!
+    accounts: [Asset]!
     userAcc: [Account]!
   }
 
