@@ -13,8 +13,9 @@ const rootResolver = {
         assets: async () => {
             return await Asset.find({});
         },
-        userAcc: async (_, {user}) => {
+        userAcc: async (_, __, {user}) => {
             console.log(user);
+            console.log('Bang')
         }
     },
     Mutation:{
