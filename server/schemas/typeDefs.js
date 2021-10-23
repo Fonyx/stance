@@ -1,11 +1,23 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type User {
-    _id: ID
-    username: String
-    email: String
-    password: String
+  type Account {
+    _id: ID!
+    user: String
+    name: String!
+    type: String!
+    balance: Float
+    interestRate: Float
+    compounds: String
+    party: Party
+    assetCode: String
+    unitPrice: Float
+    changeP: Float
+    currency: Currency
+    exchange: String
+    style: Style
+    goal: Goal
+    tags: [Tag]
   }
 
   type Asset {
@@ -24,14 +36,15 @@ const typeDefs = gql`
     user: User
   }
 
-  type Style {
-    color: String
-    modifier: String
-    textColor: String
-    icon: String
-    wave: String
+  type Currency {
+    name: String!
+    code: String!
+    usdValue: Float!
+    symbol: String
+    unicode_decimal: String
+    unicode_hex: String
   }
-
+  
   type Goal{
     _id: ID
     amount: Float
@@ -39,22 +52,14 @@ const typeDefs = gql`
     priority: Int
   }
 
-  type Tag{
-    _id: ID
-    name: String
-    style: Style
-  }
-
-  type Wallet {
-    _id: ID!
+  type Party {
     name: String!
-    userId: String!
-    description: String
-    online: Boolean
+    type: String!
+    user: User
+    description: String!
     website: String
-    icon: String
-    goal: Goal
-    tags: [Tag!]
+    logo: String
+    style: Style
   }
 
   type Portfolio {
@@ -66,11 +71,33 @@ const typeDefs = gql`
     tags: [Tag!]
   }
 
+  type Style {
+    color: String
+    modifier: String
+    textColor: String
+    icon: String
+    wave: String
+  }
+  
+  type Tag{
+    _id: ID
+    name: String
+    style: Style
+  }
+
+  type User {
+    _id: ID
+    username: String
+    email: String
+    password: String
+  }
+  
   type Query {
     users: [User]
     user(username: String!): User
     me: User
     assets: [Asset]!
+    userAcc: [Account]!
   }
 
   type Mutation {

@@ -59,20 +59,23 @@ async function seedAccounts(){
                     return tag.id
                 })
             }
-    
-            accounts.push(await Account.create({
-                ...account,
-                user: userObj.id,
-                currency,
-                party,
-                exchange,
-                tags
-            }));
+
+            accounts.push(
+                await Account.create({
+                    ...account,
+                    user: userObj.id,
+                    currency,
+                    party,
+                    exchange,
+                    tags
+                }
+            ));
         }
     } catch (err) {
         console.error(err);
         process.exit(1);
     }
+
     Logger.info(`Seeded ${accounts.length} Accounts for user: ${userObj.username}`);
 }
 

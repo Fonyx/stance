@@ -130,7 +130,7 @@ accountSchema.pre('findOne', async function (next) {
  * @param {str} code Currency Code - defaults to AUD
  * @return {Float} accountValue in requested currency
  *  */ 
-accountSchema.methods.getValueInCurrency = function(code="AUD"){
+accountSchema.methods.getValueInCurrency = async function(code="AUD"){
     let targetCurrency = await Currency.findOne({
         code: code
     });
