@@ -3,7 +3,7 @@ const accountSeeds = require('./seeds/accountSeeds.json');
 const userSeeds = require('./seeds/userSeeds.json');
 const Logger = require('../utils/logger');
 
-async function seedParties(){
+async function seedAccounts(){
 
     var accounts = [];
 
@@ -73,4 +73,4 @@ async function seedParties(){
     Logger.info(`Seeded ${accounts.length} Accounts for user: ${userObj.username}`);
 }
 
-module.exports = seedParties;
+module.exports = seedAccounts;
