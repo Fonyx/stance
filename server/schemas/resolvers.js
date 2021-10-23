@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Account } = require('../models');
 const { signToken } = require('../utils/auth');
+const Logger = require('../utils/logger');
 
 const rootResolver = {
     Query:{
@@ -14,9 +15,15 @@ const rootResolver = {
             return await Account.find({});
         },
         userAcc: async (_, __, {user}) => {
+            if(!user){
+                Logger.warn('No User object found from middleware');
+                throw new AuthenticationError('Not logged in, please login');
+            }
             let accounts = await Account.find({
                 user: user
             });
+            let valueInEur = await accounts[0].getValueInCurrency('EUR');
+            Logger.warn(`Euro value of account: ${accounts[0].name} is: ${valueInEur}`)
             return accounts;
         }
     },

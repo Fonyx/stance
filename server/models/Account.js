@@ -85,7 +85,6 @@ accountSchema.methods.updateUnitValue = async function(){
             // if these is no market open price, use previous close
             this.unitPrice = data.open !=='NA'? data.open: data.previousClose;
             this.changeP = data.change_p !== 'NA'? data.change_p: null;
-
         } else {
             throw new Error(`Can't collect crypto value since ${this.name} has no code`)
         }
@@ -102,7 +101,7 @@ accountSchema.pre('save', async function (next) {
     this.populate('exchange');
     this.populate('currency');
     this.populate('tags');
-    this.updateUnitValue();
+    await this.updateUnitValue();
     
     next();
 });
@@ -113,7 +112,7 @@ accountSchema.pre('findOne', async function (next) {
     this.populate('exchange');
     this.populate('currency');
     this.populate('tags');
-    this.updateUnitValue();
+    await this.updateUnitValue();
     next();
 });
 
@@ -131,16 +130,26 @@ accountSchema.pre('find', async function (next) {
  * @return {Float} accountValue in requested currency
  *  */ 
 accountSchema.methods.getValueInCurrency = async function(code="AUD"){
+    let resultValue = 0.00;
+    // get target currency object from requested code
     let targetCurrency = await Currency.findOne({
         code: code
     });
+    // if none, exit
     if(!targetCurrency){
         throw new Error(`No currency found for code: ${code}`);
+    // otherwise populate with currency table
     } else {
         this.populate('Currency');
-        let value = this.currency.usdValue * this.balance / targetCurrency.usdValue;
-        return value
     }
+    // case for asset calculation
+    if(this.type !== "money"){
+        resultValue = this.currency.usdValue * this.balance / targetCurrency.usdValue;
+        // case for direct conversion of currency
+    } else {
+        resultValue = 1
+    }
+    return value
 }
 
 const Account = mongoose.model('Account', accountSchema);
