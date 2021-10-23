@@ -24,4 +24,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # logging
-.log
+server/logs/all.log
+server/logs/error.log
