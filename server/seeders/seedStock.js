@@ -1,7 +1,6 @@
-const {Asset, Exchange} = require('../models');
+const {Asset, Exchange, Currency} = require('../models');
 const wait = require('../utils/wait');
 const Logger = require('../utils/logger');
-const {exchangeService} = require('../services');
 const getStocksForExchangeCode = require('../api/getStocks');
 
 
@@ -35,16 +34,19 @@ async function seedStock(){
     Logger.info(`Found ${stocks.length} stocks for au exchange`);
 
     let assetIds = [];
-
+    let currencyObj = await Currency.findOne({
+        code: "AUD"
+    })
     // create new stock assets for exchange, adding in exchangeId
     for(let i = 0; i < stocks.length; i++){
-        let stock = stocks[i]
-        // Logger.info(`Creating stock for ${stock.Name}`);
+        let stock = stocks[i];
+        Logger.info(`Creating stock for ${stock.Name}`);
         let createObj = {
             type: "stock",
-            usdValue: 0,
+            pricePerUnit: 0,
             name: stock.Name,
             code: stock.Code,
+            currencyId: currencyObj._id,
             exchangeId: auExchange._id
         }
         try{

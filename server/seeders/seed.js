@@ -19,15 +19,14 @@ db.once('open', async () => {
   // await seedUsers();
   // Logger.info(`Seeded Users`);
 
-  await seedExchanges();
-  Logger.info('Seeded Exchanges');
+  // await seedExchanges();
+  // Logger.info('Seeded Exchanges');
 
   // await seedStock();
   // Logger.info('Seeded Stocks');
 
-  // await seedCoins();
-  // Logger.info('Seeded Coins');
-
+  await seedCoins();
+  Logger.info('Seeded Coins');
 
   
   Logger.info('Concluded seeding');
