@@ -136,7 +136,6 @@ module.exports = {
     Style,
     styleSchema,
     Tag,
-    tagSchema,
     Goal,
     goalSchema,
 }

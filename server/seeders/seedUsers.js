@@ -11,6 +11,7 @@ async function seedUsers(){
         console.error(err);
         process.exit(1);
     }
+    Logger.info(`Seeded Users`);
 }
 
 module.exports = seedUsers;

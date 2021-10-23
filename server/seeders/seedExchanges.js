@@ -68,6 +68,8 @@ async function seedExchanges(){
             currencyId: currencyId,
         });
     }
+
+    Logger.info(`Seeded ${exchanges.length} Exchanges`);
 }
 
 module.exports = seedExchanges;

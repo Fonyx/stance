@@ -3,23 +3,22 @@ var axios = require("axios").default;
 const Logger = require('../utils/logger');
 
 /**
- * Funciton that gets up to 20 coin detail values at once from api
- * @param {list} codes 
+ * Funciton that gets a single asset delayed value from a code and exchange
+ * @param {str} code "BTC-USA"/"AFI"
+ * @param {str} exchangeCode "CC"/"AU"
  * @returns {obj} data
  */
-async function getCryptoValue(code) {
+async function getAssetValue(code, exchangeCode) {
 
     var apiToken = process.env.EOD_TOKEN;
 
     if(!apiToken){
         throw new Error('Failed to collect apiToken for EOD finance coin query')
     }
-    // note the trailing &s= breaker which is the start of multiple code ticker list
-    let loadedUrl = `https://eodhistoricaldata.com/api/real-time/${code}.CC?api_token=${apiToken}&fmt=json`
 
     var options = {
         method: 'GET',
-        url: loadedUrl
+        url: `https://eodhistoricaldata.com/api/real-time/${code}.${exchangeCode}?api_token=${apiToken}&fmt=json`
     };
 
     const data = await axios.request(options).then(function (response) {
@@ -32,4 +31,4 @@ async function getCryptoValue(code) {
     return data
 }
 
-module.exports = getCryptoValue;
+module.exports = getAssetValue;
