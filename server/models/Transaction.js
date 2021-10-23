@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const {styleSchema} = require('./Meta');
 
 const transactionSchema = new mongoose.Schema({
     toAccount: {
@@ -28,8 +27,7 @@ const transactionSchema = new mongoose.Schema({
         type: String,
         enum: ["once", "daily", "weekly", "fortnightly", "monthly", "quarterly", "yearly"],
         default: "once"
-    },
-    style: styleSchema
+    }
 }, {timestamps: true});
 
 

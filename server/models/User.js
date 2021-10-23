@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const {goalSchema} = require('./Meta')
+const {goalSchema} = require('./Goal');
 
 const userSchema = new mongoose.Schema({
     username: {

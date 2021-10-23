@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const {styleSchema, goalSchema} = require('./Meta');
+const {styleSchema} = require('./Style');
+const {goalSchema} = require('./Goal');
 const getAssetValue = require('../api/getAssetValue');
 
 const accountSchema = new mongoose.Schema({
@@ -82,6 +83,7 @@ accountSchema.index({userId: 1, type: 1, name: 1}, {unique: true})
 
 // update the value of usdValue and changeP in the incoming data for seed save
 accountSchema.pre('save', async function (next) {
+    // https://stackoverflow.com/questions/30987054/populate-in-post-hook-middlewhere-for-find-in-mongoose
     // populate currency, exchange and tag objects
     this.populate('exchange');
     this.populate('currency');

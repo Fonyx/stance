@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const colors = [
     'red', 
     'pink', 
@@ -85,57 +84,11 @@ const styleSchema = new mongoose.Schema({
         required: true,
         default: "wave-teal"
     }
-}, {timestamps: true});
-
-
-const tagSchema = new mongoose.Schema({
-    userId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    },
-    name: {
-        type: String,
-        required: true,
-        default: 'auto tag'
-    },
-    style: {
-        type: styleSchema,
-        default: () => ({})
-    }
-}, {timestamps: true});
-
-// a combined index for unique accounts for user by name
-tagSchema.index({userId: 1, name: 1}, {unique: true})
-
-
-const goalSchema = new mongoose.Schema({
-    amount: {
-        type: Number,
-        required: true,
-        default: 0
-    },
-    date: {
-        type: Date,
-        required: true,
-        // default date is one year from today
-        default: () => Date.now() + 365*24*60*60*1000
-    },
-    priority: {
-        type: Number,
-        required: false,
-        default: 5
-    }
-}, {timestamps: true});
-
+});
 
 const Style = mongoose.model('Style', styleSchema);
-const Tag = mongoose.model('Tag', tagSchema);
-const Goal = mongoose.model('Goal', goalSchema);
 
 module.exports = {
     Style,
-    styleSchema,
-    Tag,
-    Goal,
-    goalSchema,
+    styleSchema
 }

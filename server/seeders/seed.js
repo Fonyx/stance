@@ -18,7 +18,12 @@ db.once('open', async () => {
   
   await seedExchanges();
 
-  await seedTestAccounts();
+  // seeing user details
+
+  await seedParties();
+  
+
+  await seedTags();
 
   
   Logger.info('Concluded seeding');

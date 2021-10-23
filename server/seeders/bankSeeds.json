@@ -1,0 +1,602 @@
+[
+    {
+      "name": "Industrial & Commercial Bank of China",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Agricultural Bank of China",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "China Construction Bank Corp",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Bank of China",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Banco Santander",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Groupe BPCE",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Societe Generale",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Barclays",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Deutsche Bank AG",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Postal Savings Bank of China",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Bank of Communications",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Royal Bank of Canada",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "TD Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Lloyds Banking Group",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Royal Bank of Scotland plc",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "China Merchants Bank Company Limited",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "UniCredit S.p.A.",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Norinchukin Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "UBS Group AG",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "China Minsheng Banking Corporation",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Bank of Nova Scotia",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Credit Suisse",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Intesa Sanpaolo",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "China CITIC Bank Corp",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Standard Chartered Plc",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "BBVA",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Rabobank Group",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Credit Mutuel",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Bank of Montreal",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Nordea Bank AB",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Commonwealth Bank of Australia",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Westpac Banking",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Resona Holdings Inc.",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Danske Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "National Australia Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Commerzbank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Natixis",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Sberbank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Canadian Imperial Bank of Commerce",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Bank of New York Mellon Corporation",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "U.S. Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "ABN AMRO Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Capital One",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Nomura Holdings Inc.",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "SEB Group",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "OCBC Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "DNB ASA",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Banco Bradesco",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "State Street Corporation",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Bank of Shanghai",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "UOB Group",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Banco de Sabadell",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "First Abu Dhabi Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "ICICI Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Maybank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Dexia SA",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "National Bank of Canada",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Banco BPM S.p.A.",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "KeyCorp",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Huntington Bancshares Inc.",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Northern Trust",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Bank of Ireland",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Macquarie",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "M&T Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "CIMB Group",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Emirates NBD",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Korea Post",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "CITIC Securities",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Deka Group",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "AMP Ltd",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "National Bank of Kuwait",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Bangkok Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Siam Commercial Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Shinsei Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Zions Bancorp",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "National Bank of Greece",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Chang Hwa Commercial Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Kuwait Finance House",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Akbank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Deutsche Pfandbriefbank Group",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Dubai Islamic Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Novo Banco S.A.",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Mitsubishi UFJ Lease and Finance Company",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Riyad Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "East West Bancorp",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Bank Pekao S.A.",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Aozora Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Mashreqbank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Banque Misr",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Commercial Bank of Qatar",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Bank of Queensland",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Halkbank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "China International Capital Corporation",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Tejarat Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Alinma Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Vontobel Holding AG",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Credit Bank of Moscow",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Bank Muscat",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Gulf International Bank",
+      "description": "",
+      "website": "",
+      "logo": ""
+    },
+    {
+      "name": "Arab Banking Corporation",
+      "description": "",
+      "website": "",
+      "logo": ""
+    }
+   ]
