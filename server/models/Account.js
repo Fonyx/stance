@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 const {styleSchema} = require('./Style');
 const {goalSchema} = require('./Goal');
 const getAssetValue = require('../api/getAssetValue');
+const Logger = require('../utils/logger');
 
 const accountSchema = new mongoose.Schema({
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
@@ -28,19 +29,11 @@ const accountSchema = new mongoose.Schema({
     compounds: {
         type: String,
         enum: ['monthly', 'quarterly', 'yearly'],
-        default: ['monthly']
+        default: 'monthly'
     },
-    stockPortfolioId: {
+    party: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'stockPortfolio'
-    },
-    walletId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Wallet'
-    },
-    bankId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Bank'
+        ref: 'Party'
     },
     assetCode: {
         type: String,
@@ -50,17 +43,17 @@ const accountSchema = new mongoose.Schema({
     },
     unitPrice: {
         type: Number,
-        required: true
+        required: false
     },
     changeP: {
         type: Number,
         required: false
     },
-    currencyId: {
+    currency: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Currency'
     },
-    exchangeId: {
+    exchange: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Exchange'
     },
@@ -92,8 +85,8 @@ accountSchema.pre('save', async function (next) {
     if(this.type === 'crypto' || this.type === 'stock'){
         Logger.info('Updating asset value in pre save Hook');
         // lookup the usdValue of the coin
-        if (this.code) {
-          let coinDetails = await getAssetValue(this.code, this.exchange.code);
+        if (this.assetCode) {
+          let coinDetails = await getAssetValue(this.assetCode, this.exchange.code);
           this.unitPrice = coinDetails.open !== 'NA'? parseFloat(coinDetails.open): parseFloat(coinDetails.previousClose);
           this.changeP = coinDetails.change_p !== 'NA'? parseFloat(coinDetails.change_p): null;
         } else {
@@ -116,13 +109,13 @@ accountSchema.pre('findOne', async function (next) {
     if(this.type === 'crypto' || this.type === 'stock'){
         Logger.info('Updating coin value in post findOne Hook');
         // lookup the usdValue of the coin
-        if (this.code) {
-            let coinDetails = await getAssetValue(this.code, this.exchange.code);
+        if (this.assetCode) {
+            let coinDetails = await getAssetValue(this.assetCode, this.exchange.code);
             // TODO: this should be smarter, using market open is a bit meh
             this.usdValue = coinDetails.open !== 'NA'? parseFloat(coinDetails.open): parseFloat(coinDetails.previousClose);
             this.changeP = coinDetails.change_p !== 'NA'? parseFloat(coinDetails.change_p): null;
         } else {
-            throw new Error(`Can"t collect crypto value since instance has no code: ${this}`)
+            throw new Error(`Can't collect crypto value since ${this.name} has no code`)
         }
     } else if (this.type === 'stock'){
         Logger.info('Updating stock value in post findOne Hook')

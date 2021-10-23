@@ -6,7 +6,6 @@ const Logger = require('../utils/logger');
 const seedUsers = require('./seedUsers');
 const seedExchanges = require('./seedExchanges');
 const seedParties = require('./seedParties');
-const seedTags = require('./seedTags');
 const seedAccounts = require('./seedAccounts');
 const seedTransactions = require('./seedTransactions');
 
@@ -23,13 +22,9 @@ db.once('open', async () => {
   
   // await seedExchanges();
 
-  // seeding user details
-
   // await seedParties();
-  
-  await seedTags();
 
-  // await seedAccounts();
+  await seedAccounts();
 
   // await seedTransactions();
 

@@ -20,7 +20,7 @@ const exchangeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    currencyId:{
+    currency:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Currency"
     },

@@ -1,3 +1,54 @@
-{
-    
-}
+[
+    {
+        "name":"main cash",
+        "type":"money",
+        "balance":141.32,
+        "interestRate":0.25,
+        "compounds":"monthly",
+        "partyName":"Commonwealth Bank of Australia",
+        "currencyCode":"AUD",
+        "exchangeCode":"forex",
+        "style":{
+            "color": "deep-orange",
+            "modifier": "darken-2",
+            "textColor": "white",
+            "icon": "",
+            "wave": "waves-yellow"
+        },
+        "tags":["everyday", "small transactions"]
+    },
+    {
+        "name":"bitcoin",
+        "type":"crypto",
+        "balance": 2,
+        "partyName":"coinspot",
+        "assetCode":"BTC-USD",
+        "currencyCode":"USD",
+        "exchangeCode":"CC",
+        "style":{
+            "color": "purple",
+            "modifier": "darken-2",
+            "textColor": "white",
+            "icon": "",
+            "wave": "waves-orange"
+        },
+        "tags":["high risk", "speculation"]
+    },
+    {
+        "name":"Australian Foundation Inc",
+        "type":"stock",
+        "balance": 223,
+        "partyName":"selfwealth",
+        "assetCode":"AFI",
+        "currencyCode":"AUD",
+        "exchangeCode":"AU",
+        "style":{
+            "color": "blue",
+            "modifier": "lighten-2",
+            "textColor": "black",
+            "icon": "",
+            "wave": "waves-green"
+        },
+        "tags":["long", "generalized", "ETF"]
+    }
+]

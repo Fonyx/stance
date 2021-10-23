@@ -12,7 +12,7 @@ const partySchema = new mongoose.Schema({
         enum: ['bank', 'wallet', 'broker'],
         required: true
     },
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },

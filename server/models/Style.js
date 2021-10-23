@@ -43,6 +43,18 @@ const modifiers = [
     'accent-4',
 ]
 
+// https://materializecss.com/waves.html
+
+const waves = [
+    'waves-light',
+    'waves-red',
+    'waves-yellow',
+    'waves-orange',
+    'waves-purple',
+    'waves-green',
+    'waves-teal',
+]
+
 const ExpenseIcons = [
     'call_received',
     'call_made'
@@ -81,8 +93,8 @@ const styleSchema = new mongoose.Schema({
     },
     wave:{
         type: String,
-        required: true,
-        default: "wave-teal"
+        enum: waves,
+        default: "waves-teal"
     }
 });
 

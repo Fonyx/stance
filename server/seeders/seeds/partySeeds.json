@@ -14,6 +14,13 @@
     "logo": "https://www.selfwealth.com.au/wp-content/uploads/2021/05/SelfWealth-App-Logo-White-BG.jpg"
   },
   {
+    "name": "coinspot",
+    "type": "broker",
+    "description": "online crypto exchange",
+    "website": "https://www.coinspot.com.au/",
+    "logo": "https://e7.pngegg.com/pngimages/19/812/png-clipart-coinspot-logo-coinspot-logo-miscellaneous-crypto-currencies-thumbnail.png"
+  },
+  {
     "name": "Industrial & Commercial Bank of China",
     "type": "bank",
     "description": "",

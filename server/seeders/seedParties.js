@@ -7,7 +7,7 @@ async function seedParties(){
         // purge all auto generated parties, leave user generated parties
         Logger.info('Purging automatically seeded parties')
         await Party.deleteMany({
-            userId: null
+            user: null
         });
         let partyObj = await Party.create(partySeeds);
         Logger.info(`Created party: ${partyObj.name}`)
