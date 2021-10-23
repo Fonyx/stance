@@ -16,14 +16,10 @@ async function seedAccounts(){
         Logger.info('Purging test user accounts');
 
         // purge accounts
-        await Account.deleteMany({
-            user: userObj.id
-        });
+        await Account.deleteMany();
 
         // purge all tags for user
-        await Tag.deleteMany({
-            user: userObj.id
-        });
+        await Tag.deleteMany();
 
         for (const account of accountSeeds){
 

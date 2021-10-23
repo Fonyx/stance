@@ -75,21 +75,17 @@ const accountSchema = new mongoose.Schema({
 // a combined index for unique accounts for user by name
 accountSchema.index({user: 1, type: 1, name: 1, assetCode: 1}, {unique: true})
 
-// update the value of usdValue and changeP in the incoming data for seed save
-accountSchema.pre('save', async function (next) {
-    // https://stackoverflow.com/questions/30987054/populate-in-post-hook-middlewhere-for-find-in-mongoose
-    // populate currency, exchange and tag objects
-    this.populate('exchange');
-    this.populate('currency');
-    this.populate('tags');
-
+// instance method for updating asset value using api query
+accountSchema.methods.updateUnitValue = async function(){
     if(this.type === 'crypto' || this.type === 'stock'){
         Logger.info('Updating account unitValue in pre save Hook');
         // lookup the usdValue of the coin
         if (this.assetCode) {
-          let coinDetails = await getAssetValue(this.assetCode, this.exchange.code);
-          this.unitPrice = coinDetails.open !== 'NA'? parseFloat(coinDetails.open): parseFloat(coinDetails.previousClose);
-          this.changeP = coinDetails.change_p !== 'NA'? parseFloat(coinDetails.change_p): null;
+            let data = await getAssetValue(this.assetCode, this.exchange.code);
+            // if these is no market open price, use previous close
+            this.unitPrice = data.open !=='NA'? data.open: data.previousClose;
+            this.changeP = data.change_p !== 'NA'? data.change_p: null;
+
         } else {
             throw new Error(`Can't collect crypto value since ${this.name} has no code`)
         }
@@ -97,6 +93,17 @@ accountSchema.pre('save', async function (next) {
         Logger.info('Updating stock value in pre save Hook')
         this.usdValue = 1
     }
+}
+
+// update the value of usdValue and changeP in the incoming data for seed save
+accountSchema.pre('save', async function (next) {
+    // https://stackoverflow.com/questions/30987054/populate-in-post-hook-middlewhere-for-find-in-mongoose
+    // populate currency, exchange and tag objects
+    this.populate('exchange');
+    this.populate('currency');
+    this.populate('tags');
+    this.updateUnitValue();
+    
     next();
 });
 
@@ -106,22 +113,7 @@ accountSchema.pre('findOne', async function (next) {
     this.populate('exchange');
     this.populate('currency');
     this.populate('tags');
-
-    if(this.type === 'crypto' || this.type === 'stock'){
-        Logger.info('Updating coin value in post findOne Hook');
-        // lookup the usdValue of the coin
-        if (this.assetCode) {
-            let coinDetails = await getAssetValue(this.assetCode, this.exchange.code);
-            // TODO: this should be smarter, using market open is a bit meh
-            this.unitPrice = coinDetails.open !== 'NA'? parseFloat(coinDetails.open): parseFloat(coinDetails.previousClose);
-            this.changeP = coinDetails.change_p !== 'NA'? parseFloat(coinDetails.change_p): null;
-        } else {
-            throw new Error(`Can't collect crypto value since ${this.name} has no code`)
-        }
-    } else if (this.type === 'stock'){
-        Logger.info('Updating stock value in post findOne Hook')
-        this.usdValue = 1
-    }
+    this.updateUnitValue();
     next();
 });
 
