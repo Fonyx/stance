@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const {styleSchema} = require('./Style');
 const {goalSchema} = require('./Goal');
+const {Currency} = require('./Currency');
 const getAssetValue = require('../api/getAssetValue');
 const Logger = require('../utils/logger');
 
@@ -83,7 +84,7 @@ accountSchema.pre('save', async function (next) {
     this.populate('tags');
 
     if(this.type === 'crypto' || this.type === 'stock'){
-        Logger.info('Updating asset value in pre save Hook');
+        Logger.info('Updating account unitValue in pre save Hook');
         // lookup the usdValue of the coin
         if (this.assetCode) {
           let coinDetails = await getAssetValue(this.assetCode, this.exchange.code);
@@ -112,7 +113,7 @@ accountSchema.pre('findOne', async function (next) {
         if (this.assetCode) {
             let coinDetails = await getAssetValue(this.assetCode, this.exchange.code);
             // TODO: this should be smarter, using market open is a bit meh
-            this.usdValue = coinDetails.open !== 'NA'? parseFloat(coinDetails.open): parseFloat(coinDetails.previousClose);
+            this.unitPrice = coinDetails.open !== 'NA'? parseFloat(coinDetails.open): parseFloat(coinDetails.previousClose);
             this.changeP = coinDetails.change_p !== 'NA'? parseFloat(coinDetails.change_p): null;
         } else {
             throw new Error(`Can't collect crypto value since ${this.name} has no code`)
@@ -123,6 +124,24 @@ accountSchema.pre('findOne', async function (next) {
     }
     next();
 });
+
+/**
+ * export account balance in requested currency
+ * @param {str} code Currency Code - defaults to AUD
+ * @return {Float} accountValue in requested currency
+ *  */ 
+accountSchema.methods.getValueInCurrency = function(code="AUD"){
+    let targetCurrency = await Currency.findOne({
+        code: code
+    });
+    if(!targetCurrency){
+        throw new Error(`No currency found for code: ${code}`);
+    } else {
+        this.populate('Currency');
+        let value = this.currency.usdValue * this.balance / targetCurrency.usdValue;
+        return value
+    }
+}
 
 const Account = mongoose.model('Account', accountSchema);
 
