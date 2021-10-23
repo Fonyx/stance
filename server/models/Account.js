@@ -25,6 +25,8 @@ const accountSchema = new mongoose.Schema({
     interestRate: {
         type: Number,
         required: false,
+        min: 0,
+        max: 1
     },
     compounds: {
         type: String,
@@ -37,9 +39,7 @@ const accountSchema = new mongoose.Schema({
     },
     assetCode: {
         type: String,
-        unique: true,
-        // // https://stackoverflow.com/questions/7955040/mongodb-mongoose-unique-if-not-null
-        sparse: true
+        required: false,
     },
     unitPrice: {
         type: Number,
@@ -72,7 +72,7 @@ const accountSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 // a combined index for unique accounts for user by name
-accountSchema.index({userId: 1, type: 1, name: 1}, {unique: true})
+accountSchema.index({user: 1, type: 1, name: 1, assetCode: 1}, {unique: true})
 
 // update the value of usdValue and changeP in the incoming data for seed save
 accountSchema.pre('save', async function (next) {

@@ -13,8 +13,7 @@ async function seedAccounts(){
     });
 
     try {
-        // purge all auto generated parties, leave user generated parties
-        Logger.info('Purging automatically seeded parties');
+        Logger.info('Purging test user accounts');
 
         // purge accounts
         await Account.deleteMany({
@@ -43,19 +42,23 @@ async function seedAccounts(){
                 code: account.exchangeCode
             });
             
-            // create tag objects and store as list of objects
-            let tagObjs = await Promise.all(
-                account.tags.map((name) => {
-                    return Tag.create({
-                        name,
-                        user: userObj.id
+            // if there are tags
+            let tags = [];
+            if(account.tags){
+                // create tag objects and store as list of objects
+                let tagObjs = await Promise.all(
+                    account.tags.map((name) => {
+                        return Tag.create({
+                            name,
+                            user: userObj.id
+                        })
                     })
+                );
+                // filter to the id's for the tag list
+                tags = tagObjs.map((tag)=>{
+                    return tag.id
                 })
-            );
-            // filter to the id's for the tag list
-            let tags = tagObjs.map((tag)=>{
-                return tag.id
-            })
+            }
     
             accounts.push(await Account.create({
                 ...account,

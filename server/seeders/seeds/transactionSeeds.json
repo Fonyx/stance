@@ -1,0 +1,50 @@
+[
+    {
+        "type":"money",
+        "description":"electricity",
+        "amount":124.2,
+        "frequency":"monthly"
+    },
+    {
+        "type":"money",
+        "description":"rent",
+        "amount":324.2,
+        "frequency":"fortnightly"
+    },
+    {
+        "type":"money",
+        "description":"salary",
+        "amount":11224.2,
+        "frequency":"yearly"
+    },
+    {
+        "type":"money",
+        "description":"land tax",
+        "factor":0.1,
+        "frequency":"quarterly"
+    },
+    {
+        "type":"crypto",
+        "description":"buying dip",
+        "amount":0.2,
+        "frequency":"once"
+    },
+    {
+        "type":"crypto",
+        "description":"taking profits",
+        "amount":0.1,
+        "frequency":"once"
+    },
+    {
+        "type":"stock",
+        "description":"undervalued",
+        "amount":100,
+        "frequency":"once"
+    },
+    {
+        "type":"stock",
+        "description":"overheated",
+        "factor":0.1,
+        "frequency":"once"
+    }
+]

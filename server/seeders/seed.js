@@ -18,15 +18,15 @@ db.once('open', async () => {
     Logger.info('Seeding to backup mongo at local host')
   }
 
-  // await seedUsers();
+  await seedUsers();
   
-  // await seedExchanges();
+  await seedExchanges();
 
-  // await seedParties();
+  await seedParties();
 
   await seedAccounts();
 
-  // await seedTransactions();
+  await seedTransactions();
 
   
   Logger.info('Concluded seeding');
