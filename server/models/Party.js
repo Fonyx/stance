@@ -22,8 +22,7 @@ const partySchema = new mongoose.Schema({
     },
     website: {
         type: String,
-        sparse: true,
-        unique: true
+        required: false
     },
     logo: {
         type: String,
