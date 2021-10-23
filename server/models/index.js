@@ -10,17 +10,14 @@ const {Party} = require('./Party');
 
 const models = {
     Account,
-    Asset,
-    Bank,
+    Party,
     Currency,
     Exchange,
     Goal,
-    Portfolio,
     User,
     Style,
     Transaction,
     Tag,
-    Wallet,
 }
 
 module.exports = models

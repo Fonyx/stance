@@ -5,6 +5,11 @@ const Logger = require('../utils/logger');
 
 const seedUsers = require('./seedUsers');
 const seedExchanges = require('./seedExchanges');
+const seedParties = require('./seedParties');
+const seedTags = require('./seedTags');
+const seedAccounts = require('./seedAccounts');
+const seedTransactions = require('./seedTransactions');
+
 
 db.once('open', async () => {
 
@@ -14,16 +19,19 @@ db.once('open', async () => {
     Logger.info('Seeding to backup mongo at local host')
   }
 
-  await seedUsers();
+  // await seedUsers();
   
-  await seedExchanges();
+  // await seedExchanges();
 
-  // seeing user details
+  // seeding user details
 
-  await seedParties();
+  // await seedParties();
   
-
   await seedTags();
+
+  // await seedAccounts();
+
+  // await seedTransactions();
 
   
   Logger.info('Concluded seeding');

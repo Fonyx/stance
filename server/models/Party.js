@@ -22,7 +22,7 @@ const partySchema = new mongoose.Schema({
     },
     website: {
         type: String,
-        required: false,
+        sparse: true,
         unique: true
     },
     logo: {
@@ -34,6 +34,8 @@ const partySchema = new mongoose.Schema({
         default: () => ({})
     }
 }, {timestamps: true});
+
+partySchema.index({name: 1, type: 1}, {unique: true});
 
 const Party = mongoose.model('Party', partySchema);
 

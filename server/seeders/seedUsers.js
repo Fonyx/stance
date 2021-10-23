@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const userSeeds = require('./userSeeds.json');
+const userSeeds = require('./seeds/userSeeds.json');
 const Logger = require('../utils/logger');
 
 async function seedUsers(){
