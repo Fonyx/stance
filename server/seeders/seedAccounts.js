@@ -15,7 +15,7 @@ async function seedAccounts(){
     // purge all tags for user
     await Tag.deleteMany();
 
-    for (const accountTextObj of accountSeeds){
+    for (let accountTextObj of accountSeeds){
         let account = await accountSvc.createFromSeed(accountTextObj);
         accounts.push(account);
     }

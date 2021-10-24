@@ -1,4 +1,5 @@
-const { Account, User, Party, Currency, Exchange, Tag } = require('../models');
+const { Account, User, Party, Currency, Exchange } = require('../models');
+const tagSvc = require('./tagSvc');
 const Logger = require('../utils/logger');
 
 
@@ -22,9 +23,19 @@ function isValidSeed(data){
                 valid = False
                 break
             }
+            if(!data.assetCode){
+                Logger.error('crypto has no asset code')
+                valid = False
+                break
+            }
         }
         // type: stock
         case "stock": {
+            if(!data.assetCode){
+                Logger.error('stock has no asset code')
+                valid = False
+                break
+            }
             break
         }
     }
@@ -48,20 +59,33 @@ async function createFromSeed(data){
         username: data.user
     });
 
+    if(!user){
+        Logger.warn(`No user found for ${data.user}`)
+    }
+    
     // get party obj
     let party = await Party.findOne({
         name: data.party
     });
+    if(!party){
+        Logger.warn(`No party found for ${data.party}`)
+    }
     
     // get currency obj
     let currency = await Currency.findOne({
         code: data.currency
     });
+    if(!currency){
+        Logger.warn(`No currency found for ${data.currency}`)
+    }
     
     // get exchange obj
     let exchange = await Exchange.findOne({
         code: data.exchange
     });
+    if(!exchange){
+        Logger.warn(`No exchange found for ${data.exchange}`)
+    }
 
     // if there are tags
     let tags = [];
@@ -69,28 +93,7 @@ async function createFromSeed(data){
         // create tag objects and store as list of objects
         let tagObjs = await Promise.all(
             data.tags.map((name) => {
-                return Tag.findOneAndUpdate(
-                    {
-                        //  find this
-                        name,
-                        user: user.id
-                    }, {
-                        // update it with the same values
-                        name,
-                        user: user.id
-                    },{
-                        // allow upsert, new, and runvalidators so it is a proper create
-                        upsert: true, 
-                        new: true, 
-                        runValidators: true
-                    }, (err, doc) => {
-                        if(err){
-                            Logger.error(err)
-                        } else {
-                            Logger.info(`created tag ${doc.name}`)
-                        }
-                    }
-                )
+                return tagSvc.createFromSeed(name, user)
             })
         );
         // filter to the id's for the tag list
@@ -99,13 +102,13 @@ async function createFromSeed(data){
         })
     }
 
-    createFromRich({
+    await createFromRich({
         ...data,
         // override the data fields with their relationship ObjectId values
-        user,
-        party,
-        currency,
-        exchange,
+        user: user.id,
+        party: party.id,
+        currency: currency.id,
+        exchange: exchange.id,
         tags
     })
 }
@@ -116,7 +119,7 @@ async function createFromSeed(data){
  * @return {obj} Account
  */
 async function createFromRich(data){
-    let account = await Account.create(data);
+    let account = await Account.create({...data});
     return account;
 }
 

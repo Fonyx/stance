@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const {Account} = require('../models/Account');
-
+const {accountSvc} = require('../services');
+var mongoDBtest = 'mongodb://127.0.0.1/test'
 
 // open test database
-mongoose.connect('mongodb://localhost/stance/test', {
+mongoose.connect(mongoDBtest, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -33,13 +33,14 @@ describe("Testing Account instance methods", () => {
   // })
   
   let validCryptoAccount = {
+      "user":"fonyx",
       "name":"test bitcoin",
       "type":"crypto",
       "balance":2.342,
-      "partyName":"coinspot",
+      "party":"coinspot",
       "assetCode":"BTC-USD",
-      "currencyCode":"USD",
-      "exchangeCode":"CC",
+      "currency":"USD",
+      "exchange":"CC",
       "style":{
           "color": "deep-orange",
           "modifier": "darken-2",
@@ -50,10 +51,10 @@ describe("Testing Account instance methods", () => {
   }
 
   test("a crypto account should return correct value in EUR", async () => {
-      // call the promised version of mongoose create
-      let account = await Account.create(validCryptoAccount);
-      let euroValue = await account.getValueInCurrency('EUR');
-      expect(euroValue).toBe(10000);
+      let account = await accountSvc.createFromSeed(validCryptoAccount);
+      // let euroValue = await account.getValueInCurrency('EUR');
+      // expect(euroValue).toBe(10000);
+      expect(account.name).toBe("fonyx");
   });
 })
 

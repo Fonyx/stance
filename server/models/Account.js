@@ -111,13 +111,16 @@ accountSchema.methods.updateUnitValue = async function(){
         // lookup the usdValue of the coin
         if (this.assetCode) {
             let data = await getAssetValue(this.assetCode, this.exchange.code);
+            if(!data){
+                throw new Error(`Failed to get data for assetCode: ${this.assetCode} exchangeCode: ${this.exchange.code} for some reason`);
+            }
             // if these is no market open price, use previous close
             this.unitPrice = data.open !=='NA'? data.open: data.previousClose;
             this.changeP = data.change_p !== 'NA'? data.change_p: null;
         } else {
             throw new Error(`Can't collect crypto value since ${this.name} has no code`)
         }
-    } else if (this.type === 'stock'){
+    } else if (this.type === 'money'){
         this.unitPrice = 1
     }
     Logger.info(`Updated account unitPrice in pre save Hook for ${this.name}: to ${this.unitPrice}`);
