@@ -9,7 +9,7 @@ const Logger = require('../utils/logger');
  * @returns models.Tag instance
  */
 async function createFromSeed(name, user){
-    return await Tag.findOneAndUpdate(
+    let tag = await Tag.findOneAndUpdate(
         {
             //  find this
             name,
@@ -31,6 +31,7 @@ async function createFromSeed(name, user){
             }
         }
     )
+    return tag;
 };
 
 const tagSvc = {

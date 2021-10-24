@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const {accountSvc} = require('../services');
 var mongoDBtest = 'mongodb://127.0.0.1/test'
+const runSeed = require('./seed');
 
 // open test database
-mongoose.connect(mongoDBtest, {
+var db = mongoose.connect(mongoDBtest, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -19,9 +20,10 @@ describe("Testing Account instance methods", () => {
   //   jest.setTimeout(100000);
   // })
 
-  // beforeAll(async () => {
-  //   await Account.deleteMany();
-  // });
+  // seed the test database with seed data for relation building in tests
+  beforeAll(async () => {
+    await runSeed(db);
+  });
   
   // afterAll(async () => {
   //   await Account.deleteMany();

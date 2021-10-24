@@ -90,16 +90,11 @@ async function createFromSeed(data){
     // if there are tags
     let tags = [];
     if(data.tags){
-        // create tag objects and store as list of objects
-        let tagObjs = await Promise.all(
-            data.tags.map((name) => {
-                return tagSvc.createFromSeed(name, user)
-            })
-        );
-        // filter to the id's for the tag list
-        tags = tagObjs.map((tag)=>{
-            return tag.id
-        })
+        for(let i = 0; i<data.tags.length; i++){
+            let name = data.tags[i];
+            let tag = await tagSvc.createFromSeed(name, user);
+            tags.push(tag.id);
+        }
     }
 
     await createFromRich({
