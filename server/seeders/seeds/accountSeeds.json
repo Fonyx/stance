@@ -1,13 +1,14 @@
 [
     {
+        "user": "fonyx",
         "name":"main cash",
         "type":"money",
         "balance":141.32,
         "interestRate":0.25,
         "compounds":"monthly",
-        "partyName":"Commonwealth Bank of Australia",
-        "currencyCode":"AUD",
-        "exchangeCode":"forex",
+        "party":"Commonwealth Bank of Australia",
+        "currency":"AUD",
+        "exchange":"forex",
         "style":{
             "color": "deep-orange",
             "modifier": "darken-2",
@@ -18,14 +19,15 @@
         "tags":["everyday", "small transactions"]
     },
     {
+        "user": "fonyx",
         "name":"savings",
         "type":"money",
         "balance":12321.32,
         "interestRate":0.7,
         "compounds":"monthly",
-        "partyName":"Commonwealth Bank of Australia",
-        "currencyCode":"AUD",
-        "exchangeCode":"forex",
+        "party":"Commonwealth Bank of Australia",
+        "currency":"AUD",
+        "exchange":"forex",
         "style":{
             "color": "light-blue",
             "modifier": "darken-2",
@@ -36,13 +38,14 @@
         "tags":["grow"]
     },
     {
+        "user": "fonyx",
         "name":"bitcoin",
         "type":"crypto",
         "balance": 2,
-        "partyName":"coinspot",
+        "party":"coinspot",
         "assetCode":"BTC-USD",
-        "currencyCode":"USD",
-        "exchangeCode":"CC",
+        "currency":"USD",
+        "exchange":"CC",
         "style":{
             "color": "purple",
             "modifier": "darken-2",
@@ -53,13 +56,14 @@
         "tags":["high risk", "speculation"]
     },
     {
+        "user": "fonyx",
         "name":"bitcoin saving",
         "type":"crypto",
         "balance": 4,
-        "partyName":"coinspot",
+        "party":"coinspot",
         "assetCode":"BTC-USD",
-        "currencyCode":"USD",
-        "exchangeCode":"CC",
+        "currency":"USD",
+        "exchange":"CC",
         "style":{
             "color": "yellow",
             "modifier": "darken-2",
@@ -70,13 +74,14 @@
         "tags":["store"]
     },
     {
+        "user": "fonyx",
         "name":"Australian Foundation Inc",
         "type":"stock",
         "balance": 223,
-        "partyName":"selfwealth",
+        "party":"selfwealth",
         "assetCode":"AFI",
-        "currencyCode":"AUD",
-        "exchangeCode":"AU",
+        "currency":"AUD",
+        "exchange":"AU",
         "style":{
             "color": "blue",
             "modifier": "lighten-2",
@@ -87,13 +92,14 @@
         "tags":["long", "generalized", "ETF"]
     },
     {
+        "user": "fonyx",
         "name":"Australian Foundation Inc Reserve",
         "type":"stock",
         "balance": 400,
-        "partyName":"selfwealth",
+        "party":"selfwealth",
         "assetCode":"AFI",
-        "currencyCode":"AUD",
-        "exchangeCode":"AU",
+        "currency":"AUD",
+        "exchange":"AU",
         "style":{
             "color": "lime",
             "modifier": "darken-2",

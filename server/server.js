@@ -1,9 +1,9 @@
-const app = require('./app');
 const { ApolloServer } = require('apollo-server-express');
-const db = require('./config/connection');
 const Logger = require('./utils/logger');
-const { typeDefs, resolvers } = require('./schemas');
+const app = require('./app');
+const db = require('./config/connection');
 const { authMiddleware } = require('./utils/auth');
+const { typeDefs, resolvers } = require('./schemas');
 
 // configure apollo server to use authMiddleware
 const server = new ApolloServer({
