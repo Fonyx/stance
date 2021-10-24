@@ -75,25 +75,6 @@ const accountSchema = new mongoose.Schema({
 // a combined index for unique accounts for user by name
 accountSchema.index({user: 1, type: 1, name: 1, assetCode: 1}, {unique: true})
 
-// instance method for updating asset value using api query
-accountSchema.methods.updateUnitValue = async function(){
-    if(this.type === 'crypto' || this.type === 'stock'){
-        Logger.info('Updating account unitValue in pre save Hook');
-        // lookup the usdValue of the coin
-        if (this.assetCode) {
-            let data = await getAssetValue(this.assetCode, this.exchange.code);
-            // if these is no market open price, use previous close
-            this.unitPrice = data.open !=='NA'? data.open: data.previousClose;
-            this.changeP = data.change_p !== 'NA'? data.change_p: null;
-        } else {
-            throw new Error(`Can't collect crypto value since ${this.name} has no code`)
-        }
-    } else if (this.type === 'stock'){
-        Logger.info('Updating stock value in pre save Hook')
-        this.usdValue = 1
-    }
-}
-
 // update the value of usdValue and changeP in the incoming data for seed save
 accountSchema.pre('save', async function (next) {
     // https://stackoverflow.com/questions/30987054/populate-in-post-hook-middlewhere-for-find-in-mongoose
@@ -124,6 +105,24 @@ accountSchema.pre('find', async function (next) {
     next()
 })
 
+// instance method for updating asset value using api query
+accountSchema.methods.updateUnitValue = async function(){
+    if(this.type === 'crypto' || this.type === 'stock'){
+        // lookup the usdValue of the coin
+        if (this.assetCode) {
+            let data = await getAssetValue(this.assetCode, this.exchange.code);
+            // if these is no market open price, use previous close
+            this.unitPrice = data.open !=='NA'? data.open: data.previousClose;
+            this.changeP = data.change_p !== 'NA'? data.change_p: null;
+        } else {
+            throw new Error(`Can't collect crypto value since ${this.name} has no code`)
+        }
+    } else if (this.type === 'stock'){
+        this.unitPrice = 1
+    }
+    Logger.info(`Updated account unitPrice in pre save Hook for ${this.name}: to ${this.unitPrice}`);
+}
+
 /**
  * export account balance in requested currency
  * @param {str} code Currency Code - defaults to AUD
@@ -149,7 +148,7 @@ accountSchema.methods.getValueInCurrency = async function(code="AUD"){
     } else {
         resultValue = 1
     }
-    return value
+    return resultValue
 }
 
 const Account = mongoose.model('Account', accountSchema);

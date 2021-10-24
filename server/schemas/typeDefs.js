@@ -6,7 +6,7 @@ const typeDefs = gql`
     user: String
     name: String!
     type: String!
-    balance: Float
+    balance: Float!
     interestRate: Float
     compounds: String
     party: Party

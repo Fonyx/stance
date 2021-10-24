@@ -22,8 +22,6 @@ const rootResolver = {
             let accounts = await Account.find({
                 user: user
             });
-            let valueInEur = await accounts[0].getValueInCurrency('EUR');
-            Logger.warn(`Euro value of account: ${accounts[0].name} is: ${valueInEur}`)
             return accounts;
         }
     },
