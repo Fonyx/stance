@@ -20,10 +20,10 @@ const tagSchema = new mongoose.Schema({
         type: goalSchema,
         default: () => ({})
     }
-});
+},{timestamps: true});
 
 // a combined index for unique accounts for user by name
-tagSchema.index({userId: 1, name: 1}, {unique: true})
+tagSchema.index({user: 1, name: 1}, {unique: true})
 
 const Tag = mongoose.model('Tag', tagSchema);
 

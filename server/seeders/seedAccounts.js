@@ -10,10 +10,10 @@ async function seedAccounts(){
     Logger.info('Purging test user accounts');
 
     // purge accounts
-    await Account.deleteMany();
+    await Account.deleteMany({});
 
     // purge all tags for user
-    await Tag.deleteMany();
+    await Tag.deleteMany({});
 
     for (let accountTextObj of accountSeeds){
         let account = await accountSvc.createFromSeed(accountTextObj);

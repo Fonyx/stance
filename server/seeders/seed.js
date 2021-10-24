@@ -23,13 +23,13 @@ async function runSeed(db){
       Logger.info('Seeding to backup mongo at local host')
     }
   
-    // await updateCurrencies(RapidApiKey);
+    await updateCurrencies(RapidApiKey);
   
-    // await seedUsers();
+    await seedUsers();
     
-    // await seedExchanges();
+    await seedExchanges();
   
-    // await seedParties();
+    await seedParties();
   
     await seedAccounts();
   
