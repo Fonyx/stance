@@ -9,13 +9,12 @@ async function seedParties(){
         await Party.deleteMany({
             user: null
         });
-        let partyObj = await Party.create(partySeeds);
-        Logger.info(`Created party: ${partyObj.name}`)
+        let parties = await Party.create(partySeeds);
+        Logger.info(`Created ${parties.length} parties`)
     } catch (err) {
         console.error(err);
         process.exit(1);
     }
-    Logger.info(`Seeded Parties`);
 }
 
 module.exports = seedParties;

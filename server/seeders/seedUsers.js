@@ -5,13 +5,12 @@ const Logger = require('../utils/logger');
 async function seedUsers(){
     try {
         await User.deleteMany({});
-        let user = await User.create(userSeeds);
-        Logger.info(`Created user: ${user.username}`)
+        let users = await User.create(userSeeds);
+        Logger.info(`Created ${users.length} users`)
     } catch (err) {
         console.error(err);
         process.exit(1);
     }
-    Logger.info(`Seeded Users`);
 }
 
 module.exports = seedUsers;
