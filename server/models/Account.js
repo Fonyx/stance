@@ -39,7 +39,14 @@ const accountSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    // the price per unit of the asset in the currency it references
     unitPrice: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+    // the market valuation of the asset using the unit price and balance
+    valuation: {
         type: Number,
         required: false,
         default: 0

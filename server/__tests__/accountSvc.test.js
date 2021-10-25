@@ -10,10 +10,8 @@ var testURI = process.env.MONGODB_TEST_URI
 // connect to test database using environment variable
 connectTo(testURI);
 
-describe("Testing Account instance methods", () => {
-
-
-    testAccounts = {
+describe("Testing account service", () => {
+    var testAccounts = {
         validCrypto: {
             "user":"fonyx",
             "name":"test bitcoin",
@@ -70,20 +68,38 @@ describe("Testing Account instance methods", () => {
             "tags":["grow"]
         }
     }
+    var invalidCryptoNoExchange = {
+        "user":"fonyx",
+        "name":"test bitcoin",
+        "type":"crypto",
+        "balance":2.342,
+        "party":"coinspot",
+        "assetCode":"BTC-USD",
+        "currency":"USD",
+        "style":{
+            "color": "deep-orange",
+            "modifier": "darken-2",
+            "textColor": "white",
+            "icon": "",
+            "wave": "waves-yellow"
+        },
+        "tags":["everyday", "small transactions"]
+    }
 
-
+    // clear out the test database of all account after each
     afterEach(async ()=>{
         await accountSvc.clear();
     })
 
     describe("testing crypto accounts", ()=>{
-        // testing the object is created, not checcking population, not checking any interpreted values
+        // testing the object is created, not checking population, not checking any interpreted values
         test("a valid crypto text entry should return valid account unpopulated object", async () => {
     
             let bareAccount = await accountSvc.createFromSeed(testAccounts.validCrypto);
             expect(bareAccount.name).toBe("test bitcoin");
             expect(bareAccount.balance).toBe(2.342);
             expect(bareAccount.unitPrice).toBe(0);
+            expect(bareAccount.valuation).toBe(0);
             expect(bareAccount.style.color).toBe("deep-orange");
             expect(bareAccount.goal.amount).toBe(0);
             // check for objectId relations, these aren't objects
@@ -101,6 +117,7 @@ describe("Testing Account instance methods", () => {
     
             // test the unitValue has been updated from the default 0 on save, crypto will have a dynamic value
             expect(populatedAccount.unitPrice).not.toBe(0);
+            expect(populatedAccount.valuation).not.toBe(0);
             // just check one field of the referenced object, if one exists, they all exist as these are pre populated collections
             expect(populatedAccount.exchange.code).toBe("CC");
             expect(populatedAccount.currency.code).toBe("USD");
@@ -119,6 +136,7 @@ describe("Testing Account instance methods", () => {
             expect(bareAccount.name).toBe("Australian Foundation Inc");
             expect(bareAccount.balance).toBe(223);
             expect(bareAccount.unitPrice).toBe(0);
+            expect(bareAccount.valuation).toBe(0);
             expect(bareAccount.style.color).toBe("blue");
             expect(bareAccount.goal.amount).toBe(0);
             // check for objectId relations, these aren't objects
@@ -136,6 +154,7 @@ describe("Testing Account instance methods", () => {
     
             // test the unitValue has been updated from the default 0 on save, crypto will have a dynamic value
             expect(populatedAccount.unitPrice).not.toBe(0);
+            expect(populatedAccount.valuation).not.toBe(0);
             // just check one field of the referenced object, if one exists, they all exist as these are pre populated collections
             expect(populatedAccount.exchange.code).toBe("AU");
             expect(populatedAccount.currency.code).toBe("AUD");
@@ -154,6 +173,7 @@ describe("Testing Account instance methods", () => {
             expect(bareAccount.name).toBe("savings");
             expect(bareAccount.balance).toBe(12321.32);
             expect(bareAccount.unitPrice).toBe(0);
+            expect(bareAccount.valuation).toBe(0);
             expect(bareAccount.interestRate).toBe(0.7);
             expect(bareAccount.compounds).toBe("monthly");
             expect(bareAccount.style.color).toBe("light-blue");
@@ -173,6 +193,7 @@ describe("Testing Account instance methods", () => {
     
             // test the unitValue has been updated from the default 0 on save, crypto will have a dynamic value
             expect(populatedAccount.unitPrice).toBe(1);
+            expect(populatedAccount.valuation).toBe(populatedAccount.balance);
             // just check one field of the referenced object, if one exists, they all exist as these are pre populated collections
             expect(populatedAccount.exchange.code).toBe("FOREX");
             expect(populatedAccount.currency.code).toBe("AUD");
@@ -180,6 +201,31 @@ describe("Testing Account instance methods", () => {
             expect(populatedAccount.user.username).toBe("fonyx");
             expect(populatedAccount.tags[0].name).toBe('grow');
         });
+    });
+    describe("Testing accountSvc static methods", () => {
+        
+        test("Testing isAccountPopulated with found account should return true", async () => {
+            let createdAccount = await accountSvc.createFromSeed(testAccounts.validCrypto);
+            let populatedAccount = await accountSvc.findById(createdAccount.id);
+            let isPop = accountSvc.isAccountPopulated(populatedAccount);
+            expect(isPop).toBe(true);
+        });
+        test("Testing isAccountPopulated with created account should return false", async () => {
+            let createdAccount = await accountSvc.createFromSeed(testAccounts.validCrypto);
+            let isPop = accountSvc.isAccountPopulated(createdAccount);
+            expect(isPop).toBe(false);
+        });
+        // testing invalid seed with bad account with no exchange, returns false
+        test("Invalid account should return invalid seed check", async () => {
+            // expect(() => {
+                //     accountSvc.isValidSeed(invalidCryptoNoExchange);
+                // }).toThrowError();
+                expect(accountSvc.isValidSeed(invalidCryptoNoExchange)).toBe(false);
+            })
+        // testing is valid seed returns true seed check
+        test("Valid account seed should return true seed check", async () => {
+            expect(accountSvc.isValidSeed(testAccounts.validCrypto)).toBe(true);
+        })
     });
 })
 

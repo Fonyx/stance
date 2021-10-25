@@ -16,17 +16,17 @@ function isValidSeed(data){
         case "crypto": {
             if(!data.assetCode.endsWith("-USD")){
                 Logger.error('crypto code does not end with USD')
-                valid = False
+                valid = false
                 break
             }
             if(data.exchange !== "CC"){
                 Logger.error('crypto exchange is not CC')
-                valid = False
+                valid = false
                 break
             }
             if(!data.assetCode){
                 Logger.error('crypto has no asset code')
-                valid = False
+                valid = false
                 break
             }
         }
@@ -34,7 +34,7 @@ function isValidSeed(data){
         case "stock": {
             if(!data.assetCode){
                 Logger.error('stock has no asset code')
-                valid = False
+                valid = false
                 break
             }
             break
@@ -44,65 +44,97 @@ function isValidSeed(data){
 }
 
 /**
+ * Function that receives an account and verifies if it has been populated
+ * @param {obj} models.Account 
+ * @returns {boolean} 
+ */
+function isAccountPopulated(account){
+    isPopulated = true;
+    // if account has the field, and it doesn't have a subdocument field it only has the object reference
+    if(account.user && !account.user.username){
+        isPopulated = false;
+    }
+    if(account.party && !account.party.name){
+        isPopulated = false;
+    }
+    if(account.currency && !account.currency.code){
+        isPopulated = false;
+    }
+    if(account.exchange && !account.exchange.name){
+        isPopulated = false;
+    }
+
+    return isPopulated
+}
+
+/**
  * updates an account object unitPrice, relies on hooks: pre [find, findOne] to populate account references that are used. Specifically the exchange object
  * @param {*} account 
  */
-async function updateUnitPrice(account){
+async function updateUnitPriceAndValuation(account){
+
     if (account.type === 'money') {
         account.unitPrice = 1;
     } else {
         // lookup the usdValue of the coin
         if (account.assetCode) {
-        let data = await getAssetValue(account.assetCode, account.exchange.code);
+            let data = await getAssetValue(account.assetCode, account.exchange.code);
 
-        if (!data) {
-            throw new Error(`Failed to get data for assetCode: ${account.assetCode} exchangeCode: ${account.exchange.code} for some reason`);
-        } // if these is no market open price, use previous close
+            if (!data) {
+                throw new Error(`Failed to get data for assetCode: ${account.assetCode} exchangeCode: ${account.exchange.code} for some reason`);
+            }
+            
+            // if these is no market open price, use previous close
+            account.unitPrice = data.open !== 'NA' ? data.open : data.previousClose;
+            account.changeP = data.change_p !== 'NA' ? data.change_p : null;
 
-
-        account.unitPrice = data.open !== 'NA' ? data.open : data.previousClose;
-        account.changeP = data.change_p !== 'NA' ? data.change_p : null;
         } else {
-        throw new Error(`Can't collect crypto value since ${account.name} has no code`);
+            throw new Error(`Can't collect crypto value since ${account.name} has no code`);
         }
     }
+
+    // now that the account has an accurate unitPrice, update it's valuation
+    account.valuation = account.balance * account.unitPrice;
+    
+    await account.save();
     Logger.info(`Updated account unitPrice in service layer ${account.name}: to ${account.unitPrice}`);
 
     return account;
 }
 
 /**
- * export account balance in requested currency
- * @param {str} code Currency Code - defaults to AUD
- * @return {Float} accountValue in requested currency
- *  */ 
- async function getAccountValueInCurrency(account, code="AUD"){
+ * update the account valuation using the unitPrice and the balance of the account
+ */
+async function exportValuation(account, code=null){
     let resultValue = 0.00;
-    // get target currency object from requested code
-    let targetCurrency = await Currency.findOne({
-        code: code
-    });
-    // if none, exit
-    if(!targetCurrency){
-        throw new Error(`No currency found for code: ${code}`);
-    } 
 
-    // otherwise populate with currency table
-    let populatedAccount = await account.populate('Currency');
+    // if we are exporting to a different currency but not changing the stored currency
+    if(code){
+        // check the account is populated with currency field
+        if(!isAccountPopulated(account)){
+            throw new Error("Cannot export the valuation for a non native currency as account passed was not populated with it's own currency object for the conversion")
+        }
 
-    // case for asset calculation
-    if(populatedAccount.type !== "money"){
-        resultValue = populatedAccount.currency.usdValue * populatedAccount.balance / targetCurrency.usdValue;
-        // case for direct conversion of currency
+        // get target currency object from requested code
+        let targetCurrency = await Currency.findOne({
+            code: code
+        });
+        // if none, exit
+        if(!targetCurrency){
+            throw new Error(`No currency found for code: ${code}`);
+        } 
+
+        resultValue = account.currency.usdValue * account.balance/targetCurrency.usdValue;
+    // case for using accounts own currency - primary case
     } else {
-        resultValue = 1
+        resultValue = account.valuation;
     }
-    return resultValue
+
+    return resultValue;
 }
 
 async function clear(){
     await Account.deleteMany({});
-    console.log(`Removed all accounts`);
 }
 
 /**
@@ -194,11 +226,14 @@ async function findById(id){
     if(!populatedAccount){
         throw new Error(`No account for id: ${id}`);
     }
-    let updatedPopulatedAccount = await updateUnitPrice(populatedAccount);
+    let updatedPopulatedAccount = await updateUnitPriceAndValuation(populatedAccount);
     return updatedPopulatedAccount;
 }
 
 const accountSvc = {
+    isAccountPopulated,
+    isValidSeed,
+    exportValuation,
     findById,
     createFromSeed,
     createFromRich,
