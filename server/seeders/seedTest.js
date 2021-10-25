@@ -6,8 +6,6 @@ const updateCurrencies = require('../helpers/updateCurrencies');
 const seedUsers = require('./seedUsers');
 const seedExchanges = require('./seedExchanges');
 const seedParties = require('./seedParties');
-const seedAccounts = require('./seedAccounts');
-const seedTransactions = require('./seedTransactions');
 const connectTo = require('../config/connectTo');
 
 // get api key for currency updates from env file

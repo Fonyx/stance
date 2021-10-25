@@ -42,6 +42,10 @@ function isValidSeed(data){
     return valid
 }
 
+async function clear(){
+    await Account.deleteMany({});
+    Logger.info(`Removed all accounts`);
+}
 
 /**
  * Creates an account from text data passed in, by looking up referenced models
@@ -97,7 +101,7 @@ async function createFromSeed(data){
         }
     }
 
-    await createFromRich({
+    let account = await createFromRich({
         ...data,
         // override the data fields with their relationship ObjectId values
         user: user.id,
@@ -105,7 +109,9 @@ async function createFromSeed(data){
         currency: currency.id,
         exchange: exchange.id,
         tags
-    })
+    });
+
+    return account
 }
 
 /**
@@ -120,7 +126,8 @@ async function createFromRich(data){
 
 const accountSvc = {
     createFromSeed,
-    createFromRich
+    createFromRich,
+    clear
 }
 
 module.exports = accountSvc
