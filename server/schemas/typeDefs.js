@@ -93,11 +93,12 @@ const typeDefs = gql`
   }
   
   type Query {
-    users: [User]
-    user(username: String!): User
-    me: User
     accounts: [Asset]!
+    me: User
+    user(username: String!): User
+    users: [User]
     userAcc: [Account]!
+    currencies: [Currency]!
   }
 
   type Mutation {
