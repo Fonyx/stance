@@ -3,9 +3,14 @@ require('dotenv').config({path: path.resolve(__dirname, './.env')});
 const express = require('express');
 const configuredMorgan = require('./utils/morgan.js');
 const updateCurrencies = require('./helpers/updateCurrencies');
+const connectTo = require('../server/config/connectTo');
+
 
 const app = express();
 app.PORT = process.env.PORT || 3001;
+app.prodURI = process.env.MONGODB_URI;
+// connect to production database
+connectTo(app.prodURI);
 
 // use custom colour server logging as middleware
 app.use(configuredMorgan);
@@ -18,6 +23,8 @@ var RapidApiKey = process.env.RAPID_API_KEY;
 if(!RapidApiKey){
   throw new Error('Failed to collect environment variable for rapid api key to update currencies')
 }
+
+
 // setup timeout to update currencies every hour
 setInterval(async () => {
   updateCurrencies(RapidApiKey);
