@@ -75,17 +75,6 @@ const accountSchema = new mongoose.Schema({
 // a combined index for unique accounts for user by name
 accountSchema.index({user: 1, type: 1, name: 1, assetCode: 1}, {unique: true})
 
-// update the value of usdValue and changeP in the incoming data for seed save
-accountSchema.pre('save', async function (next) {
-    // https://stackoverflow.com/questions/30987054/populate-in-post-hook-middlewhere-for-find-in-mongoose
-    // populate currency, exchange and tag objects
-    this.populate('exchange');
-    this.populate('currency');
-    this.populate('tags');
-    await this.updateUnitValue();
-    
-    next();
-});
 
 // update the instance when the instance is found using findOne
 accountSchema.pre('findOne', async function (next) {
@@ -93,24 +82,12 @@ accountSchema.pre('findOne', async function (next) {
     this.populate('exchange');
     this.populate('currency');
     this.populate('tags');
-    await this.updateUnitValue();
-    next();
-});
-
-// populate the result with currency, exchange and tags before find
-accountSchema.pre('find', async function (next) {
-    this.populate('exchange');
-    this.populate('currency');
-    this.populate('tags');
-    next()
-})
-
-// instance method for updating asset value using api query
-accountSchema.methods.updateUnitValue = async function(){
+    
     if(this.type === 'crypto' || this.type === 'stock'){
         // lookup the usdValue of the coin
         if (this.assetCode) {
             let data = await getAssetValue(this.assetCode, this.exchange.code);
+            console.log(data);
             if(!data){
                 throw new Error(`Failed to get data for assetCode: ${this.assetCode} exchangeCode: ${this.exchange.code} for some reason`);
             }
@@ -124,7 +101,37 @@ accountSchema.methods.updateUnitValue = async function(){
         this.unitPrice = 1
     }
     Logger.info(`Updated account unitPrice in pre save Hook for ${this.name}: to ${this.unitPrice}`);
-}
+
+    next();
+});
+
+// populate the result with currency, exchange and tags before find
+accountSchema.pre('find', async function (next) {
+    this.populate('exchange');
+    this.populate('currency');
+    this.populate('tags');
+    
+    if(this.type === 'crypto' || this.type === 'stock'){
+        // lookup the usdValue of the coin
+        if (this.assetCode) {
+            let data = await getAssetValue(this.assetCode, this.exchange.code);
+            console.log(data);
+            if(!data){
+                throw new Error(`Failed to get data for assetCode: ${this.assetCode} exchangeCode: ${this.exchange.code} for some reason`);
+            }
+            // if these is no market open price, use previous close
+            this.unitPrice = data.open !=='NA'? data.open: data.previousClose;
+            this.changeP = data.change_p !== 'NA'? data.change_p: null;
+        } else {
+            throw new Error(`Can't collect crypto value since ${this.name} has no code`)
+        }
+    } else if (this.type === 'money'){
+        this.unitPrice = 1
+    }
+    Logger.info(`Updated account unitPrice in pre save Hook for ${this.name}: to ${this.unitPrice}`);
+
+    next()
+})
 
 /**
  * export account balance in requested currency

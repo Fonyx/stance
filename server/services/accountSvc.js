@@ -44,7 +44,7 @@ function isValidSeed(data){
 
 async function clear(){
     await Account.deleteMany({});
-    Logger.info(`Removed all accounts`);
+    console.log(`Removed all accounts`);
 }
 
 /**
@@ -64,7 +64,7 @@ async function createFromSeed(data){
     });
 
     if(!user){
-        Logger.warn(`No user found for ${data.user}`)
+        throw new Error(`No user found for ${data.user}`)
     }
     
     // get party obj
@@ -72,7 +72,7 @@ async function createFromSeed(data){
         name: data.party
     });
     if(!party){
-        Logger.warn(`No party found for ${data.party}`)
+        throw new Error(`No party found for ${data.party}`)
     }
     
     // get currency obj
@@ -80,7 +80,7 @@ async function createFromSeed(data){
         code: data.currency
     });
     if(!currency){
-        Logger.warn(`No currency found for ${data.currency}`)
+        throw new Error(`No currency found for ${data.currency}`)
     }
     
     // get exchange obj
@@ -88,7 +88,7 @@ async function createFromSeed(data){
         code: data.exchange
     });
     if(!exchange){
-        Logger.warn(`No exchange found for ${data.exchange}`)
+        throw new Error(`No exchange found for ${data.exchange}`)
     }
 
     // if there are tags
@@ -124,7 +124,23 @@ async function createFromRich(data){
     return account;
 }
 
+/**
+ * Service layer find, takes advantage of hooks that populate instance
+ * @param {Str} id 
+ * @return {models.Account} Obj
+ */
+async function findById(id){
+    let populatedAccount = await Account.findOne({
+        "_id": id
+    });
+    if(!populatedAccount){
+        throw new Error(`No account for id: ${id}`);
+    }
+    return populatedAccount;
+}
+
 const accountSvc = {
+    findById,
     createFromSeed,
     createFromRich,
     clear
