@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const {styleSchema} = require('./Style');
 const {goalSchema} = require('./Goal');
-const {Currency} = require('./Currency');
-const getAssetValue = require('../api/getAssetValue');
-const Logger = require('../utils/logger');
 
 const accountSchema = new mongoose.Schema({
     user: {
@@ -44,11 +41,13 @@ const accountSchema = new mongoose.Schema({
     },
     unitPrice: {
         type: Number,
-        required: false
+        required: false,
+        default: 0
     },
     changeP: {
         type: Number,
-        required: false
+        required: false,
+        default: 0
     },
     currency: {
         type: mongoose.Schema.Types.ObjectId,
@@ -82,25 +81,8 @@ accountSchema.pre('findOne', async function (next) {
     this.populate('exchange');
     this.populate('currency');
     this.populate('tags');
-    
-    if(this.type === 'crypto' || this.type === 'stock'){
-        // lookup the usdValue of the coin
-        if (this.assetCode) {
-            let data = await getAssetValue(this.assetCode, this.exchange.code);
-            console.log(data);
-            if(!data){
-                throw new Error(`Failed to get data for assetCode: ${this.assetCode} exchangeCode: ${this.exchange.code} for some reason`);
-            }
-            // if these is no market open price, use previous close
-            this.unitPrice = data.open !=='NA'? data.open: data.previousClose;
-            this.changeP = data.change_p !== 'NA'? data.change_p: null;
-        } else {
-            throw new Error(`Can't collect crypto value since ${this.name} has no code`)
-        }
-    } else if (this.type === 'money'){
-        this.unitPrice = 1
-    }
-    Logger.info(`Updated account unitPrice in pre save Hook for ${this.name}: to ${this.unitPrice}`);
+    this.populate('user');
+    this.populate('party');
 
     next();
 });
@@ -110,56 +92,11 @@ accountSchema.pre('find', async function (next) {
     this.populate('exchange');
     this.populate('currency');
     this.populate('tags');
-    
-    if(this.type === 'crypto' || this.type === 'stock'){
-        // lookup the usdValue of the coin
-        if (this.assetCode) {
-            let data = await getAssetValue(this.assetCode, this.exchange.code);
-            console.log(data);
-            if(!data){
-                throw new Error(`Failed to get data for assetCode: ${this.assetCode} exchangeCode: ${this.exchange.code} for some reason`);
-            }
-            // if these is no market open price, use previous close
-            this.unitPrice = data.open !=='NA'? data.open: data.previousClose;
-            this.changeP = data.change_p !== 'NA'? data.change_p: null;
-        } else {
-            throw new Error(`Can't collect crypto value since ${this.name} has no code`)
-        }
-    } else if (this.type === 'money'){
-        this.unitPrice = 1
-    }
-    Logger.info(`Updated account unitPrice in pre save Hook for ${this.name}: to ${this.unitPrice}`);
+    this.populate('party');
+    this.populate('user');
 
     next()
 })
-
-/**
- * export account balance in requested currency
- * @param {str} code Currency Code - defaults to AUD
- * @return {Float} accountValue in requested currency
- *  */ 
-accountSchema.methods.getValueInCurrency = async function(code="AUD"){
-    let resultValue = 0.00;
-    // get target currency object from requested code
-    let targetCurrency = await Currency.findOne({
-        code: code
-    });
-    // if none, exit
-    if(!targetCurrency){
-        throw new Error(`No currency found for code: ${code}`);
-    // otherwise populate with currency table
-    } else {
-        this.populate('Currency');
-    }
-    // case for asset calculation
-    if(this.type !== "money"){
-        resultValue = this.currency.usdValue * this.balance / targetCurrency.usdValue;
-        // case for direct conversion of currency
-    } else {
-        resultValue = 1
-    }
-    return resultValue
-}
 
 const Account = mongoose.model('Account', accountSchema);
 

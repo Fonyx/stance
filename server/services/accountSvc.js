@@ -1,5 +1,6 @@
 const { Account, User, Party, Currency, Exchange } = require('../models');
 const tagSvc = require('./tagSvc');
+const getAssetValue = require('../api/getAssetValue');
 const Logger = require('../utils/logger');
 
 
@@ -40,6 +41,63 @@ function isValidSeed(data){
         }
     }
     return valid
+}
+
+/**
+ * updates an account object unitPrice, relies on hooks: pre [find, findOne] to populate account references that are used. Specifically the exchange object
+ * @param {*} account 
+ */
+async function updateUnitPrice(account){
+    if (account.type === 'money') {
+        account.unitPrice = 1;
+    } else {
+        // lookup the usdValue of the coin
+        if (account.assetCode) {
+        let data = await getAssetValue(account.assetCode, account.exchange.code);
+
+        if (!data) {
+            throw new Error(`Failed to get data for assetCode: ${account.assetCode} exchangeCode: ${account.exchange.code} for some reason`);
+        } // if these is no market open price, use previous close
+
+
+        account.unitPrice = data.open !== 'NA' ? data.open : data.previousClose;
+        account.changeP = data.change_p !== 'NA' ? data.change_p : null;
+        } else {
+        throw new Error(`Can't collect crypto value since ${account.name} has no code`);
+        }
+    }
+    Logger.info(`Updated account unitPrice in service layer ${account.name}: to ${account.unitPrice}`);
+
+    return account;
+}
+
+/**
+ * export account balance in requested currency
+ * @param {str} code Currency Code - defaults to AUD
+ * @return {Float} accountValue in requested currency
+ *  */ 
+ async function getAccountValueInCurrency(account, code="AUD"){
+    let resultValue = 0.00;
+    // get target currency object from requested code
+    let targetCurrency = await Currency.findOne({
+        code: code
+    });
+    // if none, exit
+    if(!targetCurrency){
+        throw new Error(`No currency found for code: ${code}`);
+    } 
+
+    // otherwise populate with currency table
+    let populatedAccount = await account.populate('Currency');
+
+    // case for asset calculation
+    if(populatedAccount.type !== "money"){
+        resultValue = populatedAccount.currency.usdValue * populatedAccount.balance / targetCurrency.usdValue;
+        // case for direct conversion of currency
+    } else {
+        resultValue = 1
+    }
+    return resultValue
 }
 
 async function clear(){
@@ -125,7 +183,7 @@ async function createFromRich(data){
 }
 
 /**
- * Service layer find, takes advantage of hooks that populate instance
+ * Service layer findOne by object id, takes advantage of hooks that populate instance
  * @param {Str} id 
  * @return {models.Account} Obj
  */
@@ -136,7 +194,8 @@ async function findById(id){
     if(!populatedAccount){
         throw new Error(`No account for id: ${id}`);
     }
-    return populatedAccount;
+    let updatedPopulatedAccount = await updateUnitPrice(populatedAccount);
+    return updatedPopulatedAccount;
 }
 
 const accountSvc = {
