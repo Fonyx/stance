@@ -80,9 +80,9 @@ const rootResolver = {
             if(!user){
                 throw new AuthenticationError('This action requires authentication, please log in')
             }
-            let newAccount = await accountSvc.createFromRich({...input});
-            let populatedAccount = await accountSvc.findById(newAccount.id);
-            return populatedAccount;
+            let account = await accountSvc.createFromRich({...input});
+            let populatedAccount = await accountSvc.populateEntireAccount(account);
+            return account;
         }
     },
 }

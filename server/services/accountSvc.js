@@ -210,9 +210,28 @@ async function createFromSeed(data){
  * @return {obj} Account
  */
 async function createFromRich(data){
-let account = await Account.create({...data});
-Logger.info(`Created account: ${account.name} in service layer`);
-return account;
+    let account = await Account.create({...data});
+
+    Logger.info(`Created account: ${account.name} in service layer`);
+    return account;
+}
+
+/**
+ * Populate an account with all relations
+ * @param {models.Account} instance
+ * @returns {models.Account} instance
+ */
+async function populateEntireAccount(account){
+    // populate the returned account
+    await Account.populate(account, { path: 'exchange' });
+    await Account.populate(account, { path: 'currency' });
+    await Account.populate(account, { path: 'tags' });
+    await Account.populate(account, { path: 'party' });
+    await Account.populate(account, { path: 'user' });
+
+    Logger.info(`Populated account: ${account.name} in service layer`);
+
+    return account
 }
 
 /**
@@ -235,6 +254,7 @@ const accountSvc = {
     isAccountPopulated,
     isValidSeed,
     exportValuation,
+    populateEntireAccount,
     findById,
     createFromSeed,
     createFromRich,
