@@ -98,6 +98,25 @@ const styleSchema = new mongoose.Schema({
     }
 });
 
+// randomize the color generation of the tags
+styleSchema.pre('save', async () => {
+    let randomColorIndex = generateRandomIntFromRange(0, colors.length-1);
+    let randomModifierIndex = generateRandomIntFromRange(0, modifiers.length-1);
+    let materializeText = 'black'
+    
+    let randomColor = colors[randomColorIndex];
+    let randomModifier = modifiers[randomModifierIndex];
+    
+    this.materialize_color = randomColor;
+    this.materialize_modifier = randomModifier;
+    
+    // if the modifier is darken, set the text to white, otherwise leave it black for lighten and accent
+    if(randomModifier[0] === 'd'){
+        materializeText = 'white';
+    }
+    this.materialize_text_color = materializeText;
+});
+
 const Style = mongoose.model('Style', styleSchema);
 
 module.exports = {
