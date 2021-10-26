@@ -209,13 +209,11 @@ async function createFromSeed(data){
  * @param {obj} data json with ObjectId's
  * @return {obj} Account
  */
- async function createFromRich(data){
-    let account = await Account.create({...data});
-    Logger.info(`Created account: ${account.name} in service layer`);
-    let populatedAccount = await findById(account.id);
-    // let populatedAccount = await populateAccount(account);
-    return populatedAccount;
- }
+async function createFromRich(data){
+let account = await Account.create({...data});
+Logger.info(`Created account: ${account.name} in service layer`);
+return account;
+}
 
 /**
  * Service layer findOne by object id, takes advantage of hooks that populate instance
@@ -232,23 +230,6 @@ async function findById(id){
     let updatedPopulatedAccount = await updateUnitPriceAndValuation(populatedAccount);
     return updatedPopulatedAccount;
 }
-
-// /**
-//  * Populates an account with all the relation fields
-//  */
-// async function populateAccount(account){
-//     Logger.info(`Populating account fields`);
-//     if(!isAccountPopulated(account)){
-//         //populate the result for return
-//         await account.populate('user').execPopulate();
-//         await account.populate('exchange').execPopulate();
-//         await account.populate('party').execPopulate();
-//         await account.populate('currency').execPopulate();
-//     } else {
-//         Logger.info("Not Populating, since it is already done")
-//     }
-//     return account;
-// }
 
 const accountSvc = {
     isAccountPopulated,
