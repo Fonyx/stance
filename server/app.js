@@ -27,7 +27,7 @@ if(!RapidApiKey){
 
 // setup timeout to update currencies every hour
 setInterval(async () => {
-  Logger.info(`Executing scheduled currency update`);
+  // Logger.info(`Executing scheduled currency update`);
   updateCurrencies(RapidApiKey);
 }, 1000*60*60)
 
