@@ -105,8 +105,9 @@ const typeDefs = gql`
   
   type Query {
     accounts: [Account]!
-    currencies: [Currency]!
-    me: User
+    allCurrencies: [Currency]!
+    allExchanges: [Exchange]!
+    allParties: [Party]!
     allTransactions: [Transaction]!
     user(username: String!): User
     users: [User]

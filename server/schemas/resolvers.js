@@ -1,19 +1,31 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Account, Currency, Transaction } = require('../models');
+const { User, Account, Currency, Transaction, Party, Exchange } = require('../models');
 const { tagSvc, accountSvc} = require('../services')
 const { signToken } = require('../utils/auth');
 const Logger = require('../utils/logger');
 
 const rootResolver = {
     Query:{
+        accounts: async () => {
+            return await Account.find({});
+        },
+        allCurrencies: async () => {
+            return await Currency.find({});
+        },
+        allExchanges: async () => {
+            return await Exchange.find({});
+        },
+        allParties: async () => {
+            return await Party.find({});
+        },
+        allTransactions: async () => {
+            return await Transaction.find({});
+        },
         user: async (_, { username }) => {
             return await User.findOne({ username }).populate('thoughts');
         },
         users: async () => {
             return await User.find({});
-        },
-        accounts: async () => {
-            return await Account.find({});
         },
         userAcc: async (_, __, {user}) => {
             if(!user){
@@ -24,12 +36,6 @@ const rootResolver = {
                 user: user
             });
             return accounts;
-        },
-        currencies: async () => {
-            return await Currency.find({});
-        },
-        allTransactions: async () => {
-            return await Transaction.find({});
         }
     },
     Mutation:{
