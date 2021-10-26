@@ -14,6 +14,7 @@ const server = new ApolloServer({
 server.applyMiddleware({ app });
 
 app.listen(app.PORT, () => {
+  Logger.info(`front endpoint at http://localhost:${app.PORT}`);
   Logger.info(`GraphQL api endpoint at http://localhost:${app.PORT}${server.graphqlPath}`);
 });
 
