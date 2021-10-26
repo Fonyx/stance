@@ -1,22 +1,8 @@
 const { Tag } = require('../models');
 const Logger = require('../utils/logger');
-const {generateRandomIntFromRange} = require('../utils/numerics');
-const {colors, shades} = require('../utils/styles');
 
+const {getRandomCssColor, getRandomCssShade} = require('../utils/styles');
 
-/**
- * helper to generate a random color for the tag style
- */
-function getRandomCssColor() {
-    let randomIndex = generateRandomIntFromRange(0, colors.length-1);
-    return colors[randomIndex];
-};
-
-// helper to generate random shade for the tag style
-function getRandomCssShade(){
-    let randomIndex = generateRandomIntFromRange(0, shades.length-1);
-    return shades[randomIndex];
-}
 
 /**
  * Create or find a tag for a given name and user, operates a findOneAndUpdate
