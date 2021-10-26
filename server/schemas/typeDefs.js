@@ -13,6 +13,8 @@ const typeDefs = gql`
     name: String!
     type: String!
     balance: Float!
+    interestRate: Float
+    compounds: String
     party: Party
     assetCode: String
     unitPrice: Float
@@ -29,13 +31,12 @@ const typeDefs = gql`
     name: String!
     type: String!
     balance: Float!
+    interestRate: Float
+    compounds: String
     party: String!
-    assetCode: String!
+    assetCode: String
     currency: String!
     exchange: String!
-    style: String!
-    goal: String!
-    tags: [String]!
   }
   
 

@@ -69,6 +69,14 @@ const rootResolver = {
             }
 
             return tags;
+        },
+        createAccount: async (_, {input}, {user}) => {
+            if(!user){
+                throw new AuthenticationError('This action requires authentication, please log in')
+            }
+            console.log(input);
+            let newAccount = await accountSvc.createFromRich({...input});
+            return newAccount;
         }
     },
 }

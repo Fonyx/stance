@@ -191,7 +191,7 @@ async function createFromSeed(data){
         }
     }
 
-    let account = await Account.create({
+    let account = createFromRich({
         ...data,
         // override the data fields with their relationship ObjectId values
         user: user.id,
@@ -203,6 +203,19 @@ async function createFromSeed(data){
 
     return account
 }
+
+/**
+ * Creates an account from rich data passed in which has objectId's as strings
+ * @param {obj} data json with ObjectId's
+ * @return {obj} Account
+ */
+ async function createFromRich(data){
+    let account = await Account.create({...data});
+    Logger.info(`Created account: ${account.name} in service layer`);
+    // let populatedAccount = await findById(account.id);
+    let populatedAccount = await populateAccount(account);
+    return populatedAccount;
+ }
 
 /**
  * Service layer findOne by object id, takes advantage of hooks that populate instance
@@ -220,12 +233,28 @@ async function findById(id){
     return updatedPopulatedAccount;
 }
 
+/**
+ * Populates an account with all the relation fields
+ */
+async function populateAccount(account){
+    Logger.info(`Populating account fields`);
+    if(!isAccountPopulated(account)){
+        //populate the result for return
+        await account.populate('user').execPopulate();
+        await account.populate('exchange').execPopulate();
+        await account.populate('party').execPopulate();
+        await account.populate('currency').execPopulate();
+    }
+    return account;
+}
+
 const accountSvc = {
     isAccountPopulated,
     isValidSeed,
     exportValuation,
     findById,
     createFromSeed,
+    createFromRich,
     clear
 }
 

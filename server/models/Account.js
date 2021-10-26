@@ -6,6 +6,7 @@ const accountSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true
     },
     name: {
         type: String,
@@ -81,6 +82,14 @@ const accountSchema = new mongoose.Schema({
 // a combined index for unique accounts for user by name
 accountSchema.index({user: 1, type: 1, name: 1, assetCode: 1}, {unique: true})
 
+// call populate exec on account after it has been saved
+accountSchema.post('save', async function () {
+    this.populate('exchange').execPopulate();
+    this.populate('currency').execPopulate();
+    this.populate('tags').execPopulate();
+    this.populate('party').execPopulate();
+    this.populate('user').execPopulate();
+})
 
 // update the instance when the instance is found using findOne
 accountSchema.pre('findOne', async function (next) {
