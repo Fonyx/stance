@@ -2,13 +2,18 @@ const mongoose = require('mongoose');
 const Logger = require('../utils/logger');
 
 const transactionSchema = new mongoose.Schema({
+    // accounts can't both be null
     fromAccount: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account',
+        // if this.toAccount is null, then this field is required
+        required: function() { return this.toAccount === null; },
     },
     toAccount: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account',
+        // if this.fromAccount is null, then this field is required
+        required: function() { return this.fromAccount === null; },
     },
     description:{
         type: String,

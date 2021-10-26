@@ -23,11 +23,7 @@ const exchangeSchema = new mongoose.Schema({
     currency:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Currency"
-    },
-    assetIds: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Asset'
-    }],
+    }
 }, {timestamps: true});
 
 const Exchange = mongoose.model('Exchange', exchangeSchema);

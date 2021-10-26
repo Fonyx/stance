@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Account, Currency } = require('../models');
+const { User, Account, Currency, Transaction } = require('../models');
 const { tagSvc, accountSvc} = require('../services')
 const { signToken } = require('../utils/auth');
 const Logger = require('../utils/logger');
@@ -27,6 +27,9 @@ const rootResolver = {
         },
         currencies: async () => {
             return await Currency.find({});
+        },
+        allTransactions: async () => {
+            return await Transaction.find({});
         }
     },
     Mutation:{

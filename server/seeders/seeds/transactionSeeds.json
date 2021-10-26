@@ -26,13 +26,13 @@
     {
         "type":"crypto",
         "description":"buying dip",
-        "amount":0.2,
+        "factor":0.2,
         "frequency":"once"
     },
     {
         "type":"crypto",
         "description":"taking profits",
-        "amount":0.1,
+        "factor":0.1,
         "frequency":"once"
     },
     {

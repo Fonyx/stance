@@ -2,7 +2,6 @@ const { Account, User, Party, Currency, Exchange } = require('../models');
 const tagSvc = require('./tagSvc');
 const getAssetValue = require('../api/getAssetValue');
 const Logger = require('../utils/logger');
-const wait = require('../utils/wait');
 
 
 function isValidSeed(data){
