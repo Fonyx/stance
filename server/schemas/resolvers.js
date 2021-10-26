@@ -74,7 +74,6 @@ const rootResolver = {
             if(!user){
                 throw new AuthenticationError('This action requires authentication, please log in')
             }
-            console.log(input);
             let newAccount = await accountSvc.createFromRich({...input});
             return newAccount;
         }
