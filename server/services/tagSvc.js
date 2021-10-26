@@ -8,7 +8,7 @@ const Logger = require('../utils/logger');
  * @param {models.User} user instance
  * @returns models.Tag instance
  */
-async function createFromSeed(name, user){
+async function upsertFromSeed(name, user){
     let tag = await Tag.findOneAndUpdate(
         {
             //  find this
@@ -19,7 +19,7 @@ async function createFromSeed(name, user){
             name,
             user: user.id
         },{
-            // allow upsert, new, and runvalidators so it is a proper create
+            // allow upsert, new, and run validators so it is a proper create
             upsert: true, 
             new: true, 
             runValidators: true
@@ -35,7 +35,7 @@ async function createFromSeed(name, user){
 };
 
 const tagSvc = {
-    createFromSeed
+    upsertFromSeed
 }
 
 module.exports = tagSvc

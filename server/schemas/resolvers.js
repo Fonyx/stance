@@ -52,13 +52,20 @@ const rootResolver = {
         
             return { token, user };
         },
-        updateTags: async (_, {name}, {user}) => {
+        updateTags: async (_, {names}, {user}) => {
             if(!user){
                 throw new AuthenticationError('This action requires authentication, please log in')
             }
-            Logger.info(name);
-            let tag = await tagSvc.createFromSeed(name, user);
-            return tag;
+            Logger.info(names);
+
+            let tags = [];
+
+            for(let i=0; i < names.length; i++){
+                let tag = await tagSvc.upsertFromSeed(names[i], user);
+                tags.push(tag);
+            }
+
+            return tags;
         }
     },
 }
