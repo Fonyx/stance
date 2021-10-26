@@ -2,6 +2,7 @@ const { Account, User, Party, Currency, Exchange } = require('../models');
 const tagSvc = require('./tagSvc');
 const getAssetValue = require('../api/getAssetValue');
 const Logger = require('../utils/logger');
+const wait = require('../utils/wait');
 
 
 function isValidSeed(data){
@@ -191,7 +192,7 @@ async function createFromSeed(data){
         }
     }
 
-    let account = await createFromRich({
+    let account = await Account.create({
         ...data,
         // override the data fields with their relationship ObjectId values
         user: user.id,
@@ -202,16 +203,6 @@ async function createFromSeed(data){
     });
 
     return account
-}
-
-/**
- * Function creates an account from rich referenced data, no model references looked up
- * @param {obj} data json with reference Id's
- * @return {obj} Account
- */
-async function createFromRich(data){
-    let account = await Account.create({...data});
-    return account;
 }
 
 /**
@@ -236,7 +227,6 @@ const accountSvc = {
     exportValuation,
     findById,
     createFromSeed,
-    createFromRich,
     clear
 }
 

@@ -30,33 +30,31 @@ async function upsertFromSeed(name, user){
     let color = getRandomCssColor();
     let shade = getRandomCssShade();
 
-    let tag = await Tag.findOneAndUpdate(
-        {
-            //  find this
-            name,
-            user: user.id
-        }, {
-            // update it with the same values
+    let foundTag;
+
+    foundTag = await Tag.findOne({
+        //  find this
+        name,
+        user: user.id
+    });
+
+    if(foundTag){
+        Logger.info(`Found tag ${foundTag.name} with color: ${foundTag.style.color}`)
+    } else {
+        foundTag = await Tag.create({
+            // update it with these values
             name,
             user: user.id,
             style: {
                 color: color,
                 shade: shade
             }
-        },{
-            // allow upsert, new, and run validators so it is a proper create
-            upsert: true, 
-            new: true, 
-            runValidators: true
-        }, (err, doc) => {
-            if(err){
-                Logger.error(err)
-            } else {
-                Logger.info(`created tag ${doc.name} with color: ${doc.style.color}`)
-            }
-        }
-    )
-    return tag;
+        })
+        Logger.info(`Created tag ${foundTag.name} with color: ${foundTag.style.color}`)
+    }
+
+    return foundTag;
+
 };
 
 const tagSvc = {
