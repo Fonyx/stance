@@ -11,10 +11,7 @@
         "exchange":"FOREX",
         "style":{
             "color": "deep-orange",
-            "modifier": "darken-2",
-            "textColor": "white",
-            "icon": "",
-            "wave": "waves-yellow"
+            "shade": 300
         },
         "tags":["everyday", "small transactions"]
     },
@@ -30,10 +27,7 @@
         "exchange":"FOREX",
         "style":{
             "color": "light-blue",
-            "modifier": "darken-2",
-            "textColor": "black",
-            "icon": "",
-            "wave": "waves-green"
+            "shade": 500
         },
         "tags":["grow"]
     },
@@ -48,10 +42,7 @@
         "exchange":"CC",
         "style":{
             "color": "purple",
-            "modifier": "darken-2",
-            "textColor": "white",
-            "icon": "",
-            "wave": "waves-orange"
+            "shade": 700
         },
         "tags":["high risk", "speculation"]
     },
@@ -66,10 +57,7 @@
         "exchange":"CC",
         "style":{
             "color": "yellow",
-            "modifier": "darken-2",
-            "textColor": "black",
-            "icon": "",
-            "wave": "waves-orange"
+            "shade": 200
         }
     },
     {
@@ -83,10 +71,7 @@
         "exchange":"AU",
         "style":{
             "color": "blue",
-            "modifier": "lighten-2",
-            "textColor": "black",
-            "icon": "",
-            "wave": "waves-green"
+            "shade": 600
         },
         "tags":["long", "generalized", "ETF"]
     },
@@ -101,10 +86,7 @@
         "exchange":"AU",
         "style":{
             "color": "lime",
-            "modifier": "darken-2",
-            "textColor": "white",
-            "icon": "",
-            "wave": "waves-red"
+            "shade": 500
         }
     }
 ]

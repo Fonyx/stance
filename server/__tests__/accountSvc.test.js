@@ -23,10 +23,7 @@ describe("Testing account service", () => {
             "exchange":"CC",
             "style":{
                 "color": "deep-orange",
-                "modifier": "darken-2",
-                "textColor": "white",
-                "icon": "",
-                "wave": "waves-yellow"
+                "modifier": 300
             },
             "tags":["everyday", "small transactions"]
         },
@@ -41,10 +38,7 @@ describe("Testing account service", () => {
             "exchange":"AU",
             "style":{
                 "color": "blue",
-                "modifier": "lighten-2",
-                "textColor": "black",
-                "icon": "",
-                "wave": "waves-green"
+                "modifier": 500,
             },
             "tags":["long", "generalized", "ETF"]
         },
@@ -60,10 +54,7 @@ describe("Testing account service", () => {
             "exchange":"FOREX",
             "style":{
                 "color": "light-blue",
-                "modifier": "darken-2",
-                "textColor": "black",
-                "icon": "",
-                "wave": "waves-green"
+                "modifier": 700
             },
             "tags":["grow"]
         }
@@ -78,10 +69,7 @@ describe("Testing account service", () => {
         "currency":"USD",
         "style":{
             "color": "deep-orange",
-            "modifier": "darken-2",
-            "textColor": "white",
-            "icon": "",
-            "wave": "waves-yellow"
+            "modifier": 300
         },
         "tags":["everyday", "small transactions"]
     }

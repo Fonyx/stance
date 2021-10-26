@@ -186,7 +186,7 @@ async function createFromSeed(data){
     if(data.tags){
         for(let i = 0; i<data.tags.length; i++){
             let name = data.tags[i];
-            let tag = await tagSvc.createFromSeed(name, user);
+            let tag = await tagSvc.upsertFromSeed(name, user);
             tags.push(tag.id);
         }
     }
