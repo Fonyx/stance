@@ -8,10 +8,6 @@ const expiration = '3h';
 module.exports = {
   authMiddleware: async function ({ req }) {
     let token = req.headers.authorization;
-
-    if (token) {
-      token = token.split(' ').pop().trim();
-    }
     
     if (!token) {
       return req;
@@ -25,7 +21,7 @@ module.exports = {
       Logger.info(`User: ${user.username} sent authorized request`);
       req.user = user;
     } catch {
-      Logger.warn('Invalid Token');
+      Logger.error('Present but Invalid Token');
     }
 
     return req;

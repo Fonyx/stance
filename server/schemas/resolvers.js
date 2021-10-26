@@ -1,5 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Account, Currency } = require('../models');
+const { tagSvc, accountSvc} = require('../services')
 const { signToken } = require('../utils/auth');
 const Logger = require('../utils/logger');
 
@@ -37,8 +38,8 @@ const rootResolver = {
         login: async (_, { email, password }) => {
             const user = await User.findOne({ email });
         
-            if (!user) {
-                throw new AuthenticationError('No user found with this email address');
+            if(!user){
+                throw new AuthenticationError('This action requires authentication, please log in')
             }
         
             const correctPw = await user.isCorrectPassword(password);
@@ -50,7 +51,15 @@ const rootResolver = {
             const token = signToken(user);
         
             return { token, user };
-            },
+        },
+        updateTags: async (_, {name}, {user}) => {
+            if(!user){
+                throw new AuthenticationError('This action requires authentication, please log in')
+            }
+            Logger.info(name);
+            let tag = await tagSvc.createFromSeed(name, user);
+            return tag;
+        }
     },
 }
 
