@@ -1,5 +1,6 @@
 const path = require('path');
 require('dotenv').config({path: path.resolve(__dirname, '../.env')});
+const mongoose = require('mongoose');
 
 const {accountSvc} = require('../services');
 const connectTo = require('../config/connectTo');
@@ -73,6 +74,12 @@ describe("Testing account service", () => {
         },
         "tags":["everyday", "small transactions"]
     }
+
+    afterAll(done => {
+        // Closing the DB connection allows Jest to exit successfully.
+        mongoose.connection.close()
+        done()
+    })
 
     // clear out the test database of all account after each
     afterEach(async ()=>{

@@ -22,11 +22,11 @@ if(!RapidApiKey){
 async function seedProduction(){
   Logger.info('Seeding production database');
   connectTo(prodURI);
-  // await updateCurrencies(RapidApiKey);
-  // await seedUsers();
-  // await seedExchanges();    
-  // await seedParties();
-  // await seedAccounts();
+  await updateCurrencies(RapidApiKey);
+  await seedUsers();
+  await seedExchanges();    
+  await seedParties();
+  await seedAccounts();
   await seedTransactions();
 }
 
@@ -41,10 +41,10 @@ async function seedTest(){
 
 async function seed(){
   await seedProduction();
-  // mongoose.disconnect().then(async () => {
-  //   await seedTest();
-  //   process.exit(1);
-  // });
+  mongoose.disconnect().then(async () => {
+    await seedTest();
+    process.exit(1);
+  });
 }
 
 seed();
