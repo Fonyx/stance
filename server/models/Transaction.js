@@ -77,7 +77,7 @@ transactionSchema.pre('validate', async function(next) {
 })
 
 // create a unique index to avoid duplicates
-transactionSchema.index({fromAccount: 1, toAccount: 1, description: 1, date: 1, amount: 1}, {unique: true})
+transactionSchema.index({fromAccount: 1, toAccount: 1, description: 1, amount: 1}, {unique: true})
 
 
 const Transaction = mongoose.model('Transaction', transactionSchema);

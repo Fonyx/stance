@@ -80,7 +80,7 @@ const accountSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 // a combined index for unique accounts for user by name
-accountSchema.index({user: 1, type: 1, name: 1, assetCode: 1}, {unique: true});
+accountSchema.index({user: 1, type: 1, name: 1}, {unique: true});
 
 
 // update the instance when the instance is found using findOne

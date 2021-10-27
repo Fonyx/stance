@@ -82,7 +82,14 @@ const rootResolver = {
             }
             let account = await accountSvc.createFromRich({...input});
             let populatedAccount = await accountSvc.populateEntireAccount(account);
-            return account;
+            return populatedAccount;
+        },
+        createTransaction: async (_, {input}, {user}) => {
+            console.log(user.username);
+            console.log(input);
+            let transaction = await transactionSvc.createFromRich({...input});
+            let populatedTransaction = await transactionSvc.populateAll(transaction);
+            return populatedTransaction;
         }
     },
 }

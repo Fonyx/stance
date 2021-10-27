@@ -93,7 +93,17 @@ const typeDefs = gql`
     date: String!
     amount: Float
     factor: Float
-    frequency: String
+    frequency: String!
+  }
+
+  input transactionInput{
+    fromAccount: String
+    toAccount: String
+    description: String!
+    date: String!
+    amount: Float
+    factor: Float
+    frequency: String!
   }
 
   type User {
@@ -119,6 +129,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     updateTags(names: [String]!): [Tag]!
     createAccount(input: accountInput!): Account!
+    createTransaction(input: transactionInput!): Transaction!
   }
 `;
 
