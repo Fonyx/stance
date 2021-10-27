@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Account, Currency, Transaction, Party, Exchange } = require('../models');
-const { tagSvc, accountSvc} = require('../services')
+const { tagSvc, accountSvc, transactionSvc} = require('../services')
 const { signToken } = require('../utils/auth');
 const Logger = require('../utils/logger');
 
@@ -85,8 +85,9 @@ const rootResolver = {
             return populatedAccount;
         },
         createTransaction: async (_, {input}, {user}) => {
-            console.log(user.username);
-            console.log(input);
+            if(!user){
+                throw new AuthenticationError('This action requires authentication, please log in')
+            }
             let transaction = await transactionSvc.createFromRich({...input});
             let populatedTransaction = await transactionSvc.populateAll(transaction);
             return populatedTransaction;

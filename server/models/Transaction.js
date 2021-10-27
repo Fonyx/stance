@@ -44,38 +44,6 @@ const transactionSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 
-// validate the transaction is of correct types and codes if applicable
-transactionSchema.pre('validate', async function(next) {
-    this.populate('Account');
-    
-    // checks for if the transaction is a round trip transaction
-    if(this.toAccount && this.fromAccount){
-        this.toAccount.populate('Currency');
-        this.fromAccount.populate('Currency');
-        // check that the types match so coins, money and stock are separate
-        if(this.toAccount.type !== this.fromAccount.type){
-            Logger.error(`${this.toAccount.type} != ${this.fromAccount.type}`);
-            throw new Error(`Transaction cannot be sent to an account of a different type`);
-    
-        // check the asset codes are the same so coins and stock are the same
-        } else if(this.toAccount.assetCode !== this.fromAccount.assetCode){
-            Logger.error(`${this.toAccount.assetCode} != ${this.fromAccount.assetCode}`);
-            throw new Error(`Transaction is of different asset code`);
-    
-        // check the currency is the same for money transactions
-        } else if(this.toAccount.currency.code !== this.fromAccount.currency.code){
-            Logger.error(`${this.toAccount.currency.code} != ${this.fromAccount.currency.code}`);
-            throw new Error(`Money transaction is of different currency`)
-        } else {
-            next();
-        }
-    // otherwise don't bother
-    }else{
-        next()
-    }
-
-})
-
 // create a unique index to avoid duplicates
 transactionSchema.index({fromAccount: 1, toAccount: 1, description: 1, amount: 1}, {unique: true})
 

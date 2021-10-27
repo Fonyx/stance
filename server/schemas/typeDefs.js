@@ -87,8 +87,8 @@ const typeDefs = gql`
 
   type Transaction{
     _id: ID!
-    fromAccount: String
-    toAccount: String
+    fromAccount: Account
+    toAccount: Account
     description: String!
     date: String!
     amount: Float

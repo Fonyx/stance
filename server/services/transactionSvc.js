@@ -1,4 +1,4 @@
-const { Transaction, Account } = require('../models');
+const { Transaction, Account, Currency } = require('../models');
 const Logger = require('../utils/logger');
 
 /**
@@ -34,6 +34,56 @@ async function createFromText(data){
 
 }
 
+/**
+ * validates transaction details
+ * @param {obj} data 
+ */
+async function validateRichTransaction(data){
+
+    if(data.toAccount){
+        var toAccount = await Account.findOne({
+            toAccount: data.toAccount
+        });
+        await Account.populate(toAccount, {path:"currency"});
+    }
+
+    if(data.fromAccount){
+        var fromAccount = await Account.findOne({
+            fromAccount: data.fromAccount
+        });
+        await Account.populate(fromAccount, {path:"currency"});
+    }
+
+    // case for round trip transaction
+    if(toAccount && fromAccount){
+        // check that the types match so coins, money and stock are separate
+        if(toAccount.type !== fromAccount.type){
+            Logger.error(`${toAccount.type} != ${fromAccount.type}`);
+            throw new Error(`Transaction cannot be sent to an account of a different type`);
+    
+        // check the asset codes are the same so coins and stock are the same
+        } else if(toAccount.assetCode !== fromAccount.assetCode){
+            Logger.error(`${toAccount.assetCode} != ${fromAccount.assetCode}`);
+            throw new Error(`Transaction is of different asset code`);
+    
+        // check the currency is the same for money transactions
+        } else if(toAccount.currency.code !== fromAccount.currency.code){
+            Logger.error(`${toAccount.currency.code} != ${fromAccount.currency.code}`);
+            throw new Error(`Money transaction is of different currency`);
+        }
+    } else if(!fromAccount){
+        // case for outbound
+
+    } else if(!toAccount){
+        // case for inbound
+    } else {
+        // case for neither account supplied
+        Logger.error(`Transaction does not have a source or destination account`);
+        throw new Error(`Transaction has no accounts`);
+    }
+
+    return true
+}
 
 /**
  * Create or find a transaction for a given name and user, operates a findOneAndUpdate
@@ -42,6 +92,8 @@ async function createFromText(data){
  * @returns models.Transaction instance
  */
  async function createFromRich(data){
+
+    await validateRichTransaction(data);
 
     let foundTransaction;
 
@@ -53,9 +105,7 @@ async function createFromText(data){
     if(foundTransaction){
         Logger.info(`Found transaction ${foundTransaction.name}`)
     } else {
-        foundTransaction = await Transaction.create({
-            ...data
-        })
+        foundTransaction = await Transaction.create(data)
         Logger.info(`Created transaction ${foundTransaction.description}`)
     }
 
@@ -101,11 +151,22 @@ async function clearUserTransactions(user){
     });
 }
 
+/**
+ * populates all account fields for the transaction
+ * @param {models.Transaction} transaction 
+ */
+async function populateAll(transaction){
+    await Transaction.populate(transaction, {path: 'toAccount'});
+    await Transaction.populate(transaction, {path: 'fromAccount'});
+    return transaction
+}
+
 const transactionSvc = {
     createFromRich,
     clear,
     clearUserTransactions,
-    createFromText
+    createFromText,
+    populateAll
 }
 
 module.exports = transactionSvc
