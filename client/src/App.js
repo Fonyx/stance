@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          STANCE
+          STANCE - be ready
         </a>
       </header>
     </div>
