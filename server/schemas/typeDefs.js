@@ -13,6 +13,7 @@ const typeDefs = gql`
     name: String!
     type: String!
     balance: Float!
+    openingBalance: Float!
     interestRate: Float
     compounds: String
     party: Party
@@ -41,6 +42,7 @@ const typeDefs = gql`
   
 
   type Currency {
+    _id: ID!
     name: String!
     code: String!
     usdValue: Float!
@@ -50,6 +52,7 @@ const typeDefs = gql`
   }
 
   type Exchange {
+    _id: ID!
     name: String!
     code: String!
     mic: String
