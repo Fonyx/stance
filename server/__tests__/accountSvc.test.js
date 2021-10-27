@@ -17,7 +17,7 @@ describe("Testing account service", () => {
             "user":"fonyx",
             "name":"test bitcoin",
             "type":"crypto",
-            "balance":2.342,
+            "openingBalance":2.342,
             "party":"coinspot",
             "assetCode":"BTC-USD",
             "currency":"USD",
@@ -32,7 +32,7 @@ describe("Testing account service", () => {
             "user": "fonyx",
             "name":"Australian Foundation Inc",
             "type":"stock",
-            "balance": 223,
+            "openingBalance": 223,
             "party":"selfWealth",
             "assetCode":"AFI",
             "currency":"AUD",
@@ -47,7 +47,7 @@ describe("Testing account service", () => {
             "user": "fonyx",
             "name":"savings",
             "type":"money",
-            "balance":12321.32,
+            "openingBalance":12321.32,
             "interestRate":0.7,
             "compounds":"monthly",
             "party":"Commonwealth Bank of Australia",
@@ -64,7 +64,7 @@ describe("Testing account service", () => {
         "user":"fonyx",
         "name":"test bitcoin",
         "type":"crypto",
-        "balance":2.342,
+        "openingBalance":2.342,
         "party":"coinspot",
         "assetCode":"BTC-USD",
         "currency":"USD",
@@ -92,7 +92,7 @@ describe("Testing account service", () => {
     
             let bareAccount = await accountSvc.createFromSeed(testAccounts.validCrypto);
             expect(bareAccount.name).toBe("test bitcoin");
-            expect(bareAccount.balance).toBe(2.342);
+            expect(bareAccount.openingBalance).toBe(2.342);
             expect(bareAccount.unitPrice).toBe(0);
             expect(bareAccount.valuation).toBe(0);
             expect(bareAccount.style.color).toBe("deep-orange");
@@ -129,7 +129,7 @@ describe("Testing account service", () => {
             let bareAccount = await accountSvc.createFromSeed(testAccounts.validStock);
     
             expect(bareAccount.name).toBe("Australian Foundation Inc");
-            expect(bareAccount.balance).toBe(223);
+            expect(bareAccount.openingBalance).toBe(223);
             expect(bareAccount.unitPrice).toBe(0);
             expect(bareAccount.valuation).toBe(0);
             expect(bareAccount.style.color).toBe("blue");
@@ -166,7 +166,7 @@ describe("Testing account service", () => {
             let bareAccount = await accountSvc.createFromSeed(testAccounts.validMoney);
     
             expect(bareAccount.name).toBe("savings");
-            expect(bareAccount.balance).toBe(12321.32);
+            expect(bareAccount.openingBalance).toBe(12321.32);
             expect(bareAccount.unitPrice).toBe(0);
             expect(bareAccount.valuation).toBe(0);
             expect(bareAccount.interestRate).toBe(0.7);
@@ -188,7 +188,7 @@ describe("Testing account service", () => {
     
             // test the unitValue has been updated from the default 0 on save, crypto will have a dynamic value
             expect(populatedAccount.unitPrice).toBe(1);
-            expect(populatedAccount.valuation).toBe(populatedAccount.balance);
+            expect(populatedAccount.valuation).toBe(populatedAccount.openingBalance);
             // just check one field of the referenced object, if one exists, they all exist as these are pre populated collections
             expect(populatedAccount.exchange.code).toBe("FOREX");
             expect(populatedAccount.currency.code).toBe("AUD");

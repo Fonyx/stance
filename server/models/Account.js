@@ -17,7 +17,15 @@ const accountSchema = new mongoose.Schema({
         enum: ['money', 'crypto', 'stock'],
         default: 'currency'
     },
+    // this is required but will default to openingBalance when first created
     balance: {
+        type: Number,
+        required: true,
+        default: function () {
+            return this.openingBalance;
+        }
+    },
+    openingBalance:{
         type: Number,
         required: true
     },

@@ -30,7 +30,7 @@ const typeDefs = gql`
     user: String!
     name: String!
     type: String!
-    balance: Float!
+    openingBalance: Float!
     interestRate: Float
     compounds: String
     party: String!
