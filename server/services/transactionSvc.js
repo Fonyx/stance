@@ -9,12 +9,10 @@ async function createFromText(data){
 
     var toAccount = await Account.findOne({
         name: data.toAccountName,
-        type: data.type,
         user: data.user
     });
     var fromAccount = await Account.findOne({
         name: data.fromAccountName,
-        type: data.type,
         user: data.user
     });
 
@@ -28,7 +26,7 @@ async function createFromText(data){
         frequency: data.frequency
     }
 
-    let transaction = await transactionSvc.createFromRich({...payload});
+    let transaction = await createFromRichCheckedApply({...payload});
 
     return transaction
 
@@ -179,7 +177,6 @@ async function applyToAccounts(transaction){
     if(!transaction.toAccount && !transaction){
         throw new Error('Transaction hasn\'t got either a to or from account');
     }
-
     //toAccount only - these can't have fractions
     if(transaction.toAccount && !transaction.fromAccount){
         let toAccount = await Account.findOne({"_id": transaction.toAccount});
@@ -189,7 +186,7 @@ async function applyToAccounts(transaction){
         await toAccount.save();
     }
     // fromAccount only - can have a fraction instead of an amount
-    else if(transaction.fromAccount && !transaction.toAccount){
+    else if(!transaction.toAccount && transaction.fromAccount){
         let fromAccount = await Account.findOne({"_id": transaction.fromAccount});
         let transactionValue = getTransactionFractionValue(transaction, transaction.fromAccount);
         let newBalance = fromAccount.balance - transactionValue;
@@ -198,7 +195,7 @@ async function applyToAccounts(transaction){
         await fromAccount.save();
     }
     // both accounts - round trip this can have a fraction instead of an amount
-    else if(transaction.fromAccount && transaction.toAccount){
+    else if(transaction.toAccount && transaction.fromAccount){
         let fromAccount = await Account.findOne({"_id": transaction.fromAccount});
         let toAccount = await Account.findOne({"_id": transaction.toAccount});
 
@@ -212,7 +209,7 @@ async function applyToAccounts(transaction){
         await fromAccount.save();
         await toAccount.save();
     }
-
+    console.log('Tried but failed')
     transaction.applied = true;
     await transaction.save();
     Logger.info(`Applied transaction`)
@@ -261,7 +258,7 @@ if(transaction.fromAccount){
         fromAccount.balance = newBalance;
         await fromAccount.save();
     } else {
-        throw new Error(`No account found as fromAccount for transaction: ${transaction.description}`)
+        throw new Error(`No account found as fromAccount for transaction: ${transaction.description}`);
     }
 }
 
@@ -284,7 +281,7 @@ async function populateAll(transaction){
 const transactionSvc = {
     applyToAccounts,
     unApplyToAccounts,
-    createFromRich: createFromRichCheckedApply,
+    createFromRichCheckedApply,
     clear,
     clearUserTransactions,
     createFromText,

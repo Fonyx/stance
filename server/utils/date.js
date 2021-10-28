@@ -10,7 +10,6 @@ function areDatesSame(date1, date2){
     if(date1.getDay() !== date2.getDay()){
         same = false;
     }
-    
     return same
 }
 

@@ -2,7 +2,6 @@
     {   
         "toAccountName":"main cash",
         "fromAccountName":"savings",
-        "type":"money",
         "description":"electricity",
         "amount":124.2,
         "frequency":"monthly"
@@ -10,7 +9,6 @@
     {
         "toAccountName":"main cash",
         "fromAccountName":"savings",
-        "type":"money",
         "description":"rent",
         "amount":324.2,
         "frequency":"fortnightly"
@@ -18,7 +16,6 @@
     {
         "toAccountName":"main cash",
         "fromAccountName":"savings",
-        "type":"money",
         "description":"salary",
         "amount":11224.2,
         "frequency":"yearly"
@@ -26,7 +23,6 @@
     {
         "toAccountName":"main cash",
         "fromAccountName":"savings",
-        "type":"money",
         "description":"land tax",
         "factor":0.1,
         "frequency":"quarterly"
@@ -34,7 +30,6 @@
     {
         "toAccountName":"bitcoin",
         "fromAccountName":"bitcoin saving",
-        "type":"crypto",
         "description":"buying dip",
         "factor":0.2,
         "frequency":"once"
@@ -42,7 +37,6 @@
     {
         "toAccountName":"bitcoin",
         "fromAccountName":"bitcoin saving",
-        "type":"crypto",
         "description":"taking profits",
         "factor":0.1,
         "frequency":"once"
@@ -50,7 +44,6 @@
     {
         "toAccountName":"Australian Foundation Inc",
         "fromAccountName":"Australian Foundation Inc Reserve",
-        "type":"stock",
         "description":"undervalued",
         "amount":100,
         "frequency":"once"
@@ -58,7 +51,6 @@
     {
         "toAccountName":"Australian Foundation Inc",
         "fromAccountName":"Australian Foundation Inc Reserve",
-        "type":"stock",
         "description":"overheated",
         "factor":0.1,
         "frequency":"once"
