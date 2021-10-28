@@ -122,6 +122,12 @@ function getFortnightlyEnum(startDateString, endDateString){
  */
 function getMonthlyEnum(startDateString, endDateString){
 
+    let date1 = new Date(startDateString);
+    let date2 = new Date(endDateString);
+
+    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+
     var d = new Date(startDateString);
     var day = d.getDate();
 
