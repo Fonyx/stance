@@ -95,14 +95,17 @@ function getFortnightlyEnum(startDateString, endDateString){
     console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
     console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
 
-    var d = new Date(startDateString);
-    var day = d.getDate();
-
     let dayCount = getDateRange(startDateString, endDateString);
-    let weekCount = Math.floor(dayCount/7);
-    // TODO: This is a mess, trying to get weekCount number of specific days of week
-    var fortnightlySched = later.parse.recur().on(day).dayOfWeek().every(2).weekOfYear();
-    var fortnightlyEnum = later.schedule(fortnightlySched).next(weekCount/2);
+    let weekCount = Math.ceil(dayCount/7);
+
+    let fortnightlyEnum = [];
+    let secondsInFortnight = 2*7*24*60*60*1000
+
+    for(let i = 0; i < weekCount; i++){
+        // create a new week by adding a weeks worth of seconds to the date
+        let newDate = new Date(startDateString + i*secondsInFortnight);
+        fortnightlyEnum.push(newDate);
+    }
 
     return fortnightlyEnum
 };
