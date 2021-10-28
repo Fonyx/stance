@@ -38,12 +38,6 @@ function areDatesSame(date1, date2){
  */
 function getDailyEnum(startDateString, endDateString){
 
-    let date1 = new Date(startDateString);
-    let date2 = new Date(endDateString);
-
-    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
-    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
-
     let dayCount = getDateRange(startDateString, endDateString);
 
     // for(let i =0; i<dayCount; i++){
@@ -67,15 +61,24 @@ function getDailyEnum(startDateString, endDateString){
  * @returns list of date objects
  */
 function getWeeklyEnum(startDateString, endDateString){
-    // https://stackoverflow.com/questions/50720112/every-3-and-6-months-recurrence-on-later-js-stating-from-a-particular-date
-    var d = new Date(startDateString);
-    var day = d.getDate();
+
+    let date1 = new Date(startDateString);
+    let date2 = new Date(endDateString);
+
+    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
 
     let dayCount = getDateRange(startDateString, endDateString);
-    let weekCount = Math.floor(dayCount/7);
+    let weekCount = Math.ceil(dayCount/7);
 
-    var weeklySched = later.parse.recur().on(day).dayOfWeek();
-    var weeklyEnum = later.schedule(weeklySched).next(weekCount);
+    let weeklyEnum = [];
+    let secondsInWeek = 7*24*60*60*1000
+
+    for(let i = 0; i < weekCount; i++){
+        // create a new week by adding a weeks worth of seconds to the date
+        let newDate = new Date(startDateString + i*secondsInWeek);
+        weeklyEnum.push(newDate);
+    }
 
     return weeklyEnum
 };
@@ -85,6 +88,12 @@ function getWeeklyEnum(startDateString, endDateString){
  * @returns list of date objects
  */
 function getFortnightlyEnum(startDateString, endDateString){
+
+    let date1 = new Date(startDateString);
+    let date2 = new Date(endDateString);
+
+    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
 
     var d = new Date(startDateString);
     var day = d.getDate();
