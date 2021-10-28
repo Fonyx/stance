@@ -21,10 +21,13 @@ function getEnumeratedRangeForTransaction(transaction){
 
     // transaction.frequency ["once", "daily", "weekly", "fortnightly", "monthly", "quarterly", "yearly"]
     let dates = [];
+
+    // TODO: this section needs to standardize the list returns
     dates = getDailyEnum(transaction.date, transaction.endRecurrence)
     dates = getWeeklyEnum(transaction.date, transaction.endRecurrence)
     dates = getFortnightlyEnum(transaction.date, transaction.endRecurrence)
     dates = getMonthlyEnum(transaction.date, transaction.endRecurrence)
+    // TODO: this section needs to be fixed
     dates = getQuarterEnum(transaction.date, transaction.endRecurrence)
     dates = getYearEnum(transaction.date, transaction.endRecurrence)
 
