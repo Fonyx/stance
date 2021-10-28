@@ -4,6 +4,7 @@ const express = require('express');
 const configuredMorgan = require('./utils/morgan.js');
 const updateCurrencies = require('./helpers/updateCurrencies');
 const connectTo = require('../server/config/connectTo');
+const Logger = require('./utils/logger');
 
 
 const app = express();
@@ -27,7 +28,7 @@ if(!RapidApiKey){
 
 // setup timeout to update currencies every hour
 setInterval(async () => {
-  // Logger.info(`Executing scheduled currency update`);
+  Logger.info(`Executing scheduled currency update`);
   updateCurrencies(RapidApiKey);
 }, 1000*60*60)
 

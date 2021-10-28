@@ -6,7 +6,7 @@ const Logger = require('../utils/logger');
 
 const rootResolver = {
     Query:{
-        accounts: async () => {
+        allAccounts: async () => {
             return await Account.find({});
         },
         allCurrencies: async () => {

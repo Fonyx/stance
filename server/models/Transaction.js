@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Logger = require('../utils/logger');
+const {areDatesSame} = require('../utils/date');
 
 const transactionSchema = new mongoose.Schema({
     // accounts can't both be null
@@ -40,12 +41,21 @@ const transactionSchema = new mongoose.Schema({
         type: String,
         enum: ["once", "daily", "weekly", "fortnightly", "monthly", "quarterly", "yearly"],
         default: "once"
+    },
+    applied: {
+        type: Boolean,
+        default: false
     }
 }, {timestamps: true});
 
+// check if transaction is happening anytime between today 00:00 and 23:59
+transactionSchema.methods.isToday = function(){
+    let today = new Date();
+    return areDatesSame(this.date, today)? true: false;
+}
 
 // create a unique index to avoid duplicates
-transactionSchema.index({fromAccount: 1, toAccount: 1, description: 1, amount: 1}, {unique: true})
+transactionSchema.index({fromAccount: 1, toAccount: 1, description: 1, amount: 1}, {unique: true});
 
 
 const Transaction = mongoose.model('Transaction', transactionSchema);
