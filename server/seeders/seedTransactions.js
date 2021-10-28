@@ -18,7 +18,7 @@ async function seedTransactions(){
 
         for (const transaction of transactionSeeds){
 
-            // create seed date sometime in the day
+            // create seed date sometime in the next 2 days day
             days = Math.random()*2;
 
             // set all transactions to be in two days

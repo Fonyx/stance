@@ -37,17 +37,29 @@ function areDatesSame(date1, date2){
  * @returns list of date TIMESTAMPS!!!!!!
  */
 function getDailyEnum(startDateString, endDateString){
-    let dateEnum  = [];
+
+    let date1 = new Date(startDateString);
+    let date2 = new Date(endDateString);
+
+    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
 
     let dayCount = getDateRange(startDateString, endDateString);
 
-    for(let i =0; i<dayCount; i++){
-        // create a new date for each element in the day count
-        let date = Date.now() + i*24*60*60;
-        dateEnum.push(date);
-    }
+    // for(let i =0; i<dayCount; i++){
+    //     // create a new date for each element in the day count
+    //     let date = new Date(Date.now() + i*24*60*60);
+    //     dateEnum.push(date);
+    // }
 
-    return dateEnum;
+    var dailySched = later.parse.recur().every(1).dayOfWeek();
+    // run for an extra day since Later.js has a bug / creates 2 days with different times at the start
+    var dailyEnum = later.schedule(dailySched).next(dayCount+1);
+
+    // pop first entry off as it is repeated due to bug in Later.js
+    let trimmedEnum = dailyEnum.slice(1);
+
+    return trimmedEnum;
 };
 
 /**
