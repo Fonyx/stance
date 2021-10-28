@@ -1,3 +1,4 @@
+// general use is that date2 is the current datetime
 function areDatesSame(date1, date2){
     let same = true;
 

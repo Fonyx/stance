@@ -1,4 +1,4 @@
-const { Account, User, Party, Currency, Exchange, Tag, Transaction } = require('../models');
+const { User } = require('../models');
 const transactionSeeds = require('./seeds/transactionSeeds.json');
 const transactionSvc = require('../services/transactionSvc');
 const Logger = require('../utils/logger');
@@ -14,11 +14,16 @@ async function seedTransactions(){
 
     try {
         
-        await transactionSvc.clearUserTransactions(user);
+        await transactionSvc.clear();
 
         for (const transaction of transactionSeeds){
 
-            let date = new Date();
+            // create seed date sometime in the day
+            days = Math.random()*2;
+
+            // set all transactions to be in two days
+            let date = Date.now() + days*24*60*60*1000;
+            // make sure to set to sydney timezone or testing gets really weird
 
             transactions.push(
                 await transactionSvc.createFromText({

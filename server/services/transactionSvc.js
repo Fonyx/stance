@@ -1,6 +1,96 @@
 const { Transaction, Account, Currency } = require('../models');
 const Logger = require('../utils/logger');
 
+
+/**
+ * Schedule function that calls the apply method for each of todays transactions
+ */
+async function applyToday(){
+    
+    var now = new Date();
+
+    // tomorrow is today +1 day
+    var midnightTomorrow = new Date(
+        now.getFullYear(), 
+        now.getMonth(), 
+        now.getDate() + 1
+    );
+
+    Logger.warn(`midnightTomorrow is: ${
+        midnightTomorrow.toLocaleString("en-GB", {timeZone: "Australia/Sydney"})
+    }`)
+
+    // find all transactions that happen before tomorrow at 1am and have yet to be applied, i.e yesterdays are already applied so they are ignored
+    let todaysTransactions = await Transaction.find({
+        date: {
+            $lt: midnightTomorrow
+        },
+        applied: false
+    }, function (err, docs) {
+        console.log(`Found transactions for today: ${docs}`);
+    });
+
+    // for(let i =0; i < todaysTransactions.length; i++){
+    //     let transaction = todaysTransactions[i];
+    //     await transactionSvc.applyToAccounts(transaction);
+    // };
+
+    Logger.info('Applied transactions')
+}
+
+
+/**
+ * Apply transaction to it's accounts, then mark as applied
+ * @param {models.Transaction} transaction model
+ * @returns true or throw
+ */
+ async function applyToAccounts(transaction){
+    // check fraction only appears where it makes sense
+    if(transaction.fraction){
+        throw new Error(`Transaction has a fraction but is listed as a toAccount transaction which makes no sense man`)
+    }
+    if(!transaction.toAccount && !transaction){
+        throw new Error('Transaction hasn\'t got either a to or from account');
+    }
+    //toAccount only - these can't have fractions
+    if(transaction.toAccount && !transaction.fromAccount){
+        let toAccount = await Account.findOne(transaction.toAccount);
+        let newBalance = toAccount.balance + transaction.amount;
+        Logger.info(`Updating account '${toAccount.name}' balance: ${toAccount.balance} to ${newBalance}`);
+        toAccount.balance = newBalance;
+        await toAccount.save();
+    }
+    // fromAccount only - can have a fraction instead of an amount
+    else if(!transaction.toAccount && transaction.fromAccount){
+        let fromAccount = await Account.findOne(transaction.fromAccount);
+        let transactionValue = getTransactionFractionValue(transaction, fromAccount);
+        let newBalance = fromAccount.balance - transactionValue;
+        Logger.info(`Updating account ${fromAccount.name} balance: ${fromAccount.balance} to ${newBalance}`);
+        fromAccount.balance = newBalance;
+        await fromAccount.save();
+    }
+    // both accounts - round trip this can have a fraction instead of an amount
+    else if(transaction.toAccount && transaction.fromAccount){
+
+        let fromAccount = await Account.findOne(transaction.fromAccount);
+        let toAccount = await Account.findOne(transaction.toAccount);
+
+        let transactionValue = getTransactionFractionValue(transaction, fromAccount);
+        
+        // update account balances with transaction value
+        Logger.info(`Updating account ${fromAccount.name} balance: ${fromAccount.balance} to ${fromAccount.balance - transactionValue}`);
+        Logger.info(`Updating account ${toAccount.name} balance: ${toAccount.balance} to ${toAccount.balance + transactionValue}`);
+        fromAccount.balance = fromAccount.balance - transactionValue;
+        toAccount.balance = toAccount.balance + transactionValue;
+        await fromAccount.save();
+        await toAccount.save();
+    }
+    transaction.applied = true;
+    await transaction.save();
+    Logger.info(`Applied transaction`)
+
+}
+
 /**
  * Creates a transaction from referenced fields, not referenced ObjectId's - wrapper for rich create. 
  * @param {data} data {accountNames}
@@ -123,36 +213,6 @@ async function clear(){
     await Transaction.deleteMany({});
 }
 
-/**
- * Clears all transactions associated with an account
- * @param {models.User} user instance
- */
-async function clearUserTransactions(user){
-
-    Logger.info('Purging transactions for test user');
-
-    let userAccounts = await Account.find({
-        user
-    });
-
-    // purge Transactions for test user accounts
-    // https://stackoverflow.com/questions/7382207/mongooses-find-method-with-or-condition-does-not-work-properly
-    // https://www.codegrepper.com/code-examples/whatever/mongoose+find+id+in+array+of+ids
-    await Transaction.deleteMany({
-        $or: [
-            {
-                toAccount: {
-                    $in: userAccounts
-                }
-            },
-            {
-                fromAccount: {
-                    $in: userAccounts
-                }
-            }
-        ]
-    });
-}
 
 /**
  * Calls the unApplyToAccounts method before destroying transaction
@@ -165,11 +225,12 @@ async function deleteWithUnApply(transaction){
 }
 
 /**
- * Apply transaction to it's accounts, then mark as applied
+ * Function that unapplies a transaction to it's accounts, preserving the state of the account balance
  * @param {models.Transaction} transaction model
  * @returns true or throw
  */
-async function applyToAccounts(transaction){
+ async function unApplyToAccounts(transaction){
+     
     // check fraction only appears where it makes sense
     if(transaction.fraction){
         throw new Error(`Transaction has a fraction but is listed as a toAccount transaction which makes no sense man`)
@@ -180,7 +241,7 @@ async function applyToAccounts(transaction){
     //toAccount only - these can't have fractions
     if(transaction.toAccount && !transaction.fromAccount){
         let toAccount = await Account.findOne({"_id": transaction.toAccount});
-        let newBalance = toAccount.balance + transaction.amount;
+        let newBalance = toAccount.balance - transaction.amount;
         Logger.info(`Updating account '${toAccount.name}' balance: ${toAccount.balance} to ${newBalance}`);
         toAccount.balance = newBalance;
         await toAccount.save();
@@ -189,7 +250,7 @@ async function applyToAccounts(transaction){
     else if(!transaction.toAccount && transaction.fromAccount){
         let fromAccount = await Account.findOne({"_id": transaction.fromAccount});
         let transactionValue = getTransactionFractionValue(transaction, transaction.fromAccount);
-        let newBalance = fromAccount.balance - transactionValue;
+        let newBalance = fromAccount.balance + transactionValue;
         Logger.info(`Updating account ${fromAccount.name} balance: ${fromAccount.balance} to ${newBalance}`);
         fromAccount.balance = newBalance;
         await fromAccount.save();
@@ -202,19 +263,18 @@ async function applyToAccounts(transaction){
         let transactionValue = getTransactionFractionValue(transaction, transaction.fromAccount);
         
         // update account balances with transaction value
-        Logger.info(`Updating account ${fromAccount.name} balance: ${fromAccount.balance} to ${fromAccount.balance - transactionValue}`);
-        Logger.info(`Updating account ${toAccount.name} balance: ${toAccount.balance} to ${toAccount.balance + transactionValue}`);
-        fromAccount.balance = fromAccount.balance - transactionValue;
-        toAccount.balance = toAccount.balance + transactionValue;
+        Logger.info(`Updating account ${fromAccount.name} balance: ${fromAccount.balance} to ${fromAccount.balance + transactionValue}`);
+        Logger.info(`Updating account ${toAccount.name} balance: ${toAccount.balance} to ${toAccount.balance - transactionValue}`);
+        fromAccount.balance = fromAccount.balance + transactionValue;
+        toAccount.balance = toAccount.balance - transactionValue;
         await fromAccount.save();
         await toAccount.save();
     }
-    console.log('Tried but failed')
     transaction.applied = true;
     await transaction.save();
-    Logger.info(`Applied transaction`)
-
-}
+    Logger.info(`UnApplied transaction`)
+    
+    }
 
 /**
  * Determine the transaction value depending on an amount, or a factor of the fromAccount, note must have both accounts
@@ -232,43 +292,6 @@ function getTransactionFractionValue(transaction, fromAccount){
 }
 
 /**
- * Function that unapplies a transaction to it's accounts, preserving the state of the account balance
- * @param {models.Transaction} transaction model
- * @returns true or throw
- */
-async function unApplyToAccounts(transaction){
-//toAccount
-if(transaction.toAccount){
-    let toAccount = await Account.findOne({"_id": transaction.toAccount});
-    if(toAccount){
-        let newBalance = toAccount.balance - transaction.amount;
-        Logger.info(`Updating account ${toAccount.name} balance: ${toAccount.balance} to ${newBalance}`);
-        toAccount.balance = newBalance;
-        await toAccount.save();
-    } else {
-        throw new Error(`No account found as toAccount for transaction: ${transaction.description}`)
-    }
-}
-// fromAccount
-if(transaction.fromAccount){
-    let fromAccount = await Account.findOne({"_id": transaction.fromAccount});
-    if(fromAccount){
-        let newBalance = fromAccount.balance + transaction.amount;
-        Logger.info(`Updating account ${fromAccount.name} balance: ${fromAccount.balance} to ${newBalance}`);
-        fromAccount.balance = newBalance;
-        await fromAccount.save();
-    } else {
-        throw new Error(`No account found as fromAccount for transaction: ${transaction.description}`);
-    }
-}
-
-transaction.applied = false;
-await transaction.save();
-Logger.info(`Applied transaction`)
-
-}
-
-/**
  * populates all account fields for the transaction
  * @param {models.Transaction} transaction 
  */
@@ -280,10 +303,10 @@ async function populateAll(transaction){
 
 const transactionSvc = {
     applyToAccounts,
+    applyToday,
     unApplyToAccounts,
     createFromRichCheckedApply,
     clear,
-    clearUserTransactions,
     createFromText,
     deleteWithUnApply,
     populateAll

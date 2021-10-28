@@ -55,9 +55,9 @@ async function seedExchanges(){
         let currencyId;
 
         if(!currencyObj){
-            Logger.warn(`No currency found for exchange: ${exchange.Name} because exchange currency is: ${exchange.Currency} - adding with null currency reference`);
+            // Logger.warn(`No currency found for exchange: ${exchange.Name} because exchange currency is: ${exchange.Currency} - adding with null currency reference`);
         } else {
-            currency = currencyObj._id;
+            currencyId = currencyObj._id;
         }
         
         await Exchange.create({
