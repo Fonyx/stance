@@ -27,13 +27,13 @@ async function applyToday(){
         },
         applied: false
     }, function (err, docs) {
-        console.log(`Found transactions for today: ${docs}`);
+        Logger.info(`Found transactions for today: ${docs}`);
     });
 
-    // for(let i =0; i < todaysTransactions.length; i++){
-    //     let transaction = todaysTransactions[i];
-    //     await transactionSvc.applyToAccounts(transaction);
-    // };
+    for(let i =0; i < todaysTransactions.length; i++){
+        let transaction = todaysTransactions[i];
+        await transactionSvc.applyToAccounts(transaction);
+    };
 
     Logger.info('Applied transactions')
 }

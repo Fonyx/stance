@@ -41,23 +41,23 @@ setInterval(async () => {
 transactionSvc.applyToday();
 
 // transaction apply schedule, checks every minute if it is 01:00
-// var updated = false;
-// setInterval(async () => {
-//   // check if it is midnight and the run flag indicates the update hasn't been done, then apply todays transactions to their accounts
-//   Logger.info('Checking if it is 1AM');
+var updated = false;
+setInterval(async () => {
+  // check if it is midnight and the run flag indicates the update hasn't been done, then apply todays transactions to their accounts
+  // Logger.info('Checking if it is 1AM');
 
-//   if(isOneAm()){
-//     if(!updated) {
-//       Logger.info(`It's 1am, applying transactions`)
-//       transactionSvc.applyToday();
-//       // set the updated flag to true once updates are done - guards against running again due to timer slip
-//       updated = true;
-//     }
-//   // this guards against a second call on the same day since we are timing a 1 minute check and it may take less than a minute to execute
-//   } else {
-//     updated = false;
-//   }
-// }, 1000*10)
+  if(isOneAm()){
+    if(!updated) {
+      Logger.info(`It's 1am, applying transactions`)
+      transactionSvc.applyToday();
+      // set the updated flag to true once updates are done - guards against running again due to timer slip
+      updated = true;
+    }
+  // this guards against a second call on the same day since we are timing a 1 minute check and it may take less than a minute to execute
+  } else {
+    updated = false;
+  }
+}, 1000*10)
 
 
 // serve client/build as static assets for production environment
