@@ -1,6 +1,86 @@
 const { Transaction, Account, Currency } = require('../models');
 const Logger = require('../utils/logger');
+const { v4: uuidv4 } = require('uuid');
 
+const {
+    getDailyEnum,
+    getWeeklyEnum,
+    getFortnightlyEnum,
+    getMonthlyEnum,
+    getQuarterEnum,
+    getYearEnum
+} = require('../utils/date');
+
+/**
+ * Based on a date
+ * https://stackoverflow.com/questions/50720112/every-3-and-6-months-recurrence-on-later-js-stating-from-a-particular-date
+ * @param {models.Transaction} transaction 
+ * @param {int} dayCount 
+ */
+function getEnumeratedRangeForTransaction(transaction){
+
+    // transaction.frequency ["once", "daily", "weekly", "fortnightly", "monthly", "quarterly", "yearly"]
+    let dates = [];
+    dates = getDailyEnum(transaction.date, transaction.endRecurrence)
+    dates = getWeeklyEnum(transaction.date, transaction.endRecurrence)
+    dates = getFortnightlyEnum(transaction.date, transaction.endRecurrence)
+    dates = getMonthlyEnum(transaction.date, transaction.endRecurrence)
+    dates = getQuarterEnum(transaction.date, transaction.endRecurrence)
+    dates = getYearEnum(transaction.date, transaction.endRecurrence)
+
+    // switch (transaction.frequency) {
+    //     case 'daily':{
+    //         dates = getDailyEnum(transaction.date, transaction.endRecurrence)
+    //         break
+    //     }
+    //     case 'weekly':{
+    //         dates = getWeeklyEnum(transaction.date, transaction.endRecurrence)
+    //         break
+    //     }
+    //     case 'monthly':{
+    //         dates = getMonthlyEnum(transaction.date, transaction.endRecurrence)
+    //         break
+    //     }
+    //     case 'quarterly':{
+    //         dates = getQuarterlyEnum(transaction.date, transaction.endRecurrence)
+    //         break
+    //     }
+    //     case 'yearly':{
+    //         dates = getYearlyEnum(transaction.date, transaction.endRecurrence)
+    //         break
+    //     }
+    //     // default is fortnightly
+    //     default: {
+    //         dates = getFortnightlyEnum(transaction.date, transaction.endRecurrence)
+    //         break
+    //     }
+    // }
+    // Logging.info(`Dates for recurrence are: ${dates}`)
+    return dates;
+
+}
+
+/**
+ * get all the dates for this transaction series based on recurrence setting and end recurrence, if transaction happens once, returns date for simple list operation downstream
+ * @param {*} transaction 
+ */
+function getTransactionRecurrenceDates(transaction){
+    // transaction.endRecurrence -> defaults to date + 1 year
+    let transactionDates = [];
+
+    // case for occurring once
+    if(transaction.frequency === 'once'){
+        // add transaction date to list
+        transactionDates.push(transaction.date);
+    // case for recurrence
+    } else {
+        // replace list with populated date list
+        transactionDates = getEnumeratedRangeForTransaction(transaction);
+    }
+
+    // this is always a list structure
+    return transactionDates
+}
 
 /**
  * Schedule function that calls the apply method for each of todays transactions
@@ -93,32 +173,46 @@ async function applyToday(){
 
 /**
  * Creates a transaction from referenced fields, not referenced ObjectId's - wrapper for rich create. 
- * @param {data} data {accountNames}
+ * @param {transactionData} transactionData {accountNames}
  */
-async function createFromText(data){
+async function createFromText(transactionData){
+
+    let transactions = [];
 
     var toAccount = await Account.findOne({
-        name: data.toAccountName,
-        user: data.user
+        name: transactionData.toAccountName,
+        user: transactionData.user
     });
     var fromAccount = await Account.findOne({
-        name: data.fromAccountName,
-        user: data.user
+        name: transactionData.fromAccountName,
+        user: transactionData.user
     });
 
-    let payload = {
-        toAccount,
-        fromAccount,
-        date: data.date,
-        description: data.description,
-        amount: data.amount,
-        factor: data.factor,
-        frequency: data.frequency
-    }
+    // create series Id
+    let seriesId = uuidv4();
 
-    let transaction = await createFromRichCheckedApply({...payload});
+    // number of transactions based on recurrence - loop through dates returned to create transactions
+    let transactionDates = getTransactionRecurrenceDates(transactionData);
 
-    return transaction
+    for(let i = 0; i < transactionDates; i++){
+        let date = transactionDates[i];
+        let payload = {
+            toAccount,
+            fromAccount,
+            date,
+            description: transactionData.description,
+            amount: transactionData.amount,
+            factor: transactionData.factor,
+            frequency: transactionData.frequency,
+            seriesId: seriesId
+        }
+
+        let transaction = await createFromRichCheckedApply({...payload});
+
+        transactions.push(transaction);
+    };
+    
+    return transactions
 
 }
 

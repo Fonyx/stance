@@ -42,9 +42,26 @@ const transactionSchema = new mongoose.Schema({
         enum: ["once", "daily", "weekly", "fortnightly", "monthly", "quarterly", "yearly"],
         default: "once"
     },
+    // defaults to 1 year from now for recurring transactions, returns date if once only
+    endRecurrence: {
+        type: Date,
+        default: function (){
+            if(this.frequency === 'once'){
+                return this.date
+            } else {
+                return this.date + 365*24*60*60
+            }
+        },
+        // this is required if the frequency isn't 'once'
+        required: function() { return this.frequency !== 'once'; }
+    },
     applied: {
         type: Boolean,
         default: false
+    },
+    seriesId: {
+        type: String,
+        required: true
     }
 }, {timestamps: true});
 

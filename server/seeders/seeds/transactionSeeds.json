@@ -4,28 +4,32 @@
         "fromAccountName":"savings",
         "description":"electricity",
         "amount":124.2,
-        "frequency":"monthly"
+        "frequency":"monthly",
+        "endRecurrence": "31/12/2022"
     },
     {
         "toAccountName":"main cash",
         "fromAccountName":"savings",
         "description":"rent",
         "amount":324.2,
-        "frequency":"fortnightly"
+        "frequency":"fortnightly",
+        "endRecurrence": "31/12/2022"
     },
     {
         "toAccountName":"main cash",
         "fromAccountName":"savings",
         "description":"salary",
         "amount":11224.2,
-        "frequency":"yearly"
+        "frequency":"yearly",
+        "endRecurrence": "31/12/2022"
     },
     {
         "toAccountName":"main cash",
         "fromAccountName":"savings",
         "description":"land tax",
         "factor":0.1,
-        "frequency":"quarterly"
+        "frequency":"quarterly",
+        "endRecurrence": "31/12/2022"
     },
     {
         "toAccountName":"bitcoin",

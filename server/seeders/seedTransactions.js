@@ -24,11 +24,17 @@ async function seedTransactions(){
             // set all transactions to be in two days
             let date = Date.now() + days*24*60*60*1000;
             // make sure to set to sydney timezone or testing gets really weird
+            let endRecurrence;
+
+            if(transaction.frequency !== 'once'){
+                endRecurrence = Date.now() + 365*24*60*60*1000
+            }
 
             transactions.push(
                 await transactionSvc.createFromText({
                     ...transaction,
                     date,
+                    endRecurrence,
                     user
                 })
             );
