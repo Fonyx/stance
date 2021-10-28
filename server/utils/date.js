@@ -38,6 +38,12 @@ function areDatesSame(date1, date2){
  */
 function getDailyEnum(startDateString, endDateString){
 
+    let date1 = new Date(startDateString);
+    let date2 = new Date(endDateString);
+
+    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+
     let dayCount = getDateRange(startDateString, endDateString);
 
     // for(let i =0; i<dayCount; i++){
@@ -173,14 +179,24 @@ function getQuarterEnum(startDateString, endDateString){
  * @returns list of date objects
  */
 function getYearEnum(startDateString, endDateString){
-    var d = new Date(startDateString);
-    var day = d.getDate();
+
+    let date1 = new Date(startDateString);
+    let date2 = new Date(endDateString);
+
+    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
 
     let dayCount = getDateRange(startDateString, endDateString);
-    let yearCount = Math.round(dayCount/365.25);
+    let yearCount = Math.ceil(dayCount/365);
 
-    var yearlySched = later.parse.recur().on(day).dayOfMonth().every(12).month();
-    var yearlyEnum = later.schedule(yearlySched).next(yearCount);
+    let yearlyEnum = [];
+    let secondsInYear = 365*24*60*60*1000
+
+    for(let i = 0; i <= yearCount; i++){
+        // create a new week by adding a weeks worth of seconds to the date
+        let newDate = new Date(startDateString + i*secondsInYear);
+        yearlyEnum.push(newDate);
+    }
 
     return yearlyEnum
 
