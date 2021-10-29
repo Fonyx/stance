@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Logger = require('../utils/logger');
 const {areDatesSame} = require('../utils/date');
 
+const moment = require('moment-timezone');
+const dateAustralia = moment.tz(Date.now(), "Australia/Sydney");
+
 const transactionSchema = new mongoose.Schema({
     // accounts can't both be null
     fromAccount: {
@@ -23,7 +26,7 @@ const transactionSchema = new mongoose.Schema({
     date:{
         type: Date,
         required: true,
-        default: new Date()
+        default: dateAustralia
     },
     amount: {
         type: Number,

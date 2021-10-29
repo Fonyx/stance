@@ -97,11 +97,14 @@ async function applyToday(){
     var midnightTomorrow = new Date(
         now.getFullYear(), 
         now.getMonth(), 
-        now.getDate() + 1
+        now.getDate() + 2
     );
 
     Logger.warn(`midnightTomorrow is: ${
         midnightTomorrow.toLocaleString("en-GB", {timeZone: "Australia/Sydney"})
+    }`)
+    Logger.warn(`midnightTomorrow is: ${
+        midnightTomorrow})
     }`)
 
     // find all transactions that happen before tomorrow at 1am and have yet to be applied, i.e yesterdays are already applied so they are ignored
@@ -111,7 +114,11 @@ async function applyToday(){
         },
         applied: false
     }, function (err, docs) {
-        Logger.info(`Found transactions for today: ${docs}`);
+        if(err){
+            Logger.error(err);
+        } else{
+            Logger.info(`Found transactions for today: ${docs}`);
+        }
     });
 
     for(let i =0; i < todaysTransactions.length; i++){

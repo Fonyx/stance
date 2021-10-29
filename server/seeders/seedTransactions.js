@@ -3,6 +3,8 @@ const transactionSeeds = require('./seeds/transactionSeeds.json');
 const transactionSvc = require('../services/transactionSvc');
 const Logger = require('../utils/logger');
 
+const moment = require('moment-timezone');
+
 async function seedTransactions(){
 
     // get test username fonyx
@@ -20,12 +22,12 @@ async function seedTransactions(){
             days = Math.random()*2;
 
             // set all transactions to be in two days
-            let date = Date.now() + days*24*60*60*1000;
+            let date = moment.tz(Date.now() + days*24*60*60*1000, "Australia/Sydney");
             // make sure to set to sydney timezone or testing gets really weird
             let endRecurrence;
 
             if(transaction.frequency !== 'once'){
-                endRecurrence = Date.now() + 365*24*60*60*1000
+                endRecurrence = moment.tz(Date.now() + 365*24*60*60*1000, "Australia/Sydney");
             }
 
             
