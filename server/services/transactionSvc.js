@@ -1,7 +1,6 @@
 const { Transaction, Account, Currency } = require('../models');
 const Logger = require('../utils/logger');
 const { v4: uuidv4 } = require('uuid');
-
 const {
     getDailyEnum,
     getWeeklyEnum,
@@ -122,7 +121,6 @@ async function applyToday(){
 
     Logger.info('Applied transactions')
 }
-
 
 /**
  * Apply transaction to it's accounts, then mark as applied

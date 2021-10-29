@@ -57,7 +57,7 @@ setInterval(async () => {
   } else {
     updated = false;
   }
-}, 1000*10)
+}, 1000*30)
 
 
 // serve client/build as static assets for production environment
