@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Logger = require('../utils/logger');
 const {areDatesSame} = require('../utils/date');
 
+// https://stackoverflow.com/questions/35672248/how-to-change-date-timezone-in-mongoose
 const moment = require('moment-timezone');
 const dateAustralia = moment.tz(Date.now(), "Australia/Sydney");
 

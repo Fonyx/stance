@@ -92,22 +92,22 @@ describe("Testing account service", () => {
 
     describe("testing crypto accounts", ()=>{
         // testing the object is created, not checking population, not checking any interpreted values
-        test("a valid crypto text entry should return valid account unpopulated object", async () => {
+        // test("a valid crypto text entry should return valid account unpopulated object", async () => {
     
-            let bareAccount = await accountSvc.createFromSeed(testAccounts.validCrypto);
-            expect(bareAccount.name).toBe("test bitcoin");
-            expect(bareAccount.openingBalance).toBe(2.342);
-            expect(bareAccount.unitPrice).toBe(0);
-            expect(bareAccount.valuation).toBe(0);
-            expect(bareAccount.style.color).toBe("deep-orange");
-            expect(bareAccount.goal.amount).toBe(0);
-            // check for objectId relations, these aren't objects
-            expect(bareAccount.exchange).not.toBeNull();
-            expect(bareAccount.currency).not.toBeNull();
-            expect(bareAccount.party).not.toBeNull();
-            expect(bareAccount.user).not.toBeNull();
-            expect(bareAccount.tags).not.toBeNull();
-        });
+        //     let bareAccount = await accountSvc.createFromSeed(testAccounts.validCrypto);
+        //     expect(bareAccount.name).toBe("test bitcoin");
+        //     expect(bareAccount.openingBalance).toBe(2.342);
+        //     expect(bareAccount.unitPrice).toBe(0);
+        //     expect(bareAccount.valuation).toBe(0);
+        //     expect(bareAccount.style.color).toBe("deep-orange");
+        //     expect(bareAccount.goal.amount).toBe(0);
+        //     // check for objectId relations, these aren't objects
+        //     expect(bareAccount.exchange).not.toBeNull();
+        //     expect(bareAccount.currency).not.toBeNull();
+        //     expect(bareAccount.party).not.toBeNull();
+        //     expect(bareAccount.user).not.toBeNull();
+        //     expect(bareAccount.tags).not.toBeNull();
+        // });
     
         test("finding a valid crypto account should return a populated account", async () => {
     
