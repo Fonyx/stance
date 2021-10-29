@@ -7,8 +7,8 @@ const {
     getWeeklyEnum,
     getFortnightlyEnum,
     getMonthlyEnum,
-    getQuarterEnum,
-    getYearEnum
+    getQuarterlyEnum,
+    getYearlyEnum
 } = require('../utils/date');
 
 /**
@@ -19,46 +19,48 @@ const {
  */
 function getEnumeratedRangeForTransaction(transaction){
 
-    // transaction.frequency ["once", "daily", "weekly", "fortnightly", "monthly", "quarterly", "yearly"]
+    // let date1 = new Date(transaction.date);
+    // let date2 = new Date(transaction.endRecurrence);
+
+    // console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    // console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+
+    // transaction.frequencies appearing here ["daily", "weekly", "fortnightly", "monthly", "quarterly", "yearly"]
     let dates = [];
 
-    // TODO: this section needs to standardize the list returns
-    dates = getDailyEnum(transaction.date, transaction.endRecurrence)
-    dates = getWeeklyEnum(transaction.date, transaction.endRecurrence)
-    dates = getFortnightlyEnum(transaction.date, transaction.endRecurrence)
-    dates = getMonthlyEnum(transaction.date, transaction.endRecurrence)
-    // TODO: this section needs to be fixed
-    dates = getQuarterEnum(transaction.date, transaction.endRecurrence)
-    dates = getYearEnum(transaction.date, transaction.endRecurrence)
-
-    // switch (transaction.frequency) {
-    //     case 'daily':{
-    //         dates = getDailyEnum(transaction.date, transaction.endRecurrence)
-    //         break
-    //     }
-    //     case 'weekly':{
-    //         dates = getWeeklyEnum(transaction.date, transaction.endRecurrence)
-    //         break
-    //     }
-    //     case 'monthly':{
-    //         dates = getMonthlyEnum(transaction.date, transaction.endRecurrence)
-    //         break
-    //     }
-    //     case 'quarterly':{
-    //         dates = getQuarterlyEnum(transaction.date, transaction.endRecurrence)
-    //         break
-    //     }
-    //     case 'yearly':{
-    //         dates = getYearlyEnum(transaction.date, transaction.endRecurrence)
-    //         break
-    //     }
-    //     // default is fortnightly
-    //     default: {
-    //         dates = getFortnightlyEnum(transaction.date, transaction.endRecurrence)
-    //         break
-    //     }
-    // }
-    // Logging.info(`Dates for recurrence are: ${dates}`)
+    switch (transaction.frequency) {
+        case 'daily':{
+            // Logger.info('getting daily dates');
+            dates = getDailyEnum(transaction.date, transaction.endRecurrence)
+            break
+        }
+        case 'weekly':{
+            // Logger.info('getting weekly dates');
+            dates = getWeeklyEnum(transaction.date, transaction.endRecurrence)
+            break
+        }
+        case 'monthly':{
+            // Logger.info('getting monthly dates');
+            dates = getMonthlyEnum(transaction.date, transaction.endRecurrence)
+            break
+        }
+        case 'quarterly':{
+            // Logger.info('getting quarterly dates');
+            dates = getQuarterlyEnum(transaction.date, transaction.endRecurrence)
+            break
+        }
+        case 'yearly':{
+            // Logger.info('getting yearly dates');
+            dates = getYearlyEnum(transaction.date, transaction.endRecurrence)
+            break
+        }
+        // default is fortnightly
+        default: {
+            // Logger.info('getting fortnightly dates');
+            dates = getFortnightlyEnum(transaction.date, transaction.endRecurrence)
+            break
+        }
+    }
     return dates;
 
 }
@@ -74,7 +76,7 @@ function getTransactionRecurrenceDates(transaction){
     // case for occurring once
     if(transaction.frequency === 'once'){
         // add transaction date to list
-        transactionDates.push(transaction.date);
+        transactionDates.push(new Date(transaction.date));
     // case for recurrence
     } else {
         // replace list with populated date list
@@ -180,7 +182,7 @@ async function applyToday(){
  */
 async function createFromText(transactionData){
 
-    let transactions = [];
+    var transactions = [];
 
     var toAccount = await Account.findOne({
         name: transactionData.toAccountName,
@@ -197,8 +199,7 @@ async function createFromText(transactionData){
     // number of transactions based on recurrence - loop through dates returned to create transactions
     let transactionDates = getTransactionRecurrenceDates(transactionData);
 
-    for(let i = 0; i < transactionDates; i++){
-        let date = transactionDates[i];
+    for(let date of transactionDates){
         let payload = {
             toAccount,
             fromAccount,
@@ -291,13 +292,13 @@ async function validateRichTransaction(data){
         Logger.info(`Found transaction ${foundTransaction.name}`)
     } else {
         foundTransaction = await Transaction.create(data)
-        Logger.info(`Created transaction ${foundTransaction.description}`)
+        // Logger.info(`Created transaction ${foundTransaction.description}`)
     }
 
-    // check if transaction was created today, if so, call the apply method to update it's accounts
-    if(foundTransaction.isToday()){
-        await applyToAccounts(foundTransaction);
-    }
+    // check if transaction is due today, if so, call the apply method to update it's accounts
+    // if(foundTransaction.isToday()){
+    //     await applyToAccounts(foundTransaction);
+    // }
 
     return foundTransaction;
 

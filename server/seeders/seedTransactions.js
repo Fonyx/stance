@@ -5,8 +5,6 @@ const Logger = require('../utils/logger');
 
 async function seedTransactions(){
 
-    var transactions = [];
-
     // get test username fonyx
     let user = await User.findOne({
         username: 'fonyx'
@@ -30,21 +28,29 @@ async function seedTransactions(){
                 endRecurrence = Date.now() + 365*24*60*60*1000
             }
 
-            transactions.push(
-                await transactionSvc.createFromText({
-                    ...transaction,
-                    date,
-                    endRecurrence,
-                    user
-                })
-            );
+            
+            let transactions = await transactionSvc.createFromText({
+                ...transaction,
+                date,
+                endRecurrence,
+                user
+            })
+
+            if(transaction.frequency === "once"){
+                Logger.info(`Seeded ${transactions.length} Transaction for seed: ${transaction.description} occurring once`)
+
+            }else {
+                Logger.info(`Seeded ${transactions.length} Transactions for seed: ${transaction.description} \n every: ${transaction.frequency} \n\t from: ${new Date(date)} \n\t until: ${new Date(endRecurrence)}`)
+
+            }
+
+            
             
         }
     } catch (err) {
         console.error(err);
         process.exit(1);
     }
-    Logger.info(`Seeded ${transactions.length} Transactions for user: ${user.username}`);
 }
 
 module.exports = seedTransactions;

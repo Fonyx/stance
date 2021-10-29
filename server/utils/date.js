@@ -51,11 +51,11 @@ function getCurrentAuQuarter(dateString){
  */
 function getDailyEnum(startDateString, endDateString){
 
-    let date1 = new Date(startDateString);
-    let date2 = new Date(endDateString);
+    // let date1 = new Date(startDateString);
+    // let date2 = new Date(endDateString);
 
-    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
-    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    // console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    // console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
 
     let dayCount = getDateRange(startDateString, endDateString);
 
@@ -75,11 +75,11 @@ function getDailyEnum(startDateString, endDateString){
  */
 function getWeeklyEnum(startDateString, endDateString){
 
-    let date1 = new Date(startDateString);
-    let date2 = new Date(endDateString);
+    // let date1 = new Date(startDateString);
+    // let date2 = new Date(endDateString);
 
-    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
-    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    // console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    // console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
 
     let dayCount = getDateRange(startDateString, endDateString);
     let weekCount = Math.ceil(dayCount/7);
@@ -109,12 +109,12 @@ function getFortnightlyEnum(startDateString, endDateString){
     console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
 
     let dayCount = getDateRange(startDateString, endDateString);
-    let weekCount = Math.ceil(dayCount/7);
+    let fortnightCount = Math.ceil(dayCount/14);
 
     let fortnightlyEnum = [];
     let secondsInFortnight = 2*7*24*60*60*1000
 
-    for(let i = 0; i < weekCount; i++){
+    for(let i = 0; i < fortnightCount; i++){
         // create a new week by adding a weeks worth of seconds to the date
         let newDate = new Date(startDateString + i*secondsInFortnight);
         fortnightlyEnum.push(newDate);
@@ -129,11 +129,11 @@ function getFortnightlyEnum(startDateString, endDateString){
  */
 function getMonthlyEnum(startDateString, endDateString){
 
-    let date1 = new Date(startDateString);
-    let date2 = new Date(endDateString);
+    // let date1 = new Date(startDateString);
+    // let date2 = new Date(endDateString);
 
-    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
-    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    // console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    // console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
 
     var d = new Date(startDateString);
     var day = d.getDate();
@@ -151,14 +151,14 @@ function getMonthlyEnum(startDateString, endDateString){
  * get the dates from transaction start date to end recurrence date as a list of dates every quarter - fixed dates for financial
  * @returns list of date objects quarters
  */
-function getQuarterEnum(startDateString, endDateString){
+function getQuarterlyEnum(startDateString, endDateString){
     // guidance from https://stackoverflow.com/questions/11981453/get-current-quarter-in-year-with-javascript
 
-    let date1 = new Date(startDateString);
-    let date2 = new Date(endDateString);
+    // let date1 = new Date(startDateString);
+    // let date2 = new Date(endDateString);
 
-    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
-    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    // console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    // console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
 
     var d = new Date(startDateString);
     var year = d.getFullYear();
@@ -189,13 +189,13 @@ function getQuarterEnum(startDateString, endDateString){
  * get the dates from transaction start date to end recurrence date as a list of dates every year
  * @returns list of date objects
  */
-function getYearEnum(startDateString, endDateString){
+function getYearlyEnum(startDateString, endDateString){
 
-    let date1 = new Date(startDateString);
-    let date2 = new Date(endDateString);
+    // let date1 = new Date(startDateString);
+    // let date2 = new Date(endDateString);
 
-    console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
-    console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    // console.log(date1.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
+    // console.log(date2.toLocaleString("en-US", {timeZone: "Australia/Sydney"}));
 
     let dayCount = getDateRange(startDateString, endDateString);
     let yearCount = Math.ceil(dayCount/365);
@@ -203,7 +203,7 @@ function getYearEnum(startDateString, endDateString){
     let yearlyEnum = [];
     let secondsInYear = 365*24*60*60*1000
 
-    for(let i = 0; i <= yearCount; i++){
+    for(let i = 0; i < yearCount; i++){
         // create a new week by adding a weeks worth of seconds to the date
         let newDate = new Date(startDateString + i*secondsInYear);
         yearlyEnum.push(newDate);
@@ -219,6 +219,6 @@ module.exports = {
     getWeeklyEnum,
     getFortnightlyEnum,
     getMonthlyEnum,
-    getQuarterEnum,
-    getYearEnum
+    getQuarterlyEnum,
+    getYearlyEnum
 }
