@@ -296,9 +296,9 @@ async function validateRichTransaction(data){
     }
 
     // check if transaction is due today, if so, call the apply method to update it's accounts
-    // if(foundTransaction.isToday()){
-    //     await applyToAccounts(foundTransaction);
-    // }
+    if(foundTransaction.isToday()){
+        await applyToAccounts(foundTransaction);
+    }
 
     return foundTransaction;
 
