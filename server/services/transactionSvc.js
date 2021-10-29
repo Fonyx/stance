@@ -309,48 +309,30 @@ async function deleteWithUnApply(transaction){
  */
  async function unApplyToAccounts(transaction){
      
-    // check fraction only appears where it makes sense
-    if(transaction.fraction){
-        throw new Error(`Transaction has a fraction but is listed as a toAccount transaction which makes no sense man`)
-    }
     if(!transaction.toAccount && !transaction){
         throw new Error('Transaction hasn\'t got either a to or from account');
     }
-    //toAccount only - these can't have fractions
-    if(transaction.toAccount && !transaction.fromAccount){
-        let toAccount = await Account.findOne({"_id": transaction.toAccount});
+    //toAccount
+    if(transaction.toAccount){
+        let toAccount = await Account.findOne(transaction.toAccount);
         let newBalance = toAccount.balance - transaction.amount;
         Logger.info(`Updating account '${toAccount.name}' balance: ${toAccount.balance} to ${newBalance}`);
         toAccount.balance = newBalance;
         await toAccount.save();
     }
-    // fromAccount only - can have a fraction instead of an amount
-    else if(!transaction.toAccount && transaction.fromAccount){
-        let fromAccount = await Account.findOne({"_id": transaction.fromAccount});
-        let transactionValue = getTransactionFractionValue(transaction, transaction.fromAccount);
-        let newBalance = fromAccount.balance + transactionValue;
+    // fromAccount 
+    if(transaction.fromAccount){
+        let fromAccount = await Account.findOne(transaction.fromAccount);
+
+        let newBalance = fromAccount.balance + transaction.amount;
         Logger.info(`Updating account ${fromAccount.name} balance: ${fromAccount.balance} to ${newBalance}`);
         fromAccount.balance = newBalance;
         await fromAccount.save();
     }
-    // both accounts - round trip this can have a fraction instead of an amount
-    else if(transaction.toAccount && transaction.fromAccount){
-        let fromAccount = await Account.findOne({"_id": transaction.fromAccount});
-        let toAccount = await Account.findOne({"_id": transaction.toAccount});
 
-        let transactionValue = getTransactionFractionValue(transaction, transaction.fromAccount);
-        
-        // update account balances with transaction value
-        Logger.info(`Updating account ${fromAccount.name} balance: ${fromAccount.balance} to ${fromAccount.balance + transactionValue}`);
-        Logger.info(`Updating account ${toAccount.name} balance: ${toAccount.balance} to ${toAccount.balance - transactionValue}`);
-        fromAccount.balance = fromAccount.balance + transactionValue;
-        toAccount.balance = toAccount.balance - transactionValue;
-        await fromAccount.save();
-        await toAccount.save();
-    }
-    transaction.applied = true;
+    transaction.applied = false;
     await transaction.save();
-    Logger.info(`UnApplied transaction`)
+    Logger.info(`Applied transaction`)
     
 }
 
