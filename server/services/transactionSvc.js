@@ -29,7 +29,7 @@ function getEnumeratedRangeForTransaction(transaction){
     dates = getMonthlyEnum(transaction.date, transaction.endRecurrence)
     // TODO: this section needs to be fixed
     dates = getQuarterEnum(transaction.date, transaction.endRecurrence)
-    // dates = getYearEnum(transaction.date, transaction.endRecurrence)
+    dates = getYearEnum(transaction.date, transaction.endRecurrence)
 
     // switch (transaction.frequency) {
     //     case 'daily':{
