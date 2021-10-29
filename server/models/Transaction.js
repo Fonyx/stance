@@ -28,14 +28,8 @@ const transactionSchema = new mongoose.Schema({
     amount: {
         type: Number,
         // if this.factor is null, then this field is required
-        required: function() { return this.factor === null; },
+        required: true,
         min: 0
-    },
-    factor: {
-        type: Number,
-        required: false,
-        min: 0,
-        max: 1
     },
     frequency: {
         type: String,

@@ -27,7 +27,7 @@
         "toAccountName":"main cash",
         "fromAccountName":"savings",
         "description":"land tax",
-        "factor":0.1,
+        "amount": 104.23,
         "frequency":"quarterly",
         "endRecurrence": "31/12/2022"
     },
@@ -35,14 +35,14 @@
         "toAccountName":"bitcoin",
         "fromAccountName":"bitcoin saving",
         "description":"buying dip",
-        "factor":0.2,
+        "amount": 0.3,
         "frequency":"once"
     },
     {
         "toAccountName":"bitcoin",
         "fromAccountName":"bitcoin saving",
         "description":"taking profits",
-        "factor":0.1,
+        "amount":0.1,
         "frequency":"once"
     },
     {
@@ -56,7 +56,7 @@
         "toAccountName":"Australian Foundation Inc",
         "fromAccountName":"Australian Foundation Inc Reserve",
         "description":"overheated",
-        "factor":0.1,
+        "amount":23,
         "frequency":"once"
     }
 ]
