@@ -107,6 +107,7 @@ const typeDefs = gql`
     amount: Float
     factor: Float
     frequency: String!
+    endRecurrence: String
   }
 
   type User {
@@ -125,6 +126,7 @@ const typeDefs = gql`
     user(username: String!): User
     users: [User]
     userAcc: [Account]!
+    userAccountTransactions(accountId: String!): [Transaction]!
   }
 
   type Mutation {

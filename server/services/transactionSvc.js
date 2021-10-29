@@ -1,6 +1,8 @@
 const { Transaction, Account, Currency } = require('../models');
 const Logger = require('../utils/logger');
 const { v4: uuidv4 } = require('uuid');
+const moment = require('moment-timezone');
+
 const {
     getDailyEnum,
     getWeeklyEnum,
@@ -26,6 +28,12 @@ function getEnumeratedRangeForTransaction(transaction){
 
     // transaction.frequencies appearing here ["daily", "weekly", "fortnightly", "monthly", "quarterly", "yearly"]
     let dates = [];
+    // default to 1 year
+    let recurrence = new Date() + 365*24*60*60*1000;
+
+    if(transaction.endRecurrence){
+        recurrence = new Date(transaction.endRecurrence);
+    }
 
     switch (transaction.frequency) {
         case 'daily':{
@@ -167,6 +175,54 @@ async function applyToday(){
  * Creates a transaction from referenced fields, not referenced ObjectId's - wrapper for rich create. 
  * @param {transactionData} transactionData {accountNames}
  */
+async function createFromReferences(transactionData){
+
+    var transactions = [];
+
+    var toAccount = await Account.findOne({
+        _id: transactionData.toAccount,
+    });
+    var fromAccount = await Account.findOne({
+        _id: transactionData.fromAccount,
+    });
+
+    // create series Id
+    let seriesId = uuidv4();
+
+    let date = new Date(transactionData.date);
+    let endRecurrence = new Date(transactionData.endRecurrence);
+
+    // number of transactions based on recurrence - loop through dates returned to create transactions
+    let transactionDates = getTransactionRecurrenceDates({
+        ...transactionData,
+        date,
+        endRecurrence
+    });
+
+    for(let date of transactionDates){
+        let payload = {
+            toAccount,
+            fromAccount,
+            date,
+            description: transactionData.description,
+            amount: transactionData.amount,
+            frequency: transactionData.frequency,
+            seriesId: seriesId
+        }
+
+        let transaction = await createFromRichCheckedApply({...payload});
+
+        transactions.push(transaction);
+    };
+    
+    return transactions
+
+}
+
+/**
+ * Creates a transaction from referenced fields, not referenced ObjectId's - wrapper for rich create. 
+ * @param {transactionData} transactionData {accountNames}
+ */
 async function createFromText(transactionData){
 
     var transactions = [];
@@ -193,7 +249,6 @@ async function createFromText(transactionData){
             date,
             description: transactionData.description,
             amount: transactionData.amount,
-            factor: transactionData.factor,
             frequency: transactionData.frequency,
             seriesId: seriesId
         }
@@ -205,6 +260,22 @@ async function createFromText(transactionData){
     
     return transactions
 
+}
+
+/**
+ * Finds all the transactions going into or coming out of an account
+ */
+async function findByAccountId(accountId){
+    let transactions = await Transaction.find({
+        $or: [
+            {
+                toAccount: accountId
+            },{
+                fromAccount: accountId
+            }
+        ]
+    });
+    return transactions;
 }
 
 /**
@@ -357,10 +428,12 @@ const transactionSvc = {
     applyToAccounts,
     applyToday,
     unApplyToAccounts,
+    createFromReferences,
     createFromRichCheckedApply,
-    clear,
     createFromText,
+    clear,
     deleteWithUnApply,
+    findByAccountId,
     populateAll
 }
 

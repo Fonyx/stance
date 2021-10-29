@@ -36,6 +36,14 @@ const rootResolver = {
                 user: user
             });
             return accounts;
+        },
+        userAccountTransactions: async (_, { user, accountId }) => {
+            if(!user){
+                Logger.warn('No User object found from middleware');
+                throw new AuthenticationError('Not logged in, please login');
+            }
+            let accountTransactions = await transactionSvc.findByAccountId(accountId);
+            return accountTransactions;
         }
     },
     Mutation:{
@@ -81,14 +89,19 @@ const rootResolver = {
                 throw new AuthenticationError('This action requires authentication, please log in')
             }
             let account = await accountSvc.createFromRich({...input});
-            let populatedAccount = await accountSvc.populateEntireAccount(account);
-            return populatedAccount;
+            if(account){
+                let populatedAccount = await accountSvc.populateEntireAccount(account);
+                return populatedAccount;
+            } else {
+                Logger.error('Did you forget to put in the Object Ids for the user, exchange, currency and party')
+            }
         },
         createTransaction: async (_, {input}, {user}) => {
             if(!user){
                 throw new AuthenticationError('This action requires authentication, please log in')
             }
-            let transaction = await transactionSvc.createFromRich({...input});
+            let transaction = await transactionSvc.createFromReferences({...input});
+            // let transactions = await transactionSvc.findSeries();
             let populatedTransaction = await transactionSvc.populateAll(transaction);
             return populatedTransaction;
         }
