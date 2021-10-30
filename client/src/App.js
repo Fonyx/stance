@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+import * as React from 'react';
+import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from '@apollo/client';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import Navbar from './components/navbar';
+import Footer from './components/footer';
+import { Container, Grid } from '@mui/material';
+import SignInUpButton from './components/signInUpButton';
 import './App.css';
+
+const apolloClient = new ApolloClient({
+  uri: '/graphql',
+  cache: new InMemoryCache(),
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          STANCE - be ready - poke
-        </a>
-      </header>
-    </div>
-  );
+    <ApolloProvider client={apolloClient}>
+      <Navbar />
+        <Router>
+          <Container >
+              <Route exact path="/">
+                <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center" style={{minHeight: '60vh'}}>
+                  <Grid item xs={12}>
+                    <SignInUpButton />
+                  </Grid>
+                </Grid>
+              </Route>
+          </Container>
+        </Router>
+      <Footer />
+    </ApolloProvider>
+  )
 }
 
 export default App;

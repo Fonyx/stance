@@ -16,16 +16,6 @@
   --senary: #202731;
 }
 
-:root3 {
-  --primary: #F25C05; 
-  --secondary: #F28705; 
-  --tertiary:   #F29F05;
-  --quaternary:  #3218D9; 
-  --quinary:  #400FF2; 
-  --senary: #F0F0F2;
-  --octonary: #202731;
-}
-
 .App {
   text-align: center;
 }
