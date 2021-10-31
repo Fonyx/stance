@@ -3,7 +3,9 @@ import decode from 'jwt-decode';
 class AuthService {
 
     getProfile() {
-        return decode(this.getToken());
+        let data = decode(this.getToken());
+        console.log(data);
+        return data;
     }
 
     loggedIn() {
@@ -31,13 +33,13 @@ class AuthService {
     login(idToken) {
         console.log(`Login called, user token created and saved locally`)
         localStorage.setItem('id_token', idToken);
-        // window.location.assign('/');
+        window.location.assign('/');
     }
 
     logout() {
         console.log(`Logout called, user token deleted`)
         localStorage.removeItem('id_token');
-        // window.location.reload();
+        window.location.reload();
     }
 }
 
