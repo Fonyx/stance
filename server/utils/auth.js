@@ -19,7 +19,6 @@ module.exports = {
     
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      console.log(`Data decrypted from token: ${data}`)
       let user = await User.findOne({
         "_id": data._id
       });

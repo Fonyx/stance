@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -24,7 +24,6 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  console.log(`Headers at setContext: ${headers}`)
   const token = AuthService.getToken();
   // return the headers to the context so httpLink can read them
   return {
@@ -63,21 +62,26 @@ function App() {
         <Router>
           <Navbar />
             <Container >
-            <Route exact path="/">
-                <Home />
-              </Route>
-              <Route exact path="/signin">
-                <SignIn />
-              </Route>
-              <Route exact path="/signup">
-                <SignUp />
-              </Route>
-              <Route exact path="/me">
-                <Profile />
-              </Route>
-              <Route exact path="/profiles/:username">
-                <Profile />
-              </Route>
+              <Switch>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route exact path="/profile">
+                  <Profile />
+                </Route>
+                <Route exact path="/signin">
+                  <SignIn />
+                </Route>
+                <Route exact path="/signup">
+                  <SignUp />
+                </Route>
+                <Route exact path="/me">
+                  <Profile />
+                </Route>
+                <Route exact path="/profiles/:username">
+                  <Profile />
+                </Route>
+              </Switch>
             </Container>
           <Footer />
         </Router>

@@ -19,7 +19,7 @@ export default function Profile(profile) {
     return (
         <div>
             <h2 className="card-header">
-                {profile.name}'s friends have endorsed these skills...
+                {profile.name}
             </h2>
         </div>
     )

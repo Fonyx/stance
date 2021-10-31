@@ -39,7 +39,7 @@ export default function Navbar() {
             </Typography>
             {AuthService.loggedIn() ? (
               <React.Fragment>
-                <Link className="btn btn-lg btn-info m-2" to="/me">
+                <Link className="btn btn-lg btn-info m-2" to="/profile">
                   {AuthService.getProfile().data.username}'s profile
                 </Link>
                 <Button color="secondary" variant="contained" onClick={logout}>Logout</Button>
