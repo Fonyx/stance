@@ -1,5 +1,5 @@
 const path = require('path');
-require('dotenv').config({path: path.resolve(__dirname, './.env')});
+require('dotenv').config({path: path.resolve(__dirname, '../.env')});
 const express = require('express');
 const configuredMorgan = require('./utils/morgan.js');
 const updateCurrencies = require('./helpers/updateCurrencies');
@@ -10,7 +10,7 @@ const Logger = require('./utils/logger');
 
 
 const app = express();
-app.PORT = process.env.PORT || 3001;
+app.PORT = process.env.PORT;
 app.prodURI = process.env.MONGODB_URI;
 // connect to production database
 connectTo(app.prodURI);

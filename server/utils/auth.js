@@ -7,21 +7,26 @@ const expiration = '3h';
 
 module.exports = {
   authMiddleware: async function ({ req }) {
-    let token = req.headers.authorization;
-    
+    let token = req.body.token || req.query.token || req.headers.authorization;
+
+    if (req.headers.authorization) {
+      token = token.split(' ').pop().trim();
+    }
+
     if (!token) {
       return req;
     }
     
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      console.log(`Date decrypted from token: ${data}`)
       let user = await User.findOne({
         "_id": data._id
       });
       Logger.info(`User: ${user.username} sent authorized request`);
       req.user = user;
-    } catch {
-      Logger.error('Present but Invalid Token');
+    } catch (err) {
+      Logger.error(err);
     }
 
     return req;

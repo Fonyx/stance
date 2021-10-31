@@ -66,6 +66,8 @@ const rootResolver = {
             }
         
             const token = signToken(user);
+
+            Logger.info(`User ${user.username} successfully logged in`)
         
             return { token, user };
         },

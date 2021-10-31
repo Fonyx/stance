@@ -12,24 +12,25 @@ import { ThemeProvider } from '@mui/private-theming';
 import { Container, createTheme } from '@mui/material';
 
 import './App.css';
-import Auth from './utils/auth';
+import AuthService from './utils/auth';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'http://localhost:4000/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = Auth.getToken()
+  console.log(`Headers at setContext: ${headers}`)
+  const token = AuthService.getToken();
   // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
-      authorization: token ? `${token}` : '',
+      authorization: token ? `Bearer ${token}` : '',
     },
   };
 });

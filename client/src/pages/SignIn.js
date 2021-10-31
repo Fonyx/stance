@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { SIGN_IN } from '../utils/mutations';
-import Auth from '../utils/auth';
+import AuthService from '../utils/auth';
 
 export default function SignIn(props) {
 
@@ -23,12 +23,13 @@ export default function SignIn(props) {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         console.log(formState);
-        try {
-            const { data } = await login({
+        try { 
+            const {data} = await login({
                 variables: { ...formState },
             });
 
-            Auth.login(data.login.token);
+            console.log(`response token from server was`, data.signIn.token);
+            AuthService.login(data.signIn.token);
         } catch (e) {
         console.error(e);
         }
