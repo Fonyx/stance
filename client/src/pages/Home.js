@@ -1,18 +1,31 @@
 import React from 'react'
-import {Grid} from '@mui/material'
-import {ButtonGroup, Button} from '@mui/material'
+// import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import {Button} from '@mui/material'
+import {QUERY_USER_ACCOUNTS} from '../utils/queries'
+import {slugify} from '../helpers/strings'
+import { Link } from 'react-router-dom';
 
 
 
 export default function Home() {
+
+    const {loading, data} = useQuery(QUERY_USER_ACCOUNTS, {});
+
+    const userAccounts = data?.userAccounts || {};
+
+    if(loading){
+        return <div>Loading...</div>
+    }
+
     return (
-        <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center" style={{minHeight: '60vh'}}>
-            <Grid item xs={12}>
-                <ButtonGroup variant="text" aria-label="outlined primary button group">
-                    <Button href='/signup'>Sign Up</Button>
-                    <Button href="/signin">Sign In</Button>
-                </ButtonGroup>
-            </Grid>
-        </Grid>
+        <div className="account-rows">
+            {userAccounts && userAccounts.map((userAccount) => (
+                <div key={userAccount._id}>
+                    <Button LinkComponent={Link} color="secondary" variant="contained" to={`/account/${slugify(userAccount.name)}`}>{userAccount.name} {userAccount.balance}</Button>
+
+                </div>
+            ))}
+        </div>
     )
 }

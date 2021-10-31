@@ -27,7 +27,7 @@ const rootResolver = {
         users: async () => {
             return await User.find({});
         },
-        userAcc: async (_, __, {user}) => {
+        userAccounts: async (_, __, {user}) => {
             if(!user){
                 Logger.warn('No User object found from middleware');
                 throw new AuthenticationError('Not logged in, please login');

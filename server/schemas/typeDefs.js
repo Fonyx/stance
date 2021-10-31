@@ -125,7 +125,7 @@ const typeDefs = gql`
     allTransactions: [Transaction]!
     user(username: String!): User
     users: [User]
-    userAcc: [Account]!
+    userAccounts: [Account]!
     userAccountTransactions(accountId: String!): [Transaction]!
   }
 

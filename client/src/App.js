@@ -5,16 +5,16 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Landing from './pages/Landing';
 import Home from './pages/Home';
-import Profile from './pages/Profile';
-import { green, orange } from '@mui/material/colors';
-import { ThemeProvider } from '@mui/private-theming';
+import { ThemeProvider } from '@mui/material';
 import { Container, createTheme } from '@mui/material';
 
 import './App.css';
 import AuthService from './utils/auth';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Account from './pages/Account';
 
 
 // Construct our main GraphQL API endpoint
@@ -39,35 +39,37 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const stanceTheme = createTheme({
-  typography: {
-    h6: {
-      fontSize: 36
-    }
+const theme = createTheme({
+  typography:{
+    fontFamily: 'Saira',
+    fontWeight: 500
   },
-  palette:{
+  palette: {
     primary: {
-      main: green[400]
+      light: '#af8dff',
+      main: '#7b5fe0',
+      dark: '#4634ad',
+      contrastText: '#ffffff',
     },
     secondary: {
-      main: orange[300]
-    }
-  }
-})
+      light: '#67ffd6',
+      main: '#00eaa4',
+      dark: '#00b675',
+      contrastText: '#000000',
+    },
+  },
+});
 
 function App() {
   return (
     <ApolloProvider client={apolloClient}>
-      <ThemeProvider theme={stanceTheme}>
+      <ThemeProvider theme={theme}>
         <Router>
-          <Navbar />
+          <Navbar/>
             <Container >
               <Switch>
                 <Route exact path="/">
-                  <Home />
-                </Route>
-                <Route exact path="/profile">
-                  <Profile />
+                  <Landing />
                 </Route>
                 <Route exact path="/signin">
                   <SignIn />
@@ -75,11 +77,11 @@ function App() {
                 <Route exact path="/signup">
                   <SignUp />
                 </Route>
-                <Route exact path="/me">
-                  <Profile />
+                <Route exact path="/home">
+                  <Home />
                 </Route>
-                <Route exact path="/profiles/:username">
-                  <Profile />
+                <Route exact path="/account">
+                  <Account/>
                 </Route>
               </Switch>
             </Container>
