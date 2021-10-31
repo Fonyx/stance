@@ -3,8 +3,11 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import RestoreIcon from '@mui/icons-material/Restore';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import {BottomNavigation, BottomNavigationAction} from '@mui/material';
+// import { useLocation, useHistory } from 'react-router-dom';
 
 export default function Footer() {
+    // const location = useLocation();
+    // const history = useHistory();
 
     const [value, setValue] = useState('home');
 

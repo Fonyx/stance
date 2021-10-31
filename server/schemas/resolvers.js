@@ -47,12 +47,12 @@ const rootResolver = {
         }
     },
     Mutation:{
-        addUser: async (_, { username, email, password }) => {
+        signUp: async (_, { username, email, password }) => {
             const user = await User.create({ username, email, password });
             const token = signToken(user);
             return { token, user };
         },
-        login: async (_, { email, password }) => {
+        signIn: async (_, { email, password }) => {
             const user = await User.findOne({ email });
         
             if(!user){

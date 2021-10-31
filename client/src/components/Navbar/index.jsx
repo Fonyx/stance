@@ -7,6 +7,11 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
+const fontStyle = {
+  fontFamily: 'Saira',
+  fontWeight: 500
+}
+
 export default function Navbar() {
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -21,7 +26,7 @@ export default function Navbar() {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} style={fontStyle}>
                 News
               </Typography>
               <Button color="secondary" variant="contained">Login</Button>

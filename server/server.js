@@ -8,13 +8,13 @@ const { typeDefs, resolvers } = require('./schemas');
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware,
+  context: authMiddleware
 });
 // serve the app through the apollo server
 server.applyMiddleware({ app });
 
 app.listen(app.PORT, () => {
-  Logger.info(`front endpoint at http://localhost:${app.PORT}`);
-  Logger.info(`GraphQL api endpoint at http://localhost:${app.PORT}${server.graphqlPath}`);
+  Logger.warn(`front endpoint at http://localhost:${app.PORT}`);
+  Logger.warn(`GraphQL api endpoint at http://localhost:${app.PORT}${server.graphqlPath}`);
 });
 
