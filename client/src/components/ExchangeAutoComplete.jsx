@@ -1,7 +1,7 @@
 import React from 'react';
-import {QUERY_GET_ALL_EXCHANGES} from '../../utils/queries';
+import {QUERY_GET_ALL_EXCHANGES} from '../utils/queries';
 import { useQuery } from '@apollo/client';
-import {Autocomplete, TextField, Button} from '@mui/material';
+import {Autocomplete, TextField} from '@mui/material';
 
 export default function ExchangeAutoComplete() {
 
@@ -10,7 +10,9 @@ export default function ExchangeAutoComplete() {
     const exchanges = data?.allExchanges.map((exchangeObj) => exchangeObj.name) || [];
 
     if(loading){
-        return <div>Loading Exchanges...</div>
+        return ( 
+            <div>Loading</div>
+        )
     }else{
         console.log(exchanges);
     }
@@ -18,11 +20,11 @@ export default function ExchangeAutoComplete() {
     return ( 
         <Autocomplete
             disablePortal
-            id="movie"
+            id="exchange"
             options={exchanges}
             sx={{ width: 300 }}
             renderInput={
-                (params) => <TextField {...params} label="Exchanges" />
+                (params) => <TextField {...params} label="Exchange" />
             }
         />
     )

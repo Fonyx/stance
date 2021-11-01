@@ -1,8 +1,12 @@
 import React, {useState}from 'react'
 import {CREATE_ACCOUNT} from '../utils/mutations';
-import {QUERY_GET_ALL_CURRENCIES, QUERY_GET_ALL_PARTIES} from '../utils/queries';
-import { useQuery } from '@apollo/client';
-import ExchangeAutoComplete from '../components/ExchangeAutoComplete'
+import { useMutation } from '@apollo/client';
+import {TextField, Divider} from '@mui/material';
+import ExchangeAutoComplete from '../components/ExchangeAutoComplete';
+import AccountTypeAutoComplete from '../components/AccountTypeAutoComplete';
+import CurrencyAutoComplete from '../components/CurrencyAutoComplete';
+import PartyAutoComplete from '../components/PartyAutoComplete';
+import FreeSoloCreateOptionDialog from '../components/autocompleteDialog';
 
 const initialFormState = {
     type: 'money',
@@ -18,9 +22,6 @@ const initialFormState = {
 export default function CreateAccount() {
 
     const [formState, setFormState] = useState(initialFormState);
-
-    // build queries and mutations
-    // const [createAccount, { error, transactionData }] = useMutation(CREATE_ACCOUNT);
 
 
     const handleChange = (event) => {
@@ -52,15 +53,20 @@ export default function CreateAccount() {
         <div>
             <h2>NEW ACCOUNT</h2>
             <form>
+                <TextField id="description" label="Description"></TextField>
+                <TextField id="accountName" label="Account Name"></TextField>
+                <TextField id="openingBalance" label="Balance"></TextField>
+                <AccountTypeAutoComplete />
+
+                <Divider></Divider>
                 <ExchangeAutoComplete />
+                <CurrencyAutoComplete />
+                <PartyAutoComplete />
+
+
+                <Divider></Divider>
+                <FreeSoloCreateOptionDialog/>
             </form>
         </div>
-        // <div className="account-rows">
-        //     {exchanges && exchanges.map((exchange) => (
-        //         <div key={exchange._id}>
-        //             <Button color="secondary" variant="contained">{exchange.code} {exchange.name}</Button>
-        //         </div>
-        //     ))}
-        // </div>
     )
 }
