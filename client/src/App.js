@@ -18,6 +18,8 @@ import SignUp from './pages/SignUp';
 import Account from './pages/Account';
 import CreateAccount from './pages/CreateAccount';
 
+import '@fontsource/saira';
+
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({

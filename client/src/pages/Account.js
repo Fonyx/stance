@@ -19,7 +19,7 @@ export default function Account() {
             'accountId': params.id
         }
     });
-    
+
     if(loading){
         return <div>Loading...</div>
     }
@@ -31,7 +31,7 @@ export default function Account() {
         <div className="account-rows">
             {userAccountTransactions && userAccountTransactions.map((transaction) => (
                 <div key={transaction._id}>
-                    <Button LinkComponent={Link} color='primary' variant="contained" to={`/transaction/${(transaction._id)}`}>{transaction.description} {transaction.amount}</Button>
+                    <Button LinkComponent={Link} color='primary' variant="contained" to={`/transaction/${(transaction._id)}`}>{transaction.description} {transaction.amount} {transaction.date}</Button>
                 </div>
             ))}
         </div>

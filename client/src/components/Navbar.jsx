@@ -38,11 +38,8 @@ export default function Navbar() {
               <Button color="secondary" variant="contained" href="/createTransaction">Create Transaction</Button>
               <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>
             </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <Button color="secondary" variant="contained" href="/signin">Sign In</Button>
-              <Button color="secondary" variant="contained" href="/signup">Sign Up</Button>
-            </React.Fragment>
+          ):(
+            <React.Fragment></React.Fragment>
           )}
         </Toolbar>
       </AppBar>
