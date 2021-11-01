@@ -19,18 +19,17 @@ export default function CreateTransaction() {
 
     const [toAccount, setToAccount] = useState({});
     const [fromAccount, setFromAccount] = useState({});
-    
     const [description, setDescription] = useState('');
-    const [amount, setAmount] = useState(null);
+    const [amount, setAmount] = useState(0);
     const [frequency, setFrequency] = useState('once');
     const [date, setDate] = useState(new Date());
     const [endRecurrence, setEndRecurrence] = useState(null);
 
+    const [errors, setErrors] = useState([]);
+
     // create query to get user accounts
     const {loading, data} = useQuery(QUERY_USER_ACCOUNTS, {});
     const userAccounts = data?.userAccounts || [];
-    
-    // console.log('user accounts: ', userAccounts);
     
     let currentAccountChoice = toAccount.name? toAccount.name : fromAccount.name
     var accountChoices = filterChoiceFromOptions(currentAccountChoice, userAccounts);
@@ -80,24 +79,71 @@ export default function CreateTransaction() {
         }
     }
 
-    console.log('State To Account: ', toAccount);
-    console.log('State From Account: ', fromAccount);
-    console.log('State Amount: ', amount);
-    console.log('State description: ', description);
-    console.log('State frequency: ', frequency);
-    console.log('State Date: ', date);
-    console.log('State End Recurrence: ', endRecurrence);
+    // console.log('State To Account: ', toAccount);
+    // console.log('State From Account: ', fromAccount);
+    // console.log('State Amount: ', amount);
+    // console.log('State description: ', description);
+    // console.log('State frequency: ', frequency);
+    // console.log('State Date: ', date);
+    // console.log('State End Recurrence: ', endRecurrence);
 
     const transferMaximum = () => {
         let fundsAvailable = fromAccount.balance;
         setAmount(fundsAvailable)
     }
 
+    // checks that the form is submittable, if it fails, sets error state and returns false, else true
+    const validateFormSubmit = () => {
+        let valid = true;
+        let errorBuffer = [];
+
+        //check accounts
+        if(!toAccount?.balance && !fromAccount?.balance){
+            errorBuffer.push('You need to choose at least one account');
+            valid  = false;
+        }
+
+        // check amount is not null
+        if(!amount){
+            errorBuffer.push('You need to specify a non-zero amount');
+            valid = false;
+        }
+
+        // check amount isn't larger than the balance in the from account if there is a from account
+        if(fromAccount?.balance){
+            if(amount > fromAccount.balance){
+                errorBuffer.push("You can't transfer more than the balance of the from account for the transaction")
+            }
+        }
+
+        // check there is a description
+        if(!description){
+            errorBuffer.push('You need to describe the transaction, your future self with thank you');
+            valid = false
+        }
+
+        // check that there is a date
+        if(!date){
+            errorBuffer.push('You need to set a date for this transaction to happen');
+            valid = false
+        }
+        // check that if frequency isn't once, there is a selected endRecurrence
+        if(frequency !== 'once' && !endRecurrence){
+            errorBuffer.push('You need to specify when this transaction ends');
+            valid = false
+        }
+        setErrors(errorBuffer)
+
+        return valid
+    }
+
     // submit form
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         try { 
-            console.log('Sending form not implemented yet')
+            if(validateFormSubmit()){
+                console.log('sending form')
+            }
         } catch (e) {
         console.error(e);
         }
@@ -105,7 +151,7 @@ export default function CreateTransaction() {
 
     if(loading){
         return ( 
-            <div>Loading Accounts...</div>
+            <div>Loading Your Details...</div>
         )
     }
 
@@ -114,7 +160,6 @@ export default function CreateTransaction() {
             <h1>NEW TRANSACTION</h1>
             <form onSubmit={handleFormSubmit}>
                 <LocalizationProvider dateAdapter={AdapterDateFns} locale={enLocale}>
-
                     <Autocomplete
                         disablePortal
                         id="fromAccount"
@@ -126,7 +171,6 @@ export default function CreateTransaction() {
                         onChange={handleSelectChange}
                         renderInput={(params) => <TextField {...params} label="From Account" />}
                         />
-
                     {fromAccount.balance? 
                         <div>
                             {fromAccount.balance}
@@ -135,7 +179,6 @@ export default function CreateTransaction() {
                         : 
                         <></>
                     }
-
                     <Autocomplete
                         disablePortal
                         id="toAccount"
@@ -150,7 +193,6 @@ export default function CreateTransaction() {
                     {toAccount.balance? 
                         <div>{toAccount.balance}</div> : <></>
                     }
-
                     <TextField name='amount' onChange={handleInputChange} label="Amount" value={amount} placeholder="0.00"/>
                     <TextField name='description' onChange={handleInputChange} label="Description" value={description} placeholder="A quick note"/>
 
@@ -195,7 +237,6 @@ export default function CreateTransaction() {
                                 }}
                                 renderInput={(params) => <TextField {...params} />}
                         />: <></>}
-
                     <Button
                         style={{ cursor: 'pointer' }}
                         type="submit"
@@ -203,9 +244,13 @@ export default function CreateTransaction() {
                     >
                         Submit
                     </Button>
+                    <div id="error">
+                        {errors.map((error) => {
+                            return <div>{error}</div>
+                        })}
+                    </div> 
                 </LocalizationProvider>
             </form>
-
         </div>
     )
 }
