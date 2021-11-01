@@ -1,10 +1,8 @@
-import React, {useState, useEffect}from 'react'
+import React, {useState}from 'react'
 import {CREATE_ACCOUNT} from '../utils/mutations';
-import {
-    QUERY_GET_ALL_CURRENCIES, QUERY_GET_ALL_PARTIES, QUERY_GET_ALL_EXCHANGES
-} from '../utils/queries';
-import { useMutation, useQuery, useLazyQuery } from '@apollo/client';
-import {Autocomplete, TextField, Button} from '@mui/material';
+import {QUERY_GET_ALL_CURRENCIES, QUERY_GET_ALL_PARTIES} from '../utils/queries';
+import { useQuery } from '@apollo/client';
+import ExchangeAutoComplete from '../components/ExchangeAutoComplete'
 
 const initialFormState = {
     type: 'money',
@@ -23,12 +21,6 @@ export default function CreateAccount() {
 
     // build queries and mutations
     // const [createAccount, { error, transactionData }] = useMutation(CREATE_ACCOUNT);
-
-    const {loading, data} = useQuery(QUERY_GET_ALL_EXCHANGES, {});
-
-    const exchanges = data?.allExchanges || [];
-
-    if(loading) return <div>Loading Exchanges...</div>
 
 
     const handleChange = (event) => {
@@ -56,33 +48,19 @@ export default function CreateAccount() {
         setFormState(initialFormState);
     };
 
-    var types = [
-        { label: 'Money'},
-        { label: 'Crypto'},
-        { label: 'Stock'}
-    ]
-
     return (
-        // <div>
-        //     <h2>NEW ACCOUNT</h2>
-        //     <form>
-        //         <Autocomplete
-        //             disablePortal
-        //             id="type"
-        //             options={types}
-        //             sx={{ width: 300 }}
-        //             renderInput={
-        //                 (params) => <TextField {...params} label="type" />
-        //             }
-        //         />
-        //     </form>
-        // </div>
-        <div className="account-rows">
-            {exchanges && exchanges.map((exchange) => (
-                <div key={exchange._id}>
-                    <Button color="secondary" variant="contained">{exchange.code} {exchange.name}</Button>
-                </div>
-            ))}
+        <div>
+            <h2>NEW ACCOUNT</h2>
+            <form>
+                <ExchangeAutoComplete />
+            </form>
         </div>
+        // <div className="account-rows">
+        //     {exchanges && exchanges.map((exchange) => (
+        //         <div key={exchange._id}>
+        //             <Button color="secondary" variant="contained">{exchange.code} {exchange.name}</Button>
+        //         </div>
+        //     ))}
+        // </div>
     )
 }
