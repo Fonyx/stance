@@ -23,7 +23,6 @@ export default function Home() {
             {userAccounts && userAccounts.map((userAccount) => (
                 <div key={userAccount._id}>
                     <Button LinkComponent={Link} color="secondary" variant="contained" to={`/account/${slugify(userAccount.name)}`}>{userAccount.name} {userAccount.balance}</Button>
-
                 </div>
             ))}
         </div>

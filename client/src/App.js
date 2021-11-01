@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
 import Home from './pages/Home';
+import CreateTransaction from './pages/CreateTransaction'
 import { ThemeProvider } from '@mui/material';
 import { Container, createTheme } from '@mui/material';
 
@@ -82,6 +83,9 @@ function App() {
                 </Route>
                 <Route exact path="/account">
                   <Account/>
+                </Route>
+                <Route exact path="/createTransaction">
+                  <CreateTransaction/>
                 </Route>
               </Switch>
             </Container>

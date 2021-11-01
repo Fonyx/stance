@@ -34,7 +34,8 @@ export default function Navbar() {
           </Typography>
           {AuthService.loggedIn() ? (
             <React.Fragment>
-              <Button color="primary" variant="contained" onClick={logout}>Logout</Button>
+              <Button color="secondary" variant="contained" onClick={logout}>Logout</Button>
+              <Button color="secondary" variant="contained" href="/createTransaction">Create Transaction</Button>
             </React.Fragment>
           ) : (
             <React.Fragment>

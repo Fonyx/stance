@@ -30,6 +30,9 @@ class AuthService {
     }
 
     login(idToken) {
+        if(idToken === 'undefined'){
+            throw new Error('Token received was "undefined" as string, weird, bailing')
+        }
         localStorage.setItem('id_token', idToken);
         window.location.assign('/home');
     }

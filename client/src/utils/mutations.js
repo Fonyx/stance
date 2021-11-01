@@ -25,3 +25,34 @@ export const SIGN_UP = gql`
         }
     }
 `;
+
+export const CREATE_TRANSACTION = gql`
+    mutation createTransaction(
+        $toAccount: String!,
+        $fromAccount: String!,
+        $description: String!,
+        $date: String!,
+        $amount: Float,
+        $frequency: String!,
+        $endRecurrence: String
+    ){
+        createTransaction(
+        input: {
+            toAccount: $toAccount,
+            fromAccount: $fromAccount,
+            description: $description,
+            date: $date,
+            amount: $amount,
+            frequency: $frequency,
+            endRecurrence: $endRecurrence
+        }
+        ) {
+        fromAccount{
+            name
+        }
+        toAccount{
+            name
+        }
+        }
+    }
+`;
