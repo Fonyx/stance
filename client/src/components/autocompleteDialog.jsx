@@ -7,13 +7,14 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 import {QUERY_GET_ALL_PARTIES} from '../utils/queries';
 import { useQuery } from '@apollo/client';
 
 const filter = createFilterOptions();
 
-export default function FreeSoloCreateOptionDialog() {
+export default function PartyAutoCompleteAdd() {
     const [value, setValue] = React.useState(null);
     const [open, toggleOpen] = React.useState(false);
 
@@ -65,6 +66,15 @@ export default function FreeSoloCreateOptionDialog() {
         });
 
         handleClose();
+    };
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+
+        setDialogValue({
+            ...dialogValue,
+            [name]: value,
+        });
     };
 
     return (
@@ -145,7 +155,21 @@ export default function FreeSoloCreateOptionDialog() {
                 type="text"
                 variant="standard"
                 />
-                <TextField
+                <FormControl sx={{width: '25ch'}}>
+                    <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value="bank"
+                            label="Type"
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={10}>bank</MenuItem>
+                            <MenuItem value={20}>wallet</MenuItem>
+                            <MenuItem value={30}>broker</MenuItem>
+                        </Select>
+                    </FormControl>
+                {/* <TextField
                 margin="dense"
                 id="type"
                 value={dialogValue.type}
@@ -158,7 +182,7 @@ export default function FreeSoloCreateOptionDialog() {
                 label="type"
                 type="text"
                 variant="standard"
-                />
+                /> */}
                 <TextField
                 margin="dense"
                 id="description"

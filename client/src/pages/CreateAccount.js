@@ -6,7 +6,7 @@ import ExchangeAutoComplete from '../components/ExchangeAutoComplete';
 import AccountTypeAutoComplete from '../components/AccountTypeAutoComplete';
 import CurrencyAutoComplete from '../components/CurrencyAutoComplete';
 import PartyAutoComplete from '../components/PartyAutoComplete';
-import FreeSoloCreateOptionDialog from '../components/autocompleteDialog';
+import PartyAutoCompleteAdd from '../components/autocompleteDialog';
 
 const initialFormState = {
     type: 'money',
@@ -61,11 +61,11 @@ export default function CreateAccount() {
                 <Divider></Divider>
                 <ExchangeAutoComplete />
                 <CurrencyAutoComplete />
-                <PartyAutoComplete />
 
 
                 <Divider></Divider>
-                <FreeSoloCreateOptionDialog/>
+                <PartyAutoComplete />
+                <PartyAutoCompleteAdd/>
             </form>
         </div>
     )
