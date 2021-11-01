@@ -3,7 +3,6 @@ import React from 'react'
 import { useQuery } from '@apollo/client';
 import {Button} from '@mui/material'
 import {QUERY_USER_ACCOUNTS} from '../utils/queries'
-import {slugify} from '../helpers/strings'
 import { Link } from 'react-router-dom';
 
 
@@ -22,7 +21,7 @@ export default function Home() {
         <div className="account-rows">
             {userAccounts && userAccounts.map((userAccount) => (
                 <div key={userAccount._id}>
-                    <Button LinkComponent={Link} color="secondary" variant="contained" to={`/account/${slugify(userAccount.name)}`}>{userAccount.name} {userAccount.balance}</Button>
+                    <Button LinkComponent={Link} color="secondary" variant="contained" to={`/account/${userAccount._id}`}>{userAccount.name} {userAccount.balance}</Button>
                 </div>
             ))}
         </div>

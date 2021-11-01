@@ -82,7 +82,7 @@ function App() {
                 <Route exact path="/home">
                   <Home />
                 </Route>
-                <Route exact path="/account">
+                <Route exact path="/account/:id">
                   <Account/>
                 </Route>
                 <Route exact path="/createTransaction">

@@ -37,10 +37,18 @@ const rootResolver = {
             });
             return accounts;
         },
-        userAccountTransactions: async (_, { user, accountId }) => {
+        userAccountTransactions: async (_, {accountId}, { user }) => {
             if(!user){
                 Logger.warn('No User object found from middleware');
                 throw new AuthenticationError('Not logged in, please login');
+            }
+            // check user has permission for this account
+            let account = await Account.findOne({
+                "_id": accountId
+            });
+            await Account.populate(account, {path: "user"});
+            if(!account.user.id === user.id){
+                throw new AuthenticationError('You do not have permission to view this account');
             }
             let accountTransactions = await transactionSvc.findByAccountId(accountId);
             return accountTransactions;
