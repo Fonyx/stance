@@ -22,7 +22,7 @@ export default function CreateTransaction() {
     
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState('');
-    const [frequency, setFrequency] = useState('fortnightly');
+    const [frequency, setFrequency] = useState('once');
     const [date, setDate] = useState(new Date());
     const [endRecurrence, setEndRecurrence] = useState(null);
 
@@ -30,10 +30,10 @@ export default function CreateTransaction() {
     const {loading, data} = useQuery(QUERY_USER_ACCOUNTS, {});
     const userAccounts = data?.userAccounts || [];
     
-    console.log('user accounts: ', userAccounts);
+    // console.log('user accounts: ', userAccounts);
     
-    var toAccountChoices = filterChoiceFromOptions(toAccount.name, userAccounts);
-    var fromAccountChoices = filterChoiceFromOptions(toAccount.name, userAccounts);
+    let currentAccountChoice = toAccount.name? toAccount.name : fromAccount.name
+    var accountChoices = filterChoiceFromOptions(currentAccountChoice, userAccounts);
 
     
     // update state based on form select changes
@@ -113,7 +113,7 @@ export default function CreateTransaction() {
                         disablePortal
                         id="toAccount"
                         name='toAccount'
-                        options={toAccountChoices}
+                        options={accountChoices}
                         getOptionLabel={(option) => option.name}
                         isOptionEqualToValue={(option, value) => option.name === value.name}
                         sx={{ width: 300 }}
@@ -124,7 +124,7 @@ export default function CreateTransaction() {
                         disablePortal
                         id="fromAccount"
                         name='fromAccount'
-                        options={fromAccountChoices}
+                        options={accountChoices}
                         getOptionLabel={(option) => option.name}
                         isOptionEqualToValue={(option, value) => option.name === value.name}
                         sx={{ width: 300 }}
@@ -159,7 +159,7 @@ export default function CreateTransaction() {
                         value={date}
                         minDate={new Date()}
                         onChange={(newValue) => {
-                            console.log('Updating date state to: ', newValue);
+                            // console.log('Updating date state to: ', newValue);
                             setDate(newValue);
                         }}
                         renderInput={(params) => <TextField {...params} />}
@@ -170,7 +170,7 @@ export default function CreateTransaction() {
                                 value={endRecurrence}
                                 minDate={new Date()}
                                 onChange={(newValue) => {
-                                    console.log('Updating end Recurrence state to: ', newValue);
+                                    // console.log('Updating end Recurrence state to: ', newValue);
                                     setEndRecurrence(newValue);
                                 }}
                                 renderInput={(params) => <TextField {...params} />}
