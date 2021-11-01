@@ -16,6 +16,7 @@ import AuthService from './utils/auth';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Account from './pages/Account';
+import CreateAccount from './pages/CreateAccount';
 
 
 // Construct our main GraphQL API endpoint
@@ -86,6 +87,9 @@ function App() {
                 </Route>
                 <Route exact path="/createTransaction">
                   <CreateTransaction/>
+                </Route>
+                <Route exact path="/createAccount">
+                  <CreateAccount/>
                 </Route>
               </Switch>
             </Container>

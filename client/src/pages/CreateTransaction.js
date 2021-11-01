@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { QUERY_USER_ACCOUNTS } from '../utils/queries';
 import { CREATE_TRANSACTION } from '../utils/mutations';
@@ -17,16 +17,25 @@ const initialFormState = {
 export default function CreateTransaction() {
 
     const [formState, setFormState] = useState(initialFormState);
+    const [accountState, setAccountState] = useState([]);
 
-    // get the accounts for the user
+    // create query to get user accounts
     const {loadingAccounts, accountData} = useQuery(QUERY_USER_ACCOUNTS, {});
-    const userAccounts = accountData?.userAccounts || {};
-
+    
+    // create mutation to make new transaction
     const [createTransaction, { error, transactionData }] = useMutation(CREATE_TRANSACTION);
 
-    if(loadingAccounts){
-        return <div>Loading Your Accounts</div>
-    }
+    useEffect(() => {
+        // call the userAccounts query to get a list of user accounts
+        const userAccounts = accountData?.userAccounts || [];
+        console.log(userAccounts)
+
+        if(loadingAccounts){
+            return <div>Loading Your Accounts</div>
+        }
+
+        setAccountState(userAccounts);
+    }, [])
 
     // update state based on form input changes
     const handleChange = (event) => {

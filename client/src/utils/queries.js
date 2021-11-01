@@ -29,3 +29,46 @@ export const QUERY_ACCOUNT_TRANSACTIONS = gql`
         }
     }
 `;
+
+export const QUERY_GET_ALL_PARTIES = gql`
+    query{
+        allParties{
+            name
+            type
+            user{
+                username
+            }
+            description
+            website
+            logo
+            style {
+                color
+                shade
+            }
+        }
+    }
+`;
+
+
+export const QUERY_GET_ALL_CURRENCIES = gql`
+    query{
+        allCurrencies{
+            _id
+            code
+            name
+            symbol
+            usdValue
+        }
+    }
+`;
+
+
+export const QUERY_GET_ALL_EXCHANGES = gql`
+    query{
+        allExchanges{
+            _id
+            code
+            name
+        }
+    }
+`;

@@ -36,6 +36,7 @@ export default function Navbar() {
             <React.Fragment>
               <Button color="secondary" variant="contained" onClick={logout}>Logout</Button>
               <Button color="secondary" variant="contained" href="/createTransaction">Create Transaction</Button>
+              <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>
             </React.Fragment>
           ) : (
             <React.Fragment>
