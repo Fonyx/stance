@@ -157,18 +157,18 @@ export default function PartyAutoCompleteAdd() {
                 />
                 <FormControl sx={{width: '25ch'}}>
                     <InputLabel id="demo-simple-select-label">Type</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value="bank"
-                            label="Type"
-                            onChange={handleChange}
-                        >
-                            <MenuItem value={10}>bank</MenuItem>
-                            <MenuItem value={20}>wallet</MenuItem>
-                            <MenuItem value={30}>broker</MenuItem>
-                        </Select>
-                    </FormControl>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value="bank"
+                        label="Type"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value={10}>bank</MenuItem>
+                        <MenuItem value={20}>wallet</MenuItem>
+                        <MenuItem value={30}>broker</MenuItem>
+                    </Select>
+                </FormControl>
                 {/* <TextField
                 margin="dense"
                 id="type"

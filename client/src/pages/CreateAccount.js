@@ -7,6 +7,8 @@ import AccountTypeAutoComplete from '../components/AccountTypeAutoComplete';
 import CurrencyAutoComplete from '../components/CurrencyAutoComplete';
 import PartyAutoComplete from '../components/PartyAutoComplete';
 import PartyAutoCompleteAdd from '../components/autocompleteDialog';
+import AssetCode from '../components/AssetCode';
+import Compound from '../components/Compound'
 
 const initialFormState = {
     type: 'money',
@@ -53,19 +55,28 @@ export default function CreateAccount() {
         <div>
             <h2>NEW ACCOUNT</h2>
             <form>
+                <Divider>Core Fields</Divider>
+                <AccountTypeAutoComplete />
                 <TextField id="description" label="Description"></TextField>
                 <TextField id="accountName" label="Account Name"></TextField>
                 <TextField id="openingBalance" label="Balance"></TextField>
-                <AccountTypeAutoComplete />
-
-                <Divider></Divider>
-                <ExchangeAutoComplete />
-                <CurrencyAutoComplete />
-
-
-                <Divider></Divider>
                 <PartyAutoComplete />
                 <PartyAutoCompleteAdd/>
+
+                <Divider>Money Fields</Divider>
+                <CurrencyAutoComplete />
+                <TextField id="interestRate" label="Interest Rate" placeholder="3.5%"></TextField>
+                <Compound />
+
+                <Divider>Crypto and Stock Fields</Divider>
+                <ExchangeAutoComplete />
+                <AssetCode />
+                <TextField id="unitPrice" label="Unit Price"></TextField>
+
+                <Divider>Subdocuments</Divider>
+                <TextField id="tags" label="Tags"></TextField>
+                <TextField id="Goal" label="Goal"></TextField>
+
             </form>
         </div>
     )
