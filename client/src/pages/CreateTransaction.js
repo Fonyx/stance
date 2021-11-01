@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { QUERY_USER_ACCOUNTS } from '../utils/queries';
 import {Autocomplete, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
@@ -21,7 +21,7 @@ export default function CreateTransaction() {
     const [fromAccount, setFromAccount] = useState({});
     
     const [description, setDescription] = useState('');
-    const [amount, setAmount] = useState('');
+    const [amount, setAmount] = useState(null);
     const [frequency, setFrequency] = useState('once');
     const [date, setDate] = useState(new Date());
     const [endRecurrence, setEndRecurrence] = useState(null);
@@ -88,6 +88,11 @@ export default function CreateTransaction() {
     console.log('State Date: ', date);
     console.log('State End Recurrence: ', endRecurrence);
 
+    const transferMaximum = () => {
+        let fundsAvailable = fromAccount.balance;
+        setAmount(fundsAvailable)
+    }
+
     // submit form
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -109,17 +114,7 @@ export default function CreateTransaction() {
             <h1>NEW TRANSACTION</h1>
             <form onSubmit={handleFormSubmit}>
                 <LocalizationProvider dateAdapter={AdapterDateFns} locale={enLocale}>
-                    <Autocomplete
-                        disablePortal
-                        id="toAccount"
-                        name='toAccount'
-                        options={accountChoices}
-                        getOptionLabel={(option) => option.name}
-                        isOptionEqualToValue={(option, value) => option.name === value.name}
-                        sx={{ width: 300 }}
-                        onChange={handleSelectChange}
-                        renderInput={(params) => <TextField {...params} label="To Account" />}
-                    />
+
                     <Autocomplete
                         disablePortal
                         id="fromAccount"
@@ -131,8 +126,33 @@ export default function CreateTransaction() {
                         onChange={handleSelectChange}
                         renderInput={(params) => <TextField {...params} label="From Account" />}
                         />
-                    <TextField name='amount' onChange={handleInputChange} label="Amount" placeholder="0.00"/>
-                    <TextField name='description' onChange={handleInputChange} label="Description" placeholder="A quick note"/>
+
+                    {fromAccount.balance? 
+                        <div>
+                            {fromAccount.balance}
+                            <Button onClick={transferMaximum}>Transfer All</Button>
+                        </div> 
+                        : 
+                        <></>
+                    }
+
+                    <Autocomplete
+                        disablePortal
+                        id="toAccount"
+                        name='toAccount'
+                        options={accountChoices}
+                        getOptionLabel={(option) => option.name}
+                        isOptionEqualToValue={(option, value) => option.name === value.name}
+                        sx={{ width: 300 }}
+                        onChange={handleSelectChange}
+                        renderInput={(params) => <TextField {...params} label="To Account" />}
+                    />
+                    {toAccount.balance? 
+                        <div>{toAccount.balance}</div> : <></>
+                    }
+
+                    <TextField name='amount' onChange={handleInputChange} label="Amount" value={amount} placeholder="0.00"/>
+                    <TextField name='description' onChange={handleInputChange} label="Description" value={description} placeholder="A quick note"/>
 
                     <FormControl sx={{width: '25ch'}}>
                         <InputLabel id="every">Frequency</InputLabel>
@@ -155,7 +175,7 @@ export default function CreateTransaction() {
                     </FormControl>
 
                     <DatePicker
-                        label='Starting On'
+                        label='On Date'
                         value={date}
                         minDate={new Date()}
                         onChange={(newValue) => {
