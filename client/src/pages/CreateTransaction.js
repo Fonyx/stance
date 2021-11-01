@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER_ACCOUNTS } from '../utils/queries';
+import { CREATE_TRANSACTION } from '../utils/mutations';
 import {Autocomplete, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 
 import {DatePicker} from '@mui/lab';
@@ -29,6 +30,18 @@ export default function CreateTransaction() {
 
     // create query to get user accounts
     const {loading, data} = useQuery(QUERY_USER_ACCOUNTS, {});
+
+    // prepare the return mutation for creating query
+    const [createTransaction, transactionReturn] = useMutation(CREATE_TRANSACTION);
+
+    if (transactionReturn.loading) return 'Submitting...';
+
+    if (transactionReturn.error) {
+        console.log(transactionReturn)
+        return `Submission error! ${transactionReturn.error.message}`
+    };
+
+    // get the data from the return and set it to the userAccounts variable
     const userAccounts = data?.userAccounts || [];
     
     let currentAccountChoice = toAccount.name? toAccount.name : fromAccount.name
@@ -79,8 +92,8 @@ export default function CreateTransaction() {
         }
     }
 
-    // console.log('State To Account: ', toAccount);
-    // console.log('State From Account: ', fromAccount);
+    console.log('State To Account: ', toAccount);
+    console.log('State From Account: ', fromAccount);
     // console.log('State Amount: ', amount);
     // console.log('State description: ', description);
     // console.log('State frequency: ', frequency);
@@ -142,7 +155,24 @@ export default function CreateTransaction() {
         event.preventDefault();
         try { 
             if(validateFormSubmit()){
-                console.log('sending form')
+
+                let payload = {
+                    toAccount: toAccount._id, 
+                    fromAccount: fromAccount._id, 
+                    amount: amount, 
+                    description: description, 
+                    date: date, 
+                    frequency: frequency, 
+                    endRecurrence: endRecurrence, 
+                }
+
+                console.log(payload);
+
+                await createTransaction({ 
+                    variables: payload
+                });
+                console.log(transactionReturn)
+                // resetForm
             }
         } catch (e) {
         console.error(e);
