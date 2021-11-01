@@ -1,7 +1,4 @@
 import React from 'react';
-import {QUERY_GET_ALL_CURRENCIES} from '../utils/queries';
-import { useQuery } from '@apollo/client';
-import {Autocomplete, TextField} from '@mui/material';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 export default function Compound() {

@@ -1,117 +1,191 @@
 import React, { useState, useEffect } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { QUERY_USER_ACCOUNTS } from '../utils/queries';
-import { CREATE_TRANSACTION } from '../utils/mutations';
-import {Autocomplete, TextField} from '@mui/material';
+import {Autocomplete, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 
-const initialFormState = {
-    toAccount: '',
-    fromAccount: '',
-    description: '',
-    date: Date.now(),
-    amount: 0,
-    frequency: 'once',
-    endRecurrence: null,
+import {DatePicker} from '@mui/lab';
+import enLocale from 'date-fns/locale/en-GB';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+
+
+function filterChoiceFromOptions(choice, options){
+    let remainingOptions = options.filter((option) => choice !== option.name);
+    return remainingOptions
 }
 
 export default function CreateTransaction() {
+    
 
-    const [formState, setFormState] = useState(initialFormState);
-    const [accountState, setAccountState] = useState([]);
+    const [toAccount, setToAccount] = useState({});
+    const [fromAccount, setFromAccount] = useState({});
+    
+    const [description, setDescription] = useState('');
+    const [amount, setAmount] = useState('');
+    const [frequency, setFrequency] = useState('fortnightly');
+    const [date, setDate] = useState(new Date());
+    const [endRecurrence, setEndRecurrence] = useState(null);
 
     // create query to get user accounts
-    const {loadingAccounts, accountData} = useQuery(QUERY_USER_ACCOUNTS, {});
+    const {loading, data} = useQuery(QUERY_USER_ACCOUNTS, {});
+    const userAccounts = data?.userAccounts || [];
     
-    // create mutation to make new transaction
-    const [createTransaction, { error, transactionData }] = useMutation(CREATE_TRANSACTION);
+    console.log('user accounts: ', userAccounts);
+    
+    var toAccountChoices = filterChoiceFromOptions(toAccount.name, userAccounts);
+    var fromAccountChoices = filterChoiceFromOptions(toAccount.name, userAccounts);
 
-    useEffect(() => {
-        // call the userAccounts query to get a list of user accounts
-        const userAccounts = accountData?.userAccounts || [];
-        console.log(userAccounts)
+    
+    // update state based on form select changes
+    const handleSelectChange = (event) => {
+        console.log('Select Event triggered: ', event);
+        console.log('target: ', event.target);
 
-        if(loadingAccounts){
-            return <div>Loading Your Accounts</div>
+        // to account id is of form id="toAccount-option-0"
+        if(event.target.id.startsWith('toAccount')){
+            let optionStrings = event.target.id.split('-');
+            let accountIndex = parseInt(optionStrings[2]);
+            let account = userAccounts[accountIndex];
+            setToAccount({...account});
+        }
+        // to account id is of form id="toAccount-option-0"
+        if(event.target.id.startsWith('fromAccount')){
+            let optionStrings = event.target.id.split('-');
+            let accountIndex = parseInt(optionStrings[2]);
+            let account = userAccounts[accountIndex];
+            setFromAccount({...account});
+        }
+        
+    };
+
+    // update state based on form inputs
+    const handleInputChange = ({target}) => {
+        console.log('Input Event triggered: ');
+        console.log('target: ', target);
+
+        // to account id is of form id="toAccount-option-0"
+        if(target.name === 'description'){
+            let value = target.value;
+            setDescription(value);
+        }
+        // to account id is of form id="toAccount-option-0"
+        if(target.name === 'amount'){
+            let value = target.value;
+            setAmount(value);
         }
 
-        setAccountState(userAccounts);
-    }, [])
+        // case for handling frequency field
+        if(target.name === 'frequency'){
+            setFrequency(target.value);
+        }
+    }
 
-    // update state based on form input changes
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-
-        setFormState({
-            ...formState,
-            [name]: value,
-        });
-    };
+    console.log('State To Account: ', toAccount);
+    console.log('State From Account: ', fromAccount);
+    console.log('State Amount: ', amount);
+    console.log('State description: ', description);
+    console.log('State frequency: ', frequency);
+    console.log('State Date: ', date);
+    console.log('State End Recurrence: ', endRecurrence);
 
     // submit form
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        console.log(formState);
         try { 
-            const {transactionData} = await createTransaction({
-                variables: { ...formState },
-            });
-
-            console.log(`response token from server was`, transactionData.createTransaction);
+            console.log('Sending form not implemented yet')
         } catch (e) {
         console.error(e);
         }
-
-        // clear form values
-        setFormState(initialFormState);
     };
 
-    var accounts = [
-        { label: 'The Shawshank Redemption', year: 1994 },
-        { label: 'The Godfather', year: 1972 }
-    ]
-
+    if(loading){
+        return ( 
+            <div>Loading Accounts...</div>
+        )
+    }
 
     return (
         <div>
-            <h1>TEST</h1>
+            <h1>NEW TRANSACTION</h1>
             <form onSubmit={handleFormSubmit}>
-            <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={accounts}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="To Account" />}
-            />
-            <input
-                className="form-input"
-                placeholder="Your email"
-                name="email"
-                type="email"
-                value={formState.toAccount}
-                onChange={handleChange}
-            />
-            <input
-                className="form-input"
-                placeholder="******"
-                name="password"
-                type="password"
-                value={formState.password}
-                onChange={handleChange}
-            />
-            <button
-                className="btn btn-block btn-primary"
-                style={{ cursor: 'pointer' }}
-                type="submit"
-            >
-                Submit
-            </button>
+                <LocalizationProvider dateAdapter={AdapterDateFns} locale={enLocale}>
+                    <Autocomplete
+                        disablePortal
+                        id="toAccount"
+                        name='toAccount'
+                        options={toAccountChoices}
+                        getOptionLabel={(option) => option.name}
+                        isOptionEqualToValue={(option, value) => option.name === value.name}
+                        sx={{ width: 300 }}
+                        onChange={handleSelectChange}
+                        renderInput={(params) => <TextField {...params} label="To Account" />}
+                    />
+                    <Autocomplete
+                        disablePortal
+                        id="fromAccount"
+                        name='fromAccount'
+                        options={fromAccountChoices}
+                        getOptionLabel={(option) => option.name}
+                        isOptionEqualToValue={(option, value) => option.name === value.name}
+                        sx={{ width: 300 }}
+                        onChange={handleSelectChange}
+                        renderInput={(params) => <TextField {...params} label="From Account" />}
+                        />
+                    <TextField name='amount' onChange={handleInputChange} label="Amount" placeholder="0.00"/>
+                    <TextField name='description' onChange={handleInputChange} label="Description" placeholder="A quick note"/>
+
+                    <FormControl sx={{width: '25ch'}}>
+                        <InputLabel id="every">Frequency</InputLabel>
+                        <Select
+                            labelId="every"
+                            id="every"
+                            value={frequency}
+                            label="How Often"
+                            name='frequency'
+                            onChange={handleInputChange}
+                        >
+                            <MenuItem value={"once"}>once</MenuItem>
+                            <MenuItem value={"daily"}>daily</MenuItem>
+                            <MenuItem value={"weekly"}>weekly</MenuItem>
+                            <MenuItem value={"fortnightly"}>fortnightly</MenuItem>
+                            <MenuItem value={"monthly"}>monthly</MenuItem>
+                            <MenuItem value={"quarterly"}>quarterly</MenuItem>
+                            <MenuItem value={"yearly"}>yearly</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <DatePicker
+                        label='Starting On'
+                        value={date}
+                        minDate={new Date()}
+                        onChange={(newValue) => {
+                            console.log('Updating date state to: ', newValue);
+                            setDate(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                        />
+                        {frequency !== 'once'? 
+                            <DatePicker
+                                label='Until'
+                                value={endRecurrence}
+                                minDate={new Date()}
+                                onChange={(newValue) => {
+                                    console.log('Updating end Recurrence state to: ', newValue);
+                                    setEndRecurrence(newValue);
+                                }}
+                                renderInput={(params) => <TextField {...params} />}
+                        />: <></>}
+
+                    <Button
+                        style={{ cursor: 'pointer' }}
+                        type="submit"
+                        variant="outlined"
+                    >
+                        Submit
+                    </Button>
+                </LocalizationProvider>
             </form>
-  
-            {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
-              </div>
-            )}
+
         </div>
     )
 }

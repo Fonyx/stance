@@ -1,6 +1,4 @@
 import React, {useState}from 'react'
-import {CREATE_ACCOUNT} from '../utils/mutations';
-import { useMutation } from '@apollo/client';
 import {TextField, Divider} from '@mui/material';
 import ExchangeAutoComplete from '../components/ExchangeAutoComplete';
 import AccountTypeAutoComplete from '../components/AccountTypeAutoComplete';
@@ -39,9 +37,6 @@ export default function CreateAccount() {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         try { 
-            // const {transactionData} = await createAccount({
-            //     variables: { ...formState },
-            // });
 
         } catch (e) {
         console.error(e);
@@ -54,9 +49,9 @@ export default function CreateAccount() {
     return (
         <div>
             <h2>NEW ACCOUNT</h2>
-            <form>
+            <form onSubmit={handleFormSubmit}>
                 <Divider>Core Fields</Divider>
-                <AccountTypeAutoComplete />
+                <AccountTypeAutoComplete onChange={handleChange}/>
                 <TextField id="description" label="Description"></TextField>
                 <TextField id="accountName" label="Account Name"></TextField>
                 <TextField id="openingBalance" label="Balance"></TextField>
@@ -71,7 +66,6 @@ export default function CreateAccount() {
                 <Divider>Crypto and Stock Fields</Divider>
                 <ExchangeAutoComplete />
                 <AssetCode />
-                <TextField id="unitPrice" label="Unit Price"></TextField>
 
                 <Divider>Subdocuments</Divider>
                 <TextField id="tags" label="Tags"></TextField>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {QUERY_GET_ALL_CURRENCIES} from '../utils/queries';
 import { useQuery } from '@apollo/client';
-import {Autocomplete, TextField} from '@mui/material';
+import {FormControl, TextField} from '@mui/material';
 
 export default function AssetCode() {
 
@@ -18,14 +18,11 @@ export default function AssetCode() {
     }
 
     return ( 
-        <Autocomplete
-            disablePortal
+        <FormControl
             id="stock ticker"
-            options={currencies}
             sx={{ width: 300 }}
-            renderInput={
-                (params) => <TextField {...params} label="Stock Ticker"/>
-            }
-        />
+            >
+            <TextField label="Stock Ticker" />
+        </FormControl>
     )
 }
