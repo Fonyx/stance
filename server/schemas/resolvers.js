@@ -52,6 +52,25 @@ const rootResolver = {
             }
             let accountTransactions = await transactionSvc.findByAccountId(accountId);
             return accountTransactions;
+        },
+        getAllPrimitives: async (_, __, {user}) => {
+            if(!user){
+                Logger.warn('No User object found from middleware');
+                throw new AuthenticationError('Not logged in, please login');
+            }
+            // get currencies
+            let currencies = await Currency.find({});
+            // get exchanges
+            let exchanges = await Exchange.find({});
+            // get parties
+            let parties = await Party.find({});
+
+            let primitives = {
+                currencies,
+                exchanges,
+                parties
+            }
+            return primitives;
         }
     },
     Mutation:{

@@ -5,18 +5,19 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import AccountForm from './components/CreateAccountSteps/CreateAccountSteps';
+
 import Landing from './pages/Landing';
 import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Account from './pages/Account';
 import CreateTransaction from './pages/CreateTransaction'
 import { ThemeProvider } from '@mui/material';
 import { Container, createTheme } from '@mui/material';
 
 import './App.css';
 import AuthService from './utils/auth';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Account from './pages/Account';
-import CreateAccount from './pages/CreateAccount';
 
 import '@fontsource/saira';
 
@@ -91,7 +92,7 @@ function App() {
                   <CreateTransaction/>
                 </Route>
                 <Route exact path="/createAccount">
-                  <CreateAccount/>
+                  <AccountForm />
                 </Route>
               </Switch>
             </Container>

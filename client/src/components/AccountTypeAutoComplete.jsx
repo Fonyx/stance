@@ -1,35 +1,15 @@
 import React from 'react';
-// import {Autocomplete, TextField} from '@mui/material';
 import {FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 
-export default function AccountTypeAutoComplete() {
-
-    // const accountTypes = [
-    //     'money',
-    //     'crypto',
-    //     'stock',
-    // ]
-
-    function handleChange () {
-        console.log('Change handler not implemented yet')
-    }
+export default function AccountTypeAutoComplete({values, handleChange}) {
 
     return ( 
-        // <Autocomplete
-        //     disablePortal
-        //     id="Type"
-        //     options={accountTypes}
-        //     sx={{ width: 300 }}
-        //     renderInput={
-        //         (params) => <TextField {...params} label="Type" />
-        //     }
-        // />
         <FormControl sx={{width: '25ch'}}>
             <InputLabel id="demo-simple-select-label">Type</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value="bank"
+                value={values.type}
                 label="Type"
                 onChange={handleChange}
             >

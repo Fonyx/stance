@@ -61,13 +61,14 @@ const typeDefs = gql`
   }
   
   type Goal{
-    _id: ID
+    _id: ID!
     amount: Float
     date: String
     priority: Int
   }
 
   type Party {
+    _id: ID!
     name: String!
     type: String!
     user: User
@@ -116,6 +117,12 @@ const typeDefs = gql`
     email: String
     password: String
   }
+
+  type Primitives {
+    currencies: [Currency]!
+    exchanges: [Exchange]!
+    parties: [Party]!
+  }
   
   type Query {
     allAccounts: [Account]!
@@ -127,6 +134,7 @@ const typeDefs = gql`
     users: [User]
     userAccounts: [Account]!
     userAccountTransactions(accountId: String!): [Transaction]!
+    getAllPrimitives: Primitives!
   }
 
   type Mutation {

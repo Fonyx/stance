@@ -33,6 +33,7 @@ export const QUERY_ACCOUNT_TRANSACTIONS = gql`
 export const QUERY_GET_ALL_PARTIES = gql`
     query{
         allParties{
+            _id
             name
             type
             user{
@@ -71,4 +72,26 @@ export const QUERY_GET_ALL_EXCHANGES = gql`
             name
         }
     }
+`;
+
+
+export const QUERY_GET_ALL_PRIMITIVES = gql`
+query{
+    getAllPrimitives{
+        currencies{
+          _id
+          name
+          code
+        }
+        exchanges{
+          _id
+          name
+          code
+        }
+        parties {
+          _id
+          name
+        }
+    }
+}
 `;
