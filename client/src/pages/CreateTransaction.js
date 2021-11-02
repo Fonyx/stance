@@ -101,8 +101,12 @@ export default function CreateTransaction() {
     // console.log('State End Recurrence: ', endRecurrence);
 
     const transferMaximum = () => {
-        let fundsAvailable = fromAccount.balance;
-        setAmount(fundsAvailable)
+        if(fromAccount.balance > 0){
+            let fundsAvailable = fromAccount.balance;
+            setAmount(fundsAvailable)
+        } else {
+            setErrors(['You don\'t have a positive balance in that from account'])
+        }
     }
 
     const clearState = () => {
@@ -133,8 +137,8 @@ export default function CreateTransaction() {
         }
 
         // check amount is not null
-        if(!amount){
-            errorBuffer.push('You need to specify a non-zero amount');
+        if(!amount || amount < 0){
+            errorBuffer.push('You need to specify a positive amount');
         }
 
         // check amount isn't larger than the balance in the from account if there is a from account
