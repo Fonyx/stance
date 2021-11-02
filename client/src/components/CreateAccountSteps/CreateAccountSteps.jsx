@@ -12,8 +12,9 @@ const initialFormState = {
   interestRate: null,
   compounds: 'monthly',
   party: null,
-  currencyCode: null,
-  exchange: null
+  currency: '',
+  exchange: '',
+  assetCode: '',
 }
 
 export default function AccountForm (){
@@ -52,20 +53,48 @@ export default function AccountForm (){
       });
   };
 
-  const handleSelectParty = (input) => e => {
-    console.log('Handling Autocomplete change');
+  const handleSelectParty = () => e => {
+    console.log('Handling Party change');
 
     let selectionId = e.target.dataset.optionIndex;
     let selectionParty = parties[selectionId];
     
     setFormState({
       ...formState,
-      [input]: selectionParty._id
+      'party': selectionParty._id
       });
+  };
+
+  const handleSelectCurrency = () => e => {
+    console.log('Handling Currency change');
+
+    let selectionId = e.target.dataset.optionIndex;
+    console.log(selectionId);
+    let currency = currencies[selectionId];
+    console.log(currency);
+    
+    setFormState({
+      ...formState,
+      'currency': currency._id
+    });
   }
 
-  const { type, name, openingBalance, interestRate, compounds, party, currencyCode, exchange } = formState;
-  const values = { type, name, openingBalance, interestRate, compounds, party, currencyCode, exchange };
+  const handleSelectExchange = () => e => {
+    console.log('Handling Exchange change');
+
+    let selectionId = e.target.dataset.optionIndex;
+    console.log(selectionId);
+    let exchange = exchanges[selectionId];
+    console.log(exchange);
+    
+    setFormState({
+      ...formState,
+      'exchange': exchange._id
+    });
+  }
+
+  const { type, name, openingBalance, interestRate, compounds, party, currency, exchange, assetCode } = formState;
+  const values = { type, name, openingBalance, interestRate, compounds, party, currency, exchange, assetCode };
 
   if(loading){
     return ( 
@@ -81,8 +110,9 @@ export default function AccountForm (){
     case 2:
       return (
         (values.type === 'money')
-        ? <SpecificMoneyDetails/>
-        : <SpecificAssetDetails/>
+        ? <SpecificMoneyDetails values={values} currencies={currencies} handleSelectCurrency={handleSelectCurrency} nextStep={nextStep} prevStep={prevStep} handleChange={handleChange}/>
+
+        : <SpecificAssetDetails values={values} exchanges={exchanges} handleSelectExchange={handleSelectExchange} nextStep={nextStep} prevStep={prevStep} handleChange={handleChange}/>
       );
     case 3:
       return (

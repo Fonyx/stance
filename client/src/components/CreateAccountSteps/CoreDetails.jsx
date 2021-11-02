@@ -90,7 +90,7 @@ export default function CoreDetails({parties, values, handleChange, handleSelect
                 getOptionLabel={(option) => option.name}
                 isOptionEqualToValue={(option, value) => option.name === value.name}
                 sx={{ width: 300 }}
-                onChange={handleSelectChange('party')}
+                onChange={handleSelectChange()}
                 renderInput={(params) => <TextField {...params} label="3rd Party" />}
             />
             <Button onClick={progress} variant="outlined">Continue</Button>
