@@ -125,6 +125,7 @@ const typeDefs = gql`
   }
 
   type StockCheck {
+    exists: Boolean
     name: String
     unitPrice: Float
   }

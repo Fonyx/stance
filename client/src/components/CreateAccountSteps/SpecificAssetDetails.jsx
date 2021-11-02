@@ -1,14 +1,25 @@
 import { Autocomplete, TextField, Button, InputAdornment } from '@mui/material'
 import React, {useState} from 'react'
+import {QUERY_STOCK_CHECK} from '../../utils/queries';
+import { useLazyQuery } from '@apollo/client';
 
 export default function SpecificMoneyDetails({exchanges, handleSelectExchange, handleChange, values, nextStep, prevStep}) {
 
 
     const [errors, setErrors] = useState([]);
 
-    const searchCode = () => e => {
-        console.log(e);
+    const [stockCheck, { loading, error, data }] = useLazyQuery(QUERY_STOCK_CHECK);
 
+
+
+    const searchCode = (e) => {
+        console.log(`Checking stock: ${values.assetCode} @ ${values.exchangeCode}`);
+        stockCheck({
+            variables: {
+                "assetCode": values.assetCode,
+                "exchangeCode": values.exchange
+            }
+        })
     }
 
     // checks that the form is submittable, if it fails, sets error state and returns false, else true
@@ -51,6 +62,8 @@ export default function SpecificMoneyDetails({exchanges, handleSelectExchange, h
             prevStep();
         }
     }
+
+    console.log(data);
 
     if(values.type === 'stock'){
         return (

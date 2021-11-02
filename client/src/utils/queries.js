@@ -95,3 +95,19 @@ query{
     }
 }
 `;
+
+export const QUERY_STOCK_CHECK = gql`
+    query checkStockCode(
+        $assetCode: String!
+        $exchangeCode: String!
+    ){
+        checkStockCode(
+        assetCode: $assetCode
+        exchangeCode: $exchangeCode
+        ){
+            exists
+            unitPrice
+            name
+        }
+    }
+`;
