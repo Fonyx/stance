@@ -21,8 +21,10 @@ export default function CoreDetails({parties, values, handleChange, handleSelect
             errorBuffer.push('You need set a balance for your account');
         }
         //check balance is a float
-        if(!parseFloat(values.openingBalance)){
-            errorBuffer.push('That balance isn\'t valid');
+        if(values.openingBalance){
+            if (isNaN(values.openingBalance) && !values.openingBalance.toString().indexOf('.') != -1){
+                errorBuffer.push('That balance isn\'t valid');
+            }
         }
         setErrors(errorBuffer)
 
@@ -38,6 +40,7 @@ export default function CoreDetails({parties, values, handleChange, handleSelect
 
         // check the state is correct before progressing
         if(validateFormSubmit()){
+            console.log('Progressing form');
             nextStep();
         }
 

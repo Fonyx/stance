@@ -12,6 +12,7 @@ const initialFormState = {
   party: null,
   currencyCode: null,
   exchange: null,
+  step: 1
 }
 
 export default function AccountForm (){
@@ -27,7 +28,9 @@ export default function AccountForm (){
   
   // Proceed to next step
   const nextStep = () => {
+    console.log('Moving on');
     const { step } = formState;
+    console.log(step);
     setFormState({
       ...formState,
       step: step + 1
