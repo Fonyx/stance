@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import CoreDetails from './CoreDetails';
+import SpecificMoneyDetails from './SpecificMoneyDetails';
+import SpecificAssetDetails from './SpecificAssetDetails';
 import {QUERY_GET_ALL_PRIMITIVES} from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
@@ -78,9 +80,9 @@ export default function AccountForm (){
       );
     case 2:
       return (
-        <div>
-          <h2>Now add specifics</h2>
-        </div>
+        (values.type === 'money')
+        ? <SpecificMoneyDetails/>
+        : <SpecificAssetDetails/>
       );
     case 3:
       return (

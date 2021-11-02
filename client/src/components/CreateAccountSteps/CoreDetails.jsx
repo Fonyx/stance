@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-// import AccountTypeAutoComplete from '../AccountTypeAutoComplete';
 import {FormControl, InputLabel, Select, MenuItem, Button} from '@mui/material';
 import {Autocomplete, TextField} from '@mui/material';
 
@@ -18,7 +17,10 @@ export default function CoreDetails({parties, values, handleChange, handleSelect
         }
         //check balance exists
         if(!values.openingBalance){
-            errorBuffer.push('You need set a balance for your account');
+            // exclude if value is default 0
+            if(values.openingBalance !== 0){
+                errorBuffer.push('You need set a balance for your account');
+            }
         }
         //check balance is a float
         if(values.openingBalance){
@@ -69,6 +71,7 @@ export default function CoreDetails({parties, values, handleChange, handleSelect
             label="Account Name" 
             value={values.name} 
             placeholder="My new account"/>
+
             <TextField 
             id="openingBalance" 
             onChange={handleChange('openingBalance')} 

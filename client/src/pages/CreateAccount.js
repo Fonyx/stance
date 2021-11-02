@@ -52,7 +52,6 @@ export default function CreateAccount() {
             <form onSubmit={handleFormSubmit}>
                 <Divider>Core Fields</Divider>
                 <AccountTypeAutoComplete onChange={handleChange}/>
-                <TextField id="description" label="Description"></TextField>
                 <TextField id="accountName" label="Account Name"></TextField>
                 <TextField id="openingBalance" label="Balance"></TextField>
                 <PartyAutoComplete />
