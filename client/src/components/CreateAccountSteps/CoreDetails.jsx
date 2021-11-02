@@ -22,7 +22,7 @@ export default function CoreDetails({parties, values, handleChange, handleSelect
         }
         //check balance is a float
         if(values.openingBalance){
-            if (isNaN(values.openingBalance) && !values.openingBalance.toString().indexOf('.') != -1){
+            if (isNaN(values.openingBalance) && !values.openingBalance.toString().indexOf('.') !== -1){
                 errorBuffer.push('That balance isn\'t valid');
             }
         }
