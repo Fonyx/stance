@@ -112,8 +112,8 @@ const rootResolver = {
             }
             let transaction = await transactionSvc.createFromReferences({...input});
             // let transactions = await transactionSvc.findSeries();
-            let populatedTransaction = await transactionSvc.populateAll(transaction);
-            return populatedTransaction;
+            // let populatedTransaction = await transactionSvc.populateAll(transaction);
+            return transaction;
         }
     },
 }

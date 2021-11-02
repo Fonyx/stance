@@ -144,13 +144,13 @@ async function applyToday(){
  */
  async function applyToAccounts(transaction){
 
-    if(!transaction.toAccount && !transaction){
+    if(!transaction.toAccount && !transaction.fromAccount){
         throw new Error('Transaction hasn\'t got either a to or from account');
     }
     //toAccount
     if(transaction.toAccount){
         let toAccount = await Account.findOne(transaction.toAccount);
-        let newBalance = toAccount.balance + transaction.amount;
+        let newBalance = (toAccount.balance + transaction.amount).toFixed(6);
         Logger.info(`Updating account '${toAccount.name}' balance: ${toAccount.balance} to ${newBalance}`);
         toAccount.balance = newBalance;
         await toAccount.save();
@@ -159,15 +159,16 @@ async function applyToday(){
     if(transaction.fromAccount){
         let fromAccount = await Account.findOne(transaction.fromAccount);
 
-        let newBalance = fromAccount.balance - transaction.amount;
-        Logger.info(`Updating account ${fromAccount.name} balance: ${fromAccount.balance} to ${newBalance}`);
+        let newBalance = (fromAccount.balance - transaction.amount).toFixed(6);
+        Logger.info(`Updating account '${fromAccount.name}' balance: ${fromAccount.balance} to ${newBalance}`);
         fromAccount.balance = newBalance;
         await fromAccount.save();
     }
 
     transaction.applied = true;
     await transaction.save();
-    Logger.info(`Applied transaction`)
+
+    return transaction;
 
 }
 
@@ -215,7 +216,7 @@ async function createFromReferences(transactionData){
         transactions.push(transaction);
     };
     
-    return transactions
+    return transactions[0]
 
 }
 
@@ -355,7 +356,8 @@ async function validateRichTransaction(data){
 
     // check if transaction is due today, if so, call the apply method to update it's accounts
     if(foundTransaction.isToday()){
-        await applyToAccounts(foundTransaction);
+        let applied = await applyToAccounts(foundTransaction);
+        console.log(`Transaction application: ${applied}`);
     }
 
     return foundTransaction;

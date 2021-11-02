@@ -10,10 +10,10 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 
-function filterChoiceFromOptions(choice, options){
-    let remainingOptions = options.filter((option) => choice !== option.name);
-    return remainingOptions
-}
+// function filterChoiceFromOptions(choice, options){
+//     let remainingOptions = options.filter((option) => choice !== option.name);
+//     return remainingOptions
+// }
 
 export default function CreateTransaction() {
     
@@ -44,8 +44,8 @@ export default function CreateTransaction() {
     // get the data from the return and set it to the userAccounts variable
     const userAccounts = data?.userAccounts || [];
     
-    let currentAccountChoice = toAccount.name? toAccount.name : fromAccount.name
-    var accountChoices = filterChoiceFromOptions(currentAccountChoice, userAccounts);
+    // let currentAccountChoice = toAccount.name? toAccount.name : fromAccount.name
+    // var accountChoices = filterChoiceFromOptions(currentAccountChoice, userAccounts);
 
     
     // update state based on form select changes
@@ -92,8 +92,8 @@ export default function CreateTransaction() {
         }
     }
 
-    console.log('State To Account: ', toAccount);
-    console.log('State From Account: ', fromAccount);
+    // console.log('State To Account: ', toAccount);
+    // console.log('State From Account: ', fromAccount);
     // console.log('State Amount: ', amount);
     // console.log('State description: ', description);
     // console.log('State frequency: ', frequency);
@@ -105,21 +105,36 @@ export default function CreateTransaction() {
         setAmount(fundsAvailable)
     }
 
+    const clearState = () => {
+        setToAccount ({});
+        setFromAccount({});
+        setDescription('');
+        setAmount(0);
+        setFrequency('once');
+        setDate(new Date());
+        setEndRecurrence(null)
+    }
+
     // checks that the form is submittable, if it fails, sets error state and returns false, else true
     const validateFormSubmit = () => {
         let valid = true;
         let errorBuffer = [];
 
-        //check accounts
+        //check at least one account
         if(!toAccount?.balance && !fromAccount?.balance){
             errorBuffer.push('You need to choose at least one account');
-            valid  = false;
+        }
+
+        // check accounts aren't equal
+        if(toAccount?.balance && fromAccount?.balance){
+            if(toAccount.name === fromAccount.name){
+                errorBuffer.push('You can\'t send money to the same account');
+            }
         }
 
         // check amount is not null
         if(!amount){
             errorBuffer.push('You need to specify a non-zero amount');
-            valid = false;
         }
 
         // check amount isn't larger than the balance in the from account if there is a from account
@@ -132,20 +147,21 @@ export default function CreateTransaction() {
         // check there is a description
         if(!description){
             errorBuffer.push('You need to describe the transaction, your future self with thank you');
-            valid = false
         }
 
         // check that there is a date
         if(!date){
             errorBuffer.push('You need to set a date for this transaction to happen');
-            valid = false
         }
         // check that if frequency isn't once, there is a selected endRecurrence
         if(frequency !== 'once' && !endRecurrence){
             errorBuffer.push('You need to specify when this transaction ends');
-            valid = false
         }
         setErrors(errorBuffer)
+
+        if(errorBuffer.length > 0){
+            valid = false
+        }
 
         return valid
     }
@@ -166,13 +182,20 @@ export default function CreateTransaction() {
                     endRecurrence: endRecurrence, 
                 }
 
-                console.log(payload);
+                console.log('payload: ',payload);
 
-                await createTransaction({ 
+                createTransaction({ 
                     variables: payload
                 });
                 console.log(transactionReturn)
-                // resetForm
+                if(transactionReturn.error){
+                    setErrors(transactionReturn.error);
+                } else {
+                    // refresh and re-fetch user data
+                    window.location.reload();
+                }
+
+                clearState()
             }
         } catch (e) {
         console.error(e);
@@ -194,7 +217,7 @@ export default function CreateTransaction() {
                         disablePortal
                         id="fromAccount"
                         name='fromAccount'
-                        options={accountChoices}
+                        options={userAccounts}
                         getOptionLabel={(option) => option.name}
                         isOptionEqualToValue={(option, value) => option.name === value.name}
                         sx={{ width: 300 }}
@@ -213,7 +236,7 @@ export default function CreateTransaction() {
                         disablePortal
                         id="toAccount"
                         name='toAccount'
-                        options={accountChoices}
+                        options={userAccounts}
                         getOptionLabel={(option) => option.name}
                         isOptionEqualToValue={(option, value) => option.name === value.name}
                         sx={{ width: 300 }}
