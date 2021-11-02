@@ -2,6 +2,7 @@ const { AuthenticationError } = require('apollo-server-express');
 const { User, Account, Currency, Transaction, Party, Exchange } = require('../models');
 const { tagSvc, accountSvc, transactionSvc} = require('../services')
 const { signToken } = require('../utils/auth');
+const getAssetValue = require('../api/getAssetValue');
 const Logger = require('../utils/logger');
 
 const rootResolver = {
@@ -71,6 +72,32 @@ const rootResolver = {
                 parties
             }
             return primitives;
+        },
+        checkStockCode: async (_, {assetCode, exchangeCode}, {user}) => {
+            if(!user){
+                Logger.warn('No User object found from middleware');
+                throw new AuthenticationError('Not logged in, please login');
+            }
+
+            let result;
+
+            // query EOD financial for assetCode and unitPrice
+            let assetCheck = await getAssetValue(assetCode, exchangeCode);
+            if(assetCheck){
+                result = {
+                    exists: true,
+                    unitPrice: assetCheck.previousClose,
+                    name: assetCheck.code
+                }
+            } else {
+                result = {
+                    exists: false,
+                    unitPrice: null,
+                    name: null
+                }
+            }
+
+            return result
         }
     },
     Mutation:{

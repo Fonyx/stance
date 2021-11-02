@@ -6,6 +6,11 @@ export default function SpecificMoneyDetails({exchanges, handleSelectExchange, h
 
     const [errors, setErrors] = useState([]);
 
+    const searchCode = () => e => {
+        console.log(e);
+
+    }
+
     // checks that the form is submittable, if it fails, sets error state and returns false, else true
     const validateFormSubmit = () => {
         let valid = true;
@@ -14,14 +19,8 @@ export default function SpecificMoneyDetails({exchanges, handleSelectExchange, h
         console.log('state is: ',values);
 
         //check currency
-        if(!values.currency){
-            errorBuffer.push('You need to choose a currency');
-        }
-        //check optional interest rate is a float
-        if(values.interestRate){
-            if (isNaN(values.interestRate) && !values.interestRate.toString().indexOf('.') !== -1){
-                errorBuffer.push('That interest rate looks wrong');
-            }
+        if(!values.assetCode){
+            errorBuffer.push('You need to specify a ticker code');
         }
 
         setErrors(errorBuffer)
@@ -53,36 +52,59 @@ export default function SpecificMoneyDetails({exchanges, handleSelectExchange, h
         }
     }
 
-
-    return (
-        <div>
-            <h1>Specific Asset Details</h1>
-            <Autocomplete
-                disablePortal
-                clearOnBlur
-                selectOnFocus
-                handleHomeEndKeys
-                id="exchange"
-                name='exchange'
-                options={exchanges}
-                getOptionLabel={(option) => option.name}
-                isOptionEqualToValue={(option, value) => option.name === value.name}
-                sx={{ width: 300 }}
-                onChange={handleSelectExchange()}
-                renderInput={(props) => <TextField {...props} label="Exchange" />}
-            />
-            <TextField
-                label="Ticker Code"
-                id="assetCode"
-                onChange={handleChange('assetCode')}
-            />
-            <Button onClick={progress} variant="outlined">Continue</Button>
-            <Button onClick={backup} variant="outlined">Back Up</Button>
-            <div id="error">
-                {errors.map((error) => {
-                    return <div>{error}</div>
-                })}
+    if(values.type === 'stock'){
+        return (
+            <div>
+                <h1>Specific Asset Details</h1>
+                <Autocomplete
+                    disablePortal
+                    clearOnBlur
+                    selectOnFocus
+                    handleHomeEndKeys
+                    id="exchange"
+                    name='exchange'
+                    options={exchanges}
+                    getOptionLabel={(option) => option.name}
+                    isOptionEqualToValue={(option, value) => option.name === value.name}
+                    sx={{ width: 300 }}
+                    onChange={handleSelectExchange()}
+                    renderInput={(props) => <TextField {...props} label="Exchange" />}
+                />
+                <TextField
+                    label="Ticker Code"
+                    id="assetCode"
+                    onChange={handleChange('assetCode')}
+                />
+                <Button onClick={searchCode} variant="outlined">Search Code</Button>
+                <Button onClick={progress} variant="outlined">Continue</Button>
+                <Button onClick={backup} variant="outlined">Back Up</Button>
+                <div id="error">
+                    {errors.map((error) => {
+                        return <div>{error}</div>
+                    })}
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+
+        return (
+            <div>
+                <h1>Specific Asset Details</h1>
+                <TextField
+                    label="Ticker Code"
+                    id="assetCode"
+                    onChange={handleChange('assetCode')}
+                />
+                <Button onClick={progress} variant="outlined">Continue</Button>
+                <Button onClick={backup} variant="outlined">Back Up</Button>
+                <div id="error">
+                    {errors.map((error) => {
+                        return <div>{error}</div>
+                    })}
+                </div>
+            </div>
+        )
+    }
+
+    
 }

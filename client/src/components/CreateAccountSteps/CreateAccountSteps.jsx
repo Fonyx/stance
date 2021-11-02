@@ -89,7 +89,7 @@ export default function AccountForm (){
     
     setFormState({
       ...formState,
-      'exchange': exchange._id
+      'exchange': exchange.code
     });
   }
 

@@ -123,6 +123,11 @@ const typeDefs = gql`
     exchanges: [Exchange]!
     parties: [Party]!
   }
+
+  type StockCheck {
+    name: String
+    unitPrice: Float
+  }
   
   type Query {
     allAccounts: [Account]!
@@ -135,6 +140,7 @@ const typeDefs = gql`
     userAccounts: [Account]!
     userAccountTransactions(accountId: String!): [Transaction]!
     getAllPrimitives: Primitives!
+    checkStockCode(assetCode: String!, exchangeCode: String!): StockCheck
   }
 
   type Mutation {
