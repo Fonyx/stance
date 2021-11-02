@@ -11,8 +11,7 @@ const initialFormState = {
   compounds: 'monthly',
   party: null,
   currencyCode: null,
-  exchange: null,
-  step: 1
+  exchange: null
 }
 
 export default function AccountForm (){
@@ -28,22 +27,13 @@ export default function AccountForm (){
   
   // Proceed to next step
   const nextStep = () => {
-    console.log('Moving on');
-    const { step } = formState;
-    console.log(step);
-    setFormState({
-      ...formState,
-      step: step + 1
-    });
+    setStep(step + 1);
   };
 
   // Go back to prev step
   const prevStep = () => {
     const { step } = formState;
-    setFormState({
-      ...formState,
-      step: step - 1
-    });
+    setStep(step - 1);
   };
 
   console.log('State is: ', formState)
@@ -62,12 +52,9 @@ export default function AccountForm (){
 
   const handleSelectParty = (input) => e => {
     console.log('Handling Autocomplete change');
-    console.log(input, e);
 
     let selectionId = e.target.dataset.optionIndex;
-    console.log('Selection id: ',selectionId)
     let selectionParty = parties[selectionId];
-    console.log('Selected Party: ', selectionParty);
     
     setFormState({
       ...formState,
