@@ -81,16 +81,28 @@ export default function AccountForm (){
 
   const handleSelectExchange = () => e => {
     console.log('Handling Exchange change');
+    console.log('event: ',e);
 
-    let selectionId = e.target.dataset.optionIndex;
-    console.log(selectionId);
-    let exchange = exchanges[selectionId];
-    console.log(exchange);
+    let exchangeName = e.target.textContent;
+    let exchangeCode = ''
+
+    console.log('Exchange Name of event: ', exchangeName);
+
+    if(exchangeName){
+      let exchange = exchanges.find(exchange => exchange.name === exchangeName);
+      exchangeCode = exchange.code;
+    } else {
+      exchangeCode = ''
+    }
+    console.log('Exchange after filtering data: ', exchangeCode);
     
+
     setFormState({
       ...formState,
-      'exchange': exchange.code
+      'exchange': exchangeCode
     });
+
+    
   }
 
   const { type, name, openingBalance, interestRate, compounds, party, currency, exchange, assetCode } = formState;
