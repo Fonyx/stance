@@ -10,39 +10,16 @@ import BarChart from '../components/BarChart';
 
 export default function Home() {
 
-    const initialBooks = [
-        {
-            name: "Harry Potter and the Philosophers Stone",
-            author: "J. K. Rowling",
-            genre: "fantasy"
-        },{
-            name: "The Pedagogy of Freedom",
-            author: "Bell hooks",
-            genre: "non-fiction"
-        },{
-            name: "Harry Potter and the Chamber of Secrets",
-            author: "J. K. Rowling",
-            genre: "fantasy"
-        },{
-            name: "Gilgamesh",
-            author: "Derrek Hines",
-            genre: "poetry"
-        }
-    ]
-    const [books, setBooks] = useState(initialBooks)
+    const [testData, setBooks] = useState([ 2, 4, 2, 6, 8 ])
 
     const addBook = () => {
-        let newBook = {
-            name: "The moon is a harsh mistress",
-            author: "Robert heinlein",
-            genre: "sci-fi"
-        }
+        let newData = Math.floor(Math.random()*10)
         console.log('Adding Book');
 
-        setBooks([...books, newBook]);
+        setBooks([...testData, newData]);
     }
 
-    console.log('Books are: ', books)
+    console.log('Test data is: ', testData)
 
 
     const {loading, data} = useQuery(QUERY_USER_ACCOUNTS, {});
@@ -55,7 +32,7 @@ export default function Home() {
     
     return (
         <React.Fragment>
-            <BarChart books={books} addBook={addBook}/>
+            <BarChart testData={testData} addBook={addBook}/>
             <div className="account-rows">
                 {userAccounts && userAccounts.map((userAccount) => (
                     <div key={userAccount._id}>
