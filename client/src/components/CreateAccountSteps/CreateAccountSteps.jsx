@@ -3,6 +3,7 @@ import CoreDetails from './CoreDetails';
 import SpecificMoneyDetails from './SpecificMoneyDetails';
 import SpecificCryptoDetails from './SpecificCryptoDetails';
 import SpecificStockDetails from './SpecificStockDetails';
+import TagGoalDetails from './TagGoalDetails';
 import {QUERY_GET_ALL_PRIMITIVES} from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
@@ -16,6 +17,9 @@ const initialFormState = {
   currency: '',
   exchangeCode: 'CC',
   assetCode: '',
+  tags: '',
+  goalAmount: null,
+  goalDate: null
 }
 
 export default function AccountForm (){
@@ -46,18 +50,25 @@ export default function AccountForm (){
     setStep(step - 1);
   };
 
-  console.log('State is: ', formState)
-
   // Handle fields change
   const handleChange = input => e => {
     console.log('Handling Change');
     console.log(input, e);
 
+    let newValue = e.target.value;
+
+    let floated = parseFloat(newValue);
+    if(!isNaN(floated)){
+      newValue = floated
+    }
+
     setFormState({
       ...formState,
-      [input]: e.target.value
+      [input]: newValue
     });
   };
+
+  console.log('form state: ',formState);
 
   const handleSelectParty = () => e => {
     console.log('Handling Exchange change');
@@ -155,8 +166,16 @@ export default function AccountForm (){
     });
   }
 
-  const { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode } = formState;
-  const values = { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode };
+  const handleGoalDateChange = (date) => {
+    console.log('state date: ',date);
+    setFormState({
+      ...formState,
+      'goalDate': date
+    });
+  }
+
+  const { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode, tags, goalAmount, goalDate } = formState;
+  const values = { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode, tags, goalAmount, goalDate };
 
   if(loading){
     return ( 
@@ -187,16 +206,8 @@ export default function AccountForm (){
       break
     case 3:
       return (
-        <div>
-          <h2>Now add extra details</h2>
-        </div>
+        <TagGoalDetails values={values} handleChange={handleChange} prevStep={prevStep} handleGoalDateChange={handleGoalDateChange}/>
       );
-    case 4:
-      return (
-        <div>
-          <h2>Now you are done</h2>
-        </div>
-      )
     default:
       (console.log('This is a multi-step form built with React.'))
   }

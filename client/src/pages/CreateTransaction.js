@@ -177,6 +177,20 @@ export default function CreateTransaction() {
             }
         }
 
+        //check fromAccount balance is a float
+        if(fromAccount?.balance){
+            if (isNaN(fromAccount.balance) && !fromAccount.balance.toString().indexOf('.') !== -1){
+                errorBuffer.push('That fromAccount balance isn\'t valid');
+            }
+        }
+
+        //check fromAccount balance is a float
+        if(toAccount?.balance){
+            if (isNaN(toAccount.balance) && !toAccount.balance.toString().indexOf('.') !== -1){
+                errorBuffer.push('That toAccount balance isn\'t valid');
+            }
+        }
+
         // check there is a description
         if(!description){
             errorBuffer.push('You need to describe the transaction, your future self with thank you');
