@@ -14,7 +14,7 @@ const initialFormState = {
   compounds: 'monthly',
   party: null,
   currency: '',
-  exchangeCode: '',
+  exchangeCode: 'CC',
   assetCode: '',
 }
 
@@ -29,6 +29,11 @@ export default function AccountForm (){
   const currencies = data?.getAllPrimitives.currencies || [];
   const exchanges = data?.getAllPrimitives.exchanges || [];
   const cryptos = data?.getAllPrimitives.cryptos || [];
+
+  // create list of crypto names
+  let cryptoDupNames = cryptos.map((crypto) => crypto.Name);
+  // create uniq list of names
+  const uniqueCryptos = cryptoDupNames.filter((value, index) => cryptoDupNames.indexOf(value) === index);
   
   // Proceed to next step
   const nextStep = () => {
@@ -46,13 +51,12 @@ export default function AccountForm (){
   // Handle fields change
   const handleChange = input => e => {
     console.log('Handling Change');
-    console.log(input, e)
+    console.log(input, e);
 
-    // case for when an event has a target.value
     setFormState({
       ...formState,
       [input]: e.target.value
-      });
+    });
   };
 
   const handleSelectParty = () => e => {
@@ -127,6 +131,30 @@ export default function AccountForm (){
     });
   }
 
+  const handleSelectCrypto = () => e => {
+    console.log('Handling Crypto change');
+    console.log('event: ',e);
+
+    let cryptoName = e.target.textContent;
+    let cryptoCode = ''
+
+    console.log('Crypto Name of event: ', cryptoName);
+
+    if(cryptoName){
+      let crypto = cryptos.find(crypto => crypto.Name === cryptoName);
+      cryptoCode = crypto.Code;
+    } else {
+      cryptoCode = ''
+    }
+    console.log('Crypto after filtering data: ', cryptoCode);
+    
+
+    setFormState({
+      ...formState,
+      'assetCode': cryptoCode
+    });
+  }
+
   const { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode } = formState;
   const values = { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode };
 
@@ -148,7 +176,7 @@ export default function AccountForm (){
         )
       } else if(values.type === 'crypto'){
         return (
-          <SpecificCryptoDetails values={values} cryptos={cryptos} handleSelectExchange={handleSelectExchange} nextStep={nextStep} prevStep={prevStep} handleChange={handleChange}/>
+          <SpecificCryptoDetails values={values} cryptos={uniqueCryptos} handleSelectCrypto={handleSelectCrypto} nextStep={nextStep} prevStep={prevStep} handleChange={handleChange}/>
         )
         
       } else if(values.type === 'stock'){

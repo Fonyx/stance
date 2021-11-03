@@ -52,13 +52,13 @@ const typeDefs = gql`
   }
 
   type Crypto {
-    Code: String!
-    Name: String!
-    Country: String!
-    Exchange: String!
-    Currency: String!
-    Type: String!
-    Isin: String!
+    Code: String
+    Name: String
+    Country: String
+    Exchange: String
+    Currency: String
+    Type: String
+    Isin: String
   }
 
   type Exchange {

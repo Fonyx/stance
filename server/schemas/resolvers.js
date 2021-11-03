@@ -1,10 +1,11 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Account, Currency, Transaction, Party, Exchange } = require('../models');
 const { tagSvc, accountSvc, transactionSvc} = require('../services');
-const {getCryptoCoins} = require('../api/getCryptos');
+const getCryptoCoins = require('../api/getCryptos');
 const { signToken } = require('../utils/auth');
 const getAssetValue = require('../api/getAssetValue');
 const Logger = require('../utils/logger');
+
 
 const rootResolver = {
     Query:{
@@ -72,7 +73,8 @@ const rootResolver = {
             let primitives = {
                 currencies,
                 exchanges,
-                parties
+                parties,
+                cryptos
             }
             return primitives;
         },
