@@ -94,7 +94,7 @@ export default function CoreDetails({parties, values, handleChange, handleSelect
                 renderInput={(params) => <TextField {...params} label="3rd Party" />}
             />
             <Button onClick={progress} variant="outlined">Continue</Button>
-            <Button href="/" variant="outlined">Cancel</Button>
+            <Button href="/home" variant="outlined">Cancel</Button>
             <div id="error">
                 {errors.map((error) => {
                     return <div>{error}</div>

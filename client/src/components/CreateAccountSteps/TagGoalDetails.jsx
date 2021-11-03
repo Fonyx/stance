@@ -1,13 +1,18 @@
 import React, {useState} from 'react'
-import {Button, TextField, InputAdornment} from '@mui/material'
+import {Button, TextField, InputAdornment} from '@mui/material';
+import { useMutation } from '@apollo/client';
 import {DatePicker} from '@mui/lab';
 import enLocale from 'date-fns/locale/en-GB';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { CREATE_ACCOUNT } from '../../utils/mutations';
 
 export default function TagGoalDetails({values, handleChange,handleGoalDateChange, prevStep}) {
 
     const [errors, setErrors] = useState([]);
+
+    // prepare the return mutation for creating query
+    const [createAccount, accountReturn] = useMutation(CREATE_ACCOUNT);
 
     const validateFormSubmit = () => {
         let valid = true;
@@ -47,16 +52,14 @@ export default function TagGoalDetails({values, handleChange,handleGoalDateChang
 
     const backup = (e) => {
         e.preventDefault();
+        prevStep();
 
-        // check the state is correct before progressing
-        if(validateFormSubmit()){
-            console.log('Regressing form');
-            prevStep();
-        }
     }
 
     const sendForm = () => {
-        console.log('Sending form not implemented yet')
+        createAccount({
+            variables: values
+        })
     }
 
     return (

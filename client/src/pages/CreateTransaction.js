@@ -67,14 +67,6 @@ export default function CreateTransaction() {
         } else {
             setToAccount({});
         }
-
-        // to account id is of form id="toAccount-option-0"
-        // if(event.target.id.startsWith('toAccount')){
-        //     let optionStrings = event.target.id.split('-');
-        //     let accountIndex = parseInt(optionStrings[2]);
-        //     let account = userAccounts[accountIndex];
-            
-        // }
         
     };
 
@@ -120,14 +112,6 @@ export default function CreateTransaction() {
             setFrequency(target.value);
         }
     }
-
-    console.log('State To Account: ', toAccount);
-    console.log('State From Account: ', fromAccount);
-    // console.log('State Amount: ', amount);
-    // console.log('State description: ', description);
-    // console.log('State frequency: ', frequency);
-    // console.log('State Date: ', date);
-    // console.log('State End Recurrence: ', endRecurrence);
 
     const transferMaximum = () => {
         if(fromAccount.balance > 0){

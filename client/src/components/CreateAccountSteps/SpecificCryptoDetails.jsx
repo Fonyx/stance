@@ -38,12 +38,7 @@ export default function SpecificCryptoDetails({cryptos, handleSelectCrypto, valu
 
     const backup = (e) => {
         e.preventDefault();
-
-        // check the state is correct before progressing
-        if(validateFormSubmit()){
-            console.log('Regressing form');
-            prevStep();
-        }
+        prevStep();
     }
 
     return (

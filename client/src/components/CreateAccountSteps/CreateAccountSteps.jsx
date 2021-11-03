@@ -46,7 +46,6 @@ export default function AccountForm (){
 
   // Go back to prev step
   const prevStep = () => {
-    const { step } = formState;
     setStep(step - 1);
   };
 
@@ -68,7 +67,7 @@ export default function AccountForm (){
     });
   };
 
-  console.log('form state: ',formState);
+  console.log('current Step: ',step)
 
   const handleSelectParty = () => e => {
     console.log('Handling Exchange change');
@@ -202,8 +201,11 @@ export default function AccountForm (){
         return (
           <SpecificStockDetails values={values} exchanges={exchanges} handleSelectExchange={handleSelectExchange} nextStep={nextStep} prevStep={prevStep} handleChange={handleChange}/>
         )
+      } else {
+        return (
+          <div>Empty return</div>
+        )
       }
-      break
     case 3:
       return (
         <TagGoalDetails values={values} handleChange={handleChange} prevStep={prevStep} handleGoalDateChange={handleGoalDateChange}/>

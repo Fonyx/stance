@@ -55,12 +55,8 @@ export default function SpecificStockDetails({exchanges, handleSelectExchange, h
 
     const backup = (e) => {
         e.preventDefault();
+        prevStep();
 
-        // check the state is correct before progressing
-        if(validateFormSubmit()){
-            console.log('Regressing form');
-            prevStep();
-        }
     }
 
     // if the user query is valid

@@ -45,12 +45,7 @@ export default function SpecificMoneyDetails({currencies, handleSelectCurrency, 
 
     const backup = (e) => {
         e.preventDefault();
-
-        // check the state is correct before progressing
-        if(validateFormSubmit()){
-            console.log('Regressing form');
-            prevStep();
-        }
+        prevStep();
     }
 
 
