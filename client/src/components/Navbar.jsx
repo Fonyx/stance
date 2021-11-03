@@ -1,11 +1,6 @@
 import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import {AppBar, Box, Toolbar, Typography, Button, IconButton} from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
 import AuthService from '../utils/auth';
 
 
@@ -34,6 +29,7 @@ export default function Navbar() {
           </Typography>
           {AuthService.loggedIn() ? (
             <React.Fragment>
+              <Button color="secondary" variant="contained" href="/home">Home</Button>
               <Button color="secondary" variant="contained" onClick={logout}>Logout</Button>
               <Button color="secondary" variant="contained" href="/createTransaction">Create Transaction</Button>
               <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>

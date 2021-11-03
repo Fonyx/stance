@@ -1,4 +1,4 @@
-import { Autocomplete, TextField, Button, InputAdornment, FormControl, FormControlLabel, Select } from '@mui/material'
+import { Autocomplete, TextField, Button } from '@mui/material'
 import React, {useState} from 'react'
 export default function SpecificCryptoDetails({cryptos, handleSelectCrypto, values, nextStep, prevStep}) {
 
