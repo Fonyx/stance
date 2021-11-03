@@ -49,23 +49,52 @@ export default function CreateTransaction() {
 
     
     // update state based on form select changes
-    const handleSelectChange = (event) => {
-        console.log('Select Event triggered: ', event);
-        console.log('target: ', event.target);
+    const handleToAccountChange = (e) => {
+
+        console.log('Handling Currency change');
+        console.log('event: ',e);
+
+        let accountName = e.target.textContent;
+        let account = ''
+
+        console.log('Account of event: ', account);
+
+        if(accountName){
+            account = userAccounts.find(account => account.name === accountName);
+            console.log('Account after filtering data: ', account);
+            setToAccount({...account});
+        // if there is no account on event, update state to be empty
+        } else {
+            setToAccount({});
+        }
 
         // to account id is of form id="toAccount-option-0"
-        if(event.target.id.startsWith('toAccount')){
-            let optionStrings = event.target.id.split('-');
-            let accountIndex = parseInt(optionStrings[2]);
-            let account = userAccounts[accountIndex];
-            setToAccount({...account});
-        }
-        // to account id is of form id="toAccount-option-0"
-        if(event.target.id.startsWith('fromAccount')){
-            let optionStrings = event.target.id.split('-');
-            let accountIndex = parseInt(optionStrings[2]);
-            let account = userAccounts[accountIndex];
+        // if(event.target.id.startsWith('toAccount')){
+        //     let optionStrings = event.target.id.split('-');
+        //     let accountIndex = parseInt(optionStrings[2]);
+        //     let account = userAccounts[accountIndex];
+            
+        // }
+        
+    };
+
+    // update state based on form select changes
+    const handleFromAccountChange = (e) => {
+        console.log('Handling Currency change');
+        console.log('event: ',e);
+
+        let accountName = e.target.textContent;
+        let account = ''
+
+        console.log('Account of event: ', account);
+
+        if(accountName){
+            account = userAccounts.find(account => account.name === accountName);
+            console.log('Account after filtering data: ', account);
             setFromAccount({...account});
+        // if there is no account on event, update state to be empty
+        } else {
+            setFromAccount({});
         }
         
     };
@@ -92,8 +121,8 @@ export default function CreateTransaction() {
         }
     }
 
-    // console.log('State To Account: ', toAccount);
-    // console.log('State From Account: ', fromAccount);
+    console.log('State To Account: ', toAccount);
+    console.log('State From Account: ', fromAccount);
     // console.log('State Amount: ', amount);
     // console.log('State description: ', description);
     // console.log('State frequency: ', frequency);
@@ -219,13 +248,16 @@ export default function CreateTransaction() {
                 <LocalizationProvider dateAdapter={AdapterDateFns} locale={enLocale}>
                     <Autocomplete
                         disablePortal
+                        clearOnBlur
+                        selectOnFocus
+                        handleHomeEndKeys
                         id="fromAccount"
                         name='fromAccount'
                         options={userAccounts}
                         getOptionLabel={(option) => option.name}
                         isOptionEqualToValue={(option, value) => option.name === value.name}
                         sx={{ width: 300 }}
-                        onChange={handleSelectChange}
+                        onChange={handleFromAccountChange}
                         renderInput={(params) => <TextField {...params} label="From Account" />}
                         />
                     {fromAccount.balance? 
@@ -244,7 +276,7 @@ export default function CreateTransaction() {
                         getOptionLabel={(option) => option.name}
                         isOptionEqualToValue={(option, value) => option.name === value.name}
                         sx={{ width: 300 }}
-                        onChange={handleSelectChange}
+                        onChange={handleToAccountChange}
                         renderInput={(params) => <TextField {...params} label="To Account" />}
                     />
                     {toAccount.balance? 
