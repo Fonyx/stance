@@ -54,28 +54,50 @@ export default function AccountForm (){
   };
 
   const handleSelectParty = () => e => {
-    console.log('Handling Party change');
+    console.log('Handling Exchange change');
+    console.log('event: ',e);
 
-    let selectionId = e.target.dataset.optionIndex;
-    let selectionParty = parties[selectionId];
+    let partyName = e.target.textContent;
+    let partyId = ''
+
+    console.log('Party Name of event: ', partyName);
+
+    if(partyName){
+      let party = parties.find(party => party.name === partyName);
+      partyId = party._id;
+    } else {
+      partyId = ''
+    }
+    console.log('PartyId after filtering data: ', partyId);
     
+
     setFormState({
       ...formState,
-      'party': selectionParty._id
-      });
+      'party': partyId
+    });
   };
 
   const handleSelectCurrency = () => e => {
     console.log('Handling Currency change');
+    console.log('event: ',e);
 
-    let selectionId = e.target.dataset.optionIndex;
-    console.log(selectionId);
-    let currency = currencies[selectionId];
-    console.log(currency);
+    let CurrencyName = e.target.textContent;
+    let currencyId = ''
+
+    console.log('Currency Name of event: ', CurrencyName);
+
+    if(CurrencyName){
+      let currency = currencies.find(currency => currency.name === CurrencyName);
+      currencyId = currency._id;
+    } else {
+      currencyId = ''
+    }
+    console.log('CurrencyId after filtering data: ', currencyId);
     
+
     setFormState({
       ...formState,
-      'currency': currency._id
+      'currency': currencyId
     });
   }
 
@@ -101,8 +123,6 @@ export default function AccountForm (){
       ...formState,
       'exchange': exchangeCode
     });
-
-    
   }
 
   const { type, name, openingBalance, interestRate, compounds, party, currency, exchange, assetCode } = formState;
