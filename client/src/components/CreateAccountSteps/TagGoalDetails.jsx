@@ -5,22 +5,43 @@ import {DatePicker} from '@mui/lab';
 import enLocale from 'date-fns/locale/en-GB';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { CREATE_ACCOUNT } from '../../utils/mutations';
+import { CREATE_ACCOUNT_FE } from '../../utils/mutations';
 
 export default function TagGoalDetails({values, handleChange,handleGoalDateChange, prevStep}) {
 
     const [errors, setErrors] = useState([]);
 
     // prepare the return mutation for creating query
-    const [createAccount, accountReturn] = useMutation(CREATE_ACCOUNT);
+    const [createAccount, accountReturn] = useMutation(CREATE_ACCOUNT_FE);
+
+    if (accountReturn.loading) return 'Submitting...';
+
+    if (accountReturn.error) {
+        console.log(accountReturn.error.message)
+    };
+
+    if (accountReturn.data) {
+        console.log('Congratulations you beautiful man')
+        console.log(accountReturn.data)
+    };
 
     const validateFormSubmit = () => {
         let valid = true;
         let errorBuffer = [];
 
+        // if we have either a goal amount or a goal date
+        if(values.goalDate || values.goalAmount){
+            // we must have both
+            if(!(values.goalDate && values.goalAmount)){
+                errorBuffer.push('You need a date and an amount if you want to set a goal at all - get serious')
+            }
+        }
+
         //check is the date is set to the future
-        if(values.goal < new Date()){
-            errorBuffer.push('Goal Date must be in the future');
+        if(values.goalDate){
+            if(values.goalDate < new Date()){
+                errorBuffer.push('Goal Date must be in the future');
+            }
         }
 
         //check balance is a float
@@ -57,6 +78,7 @@ export default function TagGoalDetails({values, handleChange,handleGoalDateChang
     }
 
     const sendForm = () => {
+        console.log(values);
         createAccount({
             variables: values
         })

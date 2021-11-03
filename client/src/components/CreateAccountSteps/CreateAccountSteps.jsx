@@ -8,8 +8,8 @@ import {QUERY_GET_ALL_PRIMITIVES} from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
 const initialFormState = {
-  type: 'money',
   name: '',
+  type: 'money',
   openingBalance: 0,
   interestRate: null,
   compounds: 'monthly',
@@ -18,8 +18,8 @@ const initialFormState = {
   exchangeCode: 'CC',
   assetCode: '',
   tags: '',
-  goalAmount: null,
-  goalDate: null
+  goalAmount: '',
+  goalDate: ''
 }
 
 export default function AccountForm (){

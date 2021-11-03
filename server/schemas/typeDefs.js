@@ -39,6 +39,21 @@ const typeDefs = gql`
     currency: String!
     exchange: String!
   }
+
+  input accountInputFE {
+    name: String!
+    type: String!
+    openingBalance: Float!
+    interestRate: Float
+    compounds: String
+    party: String
+    assetCode: String
+    currency: String
+    exchangeCode: String
+    goalDate: String
+    goalAmount: Float
+    tags: String
+  }
   
 
   type Currency {
@@ -161,6 +176,7 @@ const typeDefs = gql`
     signIn(email: String!, password: String!): Auth
     updateTags(names: [String]!): [Tag]!
     createAccount(input: accountInput!): Account!
+    createAccountFE(input: accountInputFE!): Account!
     createTransaction(input: transactionInput!): Transaction!
   }
 `;

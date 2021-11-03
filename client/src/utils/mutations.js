@@ -57,29 +57,35 @@ export const CREATE_TRANSACTION = gql`
     }
 `;
 
-export const CREATE_ACCOUNT = gql`
-    mutation createAccount(
-        $user: String!
+export const CREATE_ACCOUNT_FE = gql`
+    mutation createAccountFE(
         $name: String!
         $type: String!
         $openingBalance: Float!
-        $interestRate: Float!
-        $compounds: String!
-        $party: String!
-        $currency: String!
-        $exchange: String!
+        $interestRate: Float
+        $compounds: String
+        $party: String
+        $assetCode: String
+        $currency: String
+        $exchangeCode: String
+        $goalDate: String
+        $goalAmount: Float
+        $tags: String
     ){
-        createAccount(
+        createAccountFE(
         input: {
-            user: $user
             name: $name
             type: $type
             openingBalance: $openingBalance
             interestRate: $interestRate
             compounds: $compounds
             party: $party
+            assetCode: $assetCode
             currency: $currency
-            exchange: $exchange
+            exchangeCode: $exchangeCode
+            goalDate: $goalDate
+            goalAmount: $goalAmount
+            tags: $tags
         }
         ){
         user{

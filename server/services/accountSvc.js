@@ -1,4 +1,4 @@
-const { Account, User, Party, Currency, Exchange } = require('../models');
+const { Account, User, Party, Currency, Exchange, Goal } = require('../models');
 const tagSvc = require('./tagSvc');
 const getAssetValue = require('../api/getAssetValue');
 const Logger = require('../utils/logger');
@@ -205,6 +205,51 @@ async function createFromSeed(data){
 }
 
 /**
+ * Creates an account from text data passed in, by looking up referenced models
+ * @param {obj} data json with text
+ * @return {obj} Account
+ */
+async function createFromFE(data){
+    
+    // get exchange obj
+    let exchange = await Exchange.findOne({
+        code: data.exchangeCode
+    });
+
+    // if there are tags
+    let tags = [];
+    if(data.tags){
+        let tagNames = data.tags.split(',');
+        for(let i = 0; i<tagNames.length; i++){
+            let name = tagNames[i];
+            let tag = await tagSvc.upsertFromSeed(name, data.user);
+            tags.push(tag.id);
+        }
+    }
+
+    var goal = {};
+    // if there is a goal
+    if(data.goalAmount && data.goalDate){
+        goal = {
+            amount: data.goalAmount,
+            date: data.goalDate,
+            priority: 5
+        }
+    }
+
+    let account = createFromRich({
+        ...data,
+        // override the data fields with their relationship ObjectId values
+        user: data.user.id,
+        exchange: exchange.id,
+        goal,
+        tags
+    });
+
+    return account
+}
+
+/**
  * Creates an account from rich data passed in which has objectId's as strings
  * @param {obj} data json with ObjectId's
  * @return {obj} Account
@@ -258,6 +303,7 @@ const accountSvc = {
     findById,
     createFromSeed,
     createFromRich,
+    createFromFE,
     clear
 }
 

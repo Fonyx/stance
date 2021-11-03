@@ -157,6 +157,18 @@ const rootResolver = {
                 Logger.error('Did you forget to put in the Object Ids for the user, exchange, currency and party')
             }
         },
+        createAccountFE: async (_, {input}, {user}) => {
+            if(!user){
+                throw new AuthenticationError('This action requires authentication, please log in')
+            }
+            let account = await accountSvc.createFromFE({...input, user});
+            if(account){
+                let populatedAccount = await accountSvc.populateEntireAccount(account);
+                return populatedAccount;
+            } else {
+                Logger.error('Did you forget to put in the Object Ids for the user, exchange, currency and party')
+            }
+        },
         createTransaction: async (_, {input}, {user}) => {
             if(!user){
                 throw new AuthenticationError('This action requires authentication, please log in')

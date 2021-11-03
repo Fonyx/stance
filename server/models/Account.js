@@ -33,7 +33,7 @@ const accountSchema = new mongoose.Schema({
         type: Number,
         required: false,
         min: 0,
-        max: 1
+        max: 100
     },
     compounds: {
         type: String,
