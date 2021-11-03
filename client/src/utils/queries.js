@@ -92,6 +92,10 @@ query{
           _id
           name
         }
+        cryptos{
+            Code
+            Name
+        }
     }
 }
 `;

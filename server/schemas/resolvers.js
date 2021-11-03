@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Account, Currency, Transaction, Party, Exchange } = require('../models');
-const { tagSvc, accountSvc, transactionSvc} = require('../services')
+const { tagSvc, accountSvc, transactionSvc} = require('../services');
+const {getCryptoCoins} = require('../api/getCryptos');
 const { signToken } = require('../utils/auth');
 const getAssetValue = require('../api/getAssetValue');
 const Logger = require('../utils/logger');
@@ -65,6 +66,8 @@ const rootResolver = {
             let exchanges = await Exchange.find({});
             // get parties
             let parties = await Party.find({});
+            // get all cryptos from EOD finance
+            let cryptos = await getCryptoCoins();
 
             let primitives = {
                 currencies,

@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import CoreDetails from './CoreDetails';
 import SpecificMoneyDetails from './SpecificMoneyDetails';
-import SpecificAssetDetails from './SpecificAssetDetails';
+import SpecificCryptoDetails from './SpecificCryptoDetails';
+import SpecificStockDetails from './SpecificStockDetails';
 import {QUERY_GET_ALL_PRIMITIVES} from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
@@ -13,7 +14,7 @@ const initialFormState = {
   compounds: 'monthly',
   party: null,
   currency: '',
-  exchange: '',
+  exchangeCode: '',
   assetCode: '',
 }
 
@@ -27,6 +28,7 @@ export default function AccountForm (){
   const parties = data?.getAllPrimitives.parties || [];
   const currencies = data?.getAllPrimitives.currencies || [];
   const exchanges = data?.getAllPrimitives.exchanges || [];
+  const cryptos = data?.getAllPrimitives.cryptos || [];
   
   // Proceed to next step
   const nextStep = () => {
@@ -121,12 +123,12 @@ export default function AccountForm (){
 
     setFormState({
       ...formState,
-      'exchange': exchangeCode
+      'exchangeCode': exchangeCode
     });
   }
 
-  const { type, name, openingBalance, interestRate, compounds, party, currency, exchange, assetCode } = formState;
-  const values = { type, name, openingBalance, interestRate, compounds, party, currency, exchange, assetCode };
+  const { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode } = formState;
+  const values = { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode };
 
   if(loading){
     return ( 
@@ -140,12 +142,21 @@ export default function AccountForm (){
         <CoreDetails parties={parties} values={values} handleChange={handleChange} handleSelectChange={handleSelectParty} nextStep={nextStep}/>
       );
     case 2:
-      return (
-        (values.type === 'money')
-        ? <SpecificMoneyDetails values={values} currencies={currencies} handleSelectCurrency={handleSelectCurrency} nextStep={nextStep} prevStep={prevStep} handleChange={handleChange}/>
-
-        : <SpecificAssetDetails values={values} exchanges={exchanges} handleSelectExchange={handleSelectExchange} nextStep={nextStep} prevStep={prevStep} handleChange={handleChange}/>
-      );
+      if(values.type === 'money'){
+        return (
+          <SpecificMoneyDetails values={values} currencies={currencies} handleSelectCurrency={handleSelectCurrency} nextStep={nextStep} prevStep={prevStep} handleChange={handleChange}/>
+        )
+      } else if(values.type === 'crypto'){
+        return (
+          <SpecificCryptoDetails values={values} cryptos={cryptos} handleSelectExchange={handleSelectExchange} nextStep={nextStep} prevStep={prevStep} handleChange={handleChange}/>
+        )
+        
+      } else if(values.type === 'stock'){
+        return (
+          <SpecificStockDetails values={values} exchanges={exchanges} handleSelectExchange={handleSelectExchange} nextStep={nextStep} prevStep={prevStep} handleChange={handleChange}/>
+        )
+      }
+      break
     case 3:
       return (
         <div>

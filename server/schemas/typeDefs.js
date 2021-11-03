@@ -51,6 +51,16 @@ const typeDefs = gql`
     unicode_hex: String
   }
 
+  type Crypto {
+    Code: String!
+    Name: String!
+    Country: String!
+    Exchange: String!
+    Currency: String!
+    Type: String!
+    Isin: String!
+  }
+
   type Exchange {
     _id: ID!
     name: String!
@@ -122,6 +132,7 @@ const typeDefs = gql`
     currencies: [Currency]!
     exchanges: [Exchange]!
     parties: [Party]!
+    cryptos: [Crypto]!
   }
 
   type StockCheck {
@@ -142,6 +153,7 @@ const typeDefs = gql`
     userAccountTransactions(accountId: String!): [Transaction]!
     getAllPrimitives: Primitives!
     checkStockCode(assetCode: String!, exchangeCode: String!): StockCheck
+    getCryptos: [Crypto]!
   }
 
   type Mutation {
