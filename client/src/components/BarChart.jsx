@@ -29,7 +29,7 @@ export default function BarChart({accounts}) {
     const reDrawChart = () => {
         const svg = select(svgRef.current);
 
-        svg.selectAll('circle').remove();
+        svg.selectAll('rect').remove();
 
         // const yScale = scaleLinear()
         //     .range([height, 0])
@@ -44,7 +44,7 @@ export default function BarChart({accounts}) {
             .data(accounts)
             .enter()
             .append('g')
-            .attr('transform', (d) => "translate("+d.x+",80")
+            .attr('transform', (d) => "translate(10,80)")
 
         let circles = blocks.append('circle')
             .attr('r', (d, i) => 10)
