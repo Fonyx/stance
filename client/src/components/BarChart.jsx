@@ -1,6 +1,5 @@
-import React, {useRef, useState, useEffect} from 'react'
-import {Button} from '@mui/material';
-import {select, scaleLinear, extent, max} from 'd3'
+import React, {useRef, useEffect} from 'react'
+import {select} from 'd3'
 
 // https://www.youtube.com/watch?v=9uEmNgHzPhQ&list=PLDZ4p-ENjbiPo4WH7KdHjh_EMI7Ic8b2B
 
@@ -46,13 +45,15 @@ export default function BarChart({accounts}) {
             .append('g')
             .attr('transform', (d) => "translate(10,80)")
 
-        let circles = blocks.append('circle')
+        // circles
+        blocks.append('circle')
             .attr('r', (d, i) => 10)
             .attr('fill', 'orange')
             .attr('cx', (d, i) => (i+1)*40)
             .attr('cy', (d, i) => (i+1)*25)
         
-        let text = blocks.append('text')
+        // text
+        blocks.append('text')
             .attr('dx', (d, i) => (i+1)*40)
             .attr('dy', (d, i) => (i+1)*25)
             .text((d) => d.name)

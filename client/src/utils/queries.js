@@ -23,6 +23,7 @@ export const QUERY_ACCOUNT_TRANSACTIONS = gql`
         userAccountTransactions(
         accountId: $accountId
         ){
+            _id
             description
             amount
             date
