@@ -13,7 +13,7 @@ export default function Home() {
     const [testData, setBooks] = useState([ 2, 4, 2, 6, 8 ])
 
     const addBook = () => {
-        let newData = Math.floor(Math.random()*10)
+        let newData = Math.ceil(Math.random()*10)
         console.log('Adding Book');
 
         setBooks([...testData, newData]);

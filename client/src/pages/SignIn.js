@@ -31,7 +31,7 @@ export default function SignIn(props) {
             console.log(`response token from server was`, data.signIn.token);
             AuthService.login(data.signIn.token);
         } catch (e) {
-        console.error(e);
+          console.error(e);
         }
 
         // clear form values

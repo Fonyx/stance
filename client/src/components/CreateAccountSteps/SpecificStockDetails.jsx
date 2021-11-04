@@ -9,7 +9,7 @@ export default function SpecificStockDetails({exchanges, handleSelectExchange, h
     const [errors, setErrors] = useState([]);
     var valid = false;
 
-    const [stockCheck, { loading, error, data }] = useLazyQuery(QUERY_STOCK_CHECK);
+    const [stockCheck, { loading, data }] = useLazyQuery(QUERY_STOCK_CHECK);
 
 
 

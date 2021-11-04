@@ -5,6 +5,11 @@ import { Button } from '@mui/material';
 // https://www.freecodecamp.org/news/how-to-get-started-with-d3-and-react-c7da74a5bd9f/
 // http://bl.ocks.org/enactdev/a647e60b209e67602304
 // https://medium.com/@jeffbutsch/using-d3-in-react-with-hooks-4a6c61f1d102
+
+
+
+// https://morioh.com/p/21b2ef6fb848
+
 export default function BarChart({testData, addBook}) {
 
     const d3Container = useRef(null);
@@ -29,16 +34,16 @@ export default function BarChart({testData, addBook}) {
                     .attr("x", (_, iteration) => iteration * 45)
                     .attr("y", (datapoint) => heightValue - datapoint * scale);
 
-                    svg.selectAll("text")
-            .data(testData).enter()
+            svg.selectAll("text")
+                .data(testData).enter()
                 .append("text")
                 .attr("x", (_, i) => i * 45 + 10)
                 .attr("y", (dataPoint, i) => heightValue - dataPoint * scale - 10)
                 .text(dataPoint => dataPoint)
-                .style("fill", "white");
+                .style("fill", "black");
             }
 
-    },[testData, d3Container.current]);
+    },[testData]);
 
     return (
         <React.Fragment>
