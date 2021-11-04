@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react'
 import {Button} from '@mui/material';
-import {select} from 'd3'
+import {select, scaleLinear, extent, max} from 'd3'
 
 // https://www.youtube.com/watch?v=9uEmNgHzPhQ&list=PLDZ4p-ENjbiPo4WH7KdHjh_EMI7Ic8b2B
 
@@ -31,26 +31,47 @@ export default function BarChart({accounts}) {
 
         svg.selectAll('circle').remove();
 
+        // const yScale = scaleLinear()
+        //     .range([height, 0])
+        //     .domain([0, max(accounts, dataPoint => dataPoint.popularity)]);
+    
+        // const xScale = scaleLinear()
+        //     .range([0, width])
+        //     .domain(extent(accounts, dataPoint => dataPoint.year));
+
         // add data to the svg using d3
-        svg.selectAll('rect')
+        let blocks = svg.selectAll('rect')
             .data(accounts)
-            .join(
-                // paint the circles on enter as orange
-                enter => enter
-                    // .append('circle')
-                    // .attr('r', Math.random()*100)
-                    // .attr('cx', (d, i) => i*Math.random()*40)
-                    // .attr('cy', (d, i) => i*Math.random()*25)
-                    // .attr('fill', 'orange')
-                    .append('text')
-                    .attr('dx', () => 20)
-                    .attr('x', (d, i) => i*10)
-                    .attr('y', (d, i) => i*10)
-                    .text((d) => d.name),
-                // paint the circles on update as green
-                update => update.attr('fill', 'green'),
-                exit => exit.remove()
-            )
+            .enter()
+            .append('g')
+            .attr('transform', (d) => "translate("+d.x+",80")
+
+        let circles = blocks.append('circle')
+            .attr('r', (d, i) => 10)
+            .attr('fill', 'orange')
+            .attr('cx', (d, i) => (i+1)*40)
+            .attr('cy', (d, i) => (i+1)*25)
+        
+        let text = blocks.append('text')
+            .attr('dx', (d, i) => (i+1)*40)
+            .attr('dy', (d, i) => (i+1)*25)
+            .text((d) => d.name)
+
+            // .join(
+            //     // paint the circles on enter as orange
+            //     enter => enter
+            //         .append('circle')
+            //         .attr('r', (d, i) => i*Math.random()*10)
+            //         .attr('cx', (d, i) => i*Math.random()*40)
+            //         .attr('cy', (d, i) => i*Math.random()*25)
+            //         .attr('fill', 'orange')
+            //         .append('text')
+            //         .attr('dy', '200')
+            //         .text((d) => d.name),
+            //     // paint the circles on update as green
+            //     update => update.attr('fill', 'green'),
+            //     exit => exit.remove()
+            // )
             
     }
     
