@@ -1,5 +1,27 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {select, csv, timeParse, scaleTime, extent, axisBottom, scaleLinear, axisLeft, max, line} from 'd3';
+
+
+const useResizeObserver = ref => () => {
+    const [dimensions, setDimensions] = useState(null);
+
+    useEffect(() => {
+        const observeTarget = ref.current;
+        const resizeObserver = new ResizeObserver(entries => {
+            // this is a bit weird
+            entries.forEach(entry => {
+                setDimensions(entry.contentRect)
+            });
+        });
+        resizeObserver.observe(observeTarget);
+        return () =>{
+            resizeObserver.unobserve(observeTarget);
+        };
+    }, [ref]);
+
+    return dimensions
+}
+
 
 export default function LineChart({transactions}) {
 
