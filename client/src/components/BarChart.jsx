@@ -1,59 +1,70 @@
-import React, {useRef, useEffect} from 'react'
-import * as d3 from 'd3'
-import { Button } from '@mui/material';
+import React, {useRef, useState, useEffect} from 'react'
+import {Button} from '@mui/material';
+import {select} from 'd3'
 
-// https://www.freecodecamp.org/news/how-to-get-started-with-d3-and-react-c7da74a5bd9f/
-// http://bl.ocks.org/enactdev/a647e60b209e67602304
-// https://medium.com/@jeffbutsch/using-d3-in-react-with-hooks-4a6c61f1d102
+// https://www.youtube.com/watch?v=9uEmNgHzPhQ&list=PLDZ4p-ENjbiPo4WH7KdHjh_EMI7Ic8b2B
 
+export default function BarChart({accounts}) {
 
+    const [data, setData] = useState([ 2, 4, 2, 6, 8 ]);
+    const svgDivContainer = useRef();
+    const svgRef = useRef();
 
-// https://morioh.com/p/21b2ef6fb848
+    const updateData = () => {
+        console.log('Shuffling Data');
+        setData(data.map(value => value + Math.ceil(Math.random()*5)));
+    }
+    
+    const popData = () => {
+        console.log('Pop Data');
+        setData(data.slice(1));
+    }
 
-export default function BarChart({testData, addBook}) {
+    const pushData = () => {
+        console.log('Push Data');
+        let newData = Math.ceil(Math.random()*10);
+        setData([...data, newData]);
+    }
 
-    const d3Container = useRef(null);
-    // const scale = 10
+    const reDrawChart = () => {
+        const svg = select(svgRef.current);
+
+        // svg.selectAll('circle').remove();
+
+        // add data to the svg using d3
+        svg.selectAll('rect')
+            .data(data)
+            .join(
+                // paint the circles on enter as orange
+                enter => enter.append('circle').attr('fill', 'orange'),
+                // paint the circles on enter as green
+                update => update.attr('fill', 'blue'),
+                exit => exit.remove()
+            )
+            .attr('r', value => value)
+            .attr('cx', (d) => d*Math.random()*40)
+            .attr('cy', (d) => d*Math.random()*25)
+    }
     
     useEffect(() => {
-        if (testData && d3Container.current) {
+        reDrawChart();
+    },[data]);
 
-            const heightValue = window.innerHeight/6
-            const widthValue = window.innerWidth/2
-            const scale = 10
-            
-            const svg = d3.select(d3Container.current).append("svg")
-            .attr("viewBox", `0 0 ${widthValue} ${heightValue}`)
-
-            svg.selectAll("rect")
-                .data(testData).enter()
-                    .append("rect")
-                    .attr("width", 40)
-                    .attr("height", (datapoint) => datapoint * scale)
-                    .attr("fill", "orange")
-                    .attr("x", (_, iteration) => iteration * 45)
-                    .attr("y", (datapoint) => heightValue - datapoint * scale);
-
-            svg.selectAll("text")
-                .data(testData).enter()
-                .append("text")
-                .attr("x", (_, i) => i * 45 + 10)
-                .attr("y", (dataPoint, i) => heightValue - dataPoint * scale - 10)
-                .text(dataPoint => dataPoint)
-                .style("fill", "black");
-            }
-
-    },[testData]);
+    console.log('Data is: ', data)
 
     return (
         <React.Fragment>
-            <svg
-                className="d3-component"
-                width={800}
-                height={400}
-                ref={d3Container}
-            />
-            <Button onClick={addBook}>Add Data</Button>
+            <div ref={svgDivContainer}>
+                <svg
+                    className="d3-chart"
+                    width={800}
+                    height={500}
+                    ref={svgRef}
+                />
+            </div>
+            <Button onClick={updateData}>Update Data</Button>
+            <Button onClick={pushData}>Push Data</Button>
+            <Button onClick={popData}>Pop Data</Button>
         </React.Fragment>
     );
 }

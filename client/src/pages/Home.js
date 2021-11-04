@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 // import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import {Button} from '@mui/material'
@@ -10,18 +10,6 @@ import BarChart from '../components/BarChart';
 
 export default function Home() {
 
-    const [testData, setBooks] = useState([ 2, 4, 2, 6, 8 ])
-
-    const addBook = () => {
-        let newData = Math.ceil(Math.random()*10)
-        console.log('Adding Book');
-
-        setBooks([...testData, newData]);
-    }
-
-    console.log('Test data is: ', testData)
-
-
     const {loading, data} = useQuery(QUERY_USER_ACCOUNTS, {});
 
     const userAccounts = data?.userAccounts || {};
@@ -32,7 +20,8 @@ export default function Home() {
     
     return (
         <React.Fragment>
-            <BarChart testData={testData} addBook={addBook}/>
+            <BarChart accounts={userAccounts}/>
+            
             <div className="account-rows">
                 {userAccounts && userAccounts.map((userAccount) => (
                     <div key={userAccount._id}>
