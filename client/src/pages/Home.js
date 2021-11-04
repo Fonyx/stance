@@ -14,7 +14,7 @@ export default function Home() {
     const userAccounts = data?.userAccounts || {};
 
     if(loading){
-        return <div>Loading...</div>
+        return <div>Loading....</div>
     }
 
     return (
