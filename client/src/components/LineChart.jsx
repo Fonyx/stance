@@ -111,8 +111,6 @@ export default function LineChart({transactions}) {
                 <svg
                     // className="d3-chart"
                     style={svgStyles}
-                    width={800}
-                    height={500}
                     ref={svgRef}
                 />
             </div>
