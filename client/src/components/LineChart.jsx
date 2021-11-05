@@ -26,6 +26,7 @@ export default function LineChart({transactions}) {
         const svg = select(svgRef.current);
 
         svg.selectAll('path').remove();
+        svg.selectAll('g').remove();
 
         // if there are no dimensions, return - first load will have no dimensions returned from resizeObeserver
         console.log(dimensions)
