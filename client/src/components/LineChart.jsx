@@ -3,18 +3,29 @@ import {select, csv, timeParse, scaleTime, extent, axisBottom, scaleLinear, axis
 
 //https://www.d3-graph-gallery.com/graph/line_basic.html
 
+function getWindowDimensions() {
+    const { innerWidth: rawWidth, innerHeight: rawHeight } = window;
+    let width = 0.8*rawWidth;
+    let height = 0.8*rawHeight;
+    return {
+        width,
+        height
+    };
+}
 
 export default function LineChart({transactions}) {
 
     const svgDivContainer = useRef();
     const svgRef = useRef();
 
-    const dimensions = {width: window.innerWidth*0.8, height: window.innerHeight*0.5}
+    const [dimensions, setDimensions] = useState(getWindowDimensions());
+
+    // const dimensions = {width: window.innerWidth*0.8, height: window.innerHeight*0.5}
 
     const reDrawChart = () => {
         const svg = select(svgRef.current);
 
-        svg.selectAll('rect').remove();
+        svg.selectAll('path').remove();
 
         // if there are no dimensions, return - first load will have no dimensions returned from resizeObeserver
         console.log(dimensions)
@@ -76,9 +87,17 @@ export default function LineChart({transactions}) {
     console.log('transactions are: ', transactions)
 
     useEffect(() => {
+
+        function handleResize() {
+            setDimensions(getWindowDimensions());
+        }
+
         reDrawChart();
-        // useResizeObserver();
-    },[svgDivContainer]);
+        
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+
+    },[dimensions]);
 
     const svgStyles = {
         display: "block",
