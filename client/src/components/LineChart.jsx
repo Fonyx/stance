@@ -1,26 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {select, csv, timeParse, scaleTime, extent, axisBottom, scaleLinear, axisLeft, max, line} from 'd3';
 
-
-const useResizeObserver = ref => () => {
-    const [dimensions, setDimensions] = useState(null);
-
-    useEffect(() => {
-        const observeTarget = ref.current;
-        const resizeObserver = new ResizeObserver(entries => {
-            // this is a bit weird
-            entries.forEach(entry => {
-                setDimensions(entry.contentRect)
-            });
-        });
-        resizeObserver.observe(observeTarget);
-        return () =>{
-            resizeObserver.unobserve(observeTarget);
-        };
-    }, [ref]);
-
-    return dimensions
-}
+//https://www.d3-graph-gallery.com/graph/line_basic.html
 
 
 export default function LineChart({transactions}) {
@@ -28,20 +9,27 @@ export default function LineChart({transactions}) {
     const svgDivContainer = useRef();
     const svgRef = useRef();
 
+    const dimensions = {width: window.innerWidth*0.8, height: window.innerHeight*0.5}
+
     const reDrawChart = () => {
         const svg = select(svgRef.current);
 
         svg.selectAll('rect').remove();
 
+        // if there are no dimensions, return - first load will have no dimensions returned from resizeObeserver
+        console.log(dimensions)
+
+        if(!dimensions) return
+
         // set the dimensions and margins of the graph
         const margin = {top: 10, right: 30, bottom: 30, left: 60},
-            width = 460 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;
+            width = dimensions.width - margin.left - margin.right,
+            height = dimensions.height - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
         svg.attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-        .append("g")
+            .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
         //Read the data
@@ -89,13 +77,20 @@ export default function LineChart({transactions}) {
 
     useEffect(() => {
         reDrawChart();
-    },[]);
+        // useResizeObserver();
+    },[svgDivContainer]);
+
+    const svgStyles = {
+        display: "block",
+        margin: "auto"
+    }
 
     return (
         <React.Fragment>
-            <div ref={svgDivContainer}>
+            <div ref={svgDivContainer} >
                 <svg
-                    className="d3-chart"
+                    // className="d3-chart"
+                    style={svgStyles}
                     width={800}
                     height={500}
                     ref={svgRef}
