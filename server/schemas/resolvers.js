@@ -54,6 +54,7 @@ const rootResolver = {
             if(!account.user.id === user.id){
                 throw new AuthenticationError('You do not have permission to view this account');
             }
+            await accountSvc.updateUnitPriceAndValuation(account);
             let debits = await transactionSvc.findFromAccountByAccountId(accountId);
             let credits = await transactionSvc.findToAccountByAccountId(accountId);
 
@@ -63,7 +64,7 @@ const rootResolver = {
                 debits
             }
 
-            let plotData = accumulateTransactions(account, credits, debits);
+            // let plotData = accumulateTransactions(account, credits, debits);
 
             return payload;
         },

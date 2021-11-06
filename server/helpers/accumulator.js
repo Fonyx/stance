@@ -93,7 +93,7 @@ function getPacket(transactions, credit=true){
 function accumulateTransactions(account, credits, debits){
 
     // using data package dictionary in debug mode
-    let dataPackage = new Dictionary(null, null, true);
+    let dataPackage = new Dictionary(null, null, false);
 
     let today = new Date();
     let todayString = today.toLocaleDateString('en-GB');
@@ -153,8 +153,6 @@ function accumulateTransactions(account, credits, debits){
         dataPackage.set(dateString, packet);
 
     }
-
-    console.log(dataPackage.export());
 
     return dataPackage;
 }

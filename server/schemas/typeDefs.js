@@ -19,6 +19,7 @@ const typeDefs = gql`
     party: Party
     assetCode: String
     unitPrice: Float
+    valuation: Float
     changeP: Float
     currency: Currency!
     exchange: Exchange!

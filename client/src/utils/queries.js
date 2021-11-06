@@ -28,6 +28,8 @@ export const QUERY_ACCOUNT_AND_TRANSACTIONS = gql`
               name
               balance
               openingBalance
+              unitPrice
+              valuation
               tags{
                 name
               }

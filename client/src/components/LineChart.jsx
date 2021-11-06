@@ -20,8 +20,6 @@ function getWindowDimensions() {
  */
 export default function LineChart({accumulatedData}) {
 
-    console.log('my data:', accumulatedData);
-
     const svgDivContainer = useRef();
     const svgRef = useRef();
 
@@ -34,9 +32,6 @@ export default function LineChart({accumulatedData}) {
 
         svg.selectAll('path').remove();
         svg.selectAll('g').remove();
-
-        // if there are no dimensions, return - first load will have no dimensions returned from resizeObeserver
-        // console.log(dimensions)
 
         if(!dimensions) return
 
@@ -51,47 +46,37 @@ export default function LineChart({accumulatedData}) {
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        //Read the data
-        csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered_comma.csv",
-
         // When reading the csv, I must format variables:
-        function(d){
-            return { date : timeParse("%Y-%m-%d")(d.date), value : d.value }
-        }).then(
 
-        // Now I can use this dataset:
-        function(data) {
+        console.log('Plotting data:', accumulatedData)
 
-            
-            console.log('parsed structure looks like:', data);
+        // Add X axis --> it is a date format
+        const x = scaleTime()
+        .domain(extent(accumulatedData, function(d) { return d.date; }))
+        .range([ 0, width ]);
 
-            // Add X axis --> it is a date format
-            const x = scaleTime()
-            .domain(extent(data, function(d) { return d.date; }))
-            .range([ 0, width ]);
-            svg.append("g")
-            .attr("transform", `translate(0, ${height})`)
-            .call(axisBottom(x));
+        svg.append("g")
+        .attr("transform", `translate(0, ${height})`)
+        .call(axisBottom(x));
 
-            // Add Y axis
-            const y = scaleLinear()
-            .domain([0, max(data, function(d) { return +d.value; })])
-            .range([ height, 0 ]);
-            svg.append("g")
-            .call(axisLeft(y));
+        // Add Y axis
+        const y = scaleLinear()
+        .domain([0, max(accumulatedData, function(d) { return d.balance; })])
+        .range([ height, 0 ]);
+        
+        svg.append("g")
+        .call(axisLeft(y));
 
-            // Add the line
-            svg.append("path")
-            .datum(data)
-            .attr("fill", "none")
-            .attr("stroke", "steelblue")
-            .attr("stroke-width", 1.5)
-            .attr("d", line()
-                .x(function(d) { return x(d.date) })
-                .y(function(d) { return y(d.value) })
-                )
-
-        })
+        // Add the line
+        svg.append("path")
+        .datum(accumulatedData)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .attr("d", line()
+            .x(function(d) { return x(d.date) })
+            .y(function(d) { return y(d.balance) })
+            )
 
     }
 

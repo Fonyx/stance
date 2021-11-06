@@ -257,8 +257,11 @@ async function createFromFE(data){
 async function createFromRich(data){
     let account = await Account.create({...data});
 
+    await Account.populate(account, {path: 'exchange'});
+
     Logger.info(`Created account: ${account.name} in service layer`);
-    return account;
+    let updatedAccount = await updateUnitPriceAndValuation(account);
+    return updatedAccount;
 }
 
 /**
@@ -300,6 +303,7 @@ const accountSvc = {
     isValidSeed,
     exportValuation,
     populateEntireAccount,
+    updateUnitPriceAndValuation,
     findById,
     createFromSeed,
     createFromRich,
