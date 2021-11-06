@@ -28,15 +28,15 @@ export default function Account() {
         return <div>Loading Account Information...</div>
     }
 
-    let plotData = accumulateTransactions(account, credits, debits);
-    console.log(plotData);
+    let accumulatedData = accumulateTransactions(account, credits, debits);
+    console.log(accumulatedData.export());
 
     return (
         <React.Fragment>
             {account && 
                 <h1>{account.name}</h1>
             }
-            <LineChart data={plotData}/>
+            <LineChart accumulatedData={accumulatedData}/>
             <div className="account-rows">
                 {credits && credits.map((transaction) => (
                     <div key={transaction._id}>

@@ -18,7 +18,9 @@ function getWindowDimensions() {
  * @param {[streamElementObj]} {date, balance, [trans names for day]} 
  * @returns 
  */
-export default function LineChart({data}) {
+export default function LineChart({accumulatedData}) {
+
+    console.log('my data:', accumulatedData);
 
     const svgDivContainer = useRef();
     const svgRef = useRef();
@@ -59,6 +61,9 @@ export default function LineChart({data}) {
 
         // Now I can use this dataset:
         function(data) {
+
+            
+            console.log('parsed structure looks like:', data);
 
             // Add X axis --> it is a date format
             const x = scaleTime()

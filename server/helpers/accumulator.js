@@ -154,6 +154,8 @@ function accumulateTransactions(account, credits, debits){
 
     }
 
+    console.log(dataPackage.export());
+
     return dataPackage;
 }
 

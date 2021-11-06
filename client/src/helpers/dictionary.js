@@ -40,7 +40,7 @@
         for(let i = 0; i < this.keys.length; i++){
             let curr_key = this.keys[i];
             // we need 0th element because values is a list with one element
-            let curr_val = this.getByIndex(curr_key);
+            let curr_val = this.getByValue(curr_key);
             data.push({curr_key, curr_val});
         }
         return data;
