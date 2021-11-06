@@ -29,7 +29,7 @@ export default function Account() {
         return <div>Loading Account Information...</div>
     }
 
-    let accumulatedData = accumulateTransactions(account, credits, debits);
+    let accumulatedData = accumulateTransactions(account.startingBalance, credits, debits);
 
     return (
         <React.Fragment>

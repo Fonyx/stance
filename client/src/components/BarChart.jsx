@@ -75,7 +75,7 @@ export default function BarChart({accounts}) {
         reDrawChart();
     },[data, svgDivContainer]);
 
-    console.log('Data is: ', data)
+    // console.log('Data is: ', data)
 
     return (
         <React.Fragment>

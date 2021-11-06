@@ -86,11 +86,11 @@ function getPacket(transactions, credit=true){
 
 /**
  * accepts a starting integer, and returns a dateStream balance list
- * @param {models.Account} account 
+ * @param {Float} startingBalance 
  * @param {[models.Transaction]} transactions 
  * @returns {[Obj]} date, balance, [transaction descriptions for that day]
  */
-export default function accumulateTransactions(account, credits, debits){
+export default function accumulateTransactions(startingBalance, credits, debits){
 
     // using data package dictionary in debug mode
     let dataPackage = new Dictionary(null, null, false);
@@ -131,7 +131,7 @@ export default function accumulateTransactions(account, credits, debits){
 
         // calculate new total, if first day, offset by account balance, otherwise offset by previous date balance
         if(i === 0){
-            balance = account.balance + creditTotal - debitTotal
+            balance = startingBalance + creditTotal - debitTotal
         } else {
             let previousPacket = dataPackage.getByIndex(i-1);
             balance = previousPacket.balance + creditTotal - debitTotal
