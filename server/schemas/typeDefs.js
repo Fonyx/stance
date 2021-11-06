@@ -27,6 +27,12 @@ const typeDefs = gql`
     tags: [Tag]
   }
 
+  type AccountPayload {
+    account: Account
+    credits: [Transaction]!
+    debits: [Transaction]!
+  }
+
   input accountInput {
     user: String!
     name: String!
@@ -165,7 +171,7 @@ const typeDefs = gql`
     user(username: String!): User
     users: [User]
     userAccounts: [Account]!
-    userAccountTransactions(accountId: String!): [Transaction]!
+    userAccountAndTransactions(accountId: String!): AccountPayload
     getAllPrimitives: Primitives!
     checkStockCode(assetCode: String!, exchangeCode: String!): StockCheck
     getCryptos: [Crypto]!

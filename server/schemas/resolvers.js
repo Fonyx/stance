@@ -4,6 +4,7 @@ const { tagSvc, accountSvc, transactionSvc} = require('../services');
 const getCryptoCoins = require('../api/getCryptos');
 const { signToken } = require('../utils/auth');
 const getAssetValue = require('../api/getAssetValue');
+const accumulateTransactions = require('../helpers/accumulator');
 const Logger = require('../utils/logger');
 
 
@@ -40,7 +41,7 @@ const rootResolver = {
             });
             return accounts;
         },
-        userAccountTransactions: async (_, {accountId}, { user }) => {
+        userAccountAndTransactions: async (_, {accountId}, { user }) => {
             if(!user){
                 Logger.warn('No User object found from middleware');
                 throw new AuthenticationError('Not logged in, please login');
@@ -53,8 +54,18 @@ const rootResolver = {
             if(!account.user.id === user.id){
                 throw new AuthenticationError('You do not have permission to view this account');
             }
-            let accountTransactions = await transactionSvc.findByAccountId(accountId);
-            return accountTransactions;
+            let debits = await transactionSvc.findFromAccountByAccountId(accountId);
+            let credits = await transactionSvc.findToAccountByAccountId(accountId);
+
+            let payload = {
+                account,
+                credits,
+                debits
+            }
+
+            let plotData = accumulateTransactions(account, credits, debits);
+
+            return payload;
         },
         getAllPrimitives: async (_, __, {user}) => {
             if(!user){

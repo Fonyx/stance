@@ -16,18 +16,33 @@ export const QUERY_USER_ACCOUNTS = gql`
     }
 `;
 
-export const QUERY_ACCOUNT_TRANSACTIONS = gql`
+export const QUERY_ACCOUNT_AND_TRANSACTIONS = gql`
     query userAccountTransactions(
         $accountId: String!
     ){
-        userAccountTransactions(
-        accountId: $accountId
-        ){
-            _id
-            description
-            amount
-            date
-        }
+        userAccountAndTransactions(
+            accountId: $accountId
+          ){
+            account{
+              _id
+              name
+              balance
+              openingBalance
+              tags{
+                name
+              }
+            }
+            credits{
+              date
+              amount
+              description
+            }
+            debits{
+              date
+              amount
+              description
+            }
+          }
     }
 `;
 

@@ -13,7 +13,12 @@ function getWindowDimensions() {
     };
 }
 
-export default function LineChart({transactions}) {
+/**
+ * Plots out a transaction stream, elements are structured [date, balance, [names]]
+ * @param {[streamElementObj]} {date, balance, [trans names for day]} 
+ * @returns 
+ */
+export default function LineChart({data}) {
 
     const svgDivContainer = useRef();
     const svgRef = useRef();
@@ -29,7 +34,7 @@ export default function LineChart({transactions}) {
         svg.selectAll('g').remove();
 
         // if there are no dimensions, return - first load will have no dimensions returned from resizeObeserver
-        console.log(dimensions)
+        // console.log(dimensions)
 
         if(!dimensions) return
 
@@ -84,8 +89,6 @@ export default function LineChart({transactions}) {
         })
 
     }
-
-    console.log('transactions are: ', transactions)
 
     useEffect(() => {
 

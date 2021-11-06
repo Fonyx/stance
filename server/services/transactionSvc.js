@@ -264,18 +264,26 @@ async function createFromText(transactionData){
 }
 
 /**
- * Finds all the transactions going into or coming out of an account
+ * Finds all the transactions going into an account sort by date ascending (getting later) excluding those that have already been applied as they are represented in the account balance
  */
-async function findByAccountId(accountId){
+async function findToAccountByAccountId(accountId){
     let transactions = await Transaction.find({
-        $or: [
-            {
-                toAccount: accountId
-            },{
-                fromAccount: accountId
-            }
-        ]
-    });
+        toAccount: accountId,
+        applied: false
+    }).sort({date: 1});
+
+    return transactions;
+}
+
+/**
+ * Finds all the transactions coming out of an account sort by date ascending (getting later), excluding those that have already been applied as they are represented in the account balance
+ */
+async function findFromAccountByAccountId(accountId){
+    let transactions = await Transaction.find({
+        fromAccount: accountId,
+        applied: false
+    }).sort({date: 1});
+
     return transactions;
 }
 
@@ -426,6 +434,7 @@ async function populateAll(transaction){
     return transaction
 }
 
+
 const transactionSvc = {
     applyToAccounts,
     applyToday,
@@ -435,7 +444,8 @@ const transactionSvc = {
     createFromText,
     clear,
     deleteWithUnApply,
-    findByAccountId,
+    findToAccountByAccountId,
+    findFromAccountByAccountId,
     populateAll
 }
 
