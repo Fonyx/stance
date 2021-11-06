@@ -48,6 +48,10 @@ const accountSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    assetName: {
+        type: String,
+        required: false,
+    },
     // the price per unit of the asset in the currency it references
     unitPrice: {
         type: Number,

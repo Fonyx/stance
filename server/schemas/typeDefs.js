@@ -18,13 +18,22 @@ const typeDefs = gql`
     compounds: String
     party: Party
     assetCode: String
+    assetName: String
     unitPrice: Float
+    valuation: Float
     changeP: Float
     currency: Currency!
     exchange: Exchange!
     style: Style!
     goal: Goal
     tags: [Tag]
+  }
+
+  type AccountPayload {
+    userCurrValuation: Float
+    account: Account
+    credits: [Transaction]!
+    debits: [Transaction]!
   }
 
   input accountInput {
@@ -138,9 +147,10 @@ const typeDefs = gql`
 
   type User {
     _id: ID
-    username: String
-    email: String
-    password: String
+    username: String!
+    email: String!
+    password: String!
+    currency: Currency!
   }
 
   type Primitives {
@@ -165,14 +175,14 @@ const typeDefs = gql`
     user(username: String!): User
     users: [User]
     userAccounts: [Account]!
-    userAccountTransactions(accountId: String!): [Transaction]!
+    userAccountAndTransactions(accountId: String!): AccountPayload
     getAllPrimitives: Primitives!
     checkStockCode(assetCode: String!, exchangeCode: String!): StockCheck
     getCryptos: [Crypto]!
   }
 
   type Mutation {
-    signUp(username: String!, email: String!, password: String!): Auth
+    signUp(username: String!, email: String!, password: String!, currencyCode: String!): Auth
     signIn(email: String!, password: String!): Auth
     updateTags(names: [String]!): [Tag]!
     createAccount(input: accountInput!): Account!

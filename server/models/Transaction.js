@@ -69,6 +69,7 @@ transactionSchema.methods.isToday = function(){
     return areDatesSame(this.date, today)? true: false;
 }
 
+
 // create a unique index to avoid duplicates
 transactionSchema.index({fromAccount: 1, toAccount: 1, description: 1, date: 1, amount: 1, seriesId: 1}, {unique: true});
 

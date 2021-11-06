@@ -29,11 +29,21 @@ function isValidSeed(data){
                 valid = false
                 break
             }
+            if(!data.assetName){
+                Logger.error('crypto has no asset name')
+                valid = false
+                break
+            }
         }
         // type: stock
         case "stock": {
             if(!data.assetCode){
                 Logger.error('stock has no asset code')
+                valid = false
+                break
+            }
+            if(!data.assetName){
+                Logger.error('stock has no asset name')
                 valid = false
                 break
             }
@@ -124,7 +134,7 @@ async function exportValuation(account, code=null){
             throw new Error(`No currency found for code: ${code}`);
         } 
 
-        resultValue = account.currency.usdValue * account.balance/targetCurrency.usdValue;
+        resultValue = account.currency.usdValue * account.valuation/targetCurrency.usdValue;
     // case for using accounts own currency - primary case
     } else {
         resultValue = account.valuation;
@@ -132,6 +142,7 @@ async function exportValuation(account, code=null){
 
     return resultValue;
 }
+
 
 async function clear(){
     await Account.deleteMany({});
@@ -257,8 +268,11 @@ async function createFromFE(data){
 async function createFromRich(data){
     let account = await Account.create({...data});
 
+    await Account.populate(account, {path: 'exchange'});
+
     Logger.info(`Created account: ${account.name} in service layer`);
-    return account;
+    let updatedAccount = await updateUnitPriceAndValuation(account);
+    return updatedAccount;
 }
 
 /**
@@ -300,6 +314,7 @@ const accountSvc = {
     isValidSeed,
     exportValuation,
     populateEntireAccount,
+    updateUnitPriceAndValuation,
     findById,
     createFromSeed,
     createFromRich,

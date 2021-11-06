@@ -38,6 +38,7 @@
         "openingBalance": 2,
         "party":"coinspot",
         "assetCode":"BTC-USD",
+        "assetName":"Bitcoin",
         "currency":"USD",
         "exchange":"CC",
         "style":{
@@ -53,6 +54,7 @@
         "openingBalance": 4,
         "party":"coinspot",
         "assetCode":"BTC-USD",
+        "assetName":"Bitcoin",
         "currency":"USD",
         "exchange":"CC",
         "style":{
@@ -67,6 +69,7 @@
         "openingBalance": 223,
         "party":"selfWealth",
         "assetCode":"AFI",
+        "assetName":"Australian Foundation Index Stock",
         "currency":"AUD",
         "exchange":"AU",
         "style":{
@@ -82,6 +85,7 @@
         "openingBalance": 400,
         "party":"selfWealth",
         "assetCode":"AFI",
+        "assetName":"Australian Foundation Index Stock",
         "currency":"AUD",
         "exchange":"AU",
         "style":{

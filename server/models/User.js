@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    currency: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Currency',
+        required: true
+    },
     goal: {
         type: goalSchema,
         default: () => ({})
