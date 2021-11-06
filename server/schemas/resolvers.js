@@ -60,7 +60,14 @@ const rootResolver = {
             let debits = await transactionSvc.findFromAccountByAccountId(accountId);
             let credits = await transactionSvc.findToAccountByAccountId(accountId);
 
+            // populate the users currency object
+            await User.populate(user, {path: "currency"});
+
+            // get the valuation of the account in the users preferred currency
+            let userCurrValuation = await accountSvc.exportValuation(account, user.currency.code)
+
             let payload = {
+                userCurrValuation,
                 account,
                 credits,
                 debits

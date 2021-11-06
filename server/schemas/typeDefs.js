@@ -30,6 +30,7 @@ const typeDefs = gql`
   }
 
   type AccountPayload {
+    userCurrValuation: Float
     account: Account
     credits: [Transaction]!
     debits: [Transaction]!

@@ -23,6 +23,7 @@ export default function Account() {
     const account = data?.userAccountAndTransactions.account || [];
     const credits = data?.userAccountAndTransactions.credits || [];
     const debits = data?.userAccountAndTransactions.debits || [];
+    const userCurrValuation = data?.userAccountAndTransactions.userCurrValuation || 0
 
     if(loading){
         return <div>Loading Account Information...</div>
@@ -36,12 +37,13 @@ export default function Account() {
                 <h1>{account.name}</h1>
             }
             <h1>Current Value ${account.valuation}</h1>
+            <h1>Current Value In your currency ${userCurrValuation}</h1>
 
             <h1>Current Balance {account.balance}</h1>
             <h1>Currency: {account.currency.name}</h1>
-            {account.assetName &&
-                <h1>Asset Name {account.assetName}</h1>
-            }
+
+            <h1>Asset Name {account.assetName}</h1>
+            
             <h1>Asset Unit Price {account.unitPrice}</h1>
             <LineChart accumulatedData={accumulatedData}/>
             <div className="account-rows">

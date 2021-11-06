@@ -23,6 +23,7 @@ export const QUERY_ACCOUNT_AND_TRANSACTIONS = gql`
         userAccountAndTransactions(
             accountId: $accountId
           ){
+            userCurrValuation
             account{
               _id
               name
@@ -30,6 +31,7 @@ export const QUERY_ACCOUNT_AND_TRANSACTIONS = gql`
               openingBalance
               unitPrice
               valuation
+              assetName
               currency{
                   name
               }

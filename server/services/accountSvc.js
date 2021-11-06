@@ -134,7 +134,7 @@ async function exportValuation(account, code=null){
             throw new Error(`No currency found for code: ${code}`);
         } 
 
-        resultValue = account.currency.usdValue * account.balance/targetCurrency.usdValue;
+        resultValue = account.currency.usdValue * account.valuation/targetCurrency.usdValue;
     // case for using accounts own currency - primary case
     } else {
         resultValue = account.valuation;
@@ -142,6 +142,7 @@ async function exportValuation(account, code=null){
 
     return resultValue;
 }
+
 
 async function clear(){
     await Account.deleteMany({});
