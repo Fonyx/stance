@@ -5,6 +5,7 @@ import {QUERY_ACCOUNT_AND_TRANSACTIONS} from '../utils/queries'
 import { useParams, Link } from 'react-router-dom';
 import {Button} from '@mui/material'
 import LineChart from '../components/LineChart';
+import accumulateTransactions from '../helpers/accumulator';
 
 export default function Account() {
 
@@ -23,12 +24,12 @@ export default function Account() {
     const credits = data?.userAccountAndTransactions.credits || [];
     const debits = data?.userAccountAndTransactions.debits || [];
 
-    console.log(credits);
-    console.log(debits);
-
     if(loading){
         return <div>Loading Account Information...</div>
     }
+
+    let plotData = accumulateTransactions(account, credits, debits);
+    console.log(plotData);
 
     return (
         <React.Fragment>

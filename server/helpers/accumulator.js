@@ -54,7 +54,12 @@ function makeDateStringList(credits, debits){
     return dateList;
 }
 
-
+/**
+ * Get the transactions that happen on a specific dateString
+ * @param {[models.Transaction]} transactions 
+ * @param {str} dateString (en-GB) formatted string (dd/mm/yyyy)
+ * @returns 
+ */
 function filterTransactionsForDate(transactions, dateString){
     let filteredTransactions = transactions.filter((transaction) => {
         return timestampToDateString(transaction) === dateString;
@@ -149,10 +154,7 @@ function accumulateTransactions(account, credits, debits){
 
     }
 
-    console.log('bang')
-
-    
-
+    return dataPackage;
 }
 
 module.exports = accumulateTransactions
