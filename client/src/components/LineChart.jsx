@@ -14,7 +14,7 @@ function getWindowDimensions() {
 }
 
 /**
- * Plots out a transaction stream, elements are structured [date, balance, [names]]
+ * Plots out a transaction stream, elements are structured [date, balance, [detailObjs]]
  * @param {[streamElementObj]} {date, balance, [trans names for day]} 
  * @returns 
  */

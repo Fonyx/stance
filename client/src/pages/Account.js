@@ -36,7 +36,7 @@ export default function Account() {
             {account && 
                 <h1>{account.name}</h1>
             }
-            <LineChart data={credits}/>
+            <LineChart data={plotData}/>
             <div className="account-rows">
                 {credits && credits.map((transaction) => (
                     <div key={transaction._id}>
