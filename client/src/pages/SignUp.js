@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {QUERY_GET_ALL_CURRENCIES} from '../utils/queries';
+import {Autocomplete, TextField} from '@mui/material';
 
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { SIGN_UP } from '../utils/mutations';
 
 import AuthService from '../utils/auth';
@@ -12,21 +14,53 @@ const Signup = () => {
     email: '',
     password: '',
   });
-  const [signUp, { error, data }] = useMutation(SIGN_UP);
 
+  console.log(formState);
+
+  const currencyResp = useQuery(QUERY_GET_ALL_CURRENCIES, {});
+
+  var currencies = currencyResp.data?.allCurrencies || [];
+  var loading = currencyResp.loading || false;
+
+  const [signUp, { error, data }] = useMutation(SIGN_UP);
+  
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+    
     setFormState({
       ...formState,
       [name]: value,
     });
   };
+  
+  const handleSelectCurrency = () => e => {
+    console.log('Handling Currency change');
+    console.log('event: ',e);
+    
+    let currencyName = e.target.textContent;
+    let currencyCode = ''
+    
+    console.log('Currency Name of event: ', currencyName);
+    
+    if(currencyName){
+      let currency = currencies.find(currency => currency.name === currencyName);
+      currencyCode = currency.code;
+    } else {
+      currencyCode = ''
+    }
+    console.log('CurrencyCode after filtering data: ', currencyCode);
+    
+    
+    setFormState({
+      ...formState,
+      'currencyCode': currencyCode
+    });
+  }
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
-
+    
     try {
       const { data } = await signUp({
         variables: { ...formState },
@@ -37,7 +71,11 @@ const Signup = () => {
       console.error(e);
     }
   };
-
+  
+  if(loading){
+    return <div>Thinking, don't rush me...</div>
+  }
+  
   return (
     <main className="flex-row justify-center mb-4">
       <div className="col-12 col-lg-10">
@@ -75,6 +113,20 @@ const Signup = () => {
                   value={formState.password}
                   onChange={handleChange}
                 />
+                <Autocomplete
+                  disablePortal
+                  clearOnBlur
+                  selectOnFocus
+                  handleHomeEndKeys
+                  id="currency"
+                  name='currency'
+                  options={currencies}
+                  getOptionLabel={(option) => option.name}
+                  isOptionEqualToValue={(option, value) => option.name === value.name}
+                  sx={{ width: 300 }}
+                  onChange={handleSelectCurrency()}
+                  renderInput={(props) => <TextField {...props} label="Currency" />}
+              />
                 <button
                   className="btn btn-block btn-primary"
                   style={{ cursor: 'pointer' }}

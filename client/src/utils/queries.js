@@ -30,6 +30,9 @@ export const QUERY_ACCOUNT_AND_TRANSACTIONS = gql`
               openingBalance
               unitPrice
               valuation
+              currency{
+                  name
+              }
               tags{
                 name
               }

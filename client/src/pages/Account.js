@@ -36,8 +36,13 @@ export default function Account() {
                 <h1>{account.name}</h1>
             }
             <h1>Current Value ${account.valuation}</h1>
-            
+
             <h1>Current Balance {account.balance}</h1>
+            <h1>Currency: {account.currency.name}</h1>
+            {account.assetName &&
+                <h1>Asset Name {account.assetName}</h1>
+            }
+            <h1>Asset Unit Price {account.unitPrice}</h1>
             <LineChart accumulatedData={accumulatedData}/>
             <div className="account-rows">
                 {credits && credits.map((transaction) => (

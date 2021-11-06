@@ -2,11 +2,10 @@ const { AuthenticationError } = require('apollo-server-express');
 const { User, Account, Currency, Transaction, Party, Exchange } = require('../models');
 const { tagSvc, accountSvc, transactionSvc} = require('../services');
 const getCryptoCoins = require('../api/getCryptos');
-const { signToken } = require('../utils/auth');
 const getAssetValue = require('../api/getAssetValue');
 const accumulateTransactions = require('../helpers/accumulator');
 const Logger = require('../utils/logger');
-
+const {signUpFromFE, signInFromFE} = require('../services/userSvc');
 
 const rootResolver = {
     Query:{
@@ -50,6 +49,9 @@ const rootResolver = {
             let account = await Account.findOne({
                 "_id": accountId
             });
+            if(!account){
+                throw new Error('No Account found for that id');
+            }
             await Account.populate(account, {path: "user"});
             if(!account.user.id === user.id){
                 throw new AuthenticationError('You do not have permission to view this account');
@@ -118,28 +120,12 @@ const rootResolver = {
         }
     },
     Mutation:{
-        signUp: async (_, { username, email, password }) => {
-            const user = await User.create({ username, email, password });
-            const token = signToken(user);
+        signUp: async (_, {username, email, password, currencyCode}) => {
+            const { token, user } = await signUpFromFE(username, email, password, currencyCode);
             return { token, user };
         },
         signIn: async (_, { email, password }) => {
-            const user = await User.findOne({ email });
-        
-            if(!user){
-                throw new AuthenticationError('This action requires authentication, please log in')
-            }
-        
-            const correctPw = await user.isCorrectPassword(password);
-        
-            if (!correctPw) {
-                throw new AuthenticationError('Incorrect credentials');
-            }
-        
-            const token = signToken(user);
-
-            Logger.info(`User ${user.username} successfully logged in`)
-        
+            const { token, user } = await signInFromFE(email, password)
             return { token, user };
         },
         updateTags: async (_, {names}, {user}) => {

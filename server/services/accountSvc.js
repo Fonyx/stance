@@ -29,11 +29,21 @@ function isValidSeed(data){
                 valid = false
                 break
             }
+            if(!data.assetName){
+                Logger.error('crypto has no asset name')
+                valid = false
+                break
+            }
         }
         // type: stock
         case "stock": {
             if(!data.assetCode){
                 Logger.error('stock has no asset code')
+                valid = false
+                break
+            }
+            if(!data.assetName){
+                Logger.error('stock has no asset name')
                 valid = false
                 break
             }

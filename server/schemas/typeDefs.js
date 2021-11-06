@@ -18,6 +18,7 @@ const typeDefs = gql`
     compounds: String
     party: Party
     assetCode: String
+    assetName: String
     unitPrice: Float
     valuation: Float
     changeP: Float
@@ -145,9 +146,10 @@ const typeDefs = gql`
 
   type User {
     _id: ID
-    username: String
-    email: String
-    password: String
+    username: String!
+    email: String!
+    password: String!
+    currency: Currency!
   }
 
   type Primitives {
@@ -179,7 +181,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    signUp(username: String!, email: String!, password: String!): Auth
+    signUp(username: String!, email: String!, password: String!, currencyCode: String!): Auth
     signIn(email: String!, password: String!): Auth
     updateTags(names: [String]!): [Tag]!
     createAccount(input: accountInput!): Account!
