@@ -29,7 +29,6 @@ export default function Account() {
     }
 
     let accumulatedData = accumulateTransactions(account, credits, debits);
-    console.log(accumulatedData.export());
 
     return (
         <React.Fragment>

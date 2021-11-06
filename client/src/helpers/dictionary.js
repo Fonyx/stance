@@ -41,7 +41,12 @@
             let curr_key = this.keys[i];
             // we need 0th element because values is a list with one element
             let curr_val = this.getByValue(curr_key);
-            data.push({curr_key, curr_val});
+            let packet = {
+                date: curr_key,
+                balance: curr_val.balance,
+                details: curr_val.details
+            }
+            data.push(packet);
         }
         return data;
     }

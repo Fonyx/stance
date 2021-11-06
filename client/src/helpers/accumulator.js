@@ -154,5 +154,5 @@ export default function accumulateTransactions(account, credits, debits){
 
     }
 
-    return dataPackage;
+    return dataPackage.export();
 }
