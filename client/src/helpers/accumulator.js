@@ -13,7 +13,7 @@ import parseDMY from '../helpers/formatter';
  * @returns {str} en-GB formatted date string
  */
 function timestampToDateString(transactionObj){
-    let date = new Date(transactionObj.date);
+    let date = new Date(transactionObj.date*1);
     let dateString = date.toLocaleDateString('en-GB');
     return dateString
 }
@@ -93,7 +93,7 @@ function getPacket(transactions, credit=true){
 export default function accumulateTransactions(account, credits, debits){
 
     // using data package dictionary in debug mode
-    let dataPackage = new Dictionary(null, null, true);
+    let dataPackage = new Dictionary(null, null, false);
 
     let today = new Date();
     let todayString = today.toLocaleDateString('en-GB');

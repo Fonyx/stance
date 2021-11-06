@@ -13,7 +13,7 @@ const {parseDMY} = require('../utils/date')
  * @returns {str} en-GB formatted date string
  */
 function timestampToDateString(transactionObj){
-    let date = new Date(transactionObj.date);
+    let date = new Date(transactionObj.date*1);
     let dateString = date.toLocaleDateString('en-GB');
     return dateString
 }
