@@ -8,11 +8,11 @@ export default function ToggleButton({name, handleSelect}) {
     const handleClick = (e) => {   
         e.preventDefault(); 
         setOn(!On);
-        console.log(e.target.textContent);
+        handleSelect(e, On);
     }
     
     return (
-        <Button onClick={handleClick} name={name} color={On? 'primary':'secondary'}>
+        <Button onClick={handleClick} name={name} color={On? 'secondary':'primary'}>
             {name}
         </Button>
     )

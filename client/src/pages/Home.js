@@ -11,22 +11,45 @@ import ToggleButton from '../components/toggleButton';
 
 export default function Home() {
 
-    const [activeAccounts, setActiveAccounts] = useState([]);
+    const [inactiveAccounts, setInactiveAccounts] = useState([]);
 
     const {loading, data} = useQuery(QUERY_USER_ACCOUNTS, {});
 
     const userAccounts = data?.userAccounts || {};
+
+    console.log('InactiveAccount state: ', inactiveAccounts);
 
     if(loading){
         return <div>Loading Your Accounts....</div>
     }
 
 
-    const handleSelect = (e) => {
+    const handleSelect = (e, pressedState) => {
         e.preventDefault();
-        console.log(e.target.value);
-    }
 
+        let pressedAccount = e.target.textContent;
+
+        console.log(pressedAccount);
+        console.log(pressedState);
+
+        // if the UI has this account as active, add it to the activeAccounts state
+        if(pressedState){
+            setInactiveAccounts([
+                ...inactiveAccounts,
+                pressedAccount
+            ])
+        // if the UI has it listed as inactive, remove it from the activeAccounts
+        }else if(!pressedState){
+
+            let otherAccounts = inactiveAccounts.filter((account) => {
+                return account !== pressedAccount
+            })
+
+            setInactiveAccounts([
+                ...otherAccounts
+            ])
+        }
+    }
     
     return (
         <React.Fragment>
@@ -37,7 +60,7 @@ export default function Home() {
                     <div key={userAccount._id}>
                         <ToggleButton 
                             name={userAccount.name} 
-                            onClick={handleSelect} 
+                            handleSelect={handleSelect} 
                             color="secondary" 
                             variant="contained"
                         >
