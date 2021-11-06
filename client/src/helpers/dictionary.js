@@ -1,3 +1,4 @@
+import parseDMY from '../helpers/formatter'
 
 /**
  * A dictionary object that acts like a python dictionary, with the asterix that the value is a list
@@ -36,13 +37,13 @@
     // exports the contents of the dictionary to a list of objects with lists
     // i.e [{key: [value]}, {key: [value]}, {key: [value]}]
     export(){
-        let data = []
+        let data = [];
         for(let i = 0; i < this.keys.length; i++){
             let curr_key = this.keys[i];
             // we need 0th element because values is a list with one element
             let curr_val = this.getByValue(curr_key);
             let packet = {
-                date: curr_key,
+                date: parseDMY(curr_key),
                 balance: curr_val.balance,
                 details: curr_val.details
             }

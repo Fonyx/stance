@@ -1,3 +1,4 @@
+const {parseDMY} = require('../utils/date')
 
 /**
  * A dictionary object that acts like a python dictionary, with the asterix that the value is a list
@@ -59,7 +60,7 @@
             // we need 0th element because values is a list with one element
             let curr_val = this.getByValue(curr_key);
             let packet = {
-                date: curr_key,
+                date: parseDMY(curr_key),
                 balance: curr_val.balance,
                 details: curr_val.details
             }
