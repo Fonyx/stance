@@ -1,26 +1,79 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 // import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import {Button, ButtonGroup} from '@mui/material'
-import {QUERY_USER_ACCOUNTS} from '../utils/queries'
+import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import { Link } from 'react-router-dom';
-import BarChart from '../components/BarChart';
+// import BarChart from '../components/BarChart';
 import ToggleButton from '../components/toggleButton';
+import LineChart from '../components/LineChart';
+import accumulateTransactions from '../helpers/accumulator';
 
 
+function filterInactiveAccounts(inactiveAccounts, payload){
+    let filteredPayload = payload.filter((element) => (!inactiveAccounts.includes(element.account.name)))
+    return filteredPayload
+}
+
+
+function getCreditsFromPayload(payload){
+    let credits = [];
+    for(let i = 0; i < payload.length; i++){
+        let element = payload[i];
+        credits.push(element.credits)
+    }
+    return credits
+}
+
+function getDebitsFromPayload(payload){
+    let debits = [];
+    for(let i = 0; i < payload.length; i++){
+        let element = payload[i];
+        debits.push(element.debits)
+    }
+    return debits
+}
+
+function getAccumulatedValuation(payload){
+
+    let valuation = payload.reduce((previous, current) => {
+        return previous + current.userCurrValuation
+    }, 0);
+    return valuation
+}
 
 export default function Home() {
 
     const [inactiveAccounts, setInactiveAccounts] = useState([]);
 
-    const {loading, data} = useQuery(QUERY_USER_ACCOUNTS, {});
+    const {loading, data} = useQuery(QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS, {});
 
-    const userAccounts = data?.userAccounts || {};
+
+
+    if(data?.allUserAccountsAndTransactions){
+        var userAccounts = data.allUserAccountsAndTransactions.map((payload) => {
+            return payload.account.name
+        });
+        var filteredPayload = filterInactiveAccounts(inactiveAccounts, data.allUserAccountsAndTransactions)
+        var debits = getDebitsFromPayload(filteredPayload);
+        var credits = getCreditsFromPayload(filteredPayload);
+        var valuation = getAccumulatedValuation(filteredPayload);
+
+        var accumulatedData = accumulateTransactions(valuation, credits, debits);
+        
+    } else {
+        console.log('No Data');
+        var userAccounts = []
+        var credits = []
+        var debits = []
+        var valuation = 0
+    }
+
 
     console.log('InactiveAccount state: ', inactiveAccounts);
 
     if(loading){
-        return <div>Loading Your Accounts....</div>
+        return <div>Loading Your Account Details....They are very detailed</div>
     }
 
 
@@ -53,7 +106,7 @@ export default function Home() {
     
     return (
         <React.Fragment>
-            <BarChart accounts={userAccounts}/>
+            <LineChart accumulatedData={accumulatedData}/>
             
             <ButtonGroup>
                 {userAccounts && userAccounts.map((userAccount) => (

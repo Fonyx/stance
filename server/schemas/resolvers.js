@@ -77,6 +77,54 @@ const rootResolver = {
 
             return payload;
         },
+        /**
+         * Major grouping of user data, [{accountName: { accountObj, creditTrans, debitTrans, valuation }},...]
+         * @returns list of complex objects
+         */
+        allUserAccountsAndTransactions: async (_, __ , { user }) => {
+            if(!user){
+                Logger.warn('No User object found from middleware');
+                throw new AuthenticationError('Not logged in, please login');
+            }
+            // check user has permission for this account
+            let userAccounts = await Account.find({
+                "user": user
+            });
+            // if user has no accounts, return null
+            if(!userAccounts){
+                return null
+            }
+
+            let accountPayloadList = []; 
+
+            for(let account of userAccounts){
+
+                await Account.populate(account, {path: "user"});
+                if(!account.user.id === user.id){
+                    throw new AuthenticationError('You do not have permission to view this account');
+                }
+                await accountSvc.updateUnitPriceAndValuation(account);
+                let debits = await transactionSvc.findFromAccountByAccountId(account.id);
+                let credits = await transactionSvc.findToAccountByAccountId(account.id);
+
+                // populate the users currency object
+                await User.populate(user, {path: "currency"});
+
+                // get the valuation of the account in the users preferred currency
+                let userCurrValuation = await accountSvc.exportValuation(account, user.currency.code)
+
+                let payload = {
+                    userCurrValuation,
+                    account,
+                    credits,
+                    debits
+                }
+
+                accountPayloadList.push(payload);
+            }
+
+            return accountPayloadList;
+        },
         getAllPrimitives: async (_, __, {user}) => {
             if(!user){
                 Logger.warn('No User object found from middleware');

@@ -16,6 +16,7 @@ export const QUERY_USER_ACCOUNTS = gql`
     }
 `;
 
+
 export const QUERY_ACCOUNT_AND_TRANSACTIONS = gql`
     query userAccountTransactions(
         $accountId: String!
@@ -52,6 +53,41 @@ export const QUERY_ACCOUNT_AND_TRANSACTIONS = gql`
           }
     }
 `;
+
+
+export const QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS = gql`
+    query{
+        allUserAccountsAndTransactions{
+        userCurrValuation
+        account{
+            _id
+            name
+            balance
+            openingBalance
+            valuation
+            unitPrice
+            assetName
+            currency{
+            name
+            }
+            tags{
+            name
+            }
+        }
+        credits{
+            date
+            amount
+            description
+            }
+            debits{
+            date
+            amount
+            description
+            }
+        }
+    }
+`;
+
 
 export const QUERY_GET_ALL_PARTIES = gql`
     query{
