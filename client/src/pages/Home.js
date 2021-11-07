@@ -96,8 +96,6 @@ export default function Home() {
         var tickers = [];
     }
 
-    // console.log('Selected Account: ', selectedAccount);
-
     if(loading){
         return <div>Loading Your Account Details....They are very detailed</div>
     }
@@ -110,8 +108,6 @@ export default function Home() {
         e.preventDefault();
 
         let pressedAccount = e.target.id;
-
-        // console.log('User clicked on: ',pressedAccount);
 
         var {userCurrValuation, account, credits, debits} = getFilteredDataFromState(pressedAccount, accountData);
 
@@ -133,7 +129,6 @@ export default function Home() {
         setSelectedAccount(statePackage);
     }
 
-    console.log(selectedAccount)
 
     return (
         <Grid container spacing={3}>

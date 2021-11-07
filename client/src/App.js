@@ -4,7 +4,6 @@ import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import AccountForm from './components/CreateAccountSteps/CreateAccountSteps';
 
 import Landing from './pages/Landing';
@@ -95,7 +94,6 @@ function App() {
                   <AccountForm />
                 </Route>
               </Switch>
-              {/* <Footer /> */}
             </Container>
         </Router>
       </ThemeProvider>

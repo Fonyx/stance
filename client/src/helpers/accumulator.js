@@ -162,9 +162,6 @@ export default function accumulateTransactions(startingBalance, credits, debits)
 
         // add item to dictionary with list of transaction names
         dataPackage.set(dateString, packet);
-
-        console.log(dataPackage);
-
     }
 
     // if there is only one date, add an ending date with the same value for 5 years out
