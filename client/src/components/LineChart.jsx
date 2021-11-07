@@ -101,13 +101,17 @@ export default function LineChart({accumulatedData}) {
 
     // },[dimensions]);
 
+    const divStyle = {
+        margin: '30px'
+    }
+
     const svgStyles = {
         overflow: 'visible'
     }
 
     return (
         <React.Fragment>
-            <div ref={svgDivContainer}>
+            <div ref={svgDivContainer} style={divStyle}>
                 <svg
                     // className="d3-chart"
                     style={svgStyles}

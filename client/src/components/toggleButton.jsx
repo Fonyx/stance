@@ -6,7 +6,7 @@ export default function ToggleButton({name, color, handleSelect}) {
     
     return (
         <Button onClick={handleSelect} id={name} name={name} color={color}>
-            {truncate(name, 15)}
+            {truncate(name, 25)}
         </Button>
     )
 }

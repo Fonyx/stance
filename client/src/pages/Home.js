@@ -117,14 +117,18 @@ export default function Home() {
 
         var accumulatedData = accumulateTransactions(account.balance, credits, debits);
 
+        // limit the number of transactions to display, first 10
+        var creditLimit = credits.slice(0, 10);
+        var debitLimit = credits.slice(0, 10);
+
         let statePackage = {
             accountName: pressedAccount,
             account,
             userCurrValuation,
             accumulatedData,
             tickers,
-            credits,
-            debits
+            credits: creditLimit,
+            debits: debitLimit
         }
         setSelectedAccount(statePackage);
     }
@@ -160,7 +164,7 @@ export default function Home() {
                                     variant="outlined" 
                                     to={`/asset/${element.assetCode}`}
                                 >
-                                    {truncate(element.assetName, 15) + ' : ' + element.unitPrice}
+                                    {truncate(element.assetName, 25) + ' : ' + element.unitPrice}
                                     {/* {element.assetName + ' : ' + element.unitPrice} */}
                                 </Button>
                             </div>
@@ -172,6 +176,7 @@ export default function Home() {
                 {selectedAccount && 
                     <div id="chart-section">
                         <div>
+                            <Typography variant="h3" color="primary">{selectedAccount.accountName}</Typography>
                             <Grid container alignItems="center">
                                 <Grid item xs={8}>
                                     <IconButton>
