@@ -95,8 +95,8 @@ function App() {
                   <AccountForm />
                 </Route>
               </Switch>
+              <Footer />
             </Container>
-          <Footer />
         </Router>
       </ThemeProvider>
     </ApolloProvider>

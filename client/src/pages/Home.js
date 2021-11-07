@@ -9,6 +9,7 @@ import ToggleButton from '../components/toggleButton';
 import LineChart from '../components/LineChart';
 import accumulateTransactions from '../helpers/accumulator';
 import { readableDate} from '../helpers/formatter';
+import {truncate} from '../helpers/strings';
 
 /**
  * Function that filters out an account package from the accountData mega object, return shape: {valuation, accountObj, credits, debits}
@@ -160,7 +161,7 @@ export default function Home() {
                             variant="outlined" 
                             to={`/asset/${element.assetCode}`}
                         >
-                            {element.assetName + ' : ' + element.unitPrice}
+                            {truncate(element.assetName, 15) + ' : ' + element.unitPrice}
                         </Button>
                     </div>
                 ))}
@@ -192,7 +193,7 @@ export default function Home() {
                             variant="outlined" 
                             to={`/asset/${transaction.date.amount}`}
                         >
-                            {transaction.description + ' : ' + transaction.amount + ' : ' + readableDate(new Date(transaction.date*1))}
+                            {readableDate(new Date(transaction.date*1)) + ' : ' + transaction.amount + ' : ' +  transaction.description }
                         </Button>
                     </div>
                 ))}
@@ -205,7 +206,7 @@ export default function Home() {
                             variant="outlined" 
                             to={`/asset/${transaction.date.amount}`}
                         >
-                            {transaction.description + ' : ' + transaction.amount + ' : ' + readableDate(new Date(transaction.date*1))}
+                            {readableDate(new Date(transaction.date*1)) + ' : ' + transaction.amount + ' : ' +  transaction.description}
                         </Button>
                     </div>
                 ))}
