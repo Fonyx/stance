@@ -119,6 +119,7 @@ export default function Home() {
 
         let statePackage = {
             accountName: pressedAccount,
+            account,
             userCurrValuation,
             accumulatedData,
             tickers,
@@ -128,20 +129,14 @@ export default function Home() {
         setSelectedAccount(statePackage);
     }
 
+    console.log(selectedAccount)
+
     return (
         <Grid container spacing={2}>
             <Grid item xs>
                 <h1>Your Accounts</h1>
                 {accountData && accountData.map((element) => (
                     <div key={element.account._id}>
-                        <Button 
-                            LinkComponent={Link}
-                            color="primary" 
-                            variant="outlined" 
-                            to={`/account/${element.account._id}`}
-                        >
-                            update
-                        </Button>
                         <ToggleButton 
                             name={element.account.name} 
                             color={element.account.name === selectedAccount.accountName? 'primary': 'secondary'}
@@ -171,7 +166,19 @@ export default function Home() {
                 {selectedAccount && 
                     <div id="chart-section">
                         <div>
-                            <h1>Current Valuation: {selectedAccount.userCurrValuation}</h1>
+                            <Grid item>
+                                <Typography variant="h5">Current Valuation: {selectedAccount.userCurrValuation}</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Button 
+                                    LinkComponent={Link}
+                                    color="primary" 
+                                    variant="outlined" 
+                                    to={`/account/${selectedAccount.account._id}`}
+                                >
+                                    update
+                                </Button>
+                            </Grid>
                             <LineChart accumulatedData={selectedAccount.accumulatedData}/>
                             {selectedAccount?.credits && 
                                 <h2>Credits: {selectedAccount.credits.length}</h2>

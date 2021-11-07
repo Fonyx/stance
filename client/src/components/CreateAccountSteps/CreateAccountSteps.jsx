@@ -204,6 +204,8 @@ export default function AccountForm (){
   const { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode, tags, goalAmount, goalDate } = formState;
   const values = { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode, tags, goalAmount, goalDate };
 
+  console.log('Form state is: ',formState);
+
   if(loading){
     return ( 
       <div>Loading Your Data</div>
