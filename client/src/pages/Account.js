@@ -11,9 +11,6 @@ export default function Account() {
 
     let params = useParams();
 
-    console.log(params.id);
-
-
     const {loading, data} = useQuery(QUERY_ACCOUNT_AND_TRANSACTIONS, {
         variables: {
             'accountId': params.id
@@ -29,7 +26,9 @@ export default function Account() {
         return <div>Loading Account Information...</div>
     }
 
-    let accumulatedData = accumulateTransactions(account.startingBalance, credits, debits);
+    let accumulatedData = accumulateTransactions(account.balance, credits, debits);
+
+    console.log('accumulated data: ',accumulatedData)
 
     return (
         <React.Fragment>

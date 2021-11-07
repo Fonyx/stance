@@ -86,17 +86,11 @@ export default function Home() {
 
         var {userCurrValuation, account, credits, debits} = getFilteredDataFromState(pressedAccount, accountData);
 
-        console.log(userCurrValuation);
-        console.log(account);
-        console.log(credits);
-        console.log(debits);
-
         var accumulatedData = accumulateTransactions(account.balance, credits, debits);
-
-        console.log('Accumulated data for selected account: ', accumulatedData);
 
         let statePackage = {
             accountName: pressedAccount,
+            userCurrValuation,
             accumulatedData
         }
 
@@ -122,7 +116,7 @@ export default function Home() {
                         </Button>
                         <ToggleButton 
                             name={element.account.name} 
-                            color={element.account.name === selectedAccount?'primary': 'secondary'}
+                            color={element.account.name === selectedAccount.accountName? 'primary': 'secondary'}
                             handleSelect={handleSelect} 
                             variant="contained"
                         >
@@ -130,8 +124,11 @@ export default function Home() {
                     </div>
                 ))}
                 {selectedAccount && 
-                    <div>
-                        <LineChart accumulatedData={selectedAccount.accumulatedData}/>
+                    <div id="chart-section">
+                        <div>{selectedAccount.userCurrValuation}</div>
+                        <div>
+                            <LineChart accumulatedData={selectedAccount.accumulatedData}/>
+                        </div>
                     </div>
                 }
         </React.Fragment>

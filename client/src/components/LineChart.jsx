@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {select, csv, timeParse, scaleTime, extent, axisBottom, scaleLinear, axisLeft, max, line} from 'd3';
+import {select, scaleTime, extent, axisBottom, scaleLinear, axisLeft, max, line} from 'd3';
 
 //https://www.d3-graph-gallery.com/graph/line_basic.html
 
@@ -19,8 +19,6 @@ function getWindowDimensions() {
  * @returns 
  */
 export default function LineChart({accumulatedData}) {
-
-    console.log(accumulatedData)
 
     const svgDivContainer = useRef();
     const svgRef = useRef();
@@ -49,8 +47,6 @@ export default function LineChart({accumulatedData}) {
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
         // When reading the csv, I must format variables:
-
-        console.log('Plotting data:', accumulatedData)
 
         // Add X axis --> it is a date format
         const x = scaleTime()
