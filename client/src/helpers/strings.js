@@ -27,8 +27,8 @@ export function spacious(slug){
 export function truncate(text, limit){
     let truncText = text;
 
-    // only override if text is longer than limit
-    if(text.length > limit){
+    // only override if text is longer than limit - dodge if text null
+    if(text && text.length > limit){
         truncText = text.slice(0, limit);
         truncText += '...';
     }

@@ -17,6 +17,7 @@ const initialFormState = {
   currency: '',
   exchangeCode: 'CC',
   assetCode: '',
+  assetName: '',
   tags: '',
   goalAmount: 0,
   goalDate: ''
