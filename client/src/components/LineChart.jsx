@@ -23,7 +23,7 @@ export default function LineChart({accumulatedData}) {
     const svgDivContainer = useRef();
     const svgRef = useRef();
 
-    const [dimensions, setDimensions] = useState(getWindowDimensions());
+    // const [dimensions, setDimensions] = useState(getWindowDimensions());
 
     // const dimensions = {width: window.innerWidth*0.8, height: window.innerHeight*0.5}
 
@@ -32,6 +32,8 @@ export default function LineChart({accumulatedData}) {
 
         svg.selectAll('path').remove();
         svg.selectAll('g').remove();
+
+        let dimensions = {width: "600", height: "300"};
 
         if(!dimensions) return
 
@@ -80,18 +82,18 @@ export default function LineChart({accumulatedData}) {
 
     reDrawChart();
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        function handleResize() {
-            setDimensions(getWindowDimensions());
-        }
+    //     function handleResize() {
+    //         setDimensions(getWindowDimensions());
+    //     }
 
-        reDrawChart();
+    //     reDrawChart();
         
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+    //     window.addEventListener('resize', handleResize);
+    //     return () => window.removeEventListener('resize', handleResize);
 
-    },[dimensions]);
+    // },[dimensions]);
 
     const svgStyles = {
         display: "block",
@@ -100,10 +102,12 @@ export default function LineChart({accumulatedData}) {
 
     return (
         <React.Fragment>
-            <div ref={svgDivContainer} >
+            <div ref={svgDivContainer}>
                 <svg
                     // className="d3-chart"
                     style={svgStyles}
+                    width='300px'
+                    height='450px'
                     ref={svgRef}
                 />
             </div>

@@ -67,23 +67,26 @@ export const QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS = gql`
             valuation
             unitPrice
             assetName
+            assetCode
             currency{
-            name
+                name
             }
             tags{
-            name
+                name
             }
         }
         credits{
+            _id
             date
             amount
             description
-            }
-            debits{
+        }
+        debits{
+            _id
             date
             amount
             description
-            }
+        }
         }
     }
 `;

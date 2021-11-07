@@ -24,20 +24,21 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            STANCE
-          </Typography>
+          <IconButton href="/home">
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              STANCE
+            </Typography>
+          </IconButton>
           {AuthService.loggedIn() ? (
-            <React.Fragment>
-              <Button color="secondary" variant="contained" href="/home">Home</Button>
-              <Button color="secondary" variant="contained" onClick={logout}>Logout</Button>
-              <Button color="secondary" variant="contained" href="/createTransaction">Create Transaction</Button>
-              <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>
-            </React.Fragment>
-          ):(
-            <React.Fragment></React.Fragment>
-          )}
-        </Toolbar>
+            <IconButton>
+                <React.Fragment>
+                  <Button color="secondary" variant="contained" onClick={logout}>Logout</Button>
+                </React.Fragment>
+            </IconButton>
+            ):(
+              <React.Fragment></React.Fragment>
+            )}
+          </Toolbar>
       </AppBar>
     </Box>
     )

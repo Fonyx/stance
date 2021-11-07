@@ -1,13 +1,14 @@
 import React, {useState} from 'react'
 // import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import {Button} from '@mui/material'
+import {Button, Grid} from '@mui/material'
 import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import { Link } from 'react-router-dom';
 // import BarChart from '../components/BarChart';
 import ToggleButton from '../components/toggleButton';
 import LineChart from '../components/LineChart';
 import accumulateTransactions from '../helpers/accumulator';
+import parseDMY, {timestampToDateString, readableDate} from '../helpers/formatter';
 
 /**
  * Function that filters out an account package from the accountData mega object, return shape: {valuation, accountObj, credits, debits}
@@ -57,7 +58,6 @@ export default function Home() {
 
     if(data?.allUserAccountsAndTransactions){
         var accountData = data.allUserAccountsAndTransactions;
-
     } else {
         var accountData = null
     }
@@ -75,11 +75,6 @@ export default function Home() {
     const handleSelect = (e) => {
         e.preventDefault();
 
-        // refresh the accountData after the filtering
-        accountData = data.allUserAccountsAndTransactions;
-
-        console.log(e);
-
         let pressedAccount = e.target.id;
 
         console.log('User clicked on: ',pressedAccount);
@@ -91,19 +86,18 @@ export default function Home() {
         let statePackage = {
             accountName: pressedAccount,
             userCurrValuation,
-            accumulatedData
+            accumulatedData,
+            credits,
+            debits
         }
-
         setSelectedAccount(statePackage);
-
     }
 
     return (
-        <React.Fragment>
-
-            <h1>Your Positions</h1>
-            
-
+        <Grid container spacing={2}>
+            <Grid item xs>
+                <h1>Your Accounts</h1>
+                <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>
                 {accountData && accountData.map((element) => (
                     <div key={element.account._id}>
                         <Button 
@@ -123,14 +117,65 @@ export default function Home() {
                         </ToggleButton>
                     </div>
                 ))}
+                <h1>Your Tickers</h1>
+                {accountData && accountData.map((element) => (
+                    <div key={element.account._id}>
+                        <Button 
+                            LinkComponent={Link}
+                            color="primary" 
+                            variant="outlined" 
+                            to={`/asset/${element.account.assetCode}`}
+                        >
+                            {element.account.assetName + ' : ' + element.account.unitPrice}
+                        </Button>
+                    </div>
+                ))}
+            </Grid>
+            <Grid item xs>
                 {selectedAccount && 
                     <div id="chart-section">
-                        <div>{selectedAccount.userCurrValuation}</div>
                         <div>
+                            <h1>Current Valuation: {selectedAccount.userCurrValuation}</h1>
                             <LineChart accumulatedData={selectedAccount.accumulatedData}/>
+                            {selectedAccount?.credits && 
+                                <h2>Credits: {selectedAccount.credits.length}</h2>
+                            }
+                            {selectedAccount?.debits && 
+                                <h2>Debits: {selectedAccount.debits.length}</h2>
+                            }
                         </div>
                     </div>
                 }
-        </React.Fragment>
+            </Grid>
+            <Grid item xs>
+                <Button color="secondary" variant="contained" href="/createTransaction">Create Transaction</Button>
+                <h1>Incoming</h1>
+                {selectedAccount && selectedAccount.credits.map((transaction) => (
+                    <div key={transaction._id}>
+                        <Button 
+                            LinkComponent={Link}
+                            color="primary" 
+                            variant="outlined" 
+                            to={`/asset/${transaction.date.amount}`}
+                        >
+                            {transaction.description + ' : ' + transaction.amount + ' : ' + readableDate(new Date(transaction.date*1))}
+                        </Button>
+                    </div>
+                ))}
+                <h1>Outgoing</h1>
+                {selectedAccount && selectedAccount.debits.map((transaction) => (
+                    <div key={transaction._id}>
+                        <Button 
+                            LinkComponent={Link}
+                            color="primary" 
+                            variant="outlined" 
+                            to={`/asset/${transaction.date.amount}`}
+                        >
+                            {transaction.description + ' : ' + transaction.amount + ' : ' + readableDate(new Date(transaction.date*1))}
+                        </Button>
+                    </div>
+                ))}
+            </Grid>
+        </Grid>
     )
 }
