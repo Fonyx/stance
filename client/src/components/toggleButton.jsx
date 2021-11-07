@@ -5,7 +5,7 @@ import { truncate } from '../helpers/strings'
 export default function ToggleButton({name, color, handleSelect}) {
     
     return (
-        <Button onClick={handleSelect} name={name} color={color}>
+        <Button onClick={handleSelect} id={name} name={name} color={color}>
             {truncate(name, 15)}
         </Button>
     )

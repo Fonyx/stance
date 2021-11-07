@@ -1,12 +1,26 @@
 import React, {useState} from 'react'
 // import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import {Button, ButtonGroup} from '@mui/material'
+import {Button} from '@mui/material'
 import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import { Link } from 'react-router-dom';
 // import BarChart from '../components/BarChart';
 import ToggleButton from '../components/toggleButton';
+import LineChart from '../components/LineChart';
+import accumulateTransactions from '../helpers/accumulator';
 
+/**
+ * Function that filters out an account package from the accountData mega object, return shape: {valuation, accountObj, credits, debits}
+ * @param {*} stateAccount 
+ * @param {*} accountData 
+ * @returns 
+ */
+function getFilteredDataFromState(accountName, accountData){
+    console.log('Filtering out: ', accountName, 'from', accountData)
+    let accountPackage = accountData.find(element => element.account.name === accountName);
+    console.log('account package after filtering: ', accountPackage)
+    return accountPackage
+}
 
 function getCreditsFromPayload(payload){
     let credits = [];
@@ -43,20 +57,10 @@ export default function Home() {
 
     if(data?.allUserAccountsAndTransactions){
         var accountData = data.allUserAccountsAndTransactions;
-        var userAccounts = accountData.map((payload) => {
-            return payload.account.name
-        });
-        var debits = getDebitsFromPayload(accountData);
-        var credits = getCreditsFromPayload(accountData);
-        var valuation = getAccumulatedValuation(accountData);
-        console.log(userAccounts);
-    } else {
-        var userAccounts = []
-        var credits = []
-        var debits = []
-        var valuation = 0
-    }
 
+    } else {
+        var accountData = null
+    }
 
     console.log('Selected Account: ', selectedAccount);
 
@@ -64,19 +68,42 @@ export default function Home() {
         return <div>Loading Your Account Details....They are very detailed</div>
     }
 
-
+    /**
+     * Updates selectedAccount and filters accumulated data for line chart
+     * @param {eventObject} e 
+     */
     const handleSelect = (e) => {
         e.preventDefault();
 
-        let pressedAccount = e.target.textContent;
+        // refresh the accountData after the filtering
+        accountData = data.allUserAccountsAndTransactions;
 
-        console.log(pressedAccount);
+        console.log(e);
 
-        setSelectedAccount(pressedAccount);
+        let pressedAccount = e.target.id;
 
-        console.log(selectedAccount);
+        console.log('User clicked on: ',pressedAccount);
+
+        var {userCurrValuation, account, credits, debits} = getFilteredDataFromState(pressedAccount, accountData);
+
+        console.log(userCurrValuation);
+        console.log(account);
+        console.log(credits);
+        console.log(debits);
+
+        var accumulatedData = accumulateTransactions(account.balance, credits, debits);
+
+        console.log('Accumulated data for selected account: ', accumulatedData);
+
+        let statePackage = {
+            accountName: pressedAccount,
+            accumulatedData
+        }
+
+        setSelectedAccount(statePackage);
+
     }
-    
+
     return (
         <React.Fragment>
 
@@ -102,10 +129,11 @@ export default function Home() {
                         </ToggleButton>
                     </div>
                 ))}
-            
-                <div>
-                    
-                </div>
+                {selectedAccount && 
+                    <div>
+                        <LineChart accumulatedData={selectedAccount.accumulatedData}/>
+                    </div>
+                }
         </React.Fragment>
     )
 }

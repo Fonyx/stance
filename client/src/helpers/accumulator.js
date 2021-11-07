@@ -12,8 +12,19 @@ import parseDMY from '../helpers/formatter';
  * @param {models.Transaction} transactionObj 
  * @returns {str} en-GB formatted date string
  */
-function timestampToDateString(transactionObj){
+function transactionDateToDateString(transactionObj){
     let date = new Date(transactionObj.date*1);
+    let dateString = date.toLocaleDateString('en-GB');
+    return dateString
+}
+
+/**
+ * Converts a unix timestamp to an en-GB date string 
+ * @param {str} unixTimestamp 
+ * @returns {str} en-GB formatted date string
+ */
+function timestampToDateString(timestampStr){
+    let date = new Date(timestampStr*1);
     let dateString = date.toLocaleDateString('en-GB');
     return dateString
 }
@@ -44,11 +55,11 @@ function makeDateStringList(credits, debits){
     let dateList = [];
 
     for(let item of credits){
-        dateList.push(timestampToDateString(item))
+        dateList.push(transactionDateToDateString(item))
     }
 
     for(let item of debits){
-        dateList.push(timestampToDateString(item))
+        dateList.push(transactionDateToDateString(item))
     }
 
     return dateList;
@@ -62,7 +73,7 @@ function makeDateStringList(credits, debits){
  */
 function filterTransactionsForDate(transactions, dateString){
     let filteredTransactions = transactions.filter((transaction) => {
-        return timestampToDateString(transaction) === dateString;
+        return transactionDateToDateString(transaction) === dateString;
     })
     return filteredTransactions
 }
@@ -93,7 +104,7 @@ function getPacket(transactions, credit=true){
 export default function accumulateTransactions(startingBalance, credits, debits){
 
     // using data package dictionary in debug mode
-    let dataPackage = new Dictionary(null, null, false);
+    var dataPackage = new Dictionary(null, null, false);
 
     let today = new Date();
     let todayString = today.toLocaleDateString('en-GB');
@@ -154,7 +165,21 @@ export default function accumulateTransactions(startingBalance, credits, debits)
 
     }
 
-    dataPackage.print();
+    // if there is only one date, add an ending date with the same value for 5 years out
+    if(dataPackage.keys.length === 1){
+        let dateString = dataPackage.keys[0];
+
+        let packet = dataPackage.getByValue(dateString);
+
+        // create dateString for 5 years
+        let dateObj = parseDMY(dateString);
+
+        let newDate = new Date(dateObj.getFullYear() + 5, 1, 1);
+
+        let newDateString = timestampToDateString(newDate);
+
+        dataPackage.set(newDateString, packet);
+    }
 
     return dataPackage.export();
 }

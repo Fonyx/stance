@@ -20,6 +20,8 @@ function getWindowDimensions() {
  */
 export default function LineChart({accumulatedData}) {
 
+    console.log(accumulatedData)
+
     const svgDivContainer = useRef();
     const svgRef = useRef();
 
@@ -79,6 +81,8 @@ export default function LineChart({accumulatedData}) {
             )
 
     }
+
+    reDrawChart();
 
     useEffect(() => {
 
