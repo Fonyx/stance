@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {select, scaleTime, extent, axisBottom, scaleLinear, axisLeft, max, line} from 'd3';
+import {select, scaleTime, extent, axisBottom, scaleLinear, axisLeft, max, line, axisRight} from 'd3';
 
 //https://www.d3-graph-gallery.com/graph/line_basic.html
 
@@ -102,8 +102,7 @@ export default function LineChart({accumulatedData}) {
     // },[dimensions]);
 
     const svgStyles = {
-        display: "block",
-        margin: "auto"
+        overflow: 'visible'
     }
 
     return (
