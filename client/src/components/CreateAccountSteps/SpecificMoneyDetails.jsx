@@ -1,4 +1,4 @@
-import { Autocomplete, TextField, Button, InputAdornment } from '@mui/material'
+import { Autocomplete, TextField, Button, ButtonGroup, InputAdornment, Grid, Typography, } from '@mui/material'
 import React, {useState} from 'react'
 
 export default function SpecificMoneyDetails({currencies, handleSelectCurrency, handleChange, values, nextStep, prevStep}) {
@@ -50,37 +50,50 @@ export default function SpecificMoneyDetails({currencies, handleSelectCurrency, 
 
 
     return (
-        <div>
-            <h1>Specific Money Details</h1>
-            <Autocomplete
-                disablePortal
-                clearOnBlur
-                selectOnFocus
-                handleHomeEndKeys
-                id="currency"
-                name='currency'
-                options={currencies}
-                getOptionLabel={(option) => option.name}
-                isOptionEqualToValue={(option, value) => option.name === value.name}
-                sx={{ width: 300 }}
-                onChange={handleSelectCurrency()}
-                renderInput={(props) => <TextField {...props} label="Currency" />}
-            />
-            <TextField
-                label="Interest Rate"
-                id="interestRate"
-                onChange={handleChange('interestRate')}
-                InputProps={{
-                    endAdornment: <InputAdornment position="start">%</InputAdornment>,
-            }} 
-            />
-            <Button onClick={progress} variant="outlined">Continue</Button>
-            <Button onClick={backup} variant="outlined">Back Up</Button>
-            <div id="error">
-                {errors.map((error) => {
-                    return <div>{error}</div>
-                })}
-            </div>
-        </div>
+        <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center" style={{paddingTop: '40px'}}>
+            <Typography variant="h3" color="primary">Specific Money Details</Typography>
+            <Grid item xs>
+                <Autocomplete
+                    disablePortal
+                    clearOnBlur
+                    selectOnFocus
+                    handleHomeEndKeys
+                    id="currency"
+                    name='currency'
+                    options={currencies}
+                    getOptionLabel={(option) => option.name}
+                    isOptionEqualToValue={(option, value) => option.name === value.name}
+                    sx={{ width: 300 }}
+                    onChange={handleSelectCurrency()}
+                    renderInput={(props) => <TextField {...props} label="Currency" />}
+                />
+            </Grid>
+            
+            <Grid item xs>
+                <TextField
+                    label="Interest Rate"
+                    id="interestRate"
+                    onChange={handleChange('interestRate')}
+                    InputProps={{
+                        endAdornment: <InputAdornment position="start">%</InputAdornment>,
+                    }} 
+                />
+            </Grid>
+
+            <Grid item xs>
+                <ButtonGroup>
+                    <Button onClick={backup} variant="outlined">Back Up</Button>
+                    <Button onClick={progress} variant="contained">Next</Button>
+                </ButtonGroup>
+            </Grid>
+
+            <Grid item xs>
+                <div id="error">
+                    {errors.map((error) => {
+                        return <div>{error}</div>
+                    })}
+                </div>
+            </Grid>
+        </Grid>
     )
 }

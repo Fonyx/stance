@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, TextField, InputAdornment} from '@mui/material';
+import {Button, TextField, InputAdornment, Typography, Grid, ButtonGroup} from '@mui/material';
 import { useMutation } from '@apollo/client';
 import {DatePicker} from '@mui/lab';
 import enLocale from 'date-fns/locale/en-GB';
@@ -85,42 +85,56 @@ export default function TagGoalDetails({values, handleChange,handleGoalDateChang
     }
 
     return (
-        <div>
-            <LocalizationProvider dateAdapter={AdapterDateFns} locale={enLocale}>
-            <h1>Tags and Goal</h1>
-            <TextField 
-                id="tags" 
-                label="Tags" 
-                value={values.tags} 
-                placeholder="Low risk, mortgage, 20yrs"
-                onChange={handleChange('tags')} 
-            />
-            <DatePicker
-                required="false"
-                label='Goal Date'
-                value={values.goalDate}
-                onChange={(newDate) => handleGoalDateChange(newDate)}
-                renderInput={(params) => <TextField {...params} />}
-            />
-            <TextField 
-                id="goalAmount" 
-                label="Goal Amount" 
-                value={values.goalAmount} 
-                placeholder="10000"
-                onChange={handleChange('goalAmount')}
-                InputProps={{
-                    startAdornment: <InputAdornment position="start">$</InputAdornment>
-                }}
-            />
-            <Button onClick={progress} variant="outlined">Continue</Button>
-            <Button onClick={backup} variant="outlined">Back</Button>
-            <Button href="/" variant="outlined">Cancel</Button>
-            <div id="error">
-                {errors.map((error) => {
-                    return <div>{error}</div>
-                })}
-            </div> 
-            </LocalizationProvider>
-        </div>
+        <LocalizationProvider dateAdapter={AdapterDateFns} locale={enLocale}>
+            <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center" style={{paddingTop: '40px'}}>
+                <Typography variant="h3" color="primary">Tags and Goal - Optional</Typography>
+                <Grid item xs>
+                    <TextField 
+                        id="tags" 
+                        label="Tags" 
+                        value={values.tags} 
+                        placeholder="Low risk, mortgage, 20yrs"
+                        onChange={handleChange('tags')} 
+                    />
+                </Grid>
+                <Grid item xs>
+                    <DatePicker
+                        required="false"
+                        label='Goal Date'
+                        value={values.goalDate}
+                        onChange={(newDate) => handleGoalDateChange(newDate)}
+                        renderInput={(params) => <TextField {...params} />}
+                    />
+                </Grid>
+                <Grid item xs>
+                    <TextField 
+                        id="goalAmount" 
+                        label="Goal Amount" 
+                        value={values.goalAmount} 
+                        placeholder="10000"
+                        onChange={handleChange('goalAmount')}
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start">$</InputAdornment>
+                        }}
+                    />
+                </Grid>
+                <Grid item xs>
+                    <ButtonGroup>
+                        <Button onClick={backup} variant="outlined">Back</Button>
+                        <Button onClick={progress} variant="contained">Continue</Button>
+                    </ButtonGroup>
+                </Grid>
+                <Grid item xs>
+                    <Button href="/" variant="outlined">Cancel</Button>
+                </Grid>
+                <Grid item xs>
+                    <div id="error">
+                        {errors.map((error) => {
+                            return <div>{error}</div>
+                        })}
+                    </div>
+                </Grid>
+            </Grid>
+        </LocalizationProvider>
     )
 }

@@ -1,4 +1,4 @@
-import { Autocomplete, TextField, Button } from '@mui/material'
+import { Autocomplete, TextField, Button, ButtonGroup, Typography, Grid } from '@mui/material'
 import React, {useState} from 'react'
 import {QUERY_STOCK_CHECK} from '../../utils/queries';
 import { useLazyQuery } from '@apollo/client';
@@ -67,48 +67,63 @@ export default function SpecificStockDetails({exchanges, handleSelectExchange, h
     };
 
     return (
-        <div>
-            <h1>Specific Asset Details</h1>
-            <Autocomplete
-                disablePortal
-                clearOnBlur
-                selectOnFocus
-                handleHomeEndKeys
-                id="exchange"
-                name='exchange'
-                options={exchanges}
-                getOptionLabel={(option) => option.name}
-                isOptionEqualToValue={(option, value) => option.name === value.name}
-                sx={{ width: 300 }}
-                onChange={handleSelectExchange()}
-                renderInput={(props) => <TextField {...props} label="Exchange" />}
-            />
-            <TextField
-                label="Ticker Code"
-                id="assetCode"
-                onChange={handleChange('assetCode')}
-            />
-            <div id="error">
-                {errors.map((error) => {
-                    return <div>{error}</div>
-                })}
-            </div>
-            <Button onClick={searchCode} variant="outlined">Search Code</Button>
-            <Button onClick={backup} variant="outlined">Back Up</Button>
+        <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center" style={{paddingTop: '40px'}}>
+            <Typography variant="h3" color="primary">Specific Asset Details</Typography>
+            <Grid item xs>
+                <Autocomplete
+                    disablePortal
+                    clearOnBlur
+                    selectOnFocus
+                    handleHomeEndKeys
+                    id="exchange"
+                    name='exchange'
+                    options={exchanges}
+                    getOptionLabel={(option) => option.name}
+                    isOptionEqualToValue={(option, value) => option.name === value.name}
+                    sx={{ width: 300 }}
+                    onChange={handleSelectExchange()}
+                    renderInput={(props) => <TextField {...props} label="Exchange" />}
+                />
+            </Grid>
+            <Grid item xs>
+                <TextField
+                    label="Ticker Code"
+                    id="assetCode"
+                    onChange={handleChange('assetCode')}
+                />
+            </Grid>
+            <Grid item xs>
+                <Button onClick={backup} variant="outlined">Back Up</Button>
+                <Button onClick={searchCode} variant="contained">Search Code</Button>
+            </Grid>
+            
+            
+            <Grid item xs>
+                <div id="error">
+                    {errors.map((error) => {
+                        return <div>{error}</div>
+                    })}
+                </div>
+            </Grid>
+            
             {
                 loading
-                ? <div>Checking your ticker</div>
+                ? <Grid item xs>Checking your ticker</Grid>
                 : <div></div>
             }
             {valid
-                ?<div>
-                    Valid Ticker Code
-                    <Button onClick={progress} variant="outlined">Continue</Button>
-                </div>
-                :<div>
+                ?<React.Fragment>
+                    <Grid item xs textAlign="center">
+                        <Typography variant="h5" color="secondary">Valid Ticker Code</Typography>
+                    </Grid>
+                    <Grid item xs>
+                        <Button onClick={progress} variant="contained">Continue</Button>
+                    </Grid>
+                </React.Fragment>
+                :<Grid item xs>
                     Not Valid Ticker Code
-                </div>
+                </Grid>
             }
-        </div>
+        </Grid>
     )
 }

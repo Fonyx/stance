@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {FormControl, InputLabel, Select, MenuItem, Button} from '@mui/material';
+import {FormControl, InputLabel, Select, MenuItem, Button, Grid, ButtonGroup, Typography} from '@mui/material';
 import {Autocomplete, TextField} from '@mui/material';
 
 export default function CoreDetails({parties, values, handleChange, handleSelectChange, nextStep}) {
@@ -49,9 +49,9 @@ export default function CoreDetails({parties, values, handleChange, handleSelect
     }
 
     return (
-        <div>
-            <FormControl sx={{width: '25ch'}}>
-                <InputLabel id="type">Type</InputLabel>
+        <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center" style={{paddingTop: '40px'}}>
+            <Typography variant="h3" color="primary">Basic Account Details</Typography>
+            <Grid item xs>
                 <Select
                     labelId="type"
                     id="type"
@@ -63,43 +63,57 @@ export default function CoreDetails({parties, values, handleChange, handleSelect
                     <MenuItem value={"crypto"}>crypto</MenuItem>
                     <MenuItem value={"stock"}>stock</MenuItem>
                 </Select>
-            </FormControl>
+            </Grid>
+            <Grid item xs>
+                <TextField 
+                    id="accountName" 
+                    onChange={handleChange('name')} 
+                    label="Account Name" 
+                    value={values.name} 
+                    placeholder="My new account"/>
+            </Grid>
 
-            <TextField 
-            id="accountName" 
-            onChange={handleChange('name')} 
-            label="Account Name" 
-            value={values.name} 
-            placeholder="My new account"/>
+            <Grid item xs>
+                <TextField 
+                    id="openingBalance" 
+                    onChange={handleChange('openingBalance')} 
+                    label="Balance" 
+                    value={values.openingBalance} 
+                    placeholder="0.00"/>
+            </Grid>
 
-            <TextField 
-            id="openingBalance" 
-            onChange={handleChange('openingBalance')} 
-            label="Balance" 
-            value={values.openingBalance} 
-            placeholder="0.00"/>
+            <Grid item xs textAlign="center">
+                <Typography variant="p" color="primary">Optional</Typography>
+                <Autocomplete
+                    disablePortal
+                    clearOnBlur
+                    selectOnFocus
+                    handleHomeEndKeys
+                    id="3partyAffiliate"
+                    name='3partyAffiliate'
+                    options={parties}
+                    getOptionLabel={(option) => option.name}
+                    isOptionEqualToValue={(option, value) => option.name === value.name}
+                    sx={{ width: 300 }}
+                    onChange={handleSelectChange()}
+                    renderInput={(params) => <TextField {...params} label="3rd Party" />}
+                />
+            </Grid>
 
-            <Autocomplete
-                disablePortal
-                clearOnBlur
-                selectOnFocus
-                handleHomeEndKeys
-                id="3partyAffiliate"
-                name='3partyAffiliate'
-                options={parties}
-                getOptionLabel={(option) => option.name}
-                isOptionEqualToValue={(option, value) => option.name === value.name}
-                sx={{ width: 300 }}
-                onChange={handleSelectChange()}
-                renderInput={(params) => <TextField {...params} label="3rd Party" />}
-            />
-            <Button onClick={progress} variant="outlined">Continue</Button>
-            <Button href="/home" variant="outlined">Cancel</Button>
-            <div id="error">
-                {errors.map((error) => {
-                    return <div>{error}</div>
-                })}
-            </div> 
-        </div>
+            <Grid item xs>
+                <ButtonGroup>
+                    <Button href="/home" variant="outlined">Cancel</Button>
+                    <Button onClick={progress} variant="contained">Next</Button>
+                </ButtonGroup>
+            </Grid>
+
+            <Grid item xs>
+                <div id="error">
+                    {errors.map((error) => {
+                        return <div>{error}</div>
+                    })}
+                </div>
+            </Grid> 
+        </Grid>
     )
 }

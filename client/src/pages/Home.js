@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 // import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import {Button, Grid} from '@mui/material'
+import {Button, Grid, Typography} from '@mui/material'
 import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import { Link } from 'react-router-dom';
 // import BarChart from '../components/BarChart';
@@ -131,7 +131,6 @@ export default function Home() {
     return (
         <Grid container spacing={2}>
             <Grid item xs>
-                <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>
                 <h1>Your Accounts</h1>
                 {accountData && accountData.map((element) => (
                     <div key={element.account._id}>
@@ -152,6 +151,7 @@ export default function Home() {
                         </ToggleButton>
                     </div>
                 ))}
+                <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>
                 <h1>Your Tickers</h1>
                 {tickers && tickers.map((element) => (
                     <div key={element._id}>
@@ -183,6 +183,9 @@ export default function Home() {
                 }
             </Grid>
             <Grid item xs>
+                <Typography variant="h6" color="secondary">
+                    Transactions
+                </Typography>
                 <Button color="secondary" variant="contained" href="/createTransaction">Create Transaction</Button>
                 <h1>Incoming</h1>
                 {selectedAccount && selectedAccount.credits.map((transaction) => (
