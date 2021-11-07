@@ -6,14 +6,6 @@ import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import { Link } from 'react-router-dom';
 // import BarChart from '../components/BarChart';
 import ToggleButton from '../components/toggleButton';
-import LineChart from '../components/LineChart';
-import accumulateTransactions from '../helpers/accumulator';
-
-
-function filterInactiveAccounts(inactiveAccounts, payload){
-    let filteredPayload = payload.filter((element) => (!inactiveAccounts.includes(element.account.name)))
-    return filteredPayload
-}
 
 
 function getCreditsFromPayload(payload){
@@ -44,25 +36,21 @@ function getAccumulatedValuation(payload){
 
 export default function Home() {
 
-    const [inactiveAccounts, setInactiveAccounts] = useState([]);
+    const [selectedAccount, setSelectedAccount] = useState('');
 
     const {loading, data} = useQuery(QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS, {});
 
 
-
     if(data?.allUserAccountsAndTransactions){
-        var userAccounts = data.allUserAccountsAndTransactions.map((payload) => {
+        var accountData = data.allUserAccountsAndTransactions;
+        var userAccounts = accountData.map((payload) => {
             return payload.account.name
         });
-        var filteredPayload = filterInactiveAccounts(inactiveAccounts, data.allUserAccountsAndTransactions)
-        var debits = getDebitsFromPayload(filteredPayload);
-        var credits = getCreditsFromPayload(filteredPayload);
-        var valuation = getAccumulatedValuation(filteredPayload);
-
-        var accumulatedData = accumulateTransactions(valuation, credits, debits);
-        
+        var debits = getDebitsFromPayload(accountData);
+        var credits = getCreditsFromPayload(accountData);
+        var valuation = getAccumulatedValuation(accountData);
+        console.log(userAccounts);
     } else {
-        console.log('No Data');
         var userAccounts = []
         var credits = []
         var debits = []
@@ -70,64 +58,54 @@ export default function Home() {
     }
 
 
-    console.log('InactiveAccount state: ', inactiveAccounts);
+    console.log('Selected Account: ', selectedAccount);
 
     if(loading){
         return <div>Loading Your Account Details....They are very detailed</div>
     }
 
 
-    const handleSelect = (e, pressedState) => {
+    const handleSelect = (e) => {
         e.preventDefault();
 
         let pressedAccount = e.target.textContent;
 
         console.log(pressedAccount);
-        console.log(pressedState);
 
-        // if the UI has this account as active, add it to the activeAccounts state
-        if(pressedState){
-            setInactiveAccounts([
-                ...inactiveAccounts,
-                pressedAccount
-            ])
-        // if the UI has it listed as inactive, remove it from the activeAccounts
-        }else if(!pressedState){
+        setSelectedAccount(pressedAccount);
 
-            let otherAccounts = inactiveAccounts.filter((account) => {
-                return account !== pressedAccount
-            })
-
-            setInactiveAccounts([
-                ...otherAccounts
-            ])
-        }
+        console.log(selectedAccount);
     }
     
     return (
         <React.Fragment>
-            <LineChart accumulatedData={accumulatedData}/>
+
+            <h1>Your Positions</h1>
             
-            <ButtonGroup>
-                {userAccounts && userAccounts.map((userAccount) => (
-                    <div key={userAccount._id}>
+
+                {accountData && accountData.map((element) => (
+                    <div key={element.account._id}>
+                        <Button 
+                            LinkComponent={Link}
+                            color="primary" 
+                            variant="outlined" 
+                            to={`/account/${element.account._id}`}
+                        >
+                            update
+                        </Button>
                         <ToggleButton 
-                            name={userAccount.name} 
+                            name={element.account.name} 
+                            color={element.account.name === selectedAccount?'primary': 'secondary'}
                             handleSelect={handleSelect} 
-                            color="secondary" 
                             variant="contained"
                         >
-                            {userAccount.name}
                         </ToggleButton>
                     </div>
                 ))}
-            </ButtonGroup>
             
-                {userAccounts && userAccounts.map((userAccount) => (
-                    <div key={userAccount._id}>
-                        <Button LinkComponent={Link} name={userAccount.name} onClick={handleSelect} color="secondary" variant="contained" to={`/account/${userAccount._id}`}>{userAccount.name}</Button>
-                    </div>
-                ))}
+                <div>
+                    
+                </div>
         </React.Fragment>
     )
 }

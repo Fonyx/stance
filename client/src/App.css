@@ -1,13 +1,13 @@
-:root {
+/* :root {
   --primary: #F2E205; 
   --secondary: #F06F53; 
   --tertiary:   #AE4D75;
   --quaternary:  #554067; 
   --quinary: #F0F0F2;
   --senary: #202731;
-}
+} */
 
-:root2 {
+:root {
   --primary: #35f2be; 
   --secondary: #5EADF3; 
   --tertiary:   #6A66F3;

@@ -1,19 +1,12 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Button} from '@mui/material'
+import { truncate } from '../helpers/strings'
 
-export default function ToggleButton({name, handleSelect}) {
-
-    const [On, setOn] = useState(true);
-    
-    const handleClick = (e) => {   
-        e.preventDefault(); 
-        setOn(!On);
-        handleSelect(e, On);
-    }
+export default function ToggleButton({name, color, handleSelect}) {
     
     return (
-        <Button onClick={handleClick} name={name} color={On? 'secondary':'primary'}>
-            {name}
+        <Button onClick={handleSelect} name={name} color={color}>
+            {truncate(name, 15)}
         </Button>
     )
 }
