@@ -62,53 +62,55 @@ export const CREATE_TRANSACTION = gql`
 `;
 
 export const CREATE_ACCOUNT_FE = gql`
-    mutation createAccountFE(
-        $name: String!
-        $type: String!
-        $openingBalance: Float!
-        $interestRate: Float
-        $compounds: String
-        $party: String
-        $assetCode: String
-        $currency: String
-        $exchangeCode: String
-        $goalDate: String
-        $goalAmount: Float
-        $tags: String
+mutation createAccountFE(
+    $name: String!
+    $type: String!
+    $openingBalance: Float!
+    $interestRate: Float
+    $compounds: String
+    $party: String
+    $currency: String
+    $exchangeCode: String
+    $assetCode: String
+    $assetName: String
+    $tags: String
+    $goalAmount: Float
+    $goalDate: String
+  ){
+    createAccountFE(
+      input: {
+        name: $name
+        type: $type
+        openingBalance: $openingBalance
+        interestRate: $interestRate
+        compounds: $compounds
+        party: $party
+        currency: $currency
+        exchangeCode: $exchangeCode
+        assetCode: $assetCode
+        assetName: $assetName
+        tags: $tags
+        goalAmount: $goalAmount
+        goalDate: $goalDate
+      }
     ){
-        createAccountFE(
-        input: {
-            name: $name
-            type: $type
-            openingBalance: $openingBalance
-            interestRate: $interestRate
-            compounds: $compounds
-            party: $party
-            assetCode: $assetCode
-            currency: $currency
-            exchangeCode: $exchangeCode
-            goalDate: $goalDate
-            goalAmount: $goalAmount
-            tags: $tags
-        }
-        ){
-        user{
-            username
-        }
+      user{
+        username
+      }
+      name
+      openingBalance
+      balance
+      type
+      compounds
+      party{
         name
-        openingBalance
-        balance
-        type
-        compounds
-        party{
-            name
-        }
-        currency{
-            code
-        }
-        exchange{
-            name
-        }
-        }
+      }
+      currency{
+        code
+      }
+      exchange{
+        name
+      }
     }
+  }
 `;

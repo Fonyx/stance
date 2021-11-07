@@ -18,7 +18,7 @@ const initialFormState = {
   exchangeCode: 'CC',
   assetCode: '',
   tags: '',
-  goalAmount: '',
+  goalAmount: 0,
   goalDate: ''
 }
 
@@ -55,6 +55,16 @@ export default function AccountForm (){
     console.log(input, e);
 
     let newValue = e.target.value;
+
+    // set the exchange FOREX if user choses money
+    if(input === 'type' && newValue === 'money'){
+      console.log('Setting forex exchange for money account')
+      setFormState({
+        ...formState,
+        'exchangeCode': 'FOREX'
+      });
+      return
+    }
 
     let floated = parseFloat(newValue);
     if(!isNaN(floated)){
@@ -161,7 +171,24 @@ export default function AccountForm (){
 
     setFormState({
       ...formState,
-      'assetCode': cryptoCode
+      'assetCode': cryptoCode,
+      'assetName': cryptoName
+    });
+  }
+
+  const handleSelectStock = () => e => {
+    console.log('Handling Crypto change');
+    console.log('event: ',e);
+
+    let assetCode = e.target.value;
+
+    console.log('Stock Code of event: ', assetCode);
+    
+
+    setFormState({
+      ...formState,
+      'assetCode': assetCode,
+      'assetName': assetCode
     });
   }
 
@@ -199,7 +226,7 @@ export default function AccountForm (){
         
       } else if(values.type === 'stock'){
         return (
-          <SpecificStockDetails values={values} exchanges={exchanges} handleSelectExchange={handleSelectExchange} nextStep={nextStep} prevStep={prevStep} handleChange={handleChange}/>
+          <SpecificStockDetails values={values} exchanges={exchanges} handleSelectExchange={handleSelectExchange} nextStep={nextStep} prevStep={prevStep} handleSelectStock={handleSelectStock}/>
         )
       } else {
         return (

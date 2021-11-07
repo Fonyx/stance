@@ -6,10 +6,12 @@ import enLocale from 'date-fns/locale/en-GB';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { CREATE_ACCOUNT_FE } from '../../utils/mutations';
+import { useHistory } from 'react-router-dom';
 
 export default function TagGoalDetails({values, handleChange,handleGoalDateChange, prevStep}) {
 
     const [errors, setErrors] = useState([]);
+    const history = useHistory();
 
     // prepare the return mutation for creating query
     const [createAccount, accountReturn] = useMutation(CREATE_ACCOUNT_FE);
@@ -17,12 +19,16 @@ export default function TagGoalDetails({values, handleChange,handleGoalDateChang
     if (accountReturn.loading) return 'Submitting...';
 
     if (accountReturn.error) {
-        console.log(accountReturn.error.message)
+        console.log(JSON.stringify(accountReturn.error, null, 2));
+        // console.log(accountReturn.error.networkError.result.errors)
+        // console.log(accountReturn.error instanceof Error);
+        // console.log(accountReturn.error)
     };
 
     if (accountReturn.data) {
-        console.log('Congratulations you beautiful man')
+        console.log('Congratulations you made an account')
         console.log(accountReturn.data)
+        history.push('/home');
     };
 
     const validateFormSubmit = () => {
@@ -78,7 +84,7 @@ export default function TagGoalDetails({values, handleChange,handleGoalDateChang
     }
 
     const sendForm = () => {
-        console.log(values);
+        console.log('Pre submit form state: ',values);
         createAccount({
             variables: values
         })

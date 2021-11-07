@@ -3,6 +3,14 @@ const tagSvc = require('./tagSvc');
 const getAssetValue = require('../api/getAssetValue');
 const Logger = require('../utils/logger');
 
+async function getAudCurrencyAsDefault(){
+    console.log('DANGEROUS THING HAPPENED, DEFAULTED TO AUD CURRENCY')
+    let aud = await Currency.findOne({
+        code: "AUD"
+    });
+    return aud;
+}
+
 
 function isValidSeed(data){
     var valid = true;
@@ -227,6 +235,25 @@ async function createFromFE(data){
         code: data.exchangeCode
     });
 
+    await Exchange.populate(exchange, {path: "currency"});
+
+    // if no currency passed in,  get currency from exchange
+    if(!data?.currency){
+        let exchangeCurrency = exchange.currency;
+        let currency = await Currency.findOne({
+            exchangeCurrency
+        });
+        if(!currency){
+            console.log(`No currency for objectId: ${exchange.currency.id}`);
+            currency = await getAudCurrencyAsDefault();
+            // throw new Error(`There is no currency for: ${exchange.currency}`);
+        }
+        // set the currency relation
+        data.currency = currency;
+    } else {
+        throw new Error(`There is no currency attached to this request: ${data}`);
+    }
+
     // if there are tags
     let tags = [];
     if(data.tags){
@@ -248,7 +275,7 @@ async function createFromFE(data){
         }
     }
 
-    let account = createFromRich({
+    let account = await createFromRich({
         ...data,
         // override the data fields with their relationship ObjectId values
         user: data.user.id,

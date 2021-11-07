@@ -18,9 +18,9 @@ import {truncate} from '../helpers/strings';
  * @returns 
  */
 function getFilteredDataFromState(accountName, accountData){
-    console.log('Filtering out: ', accountName, 'from', accountData)
+    // console.log('Filtering out: ', accountName, 'from', accountData)
     let accountPackage = accountData.find(element => element.account.name === accountName);
-    console.log('account package after filtering: ', accountPackage)
+    // console.log('account package after filtering: ', accountPackage)
     return accountPackage
 }
 
@@ -96,7 +96,7 @@ export default function Home() {
         var tickers = [];
     }
 
-    console.log('Selected Account: ', selectedAccount);
+    // console.log('Selected Account: ', selectedAccount);
 
     if(loading){
         return <div>Loading Your Account Details....They are very detailed</div>
@@ -111,7 +111,7 @@ export default function Home() {
 
         let pressedAccount = e.target.id;
 
-        console.log('User clicked on: ',pressedAccount);
+        // console.log('User clicked on: ',pressedAccount);
 
         var {userCurrValuation, account, credits, debits} = getFilteredDataFromState(pressedAccount, accountData);
 
@@ -161,7 +161,8 @@ export default function Home() {
                             variant="outlined" 
                             to={`/asset/${element.assetCode}`}
                         >
-                            {truncate(element.assetName, 15) + ' : ' + element.unitPrice}
+                            {/* {truncate(element.assetName, 15) + ' : ' + element.unitPrice} */}
+                            {element.assetName + ' : ' + element.unitPrice}
                         </Button>
                     </div>
                 ))}

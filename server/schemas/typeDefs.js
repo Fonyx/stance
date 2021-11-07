@@ -50,6 +50,7 @@ const typeDefs = gql`
     compounds: String
     party: String!
     assetCode: String
+    assetName: String
     currency: String!
     exchange: String!
   }
@@ -62,6 +63,7 @@ const typeDefs = gql`
     compounds: String
     party: String
     assetCode: String
+    assetName: String
     currency: String
     exchangeCode: String
     goalDate: String

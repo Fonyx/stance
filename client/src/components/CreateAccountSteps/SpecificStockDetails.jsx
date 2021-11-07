@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {QUERY_STOCK_CHECK} from '../../utils/queries';
 import { useLazyQuery } from '@apollo/client';
 
-export default function SpecificStockDetails({exchanges, handleSelectExchange, handleChange, values, nextStep, prevStep}) {
+export default function SpecificStockDetails({exchanges, handleSelectExchange, handleSelectStock, values, nextStep, prevStep}) {
 
 
     const [errors, setErrors] = useState([]);
@@ -11,7 +11,9 @@ export default function SpecificStockDetails({exchanges, handleSelectExchange, h
 
     const [stockCheck, { loading, data }] = useLazyQuery(QUERY_STOCK_CHECK);
 
-
+    if(data){
+        console.log(data);
+    }
 
     const searchCode = (e) => {
         stockCheck({
@@ -89,7 +91,7 @@ export default function SpecificStockDetails({exchanges, handleSelectExchange, h
                 <TextField
                     label="Ticker Code"
                     id="assetCode"
-                    onChange={handleChange('assetCode')}
+                    onChange={handleSelectStock()}
                 />
             </Grid>
             <Grid item xs>
