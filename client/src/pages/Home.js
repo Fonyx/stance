@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import ToggleButton from '../components/toggleButton';
 import LineChart from '../components/LineChart';
 import accumulateTransactions from '../helpers/accumulator';
-import parseDMY, {timestampToDateString, readableDate} from '../helpers/formatter';
+import { readableDate} from '../helpers/formatter';
 
 /**
  * Function that filters out an account package from the accountData mega object, return shape: {valuation, accountObj, credits, debits}
@@ -49,6 +49,37 @@ function getAccumulatedValuation(payload){
     return valuation
 }
 
+/**
+ * Get the ticker list for a customer
+ * @param {[accountPackage]} accountData 
+ */
+function getTickers(accountData){
+    let tickerList = [];
+    let assetList = [];
+    
+    for(let i = 0; i < accountData.length; i++){
+        let accountPackage = accountData[i];
+        let assetCode = accountPackage.account.assetCode;
+        if(assetCode){
+
+            if(!assetList.includes(accountPackage.account.assetCode)){
+            // if it is an asset
+    
+                assetList.push(accountPackage.account.assetCode);
+    
+                tickerList.push({
+                    assetCode: accountPackage.account.assetCode,
+                    unitPrice: accountPackage.account.unitPrice,
+                    assetName: accountPackage.account.assetName,
+                    _id: accountPackage.account._id
+                });
+            }
+        }
+    }
+
+    return tickerList;
+}
+
 export default function Home() {
 
     const [selectedAccount, setSelectedAccount] = useState('');
@@ -58,8 +89,10 @@ export default function Home() {
 
     if(data?.allUserAccountsAndTransactions){
         var accountData = data.allUserAccountsAndTransactions;
+        var tickers = getTickers(accountData);
     } else {
         var accountData = null
+        var tickers = [];
     }
 
     console.log('Selected Account: ', selectedAccount);
@@ -87,6 +120,7 @@ export default function Home() {
             accountName: pressedAccount,
             userCurrValuation,
             accumulatedData,
+            tickers,
             credits,
             debits
         }
@@ -96,8 +130,8 @@ export default function Home() {
     return (
         <Grid container spacing={2}>
             <Grid item xs>
-                <h1>Your Accounts</h1>
                 <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>
+                <h1>Your Accounts</h1>
                 {accountData && accountData.map((element) => (
                     <div key={element.account._id}>
                         <Button 
@@ -118,15 +152,15 @@ export default function Home() {
                     </div>
                 ))}
                 <h1>Your Tickers</h1>
-                {accountData && accountData.map((element) => (
-                    <div key={element.account._id}>
+                {tickers && tickers.map((element) => (
+                    <div key={element._id}>
                         <Button 
                             LinkComponent={Link}
                             color="primary" 
                             variant="outlined" 
-                            to={`/asset/${element.account.assetCode}`}
+                            to={`/asset/${element.assetCode}`}
                         >
-                            {element.account.assetName + ' : ' + element.account.unitPrice}
+                            {element.assetName + ' : ' + element.unitPrice}
                         </Button>
                     </div>
                 ))}

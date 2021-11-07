@@ -24,7 +24,7 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <IconButton href="/home">
+          <IconButton href="/">
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               STANCE
             </Typography>
