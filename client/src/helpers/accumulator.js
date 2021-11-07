@@ -135,9 +135,9 @@ export default function accumulateTransactions(startingBalance, credits, debits)
         let creditTotal = dailyCredits.reduce((prev, curr)=>{
             return prev + curr.amount
         }, 0);
-        // calculate sum of debits, initial value of 0
+        // calculate sum of debits, initial value of 0 - note we sum positively the debits as the sign is implicit in the variable name
         let debitTotal = dailyDebits.reduce((prev, curr)=>{
-            return prev - curr.amount
+            return prev + curr.amount
         }, 0);
 
         // calculate new total, if first day, offset by account balance, otherwise offset by previous date balance
@@ -162,6 +162,8 @@ export default function accumulateTransactions(startingBalance, credits, debits)
 
         // add item to dictionary with list of transaction names
         dataPackage.set(dateString, packet);
+
+        console.log(dataPackage);
 
     }
 

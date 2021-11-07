@@ -118,8 +118,8 @@ export default function Home() {
         var accumulatedData = accumulateTransactions(account.balance, credits, debits);
 
         // limit the number of transactions to display, first 10
-        var creditLimit = credits.slice(0, 10);
-        var debitLimit = credits.slice(0, 10);
+        // var credits = credits.slice(0, 10);
+        // var debits = credits.slice(0, 10);
 
         let statePackage = {
             accountName: pressedAccount,
@@ -127,8 +127,8 @@ export default function Home() {
             userCurrValuation,
             accumulatedData,
             tickers,
-            credits: creditLimit,
-            debits: debitLimit
+            credits,
+            debits
         }
         setSelectedAccount(statePackage);
     }
@@ -180,7 +180,7 @@ export default function Home() {
                             <Grid container alignItems="center">
                                 <Grid item xs={8}>
                                     <IconButton>
-                                        <Typography variant="h5">Current Valuation: {selectedAccount.userCurrValuation}</Typography>
+                                        <Typography variant="h5">Current Valuation: {selectedAccount.account.currency.symbol}{selectedAccount.userCurrValuation}</Typography>
                                     </IconButton>
                                 </Grid>
                                 <Grid item xs={4}>
@@ -195,12 +195,6 @@ export default function Home() {
                                 </Grid>
                             </Grid>
                             <LineChart accumulatedData={selectedAccount.accumulatedData}/>
-                            {selectedAccount?.credits && 
-                                <h2>Credits: {selectedAccount.credits.length}</h2>
-                            }
-                            {selectedAccount?.debits && 
-                                <h2>Debits: {selectedAccount.debits.length}</h2>
-                            }
                         </div>
                     </div>
                 }
@@ -211,6 +205,9 @@ export default function Home() {
                 </Typography>
                 <Button color="secondary" variant="contained" href="/createTransaction">Add</Button>
                 <h1>Incoming</h1>
+                {selectedAccount?.credits && 
+                    <h2>Credits: {selectedAccount.credits.length}</h2>
+                }
                 {selectedAccount && selectedAccount.credits.map((transaction) => (
                     <div key={transaction._id}>
                         <Button 
@@ -223,9 +220,10 @@ export default function Home() {
                         </Button>
                     </div>
                 ))}
-            </Grid>
-            <Grid item xs={6} textAlign="center">
                 <h1>Outgoing</h1>
+                {selectedAccount?.debits && 
+                    <h2>Debits: {selectedAccount.debits.length}</h2>
+                }
                 {selectedAccount && selectedAccount.debits.map((transaction) => (
                     <div key={transaction._id}>
                         <Button 

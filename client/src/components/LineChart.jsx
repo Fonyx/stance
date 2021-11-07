@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {select, scaleTime, extent, axisBottom, scaleLinear, axisLeft, max, line, axisRight} from 'd3';
+import {select, scaleTime, extent, axisBottom, scaleLinear, axisLeft, max, min, line, axisRight} from 'd3';
 
 //https://www.d3-graph-gallery.com/graph/line_basic.html
 
@@ -67,7 +67,7 @@ export default function LineChart({accumulatedData}) {
 
         // Add Y axis
         const y = scaleLinear()
-        .domain([0, max(accumulatedData, function(d) { return d.balance; })])
+        .domain([min(accumulatedData, function(d) { return d.balance; }), max(accumulatedData, function(d) { return d.balance; })])
         .range([ height, 0 ]);
         
         svg.append("g")

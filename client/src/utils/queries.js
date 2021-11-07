@@ -35,6 +35,7 @@ export const QUERY_ACCOUNT_AND_TRANSACTIONS = gql`
               assetName
               currency{
                   name
+                  symbol
               }
               tags{
                 name
@@ -70,6 +71,7 @@ export const QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS = gql`
             assetCode
             currency{
                 name
+                symbol
             }
             tags{
                 name
