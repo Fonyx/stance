@@ -209,7 +209,7 @@ export default function Home() {
                 <Typography variant="h6" color="secondary">
                     Transactions
                 </Typography>
-                <Button color="secondary" variant="contained" href="/createTransaction">Create Transaction</Button>
+                <Button color="secondary" variant="contained" href="/createTransaction">Add</Button>
                 <h1>Incoming</h1>
                 {selectedAccount && selectedAccount.credits.map((transaction) => (
                     <div key={transaction._id}>
@@ -223,6 +223,8 @@ export default function Home() {
                         </Button>
                     </div>
                 ))}
+            </Grid>
+            <Grid item xs={6} textAlign="center">
                 <h1>Outgoing</h1>
                 {selectedAccount && selectedAccount.debits.map((transaction) => (
                     <div key={transaction._id}>
