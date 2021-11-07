@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 // import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import {Button, Grid, Typography} from '@mui/material'
+import {Button, Grid, IconButton, Typography} from '@mui/material'
 import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import { Link } from 'react-router-dom';
 // import BarChart from '../components/BarChart';
@@ -132,52 +132,62 @@ export default function Home() {
     console.log(selectedAccount)
 
     return (
-        <Grid container spacing={2}>
-            <Grid item xs>
-                <h1>Your Accounts</h1>
-                {accountData && accountData.map((element) => (
-                    <div key={element.account._id}>
-                        <ToggleButton 
-                            name={element.account.name} 
-                            color={element.account.name === selectedAccount.accountName? 'primary': 'secondary'}
-                            handleSelect={handleSelect} 
-                            variant="contained"
-                        >
-                        </ToggleButton>
-                    </div>
-                ))}
-                <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>
-                <h1>Your Tickers</h1>
-                {tickers && tickers.map((element) => (
-                    <div key={element._id}>
-                        <Button 
-                            LinkComponent={Link}
-                            color="primary" 
-                            variant="outlined" 
-                            to={`/asset/${element.assetCode}`}
-                        >
-                            {/* {truncate(element.assetName, 15) + ' : ' + element.unitPrice} */}
-                            {element.assetName + ' : ' + element.unitPrice}
-                        </Button>
-                    </div>
-                ))}
-            </Grid>
-            <Grid item xs>
-                {selectedAccount && 
-                    <div id="chart-section">
-                        <div>
-                            <Grid item>
-                                <Typography variant="h5">Current Valuation: {selectedAccount.userCurrValuation}</Typography>
-                            </Grid>
-                            <Grid item>
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={4} lg={3} xl={2}>
+                <Grid container >
+                    <Grid item xs={6} sm={12}>
+                        <h1>Your Accounts</h1>
+                        {accountData && accountData.map((element) => (
+                            <div key={element.account._id}>
+                                <ToggleButton 
+                                    name={element.account.name} 
+                                    color={element.account.name === selectedAccount.accountName? 'primary': 'secondary'}
+                                    handleSelect={handleSelect} 
+                                    variant="contained"
+                                >
+                                </ToggleButton>
+                            </div>
+                        ))}
+                        <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>
+                    </Grid>
+                    <Grid item xs={6} sm={12}>
+                        <h1>Your Tickers</h1>
+                        {tickers && tickers.map((element) => (
+                            <div key={element._id}>
                                 <Button 
                                     LinkComponent={Link}
                                     color="primary" 
                                     variant="outlined" 
-                                    to={`/account/${selectedAccount.account._id}`}
+                                    to={`/asset/${element.assetCode}`}
                                 >
-                                    update
+                                    {truncate(element.assetName, 15) + ' : ' + element.unitPrice}
+                                    {/* {element.assetName + ' : ' + element.unitPrice} */}
                                 </Button>
+                            </div>
+                        ))}
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6} lg={6} xl={8} textAlign="center">
+                {selectedAccount && 
+                    <div id="chart-section">
+                        <div>
+                            <Grid container alignItems="center">
+                                <Grid item xs={8}>
+                                    <IconButton>
+                                        <Typography variant="h5">Current Valuation: {selectedAccount.userCurrValuation}</Typography>
+                                    </IconButton>
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <Button 
+                                        LinkComponent={Link}
+                                        color="primary" 
+                                        variant="outlined" 
+                                        to={`/account/${selectedAccount.account._id}`}
+                                    >
+                                        update
+                                    </Button>
+                                </Grid>
                             </Grid>
                             <LineChart accumulatedData={selectedAccount.accumulatedData}/>
                             {selectedAccount?.credits && 
@@ -190,7 +200,7 @@ export default function Home() {
                     </div>
                 }
             </Grid>
-            <Grid item xs>
+            <Grid item xs={12} lg={3} xl={2} textAlign="center">
                 <Typography variant="h6" color="secondary">
                     Transactions
                 </Typography>

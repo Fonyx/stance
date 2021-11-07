@@ -95,7 +95,7 @@ function App() {
                   <AccountForm />
                 </Route>
               </Switch>
-              <Footer />
+              {/* <Footer /> */}
             </Container>
         </Router>
       </ThemeProvider>

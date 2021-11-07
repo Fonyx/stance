@@ -5,8 +5,14 @@ import {select, scaleTime, extent, axisBottom, scaleLinear, axisLeft, max, line}
 
 function getWindowDimensions() {
     const { innerWidth: rawWidth, innerHeight: rawHeight } = window;
-    let width = 0.8*rawWidth;
-    let height = 0.8*rawHeight;
+    let width = 0.4*rawWidth;
+    let height = 0.4*rawHeight;
+    if(width >= 600){
+        width = 600;
+    }
+    if(height >= 400){
+        width = 400;
+    }
     return {
         width,
         height
@@ -33,7 +39,7 @@ export default function LineChart({accumulatedData}) {
         svg.selectAll('path').remove();
         svg.selectAll('g').remove();
 
-        let dimensions = {width: "600", height: "300"};
+        let dimensions = {width: "600", height: "400"};
 
         if(!dimensions) return
 
