@@ -8,7 +8,7 @@ import {Button, Grid, Typography, TextField, ButtonGroup} from '@mui/material'
 export default function SignIn(props) {
 
     const [formState, setFormState] = useState({ email: '', password: '' });
-    const [login, { error, data }] = useMutation(SIGN_IN);
+    const [login, { data }] = useMutation(SIGN_IN);
 
     const [errors, setErrors] = useState([]);
 
@@ -83,7 +83,7 @@ export default function SignIn(props) {
         <div>
             {data ? (
               <p>
-                Success! You may now head{' '}
+                Success! You may now head inside
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (

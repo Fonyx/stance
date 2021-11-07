@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import {QUERY_GET_ALL_CURRENCIES} from '../utils/queries';
 
 import { useMutation, useQuery } from '@apollo/client';
@@ -7,7 +6,7 @@ import { SIGN_UP } from '../utils/mutations';
 
 import AuthService from '../utils/auth';
 
-import {Autocomplete, Button, Grid, TextField, ButtonGroup, Typography} from '@mui/material'
+import {Autocomplete, Button, Grid, TextField, Typography} from '@mui/material'
 
 const Signup = () => {
 
@@ -42,9 +41,36 @@ const Signup = () => {
     let valid = true;
     let errorBuffer = [];
 
+    //check username presence
+    if(!formState.username){
+        errorBuffer.push('No username provided');
+    //check username length if there is a username entry
+    } else if(formState.username.length < 5){
+      errorBuffer.push('Username too short');
+    }
+    
+
     //check email presence
-    if(true){
-        errorBuffer.push('No validation built yet');
+    if(!formState.email){
+      errorBuffer.push('You need an email address to login');
+    // there is an email but does it look good
+    } else {
+      if(!formState.email.includes('@') || !formState.email.includes('.')){
+        errorBuffer.push('Your email looks wrong');
+      }
+    }
+
+    //check password
+    if(!formState.password){
+        errorBuffer.push('You need a password to login');
+    } else if(formState.password.length < 8){
+      //check password is at least 8 characters
+      errorBuffer.push('Your password must be 8 characters long');
+    }
+
+    //check there is a currencyCode choice
+    if(!formState.currencyCode){
+        errorBuffer.push('You need to choose a preferred currency');
     }
 
     setErrors(errorBuffer)
@@ -83,7 +109,9 @@ const Signup = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     
-    validateForm();
+    if(!validateForm()){
+      return
+    };
     
     try {
       const { data } = await signUp({
@@ -92,7 +120,12 @@ const Signup = () => {
       console.log(`response token from server was`, data.signUp.token);
       AuthService.login(data.signUp.token);
     } catch (e) {
-      console.error(e);
+      console.log(e);
+      if(e.message.includes('duplicate')){
+        setErrors(['Some of those credentials have been used before']);
+      } else {
+        console.log(e)
+      }
     }
   };
   
@@ -175,7 +208,7 @@ const Signup = () => {
             <Button variant="outlined"
               style={{ cursor: 'pointer' }}
               type="submit"
-              onSubmit={handleFormSubmit}
+              onClick={handleFormSubmit}
             >
               Submit
             </Button>
