@@ -8,12 +8,10 @@ export default function Landing() {
         <Container maxWidth="lg">
             <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center" style={{marginTop: '25px'}}>
                 <Grid item xs textAlign="center">
-                    <Typography color="primary">
-                        <h1>WELCOME TO STANCE</h1>
-                        <h1>Your Complete Financial Asset Tracker</h1>
-                    </Typography>
+                    <Typography variant="h2" color="primary">WELCOME TO STANCE</Typography>
+                    <Typography variant="h2" color="primary">Your Complete Financial Asset Tracker</Typography>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} style={{paddingTop: '80px'}}>
                     <ButtonGroup variant="text" aria-label="outlined primary button group">
                         <Button href='/signup'>Sign Up</Button>
                         <Button href="/signin">Sign In</Button>
