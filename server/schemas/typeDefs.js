@@ -137,7 +137,6 @@ const typeDefs = gql`
     description: String!
     date: String!
     amount: Float
-    factor: Float
     frequency: String!
   }
 
@@ -147,7 +146,6 @@ const typeDefs = gql`
     description: String!
     date: String!
     amount: Float
-    factor: Float
     frequency: String!
     endRecurrence: String
   }

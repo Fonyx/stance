@@ -67,8 +67,12 @@ export default function LineChart({accumulatedData}) {
 
         // Add Y axis
         const y = scaleLinear()
-        .domain([min(accumulatedData, function(d) { return d.balance; }), max(accumulatedData, function(d) { return d.balance; })])
+        .domain([
+            min(accumulatedData, function(d) { return d.balance; }), 
+            max(accumulatedData, function(d) { return d.balance; })])
         .range([ height, 0 ]);
+
+        console.log(accumulatedData)
         
         svg.append("g")
         .call(axisLeft(y));

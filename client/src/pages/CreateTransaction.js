@@ -26,7 +26,6 @@ export default function CreateTransaction() {
     
 
     const [formState, setFormState] = useState(initialFormState);
-    const [endRecurrence, setEndRecurrence] = useState(null);
 
     const [errors, setErrors] = useState([]);
     const history = useHistory();
@@ -45,9 +44,14 @@ export default function CreateTransaction() {
         // console.log(accountReturn.error.networkError.result.errors)
     };
 
+    const clearState = () => {
+        setFormState(initialFormState)
+    }
+
+    // successfully made a transaction
     if (transactionReturn.data) {
-        console.log('Congratulations you added a transaction', transactionReturn.data)
-        // history.push('/home');
+        console.log('Congratulations you added a transaction', transactionReturn.data);
+        history.push('/home');
     };
 
     // Handle fields change
@@ -64,21 +68,19 @@ export default function CreateTransaction() {
 
     };
 
-    const handleSelectChange = input => e => {
-        console.log('Handling select change');
-        console.log('event: ',e);
-    
-        let text = e.target.textContent;
+    // Handle fields change
+    const handleFloatChange = (e) => {
+        console.log('Handling Change');
+        // console.log(input, e);
 
-        console.log('event trigger text: ', text);
-        
-    
+        let newValue = e.target.value;
+
         setFormState({
-            ...formState,
-            [input]: text
-            });
-    
-      };
+        ...formState,
+        amount: newValue
+        });
+
+    };
 
     // get the data from the return and set it to the userAccounts variable
     const userAccounts = data?.userAccounts || [];
@@ -144,10 +146,6 @@ export default function CreateTransaction() {
         }
     }
 
-    const clearState = () => {
-        setFormState(initialFormState)
-    }
-
     // checks that the form is submittable, if it fails, sets error state and returns false, else true
     const validateFormSubmit = () => {
         let valid = true;
@@ -168,14 +166,20 @@ export default function CreateTransaction() {
         // check amount is not null
         if(!formState.amount || formState.amount < 0){
             errorBuffer.push('You need to specify a positive amount');
+            //check amount is a float
+            if(formState.amount){
+                if (isNaN(formState.amount) && !formState.amount.toString().indexOf('.') !== -1){
+                    errorBuffer.push('That amount looks wrong, must be number');
+                }
+            }
         }
 
         // check amount isn't larger than the balance in the from account if there is a from account
-        if(formState.fromAccount?.balance){
-            if(formState.amount > formState.fromAccount.balance){
-                errorBuffer.push("You can't transfer more than the balance of the from account for the transaction")
-            }
-        }
+        // if(formState.fromAccount?.balance){
+        //     if(formState.amount > formState.fromAccount.balance){
+        //         errorBuffer.push("You can't transfer more than the balance of the from account for the transaction")
+        //     }
+        // }
 
         //check fromAccount balance is a float
         if(formState.fromAccount?.balance){
@@ -219,23 +223,22 @@ export default function CreateTransaction() {
         try { 
             if(validateFormSubmit()){
 
-                console.log('payload: ',formState);
+                // convert the payload to accountId strings because bad design downstream
+                let payload = {
+                    ...formState,
+                    toAccount: formState.toAccount._id,
+                    fromAccount: formState.fromAccount._id,
+                    amount: parseFloat(formState.amount)
+                }
 
-                // createTransaction({ 
-                //     variables: formState
-                // });
-                // console.log(transactionReturn)
-                // if(transactionReturn.error){
-                //     setErrors(transactionReturn.error);
-                // } else {
-                //     // refresh and re-fetch user data
-                //     window.location.reload();
-                // }
+                console.log('payload: ',payload);
 
-                clearState()
+                createTransaction({ 
+                    variables: payload,
+                });
             }
         } catch (e) {
-        console.error(e);
+            console.error(e);
         }
     };
 
@@ -245,8 +248,8 @@ export default function CreateTransaction() {
         )
     }
 
-    console.log('current form state: ',formState);
-    console.log('User accounts available: ',userAccounts);
+    // console.log('current form state: ',formState);
+    // console.log('User accounts available: ',userAccounts);
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} locale={enLocale}>
@@ -311,7 +314,7 @@ export default function CreateTransaction() {
                 <Grid item xs={6} style={{paddingTop: '20px'}}>
                     <Grid item>
                         <TextField name='amount' 
-                            onChange={handleInputChange('amount')} 
+                            onChange={handleFloatChange} 
                             label="Amount" 
                             value={formState.amount} 
                             placeholder="0.00"/>
