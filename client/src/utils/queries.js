@@ -13,6 +13,7 @@ export const QUERY_USER_ACCOUNTS = gql`
                 name
                 usdValue
                 symbol
+                code
             }
         }
     }

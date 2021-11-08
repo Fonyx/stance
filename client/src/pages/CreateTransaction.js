@@ -250,10 +250,12 @@ export default function CreateTransaction() {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} locale={enLocale}>
-            <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center" style={{paddingTop: '40px'}}>
+
+            <Grid container spacing={2} direction="column" alignItems="center" justifyContent="space-between" style={{paddingTop: '40px'}}>
                 <Typography variant="h3" color="primary">NEW TRANSACTION</Typography>
-                <Grid container>
-                    <Grid item>
+
+                <Grid container justifyContent="space-around" alignItems="flex-start" style={{paddingTop: '20px'}}>
+                    <Grid item xs={3}>
                         <Autocomplete
                         disablePortal
                         clearOnBlur
@@ -268,78 +270,96 @@ export default function CreateTransaction() {
                         onChange={handleFromAccountChange}
                         renderInput={(params) => <TextField {...params} label="From Account" />}
                         />
-                    </Grid>
-                    <Grid item>
                         {formState.fromAccount?.balance &&
                             <Grid>
-                                <Typography variant="h5" color="primary">Remaining: {formState.fromAccount.balance} </Typography>
+                                <Typography variant="h6" color="primary">Balance: {formState.fromAccount.balance} </Typography>
                                 {formState.fromAccount.type !== 'money' &&
-                                    <Typography variant="h5" color="primary">Worth: {formState.fromAccount.currency.symbol}{formState.fromAccount.valuation}</Typography>
+                                    <Typography variant="h6" color="primary">Worth: {formState.fromAccount.currency.symbol}{formState.fromAccount.valuation.toFixed(4)} {formState.fromAccount.currency.code}</Typography>
                                 }
                             </Grid>
                         }
                     </Grid>
+                
+                    <Grid item xs={3}>
+                        <Autocomplete
+                            disablePortal
+                            id="toAccount"
+                            name='toAccount'
+                            options={userAccounts}
+                            getOptionLabel={(option) => option.name}
+                            isOptionEqualToValue={(option, value) => option.name === value.name}
+                            sx={{ width: 300 }}
+                            onChange={handleToAccountChange}
+                            onReset={handleToAccountChange}
+                            renderInput={(params) => <TextField {...params} label="To Account" />}
+                        />
+                        {formState.toAccount?.balance &&
+                            <Grid item>
+                            {formState.fromAccount?.balance &&
+                                <Grid>
+                                    <Typography variant="h6" color="primary">Balance: {formState.toAccount.balance} </Typography>
+                                    {formState.fromAccount.type !== 'money' &&
+                                            <Typography variant="h6" color="primary">Worth: {formState.toAccount.currency.symbol}{formState.toAccount.valuation.toFixed(4)} {formState.toAccount.currency.code}</Typography>
+                                        }
+                                </Grid>
+                            }
+                            </Grid>
+                        }
+                    </Grid>
                 </Grid>
-                
-                
-                <Button onClick={transferMaximum}>Transfer All</Button>
-                <Autocomplete
-                    disablePortal
-                    id="toAccount"
-                    name='toAccount'
-                    options={userAccounts}
-                    getOptionLabel={(option) => option.name}
-                    isOptionEqualToValue={(option, value) => option.name === value.name}
-                    sx={{ width: 300 }}
-                    onChange={handleToAccountChange}
-                    renderInput={(params) => <TextField {...params} label="To Account" />}
-                />
-                {formState.toAccount?.balance &&
+
+                <Grid item xs={6} style={{paddingTop: '20px'}}>
                     <Grid item>
-                    {formState.fromAccount?.balance &&
-                        <Grid>
-                            <Typography variant="h5" color="primary">Remaining: {formState.toAccount.balance} </Typography>
-                            {formState.fromAccount.type !== 'money' &&
-                                    <Typography variant="h5" color="primary">Worth: {formState.toAccount.currency.symbol}{formState.toAccount.valuation}</Typography>
-                                }
-                        </Grid>
-                    }
+                        <TextField name='amount' 
+                            onChange={handleInputChange('amount')} 
+                            label="Amount" 
+                            value={formState.amount} 
+                            placeholder="0.00"/>
+                    </Grid>
+                    <Grid item>
+                        <Button onClick={transferMaximum}>Transfer All</Button>
+                    </Grid>
                 </Grid>
-                }
-                <TextField name='amount' 
-                    onChange={handleInputChange('amount')} 
-                    label="Amount" 
-                    value={formState.amount} 
-                    placeholder="0.00"/>
 
-                <TextField name='description' 
-                    onChange={handleInputChange('description')} 
-                    label="Description" 
-                    value={formState.description} 
-                    placeholder="A quick note"/>
+                <Grid container justifyContent="center">
+                    <Grid item>
+                        <TextField name='description' 
+                            onChange={handleInputChange('description')} 
+                            label="Description" 
+                            value={formState.description} 
+                            placeholder="A quick note"/>
+                    </Grid>
+                    <Grid item>
+                        <Select
+                            labelId="every"
+                            id="every"
+                            value={formState.frequency}
+                            label="How Often"
+                            name='frequency'
+                            onChange={handleInputChange('frequency')}
+                        >
+                            {frequencies.map((element, index) => (
+                                <MenuItem key={index} value={element}>{element}</MenuItem>
+                            ))}
+                        </Select>
+                    </Grid>
 
-                <Select
-                    labelId="every"
-                    id="every"
-                    value={formState.frequency}
-                    label="How Often"
-                    name='frequency'
-                    onChange={handleInputChange('frequency')}
-                >
-                    {frequencies.map((element, index) => (
-                        <MenuItem key={index} value={element}>{element}</MenuItem>
-                    ))}
-                </Select>
-                <DatePicker
-                    label='On Date'
-                    value={formState.date}
-                    minDate={new Date()}
-                    onChange={(newValue) => {
-                        // console.log('Updating date state to: ', newValue);
-                        handleDateChange(newValue, 'date');
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                    />
+                </Grid>
+
+                <Grid item xs={3}>
+                    <DatePicker
+                        label='On Date'
+                        value={formState.date}
+                        minDate={new Date()}
+                        onChange={(newValue) => {
+                            // console.log('Updating date state to: ', newValue);
+                            handleDateChange(newValue, 'date');
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                        />
+                        
+                </Grid>
+                <Grid item xs={3}>
                     {formState.frequency !== 'once'? 
                         <DatePicker
                             label='Until'
@@ -350,7 +370,9 @@ export default function CreateTransaction() {
                                 handleDateChange(newValue, 'endRecurrence');
                             }}
                             renderInput={(params) => <TextField {...params} />}
-                    />: <></>}
+                    />: <></>}  
+                </Grid>
+                
                 <Grid item>
                     <ButtonGroup>
                         <Button
