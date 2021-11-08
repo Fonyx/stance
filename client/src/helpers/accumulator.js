@@ -164,8 +164,6 @@ export default function accumulateTransactions(startingBalance, credits, debits)
         dataPackage.set(dateString, packet);
     }
 
-    console.log(dataPackage);
-
     // if there is only one date, add an ending date with the same value for 5 years out
     if(dataPackage.keys.length === 1){
         let dateString = dataPackage.keys[0];

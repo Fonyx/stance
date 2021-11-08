@@ -72,8 +72,6 @@ export default function LineChart({accumulatedData}) {
             max(accumulatedData, function(d) { return d.balance; })])
         .range([ height, 0 ]);
 
-        console.log(accumulatedData)
-        
         svg.append("g")
         .call(axisLeft(y));
 

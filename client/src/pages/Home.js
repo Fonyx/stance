@@ -3,11 +3,12 @@ import { useQuery } from '@apollo/client';
 import {Button, Grid, IconButton, Typography} from '@mui/material'
 import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import { Link } from 'react-router-dom';
-import ToggleButton from '../components/toggleButton';
+import ToggleButton from '../components/ToggleButton';
 import LineChart from '../components/LineChart';
 import accumulateTransactions from '../helpers/accumulator';
 import { readableDate} from '../helpers/formatter';
 import {truncate} from '../helpers/strings';
+import StateToggleButton from '../components/StateToggleButton';
 
 /**
  * Function that filters out an account package from the accountData mega object, return shape: {valuation, accountObj, credits, debits}
@@ -79,17 +80,39 @@ function getTickers(accountData){
     return tickerList;
 }
 
+/**
+ * Get all the tag names from the users account package
+ * @param {[accountPackage]} accountData 
+ */
+function getTagsFromPackage(accountData){
+    let tags = [];
+
+    for (let i =0; i< accountData.length; i++){
+        let packet = accountData[i];
+        let packetTags = packet.account.tags;
+        if(packetTags){
+            for(let tagObj of packetTags){
+                tags.push(tagObj.name);
+            }
+        }
+    }
+    
+    return tags
+}
+
 export default function Home() {
 
     const [selectedAccount, setSelectedAccount] = useState('');
 
     const {loading, data} = useQuery(QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS, {});
 
-    var accountData = null
+    var accountData = null;
+    var userTags = [];
     var tickers = [];
 
     if(data?.allUserAccountsAndTransactions){
         accountData = data.allUserAccountsAndTransactions;
+        userTags = getTagsFromPackage(accountData)
         tickers = getTickers(accountData);
     }
 
@@ -133,6 +156,7 @@ export default function Home() {
                 <Grid container >
                     <Grid item xs={6} sm={12}>
                         <Typography variant='h4' color="primary">Your Accounts</Typography>
+                        <Button color="secondary" variant="contained" href="/createAccount">Add</Button>
                         {accountData && accountData.map((element) => (
                             <div key={element.account._id}>
                                 <ToggleButton 
@@ -144,10 +168,9 @@ export default function Home() {
                                 </ToggleButton>
                             </div>
                         ))}
-                        <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>
                     </Grid>
                     <Grid item xs={6} sm={12}>
-                    <Typography variant='h4' color="primary">Your Tickers</Typography>
+                        <Typography variant='h4' color="primary">Your Tickers</Typography>
                         {tickers && tickers.map((element) => (
                             <div key={element._id}>
                                 <Button 
@@ -168,7 +191,7 @@ export default function Home() {
                 {selectedAccount && 
                     <div id="chart-section">
                         <div>
-                            <Typography variant="h3" color="primary">{selectedAccount.accountName}</Typography>
+                            <Typography variant="h4" color="primary" style={{textTransform: 'capitalize'}}>{selectedAccount.accountName}</Typography>
                             <Grid container alignItems="center">
                                 <Grid item xs={8}>
                                     <IconButton>
@@ -187,16 +210,24 @@ export default function Home() {
                                 </Grid>
                             </Grid>
                             <LineChart accumulatedData={selectedAccount.accumulatedData}/>
+                            <Grid item container xs={12} direction="row">
+                                {userTags && userTags.map((tag, index) => (
+                                    <StateToggleButton 
+                                        key={index}
+                                        name={tag}  
+                                        variant="contained"
+                                    />
+                                ))}
+                            </Grid>
                         </div>
                     </div>
                 }
             </Grid>
             <Grid item xs={12} lg={3} xl={2} textAlign="center">
-                <Typography variant="h6" color="secondary">
+                <Typography variant="h4" color="primary">
                     Transactions
                 </Typography>
                 <Button color="secondary" variant="contained" href="/createTransaction">Add</Button>
-                <Typography variant='h4' color="primary">Incoming</Typography>
                 {selectedAccount?.credits && 
                     <Typography variant='h5' color="primary">Credits: {selectedAccount.credits.length}</Typography>
                 }
@@ -212,9 +243,8 @@ export default function Home() {
                         </Button>
                     </div>
                 ))}
-                <Typography variant='h4' color="primary">Outgoing</Typography>
                 {selectedAccount?.debits && 
-                    <Typography variant='h4' color="primary">Debits: {selectedAccount.debits.length}</Typography>
+                    <Typography variant='h5' color="primary">Debits: {selectedAccount.debits.length}</Typography>
                 }
                 {selectedAccount && selectedAccount.debits.map((transaction) => (
                     <div key={transaction._id}>

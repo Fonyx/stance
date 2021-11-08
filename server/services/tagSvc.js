@@ -38,7 +38,6 @@ async function upsertFromSeed(name, user){
     }
 
     return foundTag;
-
 };
 
 const tagSvc = {
