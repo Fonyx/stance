@@ -2,10 +2,9 @@ import React from 'react'
 import {ButtonGroup, Typography, Button, Container, Grid} from '@mui/material'
 
 
-
 export default function Landing() {
     return (
-        <Container maxWidth="lg">
+        <Container>
             <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center" style={{marginTop: '25px'}}>
                 <Grid item xs textAlign="center">
                     <Typography variant="h2" color="primary">WELCOME TO STANCE</Typography>
@@ -13,8 +12,8 @@ export default function Landing() {
                 </Grid>
                 <Grid item xs={12} style={{paddingTop: '80px'}}>
                     <ButtonGroup variant="text" aria-label="outlined primary button group">
-                        <Button href='/signup'>Sign Up</Button>
-                        <Button href="/signin">Sign In</Button>
+                        <Button href='/signup' color="primary">Sign Up</Button>
+                        <Button href="/signin" color="primary">Sign In</Button>
                     </ButtonGroup>
                 </Grid>
             </Grid>

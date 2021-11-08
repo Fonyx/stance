@@ -23,32 +23,6 @@ function getFilteredDataFromState(accountName, accountData){
     return accountPackage
 }
 
-// function getCreditsFromPayload(payload){
-//     let credits = [];
-//     for(let i = 0; i < payload.length; i++){
-//         let element = payload[i];
-//         credits.push(element.credits)
-//     }
-//     return credits
-// }
-
-// function getDebitsFromPayload(payload){
-//     let debits = [];
-//     for(let i = 0; i < payload.length; i++){
-//         let element = payload[i];
-//         debits.push(element.debits)
-//     }
-//     return debits
-// }
-
-// function getAccumulatedValuation(payload){
-
-//     let valuation = payload.reduce((previous, current) => {
-//         return previous + current.userCurrValuation
-//     }, 0);
-//     return valuation
-// }
-
 /**
  * Get the ticker list for a customer
  * @param {[accountPackage]} accountData 
@@ -117,7 +91,13 @@ export default function Home() {
     }
 
     if(loading){
-        return <Typography variant='h3' color='primary'>Loading Your Account Details....They are very detailed</Typography>
+        return (
+            <Grid container>
+                <Grid item>
+                    <Typography variant='h3' color='primary'>Loading Your Account Details...Updating their valuations.....You can't rush art...</Typography>
+                </Grid>
+            </Grid>
+        )
     }
 
     /**
@@ -195,7 +175,7 @@ export default function Home() {
                             <Grid container alignItems="center">
                                 <Grid item xs={8}>
                                     <IconButton>
-                                        <Typography variant="h5">Current Valuation: {selectedAccount.account.currency.symbol}{selectedAccount.userCurrValuation}</Typography>
+                                        <Typography variant="h5">Current Valuation: {selectedAccount.account.currency.symbol}{selectedAccount.userCurrValuation.toFixed(4)} {selectedAccount.account.currency.code}</Typography>
                                     </IconButton>
                                 </Grid>
                                 <Grid item xs={4}>

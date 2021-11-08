@@ -24,10 +24,11 @@ export default function Navbar() {
               aria-label="menu"
               sx={{ mr: 2 }}
             >
-              {/* <MenuIcon /> */}
-              <Icon className="navbarSvgIcon">
-                <img className="navbarSvgImg" src="/min_fox_purple.svg" alt="fonyx purple min logo"/>
-              </Icon>
+              <IconButton href="/home">
+                <Icon className="navbarSvgIcon">
+                  <img className="navbarSvgImg" src="/min_fox_orange.svg" alt="fonyx purple min logo"/>
+                </Icon>
+              </IconButton>
             </IconButton>
             <Typography variant="h6" component="div" href="/home" color="secondary" sx={{ flexGrow: 1 }}>
               STANCE
