@@ -62,8 +62,8 @@ export default function SpecificCryptoDetails({cryptos, handleSelectCrypto, valu
             </Grid>
             <Grid item xs>
                 <div id="error">
-                    {errors.map((error) => {
-                        return <div>{error}</div>
+                    {errors.map((error, index) => {
+                        return <div key={index}>{error}</div>
                     })}
                 </div>
             </Grid>

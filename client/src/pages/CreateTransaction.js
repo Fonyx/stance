@@ -2,31 +2,34 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER_ACCOUNTS } from '../utils/queries';
 import { CREATE_TRANSACTION } from '../utils/mutations';
-import {Autocomplete, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
+import {Autocomplete, Grid, Typography, ButtonGroup, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
 import {DatePicker} from '@mui/lab';
 import enLocale from 'date-fns/locale/en-GB';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
+const initialFormState ={
+    toAccount: null,
+    fromAccount: null,
+    description: '',
+    amount: 0,
+    frequency: 'once',
+    date: new Date(),
+    endRecurrence: null
+}
 
-// function filterChoiceFromOptions(choice, options){
-//     let remainingOptions = options.filter((option) => choice !== option.name);
-//     return remainingOptions
-// }
+const frequencies = ['once', 'daily', 'weekly', 'fortnightly', 'monthly', 'quarterly', 'yearly']
 
 export default function CreateTransaction() {
     
 
-    const [toAccount, setToAccount] = useState({});
-    const [fromAccount, setFromAccount] = useState({});
-    const [description, setDescription] = useState('');
-    const [amount, setAmount] = useState(0);
-    const [frequency, setFrequency] = useState('once');
-    const [date, setDate] = useState(new Date());
+    const [formState, setFormState] = useState(initialFormState);
     const [endRecurrence, setEndRecurrence] = useState(null);
 
     const [errors, setErrors] = useState([]);
+    const history = useHistory();
 
     // create query to get user accounts
     const {loading, data} = useQuery(QUERY_USER_ACCOUNTS, {});
@@ -37,16 +40,48 @@ export default function CreateTransaction() {
     if (transactionReturn.loading) return 'Submitting...';
 
     if (transactionReturn.error) {
-        console.log(transactionReturn)
-        return `Submission error! ${transactionReturn.error.message}`
+        // since the apollo client returns a weird error derivative we need custom logging
+        console.log(JSON.stringify(transactionReturn.error, null, 2));
+        // console.log(accountReturn.error.networkError.result.errors)
     };
+
+    if (transactionReturn.data) {
+        console.log('Congratulations you added a transaction', transactionReturn.data)
+        // history.push('/home');
+    };
+
+    // Handle fields change
+    const handleInputChange = input => e => {
+        console.log('Handling Change');
+        // console.log(input, e);
+
+        let newValue = e.target.value;
+
+        setFormState({
+        ...formState,
+        [input]: newValue
+        });
+
+    };
+
+    const handleSelectChange = input => e => {
+        console.log('Handling select change');
+        console.log('event: ',e);
+    
+        let text = e.target.textContent;
+
+        console.log('event trigger text: ', text);
+        
+    
+        setFormState({
+            ...formState,
+            [input]: text
+            });
+    
+      };
 
     // get the data from the return and set it to the userAccounts variable
     const userAccounts = data?.userAccounts || [];
-    
-    // let currentAccountChoice = toAccount.name? toAccount.name : fromAccount.name
-    // var accountChoices = filterChoiceFromOptions(currentAccountChoice, userAccounts);
-
     
     // update state based on form select changes
     const handleToAccountChange = (e) => {
@@ -55,81 +90,62 @@ export default function CreateTransaction() {
         console.log('event: ',e);
 
         let accountName = e.target.textContent;
-        let account = ''
 
-        console.log('Account of event: ', account);
+        console.log('Account of event: ', accountName);
 
         if(accountName){
-            account = userAccounts.find(account => account.name === accountName);
+            let account = userAccounts.find(account => account.name === accountName);
             console.log('Account after filtering data: ', account);
-            setToAccount({...account});
-        // if there is no account on event, update state to be empty
-        } else {
-            setToAccount({});
+            setFormState({
+                ...formState,
+                toAccount: account
+            })
         }
         
     };
 
-    // update state based on form select changes
     const handleFromAccountChange = (e) => {
+
         console.log('Handling Currency change');
         console.log('event: ',e);
 
         let accountName = e.target.textContent;
-        let account = ''
 
-        console.log('Account of event: ', account);
+        console.log('Account of event: ', accountName);
 
         if(accountName){
-            account = userAccounts.find(account => account.name === accountName);
+            let account = userAccounts.find(account => account.name === accountName);
             console.log('Account after filtering data: ', account);
-            setFromAccount({...account});
-        // if there is no account on event, update state to be empty
-        } else {
-            setFromAccount({});
+            setFormState({
+                ...formState,
+                fromAccount: account
+            })
         }
         
     };
 
-    // update state based on form inputs
-    const handleInputChange = ({target}) => {
-        console.log('Input Event triggered: ');
-        console.log('target: ', target);
-
-        // to account id is of form id="toAccount-option-0"
-        if(target.name === 'description'){
-            let value = target.value;
-            setDescription(value);
-        }
-        // to account id is of form id="toAccount-option-0"
-        if(target.name === 'amount'){
-            let value = target.value;
-            setAmount(value);
-        }
-
-        // case for handling frequency field
-        if(target.name === 'frequency'){
-            setFrequency(target.value);
-        }
-    }
+    const handleDateChange = (date, input) => {
+        console.log('state date: ',date);
+        setFormState({
+          ...formState,
+          [input]: date
+        });
+      }
 
     const transferMaximum = () => {
-        if(fromAccount.balance > 0){
-            let fundsAvailable = fromAccount.balance;
-            setAmount(fundsAvailable)
+        if(formState.fromAccount.balance > 0){
+            let fundsAvailable = formState.fromAccount.balance;
+            setFormState({
+                ...formState,
+                amount: fundsAvailable
+            })
         } else {
             setErrors(['You don\'t have a positive balance in that from account'])
         }
     }
 
     const clearState = () => {
-        setToAccount ({});
-        setFromAccount({});
-        setDescription('');
-        setAmount(0);
-        setFrequency('once');
-        setDate(new Date());
-        setEndRecurrence(null)
+        setFormState(initialFormState)
     }
 
     // checks that the form is submittable, if it fails, sets error state and returns false, else true
@@ -138,54 +154,54 @@ export default function CreateTransaction() {
         let errorBuffer = [];
 
         //check at least one account
-        if(!toAccount?.balance && !fromAccount?.balance){
+        if(!formState.toAccount?.balance && !formState.fromAccount?.balance){
             errorBuffer.push('You need to choose at least one account');
         }
 
         // check accounts aren't equal
-        if(toAccount?.balance && fromAccount?.balance){
-            if(toAccount.name === fromAccount.name){
+        if(formState.toAccount?.balance && formState.fromAccount?.balance){
+            if(formState.toAccount.name === formState.fromAccount.name){
                 errorBuffer.push('You can\'t send money to the same account');
             }
         }
 
         // check amount is not null
-        if(!amount || amount < 0){
+        if(!formState.amount || formState.amount < 0){
             errorBuffer.push('You need to specify a positive amount');
         }
 
         // check amount isn't larger than the balance in the from account if there is a from account
-        if(fromAccount?.balance){
-            if(amount > fromAccount.balance){
+        if(formState.fromAccount?.balance){
+            if(formState.amount > formState.fromAccount.balance){
                 errorBuffer.push("You can't transfer more than the balance of the from account for the transaction")
             }
         }
 
         //check fromAccount balance is a float
-        if(fromAccount?.balance){
-            if (isNaN(fromAccount.balance) && !fromAccount.balance.toString().indexOf('.') !== -1){
+        if(formState.fromAccount?.balance){
+            if (isNaN(formState.fromAccount.balance) && !formState.fromAccount.balance.toString().indexOf('.') !== -1){
                 errorBuffer.push('That fromAccount balance isn\'t valid');
             }
         }
 
         //check fromAccount balance is a float
-        if(toAccount?.balance){
-            if (isNaN(toAccount.balance) && !toAccount.balance.toString().indexOf('.') !== -1){
+        if(formState.toAccount?.balance){
+            if (isNaN(formState.toAccount.balance) && !formState.toAccount.balance.toString().indexOf('.') !== -1){
                 errorBuffer.push('That toAccount balance isn\'t valid');
             }
         }
 
         // check there is a description
-        if(!description){
+        if(!formState.description){
             errorBuffer.push('You need to describe the transaction, your future self with thank you');
         }
 
         // check that there is a date
-        if(!date){
+        if(!formState.date){
             errorBuffer.push('You need to set a date for this transaction to happen');
         }
         // check that if frequency isn't once, there is a selected endRecurrence
-        if(frequency !== 'once' && !endRecurrence){
+        if(formState.frequency !== 'once' && !formState.endRecurrence){
             errorBuffer.push('You need to specify when this transaction ends');
         }
         setErrors(errorBuffer)
@@ -203,28 +219,18 @@ export default function CreateTransaction() {
         try { 
             if(validateFormSubmit()){
 
-                let payload = {
-                    toAccount: toAccount._id, 
-                    fromAccount: fromAccount._id, 
-                    amount: amount, 
-                    description: description, 
-                    date: date, 
-                    frequency: frequency, 
-                    endRecurrence: endRecurrence, 
-                }
+                console.log('payload: ',formState);
 
-                console.log('payload: ',payload);
-
-                createTransaction({ 
-                    variables: payload
-                });
-                console.log(transactionReturn)
-                if(transactionReturn.error){
-                    setErrors(transactionReturn.error);
-                } else {
-                    // refresh and re-fetch user data
-                    window.location.reload();
-                }
+                // createTransaction({ 
+                //     variables: formState
+                // });
+                // console.log(transactionReturn)
+                // if(transactionReturn.error){
+                //     setErrors(transactionReturn.error);
+                // } else {
+                //     // refresh and re-fetch user data
+                //     window.location.reload();
+                // }
 
                 clearState()
             }
@@ -238,6 +244,8 @@ export default function CreateTransaction() {
             <div>Loading Your Details...</div>
         )
     }
+
+    console.log(formState);
 
     return (
         <div>
@@ -258,14 +266,10 @@ export default function CreateTransaction() {
                         onChange={handleFromAccountChange}
                         renderInput={(params) => <TextField {...params} label="From Account" />}
                         />
-                    {fromAccount.balance? 
-                        <div>
-                            {fromAccount.balance}
-                            <Button onClick={transferMaximum}>Transfer All</Button>
-                        </div> 
-                        : 
-                        <></>
+                    {formState.fromAccount?.balance &&
+                        <div>{formState.fromAccount.balance}</div>
                     }
+                    <Button onClick={transferMaximum}>Transfer All</Button>
                     <Autocomplete
                         disablePortal
                         id="toAccount"
@@ -277,50 +281,46 @@ export default function CreateTransaction() {
                         onChange={handleToAccountChange}
                         renderInput={(params) => <TextField {...params} label="To Account" />}
                     />
-                    {toAccount.balance? 
-                        <div>{toAccount.balance}</div> : <></>
+                    {formState.toAccount?.balance &&
+                        <div>{formState.toAccount.balance}</div>
                     }
-                    <TextField name='amount' onChange={handleInputChange} label="Amount" value={amount} placeholder="0.00"/>
-                    <TextField name='description' onChange={handleInputChange} label="Description" value={description} placeholder="A quick note"/>
+                    <TextField name='amount' onChange={handleInputChange('amount')} label="Amount" value={formState.amount} placeholder="0.00"/>
+                    <TextField name='description' onChange={handleInputChange('description')} label="Description" value={formState.description} placeholder="A quick note"/>
 
                     <FormControl sx={{width: '25ch'}}>
                         <InputLabel id="every">Frequency</InputLabel>
                         <Select
                             labelId="every"
                             id="every"
-                            value={frequency}
+                            value={formState.frequency}
                             label="How Often"
                             name='frequency'
-                            onChange={handleInputChange}
+                            onChange={handleInputChange('frequency')}
                         >
-                            <MenuItem value={"once"}>once</MenuItem>
-                            <MenuItem value={"daily"}>daily</MenuItem>
-                            <MenuItem value={"weekly"}>weekly</MenuItem>
-                            <MenuItem value={"fortnightly"}>fortnightly</MenuItem>
-                            <MenuItem value={"monthly"}>monthly</MenuItem>
-                            <MenuItem value={"quarterly"}>quarterly</MenuItem>
-                            <MenuItem value={"yearly"}>yearly</MenuItem>
+                            {frequencies.map((element, index) => (
+                                <MenuItem key={index} value={element}>{element}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
 
                     <DatePicker
                         label='On Date'
-                        value={date}
+                        value={formState.date}
                         minDate={new Date()}
                         onChange={(newValue) => {
                             // console.log('Updating date state to: ', newValue);
-                            setDate(newValue);
+                            handleDateChange(newValue, 'date');
                         }}
                         renderInput={(params) => <TextField {...params} />}
                         />
-                        {frequency !== 'once'? 
+                        {formState.frequency !== 'once'? 
                             <DatePicker
                                 label='Until'
-                                value={endRecurrence}
+                                value={formState.endRecurrence}
                                 minDate={new Date()}
                                 onChange={(newValue) => {
                                     // console.log('Updating end Recurrence state to: ', newValue);
-                                    setEndRecurrence(newValue);
+                                    handleDateChange(newValue, 'endRecurrence');
                                 }}
                                 renderInput={(params) => <TextField {...params} />}
                         />: <></>}
@@ -331,11 +331,13 @@ export default function CreateTransaction() {
                     >
                         Submit
                     </Button>
-                    <div id="error">
-                        {errors.map((error) => {
-                            return <div>{error}</div>
-                        })}
-                    </div> 
+                    <Grid item xs>
+                        <div id="error">
+                            {errors.map((error, index) => {
+                                return <div key={index}>{error}</div>
+                            })}
+                        </div>
+                    </Grid>
                 </LocalizationProvider>
             </form>
         </div>
