@@ -62,3 +62,10 @@ footer{
     transform: rotate(360deg);
   }
 }
+
+.imageIcon {
+  height: '100%'
+}
+.iconRoot {
+  text-align: 'center'
+}
