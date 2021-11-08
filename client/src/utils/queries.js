@@ -8,9 +8,11 @@ export const QUERY_USER_ACCOUNTS = gql`
             type
             balance
             unitPrice
+            valuation
             currency{
                 name
                 usdValue
+                symbol
             }
         }
     }

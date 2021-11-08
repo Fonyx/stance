@@ -245,14 +245,16 @@ export default function CreateTransaction() {
         )
     }
 
-    console.log(formState);
+    console.log('current form state: ',formState);
+    console.log('User accounts available: ',userAccounts);
 
     return (
-        <div>
-            <h1>NEW TRANSACTION</h1>
-            <form onSubmit={handleFormSubmit}>
-                <LocalizationProvider dateAdapter={AdapterDateFns} locale={enLocale}>
-                    <Autocomplete
+        <LocalizationProvider dateAdapter={AdapterDateFns} locale={enLocale}>
+            <Grid container spacing={2} direction="column" alignItems="center" justifyContent="center" style={{paddingTop: '40px'}}>
+                <Typography variant="h3" color="primary">NEW TRANSACTION</Typography>
+                <Grid container>
+                    <Grid item>
+                        <Autocomplete
                         disablePortal
                         clearOnBlur
                         selectOnFocus
@@ -266,80 +268,117 @@ export default function CreateTransaction() {
                         onChange={handleFromAccountChange}
                         renderInput={(params) => <TextField {...params} label="From Account" />}
                         />
-                    {formState.fromAccount?.balance &&
-                        <div>{formState.fromAccount.balance}</div>
-                    }
-                    <Button onClick={transferMaximum}>Transfer All</Button>
-                    <Autocomplete
-                        disablePortal
-                        id="toAccount"
-                        name='toAccount'
-                        options={userAccounts}
-                        getOptionLabel={(option) => option.name}
-                        isOptionEqualToValue={(option, value) => option.name === value.name}
-                        sx={{ width: 300 }}
-                        onChange={handleToAccountChange}
-                        renderInput={(params) => <TextField {...params} label="To Account" />}
-                    />
-                    {formState.toAccount?.balance &&
-                        <div>{formState.toAccount.balance}</div>
-                    }
-                    <TextField name='amount' onChange={handleInputChange('amount')} label="Amount" value={formState.amount} placeholder="0.00"/>
-                    <TextField name='description' onChange={handleInputChange('description')} label="Description" value={formState.description} placeholder="A quick note"/>
-
-                    <FormControl sx={{width: '25ch'}}>
-                        <InputLabel id="every">Frequency</InputLabel>
-                        <Select
-                            labelId="every"
-                            id="every"
-                            value={formState.frequency}
-                            label="How Often"
-                            name='frequency'
-                            onChange={handleInputChange('frequency')}
-                        >
-                            {frequencies.map((element, index) => (
-                                <MenuItem key={index} value={element}>{element}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-
-                    <DatePicker
-                        label='On Date'
-                        value={formState.date}
-                        minDate={new Date()}
-                        onChange={(newValue) => {
-                            // console.log('Updating date state to: ', newValue);
-                            handleDateChange(newValue, 'date');
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                        />
-                        {formState.frequency !== 'once'? 
-                            <DatePicker
-                                label='Until'
-                                value={formState.endRecurrence}
-                                minDate={new Date()}
-                                onChange={(newValue) => {
-                                    // console.log('Updating end Recurrence state to: ', newValue);
-                                    handleDateChange(newValue, 'endRecurrence');
-                                }}
-                                renderInput={(params) => <TextField {...params} />}
-                        />: <></>}
-                    <Button
-                        style={{ cursor: 'pointer' }}
-                        type="submit"
-                        variant="outlined"
-                    >
-                        Submit
-                    </Button>
-                    <Grid item xs>
-                        <div id="error">
-                            {errors.map((error, index) => {
-                                return <div key={index}>{error}</div>
-                            })}
-                        </div>
                     </Grid>
-                </LocalizationProvider>
-            </form>
-        </div>
+                    <Grid item>
+                        {formState.fromAccount?.balance &&
+                            <Grid>
+                                <Typography variant="h5" color="primary">Remaining: {formState.fromAccount.balance} </Typography>
+                                {formState.fromAccount.type !== 'money' &&
+                                    <Typography variant="h5" color="primary">Worth: {formState.fromAccount.currency.symbol}{formState.fromAccount.valuation}</Typography>
+                                }
+                            </Grid>
+                        }
+                    </Grid>
+                </Grid>
+                
+                
+                <Button onClick={transferMaximum}>Transfer All</Button>
+                <Autocomplete
+                    disablePortal
+                    id="toAccount"
+                    name='toAccount'
+                    options={userAccounts}
+                    getOptionLabel={(option) => option.name}
+                    isOptionEqualToValue={(option, value) => option.name === value.name}
+                    sx={{ width: 300 }}
+                    onChange={handleToAccountChange}
+                    renderInput={(params) => <TextField {...params} label="To Account" />}
+                />
+                {formState.toAccount?.balance &&
+                    <Grid item>
+                    {formState.fromAccount?.balance &&
+                        <Grid>
+                            <Typography variant="h5" color="primary">Remaining: {formState.toAccount.balance} </Typography>
+                            {formState.fromAccount.type !== 'money' &&
+                                    <Typography variant="h5" color="primary">Worth: {formState.toAccount.currency.symbol}{formState.toAccount.valuation}</Typography>
+                                }
+                        </Grid>
+                    }
+                </Grid>
+                }
+                <TextField name='amount' 
+                    onChange={handleInputChange('amount')} 
+                    label="Amount" 
+                    value={formState.amount} 
+                    placeholder="0.00"/>
+
+                <TextField name='description' 
+                    onChange={handleInputChange('description')} 
+                    label="Description" 
+                    value={formState.description} 
+                    placeholder="A quick note"/>
+
+                <Select
+                    labelId="every"
+                    id="every"
+                    value={formState.frequency}
+                    label="How Often"
+                    name='frequency'
+                    onChange={handleInputChange('frequency')}
+                >
+                    {frequencies.map((element, index) => (
+                        <MenuItem key={index} value={element}>{element}</MenuItem>
+                    ))}
+                </Select>
+                <DatePicker
+                    label='On Date'
+                    value={formState.date}
+                    minDate={new Date()}
+                    onChange={(newValue) => {
+                        // console.log('Updating date state to: ', newValue);
+                        handleDateChange(newValue, 'date');
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                    />
+                    {formState.frequency !== 'once'? 
+                        <DatePicker
+                            label='Until'
+                            value={formState.endRecurrence}
+                            minDate={new Date()}
+                            onChange={(newValue) => {
+                                // console.log('Updating end Recurrence state to: ', newValue);
+                                handleDateChange(newValue, 'endRecurrence');
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                    />: <></>}
+                <Grid item>
+                    <ButtonGroup>
+                        <Button
+                            style={{ cursor: 'pointer' }}
+                            type="submit"
+                            variant="outlined"
+                            href="/home"
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            style={{ cursor: 'pointer' }}
+                            type="submit"
+                            variant="contained"
+                            onClick={handleFormSubmit}
+                        >
+                            Submit
+                        </Button>
+                    </ButtonGroup>
+                </Grid>
+                <Grid item xs>
+                    <div id="error">
+                        {errors.map((error, index) => {
+                            return <div key={index}>{error}</div>
+                        })}
+                    </div>
+                </Grid>
+            </Grid>
+        </LocalizationProvider>
     )
 }

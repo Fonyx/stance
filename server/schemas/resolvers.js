@@ -37,7 +37,8 @@ const rootResolver = {
             }
             let accounts = await Account.find({
                 user: user
-            });
+            }).populate('currency');
+
             return accounts;
         },
         userAccountAndTransactions: async (_, {accountId}, { user }) => {
