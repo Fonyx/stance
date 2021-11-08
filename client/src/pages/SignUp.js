@@ -23,7 +23,7 @@ const Signup = () => {
   var currencies = currencyResp.data?.allCurrencies || [];
   var loading = currencyResp.loading || false;
 
-  const [signUp, { error, data }] = useMutation(SIGN_UP);
+  const [signUp, { data }] = useMutation(SIGN_UP);
 
   const [errors, setErrors] = useState([]);
   

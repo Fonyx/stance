@@ -1,10 +1,8 @@
 import React, {useState} from 'react'
-// import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import {Button, Grid, IconButton, Typography} from '@mui/material'
 import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import { Link } from 'react-router-dom';
-// import BarChart from '../components/BarChart';
 import ToggleButton from '../components/toggleButton';
 import LineChart from '../components/LineChart';
 import accumulateTransactions from '../helpers/accumulator';
@@ -24,31 +22,31 @@ function getFilteredDataFromState(accountName, accountData){
     return accountPackage
 }
 
-function getCreditsFromPayload(payload){
-    let credits = [];
-    for(let i = 0; i < payload.length; i++){
-        let element = payload[i];
-        credits.push(element.credits)
-    }
-    return credits
-}
+// function getCreditsFromPayload(payload){
+//     let credits = [];
+//     for(let i = 0; i < payload.length; i++){
+//         let element = payload[i];
+//         credits.push(element.credits)
+//     }
+//     return credits
+// }
 
-function getDebitsFromPayload(payload){
-    let debits = [];
-    for(let i = 0; i < payload.length; i++){
-        let element = payload[i];
-        debits.push(element.debits)
-    }
-    return debits
-}
+// function getDebitsFromPayload(payload){
+//     let debits = [];
+//     for(let i = 0; i < payload.length; i++){
+//         let element = payload[i];
+//         debits.push(element.debits)
+//     }
+//     return debits
+// }
 
-function getAccumulatedValuation(payload){
+// function getAccumulatedValuation(payload){
 
-    let valuation = payload.reduce((previous, current) => {
-        return previous + current.userCurrValuation
-    }, 0);
-    return valuation
-}
+//     let valuation = payload.reduce((previous, current) => {
+//         return previous + current.userCurrValuation
+//     }, 0);
+//     return valuation
+// }
 
 /**
  * Get the ticker list for a customer
@@ -87,17 +85,16 @@ export default function Home() {
 
     const {loading, data} = useQuery(QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS, {});
 
+    var accountData = null
+    var tickers = [];
 
     if(data?.allUserAccountsAndTransactions){
-        var accountData = data.allUserAccountsAndTransactions;
-        var tickers = getTickers(accountData);
-    } else {
-        var accountData = null
-        var tickers = [];
+        accountData = data.allUserAccountsAndTransactions;
+        tickers = getTickers(accountData);
     }
 
     if(loading){
-        return <div>Loading Your Account Details....They are very detailed</div>
+        return <Typography variant='h3' color='primary'>Loading Your Account Details....They are very detailed</Typography>
     }
 
     /**
@@ -135,7 +132,7 @@ export default function Home() {
             <Grid item xs={12} sm={4} lg={3} xl={2}>
                 <Grid container >
                     <Grid item xs={6} sm={12}>
-                        <h1>Your Accounts</h1>
+                        <Typography variant='h4' color="primary">Your Accounts</Typography>
                         {accountData && accountData.map((element) => (
                             <div key={element.account._id}>
                                 <ToggleButton 
@@ -150,7 +147,7 @@ export default function Home() {
                         <Button color="secondary" variant="contained" href="/createAccount">Create Account</Button>
                     </Grid>
                     <Grid item xs={6} sm={12}>
-                        <h1>Your Tickers</h1>
+                    <Typography variant='h4' color="primary">Your Tickers</Typography>
                         {tickers && tickers.map((element) => (
                             <div key={element._id}>
                                 <Button 
@@ -199,9 +196,9 @@ export default function Home() {
                     Transactions
                 </Typography>
                 <Button color="secondary" variant="contained" href="/createTransaction">Add</Button>
-                <h1>Incoming</h1>
+                <Typography variant='h4' color="primary">Incoming</Typography>
                 {selectedAccount?.credits && 
-                    <h2>Credits: {selectedAccount.credits.length}</h2>
+                    <Typography variant='h5' color="primary">Credits: {selectedAccount.credits.length}</Typography>
                 }
                 {selectedAccount && selectedAccount.credits.map((transaction) => (
                     <div key={transaction._id}>
@@ -215,9 +212,9 @@ export default function Home() {
                         </Button>
                     </div>
                 ))}
-                <h1>Outgoing</h1>
+                <Typography variant='h4' color="primary">Outgoing</Typography>
                 {selectedAccount?.debits && 
-                    <h2>Debits: {selectedAccount.debits.length}</h2>
+                    <Typography variant='h4' color="primary">Debits: {selectedAccount.debits.length}</Typography>
                 }
                 {selectedAccount && selectedAccount.debits.map((transaction) => (
                     <div key={transaction._id}>

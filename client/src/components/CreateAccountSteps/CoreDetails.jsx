@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {FormControl, InputLabel, Select, MenuItem, Button, Grid, ButtonGroup, Typography} from '@mui/material';
+import {Select, MenuItem, Button, Grid, ButtonGroup, Typography} from '@mui/material';
 import {Autocomplete, TextField} from '@mui/material';
 
 export default function CoreDetails({parties, values, handleChange, handleSelectChange, nextStep}) {

@@ -1,23 +1,23 @@
-import React, {useEffect, useState, useRef} from 'react'
-import {select, scaleTime, extent, axisBottom, scaleLinear, axisLeft, max, min, line, axisRight} from 'd3';
+import React, {useRef} from 'react'
+import {select, scaleTime, extent, axisBottom, scaleLinear, axisLeft, max, min, line} from 'd3';
 
 //https://www.d3-graph-gallery.com/graph/line_basic.html
 
-function getWindowDimensions() {
-    const { innerWidth: rawWidth, innerHeight: rawHeight } = window;
-    let width = 0.4*rawWidth;
-    let height = 0.4*rawHeight;
-    if(width >= 600){
-        width = 600;
-    }
-    if(height >= 400){
-        width = 400;
-    }
-    return {
-        width,
-        height
-    };
-}
+// function getWindowDimensions() {
+//     const { innerWidth: rawWidth, innerHeight: rawHeight } = window;
+//     let width = 0.4*rawWidth;
+//     let height = 0.4*rawHeight;
+//     if(width >= 600){
+//         width = 600;
+//     }
+//     if(height >= 400){
+//         width = 400;
+//     }
+//     return {
+//         width,
+//         height
+//     };
+// }
 
 /**
  * Plots out a transaction stream, elements are structured [date, balance, [detailObjs]]

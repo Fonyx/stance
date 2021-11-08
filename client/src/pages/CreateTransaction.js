@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER_ACCOUNTS } from '../utils/queries';
 import { CREATE_TRANSACTION } from '../utils/mutations';
-import {Autocomplete, Grid, Typography, ButtonGroup, TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
+import {Autocomplete, Grid, Typography, ButtonGroup, TextField, Button, Select, MenuItem} from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
 import {DatePicker} from '@mui/lab';
@@ -44,20 +44,13 @@ export default function CreateTransaction() {
         // console.log(accountReturn.error.networkError.result.errors)
     };
 
-    const clearState = () => {
-        setFormState(initialFormState)
-    }
-
     // successfully made a transaction
     if (transactionReturn.data) {
-        console.log('Congratulations you added a transaction', transactionReturn.data);
         history.push('/home');
     };
 
     // Handle fields change
     const handleInputChange = input => e => {
-        console.log('Handling Change');
-        // console.log(input, e);
 
         let newValue = e.target.value;
 
@@ -70,8 +63,6 @@ export default function CreateTransaction() {
 
     // Handle fields change
     const handleFloatChange = (e) => {
-        console.log('Handling Change');
-        // console.log(input, e);
 
         let newValue = e.target.value;
 
@@ -88,16 +79,10 @@ export default function CreateTransaction() {
     // update state based on form select changes
     const handleToAccountChange = (e) => {
 
-        console.log('Handling Currency change');
-        console.log('event: ',e);
+        let accountNameText = e.target.textContent;
 
-        let accountName = e.target.textContent;
-
-        console.log('Account of event: ', accountName);
-
-        if(accountName){
-            let account = userAccounts.find(account => account.name === accountName);
-            console.log('Account after filtering data: ', account);
+        if(accountNameText){
+            let account = userAccounts.find(account => account.name === accountNameText);
             setFormState({
                 ...formState,
                 toAccount: account
@@ -108,16 +93,10 @@ export default function CreateTransaction() {
 
     const handleFromAccountChange = (e) => {
 
-        console.log('Handling Currency change');
-        console.log('event: ',e);
-
         let accountName = e.target.textContent;
-
-        console.log('Account of event: ', accountName);
 
         if(accountName){
             let account = userAccounts.find(account => account.name === accountName);
-            console.log('Account after filtering data: ', account);
             setFormState({
                 ...formState,
                 fromAccount: account
@@ -127,7 +106,6 @@ export default function CreateTransaction() {
     };
 
     const handleDateChange = (date, input) => {
-        console.log('state date: ',date);
         setFormState({
           ...formState,
           [input]: date
@@ -173,13 +151,6 @@ export default function CreateTransaction() {
                 }
             }
         }
-
-        // check amount isn't larger than the balance in the from account if there is a from account
-        // if(formState.fromAccount?.balance){
-        //     if(formState.amount > formState.fromAccount.balance){
-        //         errorBuffer.push("You can't transfer more than the balance of the from account for the transaction")
-        //     }
-        // }
 
         //check fromAccount balance is a float
         if(formState.fromAccount?.balance){
@@ -230,8 +201,6 @@ export default function CreateTransaction() {
                     fromAccount: formState.fromAccount._id,
                     amount: parseFloat(formState.amount)
                 }
-
-                console.log('payload: ',payload);
 
                 createTransaction({ 
                     variables: payload,

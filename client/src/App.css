@@ -16,6 +16,10 @@
   --senary: #202731;
 }
 
+/* body{
+  background-color: var(--senary);
+} */
+
 footer{
   position: absolute;
   bottom: 0;
