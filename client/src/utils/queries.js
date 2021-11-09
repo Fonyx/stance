@@ -237,9 +237,21 @@ query getTransactionSeries(
     ){
       fromAccount{
         name
+        valuation
+        balance
+        currency{
+            code
+            name
+        }
       }
       toAccount{
         name
+        valuation
+        balance
+        currency{
+            code
+            name
+        }
       }
       description
       amount

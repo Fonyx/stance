@@ -23,6 +23,12 @@ export function timestampToDateString(transactionObj){
     return dateString
 }
 
+export function convertStringToDateString(text){
+    let date = new Date(text*1);
+    let dateString = date.toLocaleDateString('en-GB');
+    return dateString
+}
+
 // convert timestamp 1233482983y45 to local string en-GB 05/11/2021
 export function readableDate(dateStamp){
     return dateStamp.toLocaleDateString('en-GB');
