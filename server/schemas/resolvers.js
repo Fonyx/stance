@@ -196,6 +196,24 @@ const rootResolver = {
             } else {
                 throw new Error('There is no asset associated with this account as it is a money account')
             }
+        },
+        getTransactionSeries: async (_, {transactionId}, {user}) => {
+            if(!user){
+                throw new AuthenticationError('You need to be logged in to use our services')
+            }
+            let transaction = await Transaction.findOne({_id:transactionId});
+            if(!transaction){
+                throw new Error(`No transaction found for id: ${transactionId}`)
+            }
+            let series = await Transaction.find({
+                seriesId: transaction.seriesId
+            }).populate('toAccount').populate('fromAccount');
+
+            if(series){
+                return series
+            } else {
+                return null
+            }
         }
     },
     Mutation:{

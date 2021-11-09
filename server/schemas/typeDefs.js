@@ -216,6 +216,7 @@ const typeDefs = gql`
     checkStockCode(assetCode: String!, exchangeCode: String!): StockCheck
     getCryptos: [Crypto]!
     assetEODDetails(accountId: String!): AssetEodPackage
+    getTransactionSeries(transactionId: String!): [Transaction]!
   }
 
   type Mutation {

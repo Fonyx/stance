@@ -227,3 +227,24 @@ export const QUERY_STOCK_CHECK = gql`
         }
     }
 `;
+
+export const QUERY_GET_TRANSACTION_SERIES = gql`
+query getTransactionSeries(
+    $transactionId: String!
+  ){
+    getTransactionSeries(
+      transactionId: $transactionId
+    ){
+      fromAccount{
+        name
+      }
+      toAccount{
+        name
+      }
+      description
+      amount
+      date
+      frequency
+    }
+  }
+`
