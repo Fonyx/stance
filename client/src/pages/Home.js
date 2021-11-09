@@ -3,12 +3,11 @@ import { useQuery } from '@apollo/client';
 import {Button, Grid, IconButton, Typography} from '@mui/material'
 import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import { Link } from 'react-router-dom';
-import ToggleButton from '../components/ToggleButton';
+import {ToggleButton, StateToggleButton} from '../components/ToggleButton';
 import LineChart from '../components/LineChart';
 import accumulateTransactions from '../helpers/accumulator';
 import { readableDate} from '../helpers/formatter';
 import {truncate} from '../helpers/strings';
-// import StateToggleButton from '../components/StateToggleButton';
 
 /**
  * Function that filters out an account package from the accountData mega object, return shape: {valuation, accountObj, credits, debits}
@@ -184,7 +183,7 @@ export default function Home() {
                                 </Grid>
                             </Grid>
                             <LineChart accumulatedData={selectedAccount.accumulatedData}/>
-                            {/* <Grid item container xs={12} direction="row">
+                            <Grid item container xs={12} direction="row">
                                 {userTags && userTags.map((tag, index) => (
                                     <StateToggleButton 
                                         key={index}
@@ -192,7 +191,7 @@ export default function Home() {
                                         variant="contained"
                                     />
                                 ))}
-                            </Grid> */}
+                            </Grid>
                         </div>
                     </div>
                 }
