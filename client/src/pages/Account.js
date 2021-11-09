@@ -2,8 +2,8 @@ import React from 'react'
 // import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import {QUERY_ACCOUNT_AND_TRANSACTIONS} from '../utils/queries'
-import { useParams, Link } from 'react-router-dom';
-import {Button, Grid, Typography} from '@mui/material'
+import { useParams} from 'react-router-dom';
+import { Grid, Typography} from '@mui/material'
 import LineChart from '../components/LineChart';
 import accumulateTransactions from '../helpers/accumulator';
 

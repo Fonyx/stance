@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {Button} from '@mui/material'
 import { truncate } from '../helpers/strings'
 
-export default function ToggleButton({name}) {
+export default function StateToggleButton({name}) {
 
     const [on, setOn] = useState(false);
     

@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react'
 import {select, scaleTime, timeParse, extent, axisBottom, scaleLinear, axisLeft, max, min, line} from 'd3';
-import {Grid, Typography} from '@mui/material'
+import {Grid} from '@mui/material'
 
 //https://www.d3-graph-gallery.com/graph/line_basic.html
 
