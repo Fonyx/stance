@@ -70,6 +70,35 @@ const typeDefs = gql`
     goalAmount: Float
     tags: String
   }
+
+  type MarketHistoryObj {
+    date: String!
+    open: Float!
+    high: Float!
+    low: Float!
+    close: Float!
+    adjusted_close: Float!
+    volume: Float!
+  }
+
+  type CurrentMarketObj {
+    code: String!
+    timestamp: Float!
+    gmtoffset: Float!
+    open: Float!
+    high: Float!
+    low: Float!
+    close: Float!
+    volume: Float!
+    previousClose: Float!
+    change: Float!
+    change_p: Float!
+  }
+
+  type AssetEodPackage {
+    history: [MarketHistoryObj]!
+    current: CurrentMarketObj 
+  }
   
 
   type Currency {
@@ -185,6 +214,7 @@ const typeDefs = gql`
     getAllPrimitives: Primitives!
     checkStockCode(assetCode: String!, exchangeCode: String!): StockCheck
     getCryptos: [Crypto]!
+    assetEODDetails(accountId: String!): AssetEodPackage
   }
 
   type Mutation {

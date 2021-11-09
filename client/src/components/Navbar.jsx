@@ -30,7 +30,7 @@ export default function Navbar() {
                 </Icon>
               </IconButton>
             </IconButton>
-            <Typography variant="h6" component="div" href="/home" color="secondary" sx={{ flexGrow: 1 }}>
+            <Typography variant="h4" component="div" href="/home" color="secondary" sx={{ flexGrow: 1 }}>
               STANCE
             </Typography>
             {AuthService.loggedIn() ? (

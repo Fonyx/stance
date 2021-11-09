@@ -11,6 +11,8 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Account from './pages/Account';
+import Transaction from './pages/Transaction';
+import Asset from './pages/Asset';
 import CreateTransaction from './pages/CreateTransaction'
 import { ThemeProvider } from '@mui/material';
 import { Container, createTheme } from '@mui/material';
@@ -86,6 +88,12 @@ function App() {
                 </Route>
                 <Route exact path="/account/:id">
                   <Account/>
+                </Route>
+                <Route exact path="/asset/:id">
+                  <Asset/>
+                </Route>
+                <Route exact path="/transaction/:id">
+                  <Transaction />
                 </Route>
                 <Route exact path="/createTransaction">
                   <CreateTransaction/>

@@ -19,6 +19,39 @@ export const QUERY_USER_ACCOUNTS = gql`
     }
 `;
 
+export const QUERY_GET_ASSET_DETAILS = gql`
+query assetEODDetails(
+    $accountId: String!
+  ){
+    assetEODDetails(
+      accountId: $accountId
+    ){
+      history {
+        date
+        open
+        high
+        low
+        close
+        adjusted_close
+        volume
+      }
+      current {
+        code
+        timestamp
+        gmtoffset
+        open
+        high
+        low
+        close
+        volume
+        previousClose
+        change
+        change_p
+      }
+    }
+  }
+`
+
 
 export const QUERY_ACCOUNT_AND_TRANSACTIONS = gql`
     query userAccountTransactions(

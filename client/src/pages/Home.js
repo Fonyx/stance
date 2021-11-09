@@ -157,7 +157,8 @@ export default function Home() {
                                     LinkComponent={Link}
                                     color="primary" 
                                     variant="outlined" 
-                                    to={`/asset/${element.assetCode}`}
+                                    // TODO: This is sloppy, sending account id for an asset? should have better modularity by sending assetCode and exchange
+                                    to={`/asset/${element._id}`}
                                 >
                                     {truncate(element.assetName, 25) + ' : ' + element.unitPrice}
                                     {/* {element.assetName + ' : ' + element.unitPrice} */}
@@ -171,22 +172,15 @@ export default function Home() {
                 {selectedAccount && 
                     <div id="chart-section">
                         <div>
-                            <Typography variant="h4" color="primary" style={{textTransform: 'capitalize'}}>{selectedAccount.accountName}</Typography>
+                            <Button variant="text" color="primary" to={`/account/${selectedAccount.account._id}`}>
+                                <Typography variant="h4" color="primary" style={{textTransform: 'capitalize'}}>{selectedAccount.accountName}</Typography>
+
+                            </Button>
                             <Grid container alignItems="center">
-                                <Grid item xs={8}>
+                                <Grid item xs={12}>
                                     <IconButton>
                                         <Typography variant="h5">Current Valuation: {selectedAccount.account.currency.symbol}{selectedAccount.userCurrValuation.toFixed(4)} {selectedAccount.account.currency.code}</Typography>
                                     </IconButton>
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <Button 
-                                        LinkComponent={Link}
-                                        color="primary" 
-                                        variant="outlined" 
-                                        to={`/account/${selectedAccount.account._id}`}
-                                    >
-                                        update
-                                    </Button>
                                 </Grid>
                             </Grid>
                             <LineChart accumulatedData={selectedAccount.accumulatedData}/>
@@ -217,7 +211,7 @@ export default function Home() {
                             LinkComponent={Link}
                             color="primary" 
                             variant="outlined" 
-                            to={`/asset/${transaction.date.amount}`}
+                            to={`/transaction/${transaction._id}`}
                         >
                             {readableDate(new Date(transaction.date*1)) + ' : ' + transaction.amount + ' : ' +  transaction.description }
                         </Button>
@@ -232,7 +226,7 @@ export default function Home() {
                             LinkComponent={Link}
                             color="primary" 
                             variant="outlined" 
-                            to={`/asset/${transaction.date.amount}`}
+                            to={`/transaction/${transaction._id}`}
                         >
                             {readableDate(new Date(transaction.date*1)) + ' : ' + transaction.amount + ' : ' +  transaction.description}
                         </Button>

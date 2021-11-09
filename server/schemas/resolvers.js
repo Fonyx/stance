@@ -3,7 +3,7 @@ const { User, Account, Currency, Transaction, Party, Exchange } = require('../mo
 const { tagSvc, accountSvc, transactionSvc} = require('../services');
 const getCryptoCoins = require('../api/getCryptos');
 const getAssetValue = require('../api/getAssetValue');
-const accumulateTransactions = require('../helpers/accumulator');
+const {getAssetEodHistory, getAssetCurrentMarket} = require('../api/getAssetEOD');
 const Logger = require('../utils/logger');
 const {signUpFromFE, signInFromFE} = require('../services/userSvc');
 
@@ -173,6 +173,28 @@ const rootResolver = {
             }
 
             return result
+        },
+        assetEODDetails: async (_, {accountId}, {user}) => {
+            if(!user){
+                throw new AuthenticationError('You need to be logged in to use our services')
+            }
+            let account = await Account.findOne({_id:accountId}).populate('exchange');
+            if(!account){
+                throw new Error(`No account found for id: ${accountId}`)
+            }
+            if(account.type !== 'money'){
+                let history = await getAssetEodHistory(account.assetCode, account.exchange.code);
+                let current = await getAssetCurrentMarket(account.assetCode, account.exchange.code);
+    
+                let package = {
+                    history,
+                    current
+                }
+                return package
+
+            } else {
+                throw new Error('There is no asset associated with this account as it is a money account')
+            }
         }
     },
     Mutation:{
