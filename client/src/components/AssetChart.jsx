@@ -24,7 +24,7 @@ function getWindowDimensions() {
 function parseDateFormat(d){
     let date = timeParse("%Y-%m-%d")(d.date);
     let value = d.date;
-    // console.log(parsedDate, value);
+    // console.log(date, value);
     return { date, value }
 }
 

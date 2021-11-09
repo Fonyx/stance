@@ -178,7 +178,7 @@ const rootResolver = {
             if(!user){
                 throw new AuthenticationError('You need to be logged in to use our services')
             }
-            let account = await Account.findOne({_id:accountId}).populate('exchange');
+            let account = await Account.findOne({_id:accountId}).populate('exchange').populate('currency');
             if(!account){
                 throw new Error(`No account found for id: ${accountId}`)
             }
@@ -188,7 +188,8 @@ const rootResolver = {
     
                 let package = {
                     history,
-                    current
+                    current,
+                    account
                 }
                 return package
 

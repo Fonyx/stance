@@ -26,28 +26,38 @@ query assetEODDetails(
     assetEODDetails(
       accountId: $accountId
     ){
-      history {
-        date
-        open
-        high
-        low
-        close
-        adjusted_close
-        volume
-      }
-      current {
-        code
-        timestamp
-        gmtoffset
-        open
-        high
-        low
-        close
-        volume
-        previousClose
-        change
-        change_p
-      }
+        account{
+            name
+            assetCode
+            assetName
+            currency{
+                code
+                name
+                symbol
+            }
+        }
+        history {
+            date
+            open
+            high
+            low
+            close
+            adjusted_close
+            volume
+        }
+        current {
+            code
+            timestamp
+            gmtoffset
+            open
+            high
+            low
+            close
+            volume
+            previousClose
+            change
+            change_p
+        }
     }
   }
 `
