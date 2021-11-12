@@ -11,6 +11,8 @@ import Navbar from '../components/Navbar';
 import {convertStringToDateString} from '../helpers/formatter'
 import AddIcon from '@mui/icons-material/Add'
 
+
+
 /**
  * Function that filters out an account package from the accountData mega object, return shape: {valuation, accountObj, credits, debits}
  * @param {*} stateAccount 
