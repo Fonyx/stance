@@ -266,11 +266,11 @@ async function createFromText(transactionData){
 /**
  * Finds all the transactions going into an account sort by date ascending (getting later) excluding those that have already been applied as they are represented in the account balance
  */
-async function findToAccountByAccountId(accountId){
+async function findCreditsByAccountId(accountId){
     let transactions = await Transaction.find({
         toAccount: accountId,
         applied: false
-    }).sort({date: 1});
+    }).sort({date: 1}).populate('toAccount').populate('fromAccount');
 
     return transactions;
 }
@@ -278,11 +278,11 @@ async function findToAccountByAccountId(accountId){
 /**
  * Finds all the transactions coming out of an account sort by date ascending (getting later), excluding those that have already been applied as they are represented in the account balance
  */
-async function findFromAccountByAccountId(accountId){
+async function findDebitsByAccountId(accountId){
     let transactions = await Transaction.find({
         fromAccount: accountId,
         applied: false
-    }).sort({date: 1});
+    }).sort({date: 1}).populate('toAccount').populate('fromAccount');
 
     return transactions;
 }
@@ -444,8 +444,8 @@ const transactionSvc = {
     createFromText,
     clear,
     deleteWithUnApply,
-    findToAccountByAccountId,
-    findFromAccountByAccountId,
+    findCreditsByAccountId,
+    findDebitsByAccountId,
     populateAll
 }
 

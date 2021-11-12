@@ -49,12 +49,12 @@
     },
     {
         "user": "fonyx",
-        "name":"bitcoin saving",
+        "name":"cardano",
         "type":"crypto",
         "openingBalance": 4,
         "party":"coinspot",
-        "assetCode":"BTC-USD",
-        "assetName":"Bitcoin",
+        "assetCode":"ADA-USD",
+        "assetName":"Cardano",
         "currency":"USD",
         "exchange":"CC",
         "style":{
@@ -64,12 +64,12 @@
     },
     {
         "user": "fonyx",
-        "name":"Australian Foundation Inc",
+        "name":"AFI Stock",
         "type":"stock",
         "openingBalance": 223,
         "party":"selfWealth",
         "assetCode":"AFI",
-        "assetName":"Australian Foundation Index Stock",
+        "assetName":"AFI",
         "currency":"AUD",
         "exchange":"AU",
         "style":{
@@ -77,20 +77,5 @@
             "shade": 600
         },
         "tags":["long", "generalized", "ETF"]
-    },
-    {
-        "user": "fonyx",
-        "name":"Australian Foundation Inc Reserve",
-        "type":"stock",
-        "openingBalance": 400,
-        "party":"selfWealth",
-        "assetCode":"AFI",
-        "assetName":"Australian Foundation Index Stock",
-        "currency":"AUD",
-        "exchange":"AU",
-        "style":{
-            "color": "lime",
-            "shade": 500
-        }
     }
 ]

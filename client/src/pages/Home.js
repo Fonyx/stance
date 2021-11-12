@@ -1,13 +1,15 @@
 import React, {useState} from 'react'
 import { useQuery } from '@apollo/client';
-import {Button, Grid, IconButton, Typography} from '@mui/material'
+import {Grid, Button, Chip, Container, IconButton, Typography, TableContainer, Table, TableHead, TableRow, TableCell, Paper, TableBody} from '@mui/material';
 import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
-import { Link } from 'react-router-dom';
 import {ToggleButton, StateToggleButton} from '../components/toggleButton'
 import LineChart from '../components/LineChart';
 import accumulateTransactions from '../helpers/accumulator';
 import { readableDate} from '../helpers/formatter';
 import {truncate} from '../helpers/strings';
+import Navbar from '../components/Navbar';
+import {convertStringToDateString} from '../helpers/formatter'
+import AddIcon from '@mui/icons-material/Add'
 
 /**
  * Function that filters out an account package from the accountData mega object, return shape: {valuation, accountObj, credits, debits}
@@ -84,6 +86,7 @@ export default function Home() {
     var tickers = [];
 
     if(data?.allUserAccountsAndTransactions){
+
         accountData = data.allUserAccountsAndTransactions;
         userTags = getTagsFromPackage(accountData)
         tickers = getTickers(accountData);
@@ -112,6 +115,14 @@ export default function Home() {
 
         var accumulatedData = accumulateTransactions(account.balance, credits, debits);
 
+        var creditTotal = credits.reduce((prev, curr) => {
+            return prev + curr.amount
+        }, 0);
+
+        var debitTotal = debits.reduce((prev, curr) => {
+            return prev + curr.amount
+        }, 0);
+
         // limit the number of transactions to display, first 10
         // var credits = credits.slice(0, 10);
         // var debits = credits.slice(0, 10);
@@ -123,16 +134,20 @@ export default function Home() {
             accumulatedData,
             tickers,
             credits,
-            debits
+            debits,
+            creditTotal,
+            debitTotal
         }
         setSelectedAccount(statePackage);
     }
 
+    console.log(selectedAccount);
 
     return (
-        <Grid container spacing={3}>
-            <Grid item xs={12} sm={4} lg={3} xl={2}>
-                <Grid container >
+        <div>
+            <Navbar/>
+            <Container>
+                <Grid item xs={12} sm={4} lg={3} xl={2}>
                     <Grid item xs={6} sm={12}>
                         <Typography variant='h4' color="primary">Your Accounts</Typography>
                         <Button color="secondary" variant="contained" href="/createAccount">Add</Button>
@@ -148,90 +163,113 @@ export default function Home() {
                             </div>
                         ))}
                     </Grid>
-                    <Grid item xs={6} sm={12}>
-                        <Typography variant='h4' color="primary">Your Tickers</Typography>
-                        {tickers && tickers.map((element) => (
-                            <div key={element._id}>
-                                <Button 
-                                    LinkComponent={Link}
-                                    color="primary" 
-                                    variant="outlined" 
-                                    // TODO: This is sloppy, sending account id for an asset? should have better modularity by sending assetCode and exchange
-                                    to={`/asset/${element._id}`}
-                                >
-                                    {truncate(element.assetName, 25) + ' : ' + element.unitPrice}
-                                    {/* {element.assetName + ' : ' + element.unitPrice} */}
+                </Grid>
+                <Grid item xs={12} sm={6} lg={6} xl={8} textAlign="center">
+                    {selectedAccount && 
+                        <div id="chart-section">
+                            <div>
+                                <Button variant="text" color="primary" to={`/account/${selectedAccount.account._id}`}>
+                                    <Typography variant="h4" color="primary" style={{textTransform: 'capitalize'}}>{selectedAccount.accountName}</Typography>
+
                                 </Button>
+                                <Grid container alignItems="center">
+                                    <Grid item xs={12}>
+                                        <IconButton>
+                                            <Typography variant="h5">Current Valuation: {selectedAccount.account.currency.symbol}{selectedAccount.userCurrValuation.toFixed(4)} {selectedAccount.account.currency.code}</Typography>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
+                                <LineChart accumulatedData={selectedAccount.accumulatedData}/>
                             </div>
+                        </div>
+                    }
+                </Grid>
+                <Grid item xs={6} sm={12}>
+                    <Typography variant='h3' color="primary">Tickers</Typography>
+                    {tickers && tickers.map((element) => (
+                        <Chip label={truncate(element.assetName, 25)}
+                            component='a'
+                            key={element._id}
+                            color="primary" 
+                            variant="outlined" 
+                            href={`/asset/${element._id}`}
+                            clickable/>
+                    ))}
+                </Grid>
+                <Grid item xs={12} lg={3} xl={2} textAlign="center">
+                    <Typography variant="h4" color="primary">
+                        Tags
+                    </Typography>
+                    <Grid item container xs={12} direction="row">
+                        {userTags && userTags.map((tag, index) => (
+                            <StateToggleButton 
+                                key={index}
+                                name={tag}  
+                                variant="contained"
+                            />
                         ))}
                     </Grid>
                 </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6} lg={6} xl={8} textAlign="center">
-                {selectedAccount && 
-                    <div id="chart-section">
-                        <div>
-                            <Button variant="text" color="primary" to={`/account/${selectedAccount.account._id}`}>
-                                <Typography variant="h4" color="primary" style={{textTransform: 'capitalize'}}>{selectedAccount.accountName}</Typography>
-
-                            </Button>
-                            <Grid container alignItems="center">
-                                <Grid item xs={12}>
-                                    <IconButton>
-                                        <Typography variant="h5">Current Valuation: {selectedAccount.account.currency.symbol}{selectedAccount.userCurrValuation.toFixed(4)} {selectedAccount.account.currency.code}</Typography>
-                                    </IconButton>
-                                </Grid>
-                            </Grid>
-                            <LineChart accumulatedData={selectedAccount.accumulatedData}/>
-                            <Grid item container xs={12} direction="row">
-                                {userTags && userTags.map((tag, index) => (
-                                    <StateToggleButton 
-                                        key={index}
-                                        name={tag}  
-                                        variant="contained"
-                                    />
-                                ))}
-                            </Grid>
-                        </div>
-                    </div>
-                }
-            </Grid>
-            <Grid item xs={12} lg={3} xl={2} textAlign="center">
-                <Typography variant="h4" color="primary">
-                    Transactions
-                </Typography>
-                <Button color="secondary" variant="contained" href="/createTransaction">Add</Button>
-                {selectedAccount?.credits && 
-                    <Typography variant='h5' color="primary">Credits: {selectedAccount.credits.length}</Typography>
-                }
-                {selectedAccount && selectedAccount.credits.map((transaction) => (
-                    <div key={transaction._id}>
-                        <Button 
-                            LinkComponent={Link}
-                            color="primary" 
-                            variant="outlined" 
-                            to={`/transaction/${transaction._id}`}
-                        >
-                            {readableDate(new Date(transaction.date*1)) + ' : ' + transaction.amount + ' : ' +  transaction.description }
-                        </Button>
-                    </div>
-                ))}
-                {selectedAccount?.debits && 
-                    <Typography variant='h5' color="primary">Debits: {selectedAccount.debits.length}</Typography>
-                }
-                {selectedAccount && selectedAccount.debits.map((transaction) => (
-                    <div key={transaction._id}>
-                        <Button 
-                            LinkComponent={Link}
-                            color="primary" 
-                            variant="outlined" 
-                            to={`/transaction/${transaction._id}`}
-                        >
-                            {readableDate(new Date(transaction.date*1)) + ' : ' + transaction.amount + ' : ' +  transaction.description}
-                        </Button>
-                    </div>
-                ))}
-            </Grid>
-        </Grid>
+                <Grid container xs={12} textAlign="center" justifyContent="center" alignItems="center">
+                    <Grid item>
+                        <Typography variant="h3" color="primary">Transactions</Typography>
+                    </Grid>
+                    <Grid item>
+                        <IconButton color="secondary" href="/createTransaction">
+                            <AddIcon/>
+                        </IconButton>
+                    </Grid>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 400 }} aria-label="simple table">
+                            <TableHead>
+                            <TableRow>
+                                <TableCell align="left">
+                                    <Typography variant="h6" color="primary">Date</Typography>
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Typography variant="h6" color="primary">Amount</Typography>
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Typography variant="h6" color="primary">To</Typography>
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Typography variant="h6" color="primary">From</Typography>
+                                </TableCell>
+                            </TableRow>
+                            </TableHead>
+                            <TableBody>
+                            {selectedAccount && selectedAccount.credits.map((transaction) => (
+                                <TableRow
+                                key={transaction._id}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell align="left">
+                                        <Typography variant="p" color="primary">{convertStringToDateString(transaction.date)}</Typography>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Typography variant="p" color="primary">{transaction.amount}</Typography>
+                                    </TableCell>
+                                    {transaction?.toAccount && 
+                                        <TableCell align="right">
+                                            <Typography variant="p" color="primary">{transaction.toAccount.name}</Typography>
+                                        </TableCell>
+                                    }
+                                    {transaction?.fromAccount && 
+                                        <TableCell align="right">
+                                            <Typography variant="p" color="primary">{transaction.fromAccount.name}</Typography>
+                                        </TableCell>
+                                    }
+                                </TableRow>
+                            ))}
+                            {selectedAccount && <TableRow>
+                                <TableCell>Total</TableCell>
+                                <TableCell align="right">{selectedAccount.creditTotal.toFixed(4)}</TableCell>
+                            </TableRow>}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Grid>
+            </Container>
+        </div>
     )
 }

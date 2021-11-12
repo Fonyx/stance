@@ -58,8 +58,8 @@ const rootResolver = {
                 throw new AuthenticationError('You do not have permission to view this account');
             }
             await accountSvc.updateUnitPriceAndValuation(account);
-            let debits = await transactionSvc.findFromAccountByAccountId(accountId);
-            let credits = await transactionSvc.findToAccountByAccountId(accountId);
+            let debits = await transactionSvc.findDebitsByAccountId(accountId);
+            let credits = await transactionSvc.findCreditsByAccountId(accountId);
 
             // populate the users currency object
             await User.populate(user, {path: "currency"});
@@ -105,8 +105,8 @@ const rootResolver = {
                     throw new AuthenticationError('You do not have permission to view this account');
                 }
                 await accountSvc.updateUnitPriceAndValuation(account);
-                let debits = await transactionSvc.findFromAccountByAccountId(account.id);
-                let credits = await transactionSvc.findToAccountByAccountId(account.id);
+                let debits = await transactionSvc.findDebitsByAccountId(account.id);
+                let credits = await transactionSvc.findCreditsByAccountId(account.id);
 
                 // populate the users currency object
                 await User.populate(user, {path: "currency"});

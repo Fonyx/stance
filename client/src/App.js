@@ -3,7 +3,6 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Navbar from './components/Navbar';
 import AccountForm from './components/CreateAccountSteps/CreateAccountSteps';
 
 import Landing from './pages/Landing';
@@ -16,6 +15,7 @@ import Asset from './pages/Asset';
 import CreateTransaction from './pages/CreateTransaction'
 import { ThemeProvider } from '@mui/material';
 import { Container, createTheme } from '@mui/material';
+
 
 import './App.css';
 import AuthService from './utils/auth';
@@ -71,38 +71,35 @@ function App() {
     <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={theme}>
         <Router>
-          <Navbar/>
-            <Container >
-              <Switch>
-                <Route exact path="/">
-                  <Landing />
-                </Route>
-                <Route exact path="/signin">
-                  <SignIn />
-                </Route>
-                <Route exact path="/signup">
-                  <SignUp />
-                </Route>
-                <Route exact path="/home">
-                  <Home />
-                </Route>
-                <Route exact path="/account/:id">
-                  <Account/>
-                </Route>
-                <Route exact path="/asset/:id">
-                  <Asset/>
-                </Route>
-                <Route exact path="/transaction/:id">
-                  <Transaction />
-                </Route>
-                <Route exact path="/createTransaction">
-                  <CreateTransaction/>
-                </Route>
-                <Route exact path="/createAccount">
-                  <AccountForm />
-                </Route>
-              </Switch>
-            </Container>
+          <Switch>
+            <Route exact path="/">
+              <Landing />
+            </Route>
+            <Route exact path="/signin">
+              <SignIn />
+            </Route>
+            <Route exact path="/signup">
+              <SignUp />
+            </Route>
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/account/:id">
+              <Account/>
+            </Route>
+            <Route exact path="/asset/:id">
+              <Asset/>
+            </Route>
+            <Route exact path="/transaction/:id">
+              <Transaction />
+            </Route>
+            <Route exact path="/createTransaction">
+              <CreateTransaction/>
+            </Route>
+            <Route exact path="/createAccount">
+              <AccountForm />
+            </Route>
+          </Switch>
         </Router>
       </ThemeProvider>
     </ApolloProvider>

@@ -62,7 +62,6 @@ query assetEODDetails(
   }
 `
 
-
 export const QUERY_ACCOUNT_AND_TRANSACTIONS = gql`
     query userAccountTransactions(
         $accountId: String!
@@ -102,7 +101,6 @@ export const QUERY_ACCOUNT_AND_TRANSACTIONS = gql`
     }
 `;
 
-
 export const QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS = gql`
     query{
         allUserAccountsAndTransactions{
@@ -124,23 +122,35 @@ export const QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS = gql`
             tags{
                 name
             }
+            
         }
         credits{
             _id
             date
             amount
             description
+            toAccount{
+                name
+            }
+            fromAccount{
+            name
+            }
         }
         debits{
             _id
             date
             amount
             description
+            toAccount{
+                name
+            }
+            fromAccount{
+            name
+            }
         }
         }
     }
 `;
-
 
 export const QUERY_GET_ALL_PARTIES = gql`
     query{
@@ -162,7 +172,6 @@ export const QUERY_GET_ALL_PARTIES = gql`
     }
 `;
 
-
 export const QUERY_GET_ALL_CURRENCIES = gql`
     query{
         allCurrencies{
@@ -175,7 +184,6 @@ export const QUERY_GET_ALL_CURRENCIES = gql`
     }
 `;
 
-
 export const QUERY_GET_ALL_EXCHANGES = gql`
     query{
         allExchanges{
@@ -185,7 +193,6 @@ export const QUERY_GET_ALL_EXCHANGES = gql`
         }
     }
 `;
-
 
 export const QUERY_GET_ALL_PRIMITIVES = gql`
 query{

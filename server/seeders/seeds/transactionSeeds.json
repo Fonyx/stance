@@ -33,30 +33,14 @@
     },
     {
         "toAccountName":"bitcoin",
-        "fromAccountName":"bitcoin saving",
         "description":"buying dip",
         "amount": 0.3,
         "frequency":"once"
     },
     {
-        "toAccountName":"bitcoin",
-        "fromAccountName":"bitcoin saving",
-        "description":"taking profits",
-        "amount":0.1,
-        "frequency":"once"
-    },
-    {
-        "toAccountName":"Australian Foundation Inc",
-        "fromAccountName":"Australian Foundation Inc Reserve",
+        "toAccountName":"AFI Stock",
         "description":"undervalued",
         "amount":100,
-        "frequency":"once"
-    },
-    {
-        "toAccountName":"Australian Foundation Inc",
-        "fromAccountName":"Australian Foundation Inc Reserve",
-        "description":"overheated",
-        "amount":23,
         "frequency":"once"
     }
 ]
