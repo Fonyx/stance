@@ -244,10 +244,11 @@ export default function CreateTransaction() {
                         />
                         {formState.fromAccount?.balance &&
                             <Grid>
-                                <Typography variant="h6" color="primary">Balance: {formState.fromAccount.balance} </Typography>
-                                {formState.fromAccount.type !== 'money' &&
+                                <Typography variant="h6" color="primary">Balance: {formState.fromAccount.balance}
+                                </Typography>
+                                {/* {formState.fromAccount.type !== 'money' && */}
                                     <Typography variant="h6" color="primary">Worth: {formState.fromAccount.currency.symbol}{formState.fromAccount.valuation.toFixed(4)} {formState.fromAccount.currency.code}</Typography>
-                                }
+                                {/* } */}
                             </Grid>
                         }
                     </Grid>
@@ -270,9 +271,9 @@ export default function CreateTransaction() {
                             {formState.fromAccount?.balance &&
                                 <Grid>
                                     <Typography variant="h6" color="primary">Balance: {formState.toAccount.balance} </Typography>
-                                    {formState.fromAccount.type !== 'money' &&
-                                            <Typography variant="h6" color="primary">Worth: {formState.toAccount.currency.symbol}{formState.toAccount.valuation.toFixed(4)} {formState.toAccount.currency.code}</Typography>
-                                        }
+                                    {/* {formState.fromAccount.type !== 'money' && */}
+                                        <Typography variant="h6" color="primary">Worth: {formState.toAccount.currency.symbol}{formState.toAccount.valuation.toFixed(4)} {formState.toAccount.currency.code}</Typography>
+                                    {/* } */}
                                 </Grid>
                             }
                             </Grid>

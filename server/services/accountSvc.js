@@ -62,30 +62,6 @@ function isValidSeed(data){
 }
 
 /**
- * Function that receives an account and verifies if it has been populated
- * @param {obj} models.Account 
- * @returns {boolean} 
- */
-function isAccountPopulated(account){
-    isPopulated = true;
-    // if account has the field, and it doesn't have a subdocument field it only has the object reference
-    if(account.user && !account.user.username){
-        isPopulated = false;
-    }
-    if(account.party && !account.party.name){
-        isPopulated = false;
-    }
-    if(account.currency && !account.currency.code){
-        isPopulated = false;
-    }
-    if(account.exchange && !account.exchange.name){
-        isPopulated = false;
-    }
-
-    return isPopulated
-}
-
-/**
  * updates an account object unitPrice, relies on hooks: pre [find, findOne] to populate account references that are used. Specifically the exchange object
  * @param {*} account 
  */
@@ -121,17 +97,13 @@ async function updateUnitPriceAndValuation(account){
 }
 
 /**
- * update the account valuation using the unitPrice and the balance of the account
+ * export the account valuation using the unitPrice and the balance of the account
  */
 async function exportValuation(account, code=null){
     let resultValue = 0.00;
 
     // if we are exporting to a different currency but not changing the stored currency
     if(code){
-        // check the account is populated with currency field
-        if(!isAccountPopulated(account)){
-            throw new Error("Cannot export the valuation for a non native currency as account passed was not populated with it's own currency object for the conversion")
-        }
 
         // get target currency object from requested code
         let targetCurrency = await Currency.findOne({
@@ -337,7 +309,6 @@ async function findById(id){
 }
 
 const accountSvc = {
-    isAccountPopulated,
     isValidSeed,
     exportValuation,
     populateEntireAccount,

@@ -57,6 +57,11 @@ const transactionSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    // this is the amount that was applied to any destination accounts as a balance, not as a valuation
+    appliedBalanceTo: {
+        type: Number,
+        required: false,
+    },
     seriesId: {
         type: String,
         required: true

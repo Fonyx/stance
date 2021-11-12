@@ -1,4 +1,5 @@
 const { Transaction, Account, Currency } = require('../models');
+const accountSvc = require('./accountSvc');
 const Logger = require('../utils/logger');
 const { v4: uuidv4 } = require('uuid');
 const moment = require('moment-timezone');
@@ -138,6 +139,44 @@ async function applyToday(){
 }
 
 /**
+ * Accepts a populated transaction object, calculates the new balance in the destination account for a transfer transaction
+ * @param {models.Transaction} transaction populated accounts
+ * @returns float
+ */
+async function getTransactionValueTransfer(transaction, fromAccount, toAccount){
+    let result = 0;
+
+    // determine how much value the transfer has in standard USD - note fromAccount.balance and transaction.amount are implicitly the same currency
+    let usdTransferValue = await accountSvc.exportValuation(fromAccount, 'USD');
+    let destinationUsdValue = await accountSvc.exportValuation(toAccount, 'USD');
+    
+    // logging out for sanity
+    Logger.info(`Transaction amount: ${transaction.amount} in account: ${fromAccount.name} current worth: ${usdTransferValue} USD`);
+    Logger.info(`Destination usd valuation in account: ${toAccount.name} current worth: ${destinationUsdValue} USD`);
+
+    //divide destination balance by it's value in usd to get units/usd
+    let sourceUsdPerUnit = usdTransferValue / fromAccount.balance
+    let destinationUsdPerUnit = destinationUsdValue / toAccount.balance
+
+    // logging for sanity
+    Logger.info(`Source account Usd/Unit value is: ${sourceUsdPerUnit}`);
+    Logger.info(`Destination account Usd/Unit value is: ${destinationUsdPerUnit}`);
+
+    // determine exchange ratio from Usd/Unit comparison
+    let exchangeRatio = sourceUsdPerUnit/destinationUsdPerUnit
+
+    Logger.info(`Exchange Ratio: ${exchangeRatio}`);
+
+    // calculate new balance in destination account after transaction
+    result = exchangeRatio * transaction.amount
+
+    Logger.info(`Resulting balance change at destination account is: ${result}`)
+
+    return result;
+}
+
+
+/**
  * Apply transaction to it's accounts, then mark as applied
  * @param {models.Transaction} transaction model
  * @returns true or throw
@@ -147,21 +186,40 @@ async function applyToday(){
     if(!transaction.toAccount && !transaction.fromAccount){
         throw new Error('Transaction hasn\'t got either a to or from account');
     }
-    //toAccount
-    if(transaction.toAccount){
+    //toAccount only
+    if(transaction.toAccount && !transaction.fromAccount){
         let toAccount = await Account.findOne(transaction.toAccount);
         let newBalance = (toAccount.balance + transaction.amount).toFixed(6);
         Logger.info(`Updating account '${toAccount.name}' balance: ${toAccount.balance} to ${newBalance}`);
         toAccount.balance = newBalance;
         await toAccount.save();
     }
-    // fromAccount 
-    if(transaction.fromAccount){
+    // fromAccount only
+    if(transaction.fromAccount && !transaction.toAccount){
         let fromAccount = await Account.findOne(transaction.fromAccount);
 
         let newBalance = (fromAccount.balance - transaction.amount).toFixed(6);
         Logger.info(`Updating account '${fromAccount.name}' balance: ${fromAccount.balance} to ${newBalance}`);
         fromAccount.balance = newBalance;
+        await fromAccount.save();
+    }
+
+    // case where valuation needs to be exchanged because transaction is between accounts
+    if(transaction.fromAccount && transaction.toAccount){
+        let fromAccount = await Account.findOne(transaction.fromAccount); 
+        let toAccount = await Account.findOne(transaction.toAccount); 
+
+        let newDestinationBalance = await getTransactionValueTransfer(transaction, fromAccount, toAccount);
+
+        // add the valuation as balance to the destination accounts balance - i.e 0.2BTC + 2Btc
+        toAccount.balance += newDestinationBalance;
+
+        // subtract the transaction amount from the source account as their balances are implicitly linked
+        fromAccount.balance -= transaction.amount;
+        
+        // record the amount added to the destination accounts balance so it can be subtracted later irrespective of future valuation
+        transaction.appliedBalanceTo = newDestinationBalance;
+        await toAccount.save();
         await fromAccount.save();
     }
 

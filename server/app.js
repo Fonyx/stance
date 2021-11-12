@@ -11,7 +11,8 @@ const Logger = require('./utils/logger');
 
 const app = express();
 app.PORT = process.env.PORT;
-app.prodURI = process.env.MONGODB_URI;
+// app.prodURI = process.env.MONGODB_URI;
+app.prodURI = 'mongodb://localhost/stance'
 // connect to production database
 connectTo(app.prodURI);
 
