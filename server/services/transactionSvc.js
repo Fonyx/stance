@@ -146,29 +146,14 @@ async function applyToday(){
 async function getTransactionValueTransfer(transaction, fromAccount, toAccount){
     let result = 0;
 
-    // determine how much value the transfer has in standard USD - note fromAccount.balance and transaction.amount are implicitly the same currency
-    let usdTransferValue = await accountSvc.exportValuation(fromAccount, 'USD');
-    let destinationUsdValue = await accountSvc.exportValuation(toAccount, 'USD');
-    
-    // logging out for sanity
-    Logger.info(`Transaction amount: ${transaction.amount} in account: ${fromAccount.name} current worth: ${usdTransferValue} USD`);
-    Logger.info(`Destination usd valuation in account: ${toAccount.name} current worth: ${destinationUsdValue} USD`);
-
-    //divide destination balance by it's value in usd to get units/usd
-    let sourceUsdPerUnit = usdTransferValue / fromAccount.balance
-    let destinationUsdPerUnit = destinationUsdValue / toAccount.balance
-
-    // logging for sanity
-    Logger.info(`Source account Usd/Unit value is: ${sourceUsdPerUnit}`);
-    Logger.info(`Destination account Usd/Unit value is: ${destinationUsdPerUnit}`);
-
     // determine exchange ratio from Usd/Unit comparison
-    let exchangeRatio = sourceUsdPerUnit/destinationUsdPerUnit
+    let exchangeRatio = toAccount.currency.usdValue/fromAccount.currency.usdValue;
+
 
     Logger.info(`Exchange Ratio: ${exchangeRatio}`);
 
     // calculate new balance in destination account after transaction
-    result = exchangeRatio * transaction.amount
+    result = exchangeRatio * transaction.amount - transaction.amount
 
     Logger.info(`Resulting balance change at destination account is: ${result}`)
 
@@ -207,25 +192,21 @@ async function getTransactionBalanceImpact(transaction){
 
     var appliedBalance = 0;
 
-    let balanceImpact = await getTransactionBalanceImpact(transaction);
-    Logger.info(balanceImpact);
-
     if(!transaction.toAccount && !transaction.fromAccount){
         throw new Error('Transaction hasn\'t got either a to or from account');
     }
     //toAccount only
     if(transaction.toAccount && !transaction.fromAccount){
         let toAccount = await Account.findOne(transaction.toAccount);
-        appliedBalance = (toAccount.balance + transaction.amount).toFixed(6);
-        toAccount.balance = appliedBalance;
+        toAccount.balance += transaction.amount;
         await toAccount.save();
+        // record the balanceImpact as the applied Balance
+        appliedBalance = transaction.amount;
     }
     // fromAccount only
     if(transaction.fromAccount && !transaction.toAccount){
         let fromAccount = await Account.findOne(transaction.fromAccount);
-
-        appliedBalance = (fromAccount.balance - transaction.amount).toFixed(6);
-        fromAccount.balance = appliedBalance;
+        fromAccount.balance -= transaction.amount;
         await fromAccount.save();
     }
 
@@ -234,10 +215,10 @@ async function getTransactionBalanceImpact(transaction){
         let fromAccount = await Account.findOne(transaction.fromAccount); 
         let toAccount = await Account.findOne(transaction.toAccount); 
 
-        let appliedBalance = await getTransactionValueTransfer(transaction, fromAccount, toAccount);
+        let balanceImpact = await getTransactionBalanceImpact(transaction);
 
         // add the valuation as balance to the destination accounts balance - i.e 0.2BTC + 2Btc
-        toAccount.balance += appliedBalance;
+        toAccount.balance += balanceImpact;
 
         // subtract the transaction amount from the source account as their balances are implicitly linked
         fromAccount.balance -= transaction.amount;
@@ -245,6 +226,7 @@ async function getTransactionBalanceImpact(transaction){
         // record the amount added to the destination accounts balance so it can be subtracted later irrespective of future valuation
         await toAccount.save();
         await fromAccount.save();
+        appliedBalance = balanceImpact;
     }
 
     transaction.applied = true;
