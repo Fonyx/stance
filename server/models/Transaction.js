@@ -29,6 +29,7 @@ const transactionSchema = new mongoose.Schema({
         required: true,
         default: dateAustralia
     },
+    // this is the amount that was deducted from a source account as a balance, not as a valuation
     amount: {
         type: Number,
         // if this.factor is null, then this field is required
@@ -58,7 +59,7 @@ const transactionSchema = new mongoose.Schema({
         default: false
     },
     // this is the amount that was applied to any destination accounts as a balance, not as a valuation
-    appliedBalanceTo: {
+    appliedBalance: {
         type: Number,
         required: false,
     },

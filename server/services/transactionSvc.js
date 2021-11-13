@@ -175,6 +175,28 @@ async function getTransactionValueTransfer(transaction, fromAccount, toAccount){
     return result;
 }
 
+/**
+ * get the balance a transaction updates the destination account with - hence the lack of calculations on the from account as that is covered implicitly by the transaction.amount field
+ * @param {*} transaction 
+ */
+async function getTransactionBalanceImpact(transaction){
+
+    let balanceImpact = 0;
+
+    //toAccount only
+    if(transaction.toAccount && !transaction.fromAccount){
+        balanceImpact = parseFloat((transaction.amount).toFixed(6));
+    }
+
+    // case where valuation needs to be exchanged because transaction is between accounts
+    if(transaction.fromAccount && transaction.toAccount){
+        let fromAccount = await Account.findOne(transaction.fromAccount); 
+        let toAccount = await Account.findOne(transaction.toAccount); 
+        balanceImpact = await getTransactionValueTransfer(transaction, fromAccount, toAccount);
+    }
+
+    return balanceImpact
+}
 
 /**
  * Apply transaction to it's accounts, then mark as applied
@@ -183,24 +205,27 @@ async function getTransactionValueTransfer(transaction, fromAccount, toAccount){
  */
  async function applyToAccounts(transaction){
 
+    var appliedBalance = 0;
+
+    let balanceImpact = await getTransactionBalanceImpact(transaction);
+    Logger.info(balanceImpact);
+
     if(!transaction.toAccount && !transaction.fromAccount){
         throw new Error('Transaction hasn\'t got either a to or from account');
     }
     //toAccount only
     if(transaction.toAccount && !transaction.fromAccount){
         let toAccount = await Account.findOne(transaction.toAccount);
-        let newBalance = (toAccount.balance + transaction.amount).toFixed(6);
-        Logger.info(`Updating account '${toAccount.name}' balance: ${toAccount.balance} to ${newBalance}`);
-        toAccount.balance = newBalance;
+        appliedBalance = (toAccount.balance + transaction.amount).toFixed(6);
+        toAccount.balance = appliedBalance;
         await toAccount.save();
     }
     // fromAccount only
     if(transaction.fromAccount && !transaction.toAccount){
         let fromAccount = await Account.findOne(transaction.fromAccount);
 
-        let newBalance = (fromAccount.balance - transaction.amount).toFixed(6);
-        Logger.info(`Updating account '${fromAccount.name}' balance: ${fromAccount.balance} to ${newBalance}`);
-        fromAccount.balance = newBalance;
+        appliedBalance = (fromAccount.balance - transaction.amount).toFixed(6);
+        fromAccount.balance = appliedBalance;
         await fromAccount.save();
     }
 
@@ -209,21 +234,21 @@ async function getTransactionValueTransfer(transaction, fromAccount, toAccount){
         let fromAccount = await Account.findOne(transaction.fromAccount); 
         let toAccount = await Account.findOne(transaction.toAccount); 
 
-        let newDestinationBalance = await getTransactionValueTransfer(transaction, fromAccount, toAccount);
+        let appliedBalance = await getTransactionValueTransfer(transaction, fromAccount, toAccount);
 
         // add the valuation as balance to the destination accounts balance - i.e 0.2BTC + 2Btc
-        toAccount.balance += newDestinationBalance;
+        toAccount.balance += appliedBalance;
 
         // subtract the transaction amount from the source account as their balances are implicitly linked
         fromAccount.balance -= transaction.amount;
         
         // record the amount added to the destination accounts balance so it can be subtracted later irrespective of future valuation
-        transaction.appliedBalanceTo = newDestinationBalance;
         await toAccount.save();
         await fromAccount.save();
     }
 
     transaction.applied = true;
+    transaction.appliedBalance = appliedBalance;
     await transaction.save();
 
     return transaction;
