@@ -6,6 +6,7 @@ import SpecificStockDetails from './SpecificStockDetails';
 import TagGoalDetails from './TagGoalDetails';
 import {QUERY_GET_ALL_PRIMITIVES} from '../../utils/queries';
 import { useQuery } from '@apollo/client';
+import {Container, Grid, Typography} from '@mui/material'
 
 const initialFormState = {
   name: '',
@@ -201,16 +202,22 @@ export default function AccountForm (){
     });
   }
 
-  const { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode, tags, goalAmount, goalDate } = formState;
-  const values = { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode, tags, goalAmount, goalDate };
+  const { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetCode, assetName, tags, goalAmount, goalDate } = formState;
+  const values = { type, name, openingBalance, interestRate, compounds, party, currency, exchangeCode, assetName, assetCode, tags, goalAmount, goalDate };
 
   console.log('Form state is: ',formState);
 
   if(loading){
-    return ( 
-      <div>Loading Your Data</div>
+    return (
+        <Container>
+            <Grid container paddingTop="40px">
+                <Grid item>
+                <Typography variant='h3' color='primary'>Loading Your Data.....Locating Assets</Typography>
+                </Grid>
+            </Grid>
+        </Container>
     )
-  }
+}
 
   switch (step) {
     case 1:

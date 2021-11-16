@@ -5,7 +5,6 @@ import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import {ToggleButton, StateToggleButton} from '../components/toggleButton'
 import LineChart from '../components/LineChart';
 import accumulateTransactions from '../helpers/accumulator';
-import { readableDate} from '../helpers/formatter';
 import {truncate} from '../helpers/strings';
 import Navbar from '../components/Navbar';
 import {convertStringToDateString} from '../helpers/formatter'
@@ -96,11 +95,13 @@ export default function Home() {
 
     if(loading){
         return (
-            <Grid container>
-                <Grid item>
+            <Container>
+                <Grid container paddingTop="40px">
+                    <Grid item>
                     <Typography variant='h3' color='primary'>Loading Your Account Details...Updating their valuations.....You can't rush art...</Typography>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </Container>
         )
     }
 
@@ -147,32 +148,65 @@ export default function Home() {
 
     return (
         <div>
-            <Navbar/>
             <Container>
-                <Grid item xs={12} sm={4} lg={3} xl={2}>
-                    <Grid item xs={6} sm={12}>
-                        <Typography variant='h4' color="primary">Your Accounts</Typography>
-                        <Button color="secondary" variant="contained" href="/createAccount">Add</Button>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Grid container padding="10px">
+                            <Grid item>
+                                <Typography variant="h3" color="primary">Your Accounts</Typography>
+                            </Grid>
+                            <Grid item>
+                                <IconButton color="secondary" href="/createAccount">
+                                    <AddIcon/>
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12} padding="10px">
                         {accountData && accountData.map((element) => (
-                            <div key={element.account._id}>
-                                <ToggleButton 
-                                    name={element.account.name} 
-                                    color={element.account.name === selectedAccount.accountName? 'primary': 'secondary'}
-                                    handleSelect={handleSelect} 
-                                    variant="contained"
-                                >
-                                </ToggleButton>
-                            </div>
+                            <ToggleButton 
+                                name={element.account.name} 
+                                key={element.account._id}
+                                color={element.account.name === selectedAccount.accountName? 'primary': 'secondary'}
+                                handleSelect={handleSelect} 
+                                variant="contained"
+                            >
+                            </ToggleButton>
                         ))}
                     </Grid>
+                    <Grid item xs={12} padding="10px">
+                        <Typography variant='h3' color="primary">Tickers</Typography>
+                        {tickers && tickers.map((element) => (
+                            <Chip label={truncate(element.assetName, 25)}
+                                component='a'
+                                key={element._id}
+                                color="primary" 
+                                variant="outlined" 
+                                href={`/asset/${element._id}`}
+                                clickable/>
+                        ))}
+                    </Grid>
+                    <Grid item xs={12} padding="10px">
+                        <Typography variant="h3" color="primary">
+                            Tags
+                        </Typography>
+                        <Grid item container xs={12} direction="row">
+                            {userTags && userTags.map((tag, index) => (
+                                <StateToggleButton 
+                                    key={index}
+                                    name={tag}  
+                                    variant="contained"
+                                />
+                            ))}
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6} lg={6} xl={8} textAlign="center">
-                    {selectedAccount && 
-                        <div id="chart-section">
-                            <div>
+                <Grid container xs={12} lg={12} >
+                    <Grid item>
+                        {selectedAccount && 
+                            <div id="chart-section">
                                 <Button variant="text" color="primary" to={`/account/${selectedAccount.account._id}`}>
-                                    <Typography variant="h4" color="primary" style={{textTransform: 'capitalize'}}>{selectedAccount.accountName}</Typography>
-
+                                    <Typography variant="h3" color="primary" style={{textTransform: 'capitalize'}}>{selectedAccount.accountName}</Typography>
                                 </Button>
                                 <Grid container alignItems="center">
                                     <Grid item xs={12}>
@@ -183,33 +217,7 @@ export default function Home() {
                                 </Grid>
                                 <LineChart accumulatedData={selectedAccount.accumulatedData}/>
                             </div>
-                        </div>
-                    }
-                </Grid>
-                <Grid item xs={6} sm={12}>
-                    <Typography variant='h3' color="primary">Tickers</Typography>
-                    {tickers && tickers.map((element) => (
-                        <Chip label={truncate(element.assetName, 25)}
-                            component='a'
-                            key={element._id}
-                            color="primary" 
-                            variant="outlined" 
-                            href={`/asset/${element._id}`}
-                            clickable/>
-                    ))}
-                </Grid>
-                <Grid item xs={12} lg={3} xl={2} textAlign="center">
-                    <Typography variant="h4" color="primary">
-                        Tags
-                    </Typography>
-                    <Grid item container xs={12} direction="row">
-                        {userTags && userTags.map((tag, index) => (
-                            <StateToggleButton 
-                                key={index}
-                                name={tag}  
-                                variant="contained"
-                            />
-                        ))}
+                        }
                     </Grid>
                 </Grid>
                 <Grid container xs={12} textAlign="center" justifyContent="center" alignItems="center">

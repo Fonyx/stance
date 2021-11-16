@@ -4,6 +4,7 @@ import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import AccountForm from './components/CreateAccountSteps/CreateAccountSteps';
+import Navbar from './components/Navbar';
 
 import Landing from './pages/Landing';
 import Home from './pages/Home';
@@ -72,6 +73,7 @@ function App() {
     <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={theme}>
         <Router>
+          <Navbar />
           <Switch>
             <Route exact path="/">
               <Landing />

@@ -7,6 +7,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { CREATE_ACCOUNT_FE } from '../../utils/mutations';
 import { useHistory } from 'react-router-dom';
+import {Container} from '@mui/material'
 
 export default function TagGoalDetails({values, handleChange,handleGoalDateChange, prevStep}) {
 
@@ -16,7 +17,17 @@ export default function TagGoalDetails({values, handleChange,handleGoalDateChang
     // prepare the return mutation for creating query
     const [createAccount, accountReturn] = useMutation(CREATE_ACCOUNT_FE);
 
-    if (accountReturn.loading) return 'Submitting...';
+    if(accountReturn.loading){
+        return (
+            <Container>
+                <Grid container paddingTop="40px">
+                    <Grid item>
+                    <Typography variant='h3' color='primary'>Building your account, syncing economy, don't interrupt</Typography>
+                    </Grid>
+                </Grid>
+            </Container>
+        )
+    }
 
     if (accountReturn.error) {
         console.log(JSON.stringify(accountReturn.error, null, 2));

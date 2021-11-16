@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 import {useQuery} from '@apollo/client'
 import {QUERY_GET_ASSET_DETAILS} from '../utils/queries';
-import {Grid, Typography} from '@mui/material'
+import {Grid, Container, Typography} from '@mui/material'
 import AssetChart from '../components/AssetChart';
 
 export default function Asset() {
@@ -20,11 +20,13 @@ export default function Asset() {
 
     if(loading){
         return (
-            <Grid container>
-                <Grid item>
-                    <Typography variant='h3' color='primary'>Loading Asset history, lots of 1's and 0's in here!</Typography>
+            <Container>
+                <Grid container paddingTop="40px">
+                    <Grid item>
+                        <Typography variant='h3' color='primary'>Loading Asset history, lots of 1's and 0's in here!</Typography>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </Container>
         )
     }
     
@@ -44,17 +46,19 @@ export default function Asset() {
 
 
     return (
-        <Grid container>
-            <Grid item xs={12} md={3}>
-                <Typography variant="h3" color="primary">{account.assetCode}</Typography>
-                <Typography variant="h5" color="primary">{account.currency.symbol}{current.open? current.open : current.previousClose} {account.currency.code}</Typography>
-                <Typography variant="h5" color="primary">{current.change_p}% In the last day</Typography>
+        <Container>
+            <Grid container paddingTop="40px">
+                <Grid item xs={12} md={6}>
+                    <Typography variant="h3" color="primary">{account.assetCode}</Typography>
+                    <Typography variant="h5" color="primary">{account.currency.symbol}{current.open? current.open : current.previousClose} {account.currency.code}</Typography>
+                    <Typography variant="h5" color="primary">{current.change_p}% In the last day</Typography>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    {data && 
+                        <AssetChart data={lastTwoYears}/>
+                    }
+                </Grid>
             </Grid>
-            <Grid item xs={12} md={9}>
-                {data && 
-                    <AssetChart data={lastTwoYears}/>
-                }
-            </Grid>
-        </Grid>
+        </Container>
     )
 }
