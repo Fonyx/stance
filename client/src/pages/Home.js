@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
 import { useQuery } from '@apollo/client';
-import {Grid, Button, Chip, Container, IconButton, Typography, TableContainer, Table, TableHead, TableRow, TableCell, Paper, TableBody} from '@mui/material';
+import {Grid, Button, Chip, Container, IconButton, Typography, TableContainer, Table, TableHead, TableRow, TableCell, Paper, TableBody, Divider} from '@mui/material';
 import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import {ToggleButton, StateToggleButton} from '../components/toggleButton'
 import LineChart from '../components/LineChart';
 import accumulateTransactions from '../helpers/accumulator';
 import {truncate} from '../helpers/strings';
-import Navbar from '../components/Navbar';
 import {convertStringToDateString} from '../helpers/formatter'
 import AddIcon from '@mui/icons-material/Add'
 
@@ -126,6 +125,8 @@ export default function Home() {
             return prev + curr.amount
         }, 0);
 
+        var transactions = credits.concat(debits);
+
         // limit the number of transactions to display, first 10
         // var credits = credits.slice(0, 10);
         // var debits = credits.slice(0, 10);
@@ -138,13 +139,12 @@ export default function Home() {
             tickers,
             credits,
             debits,
+            transactions,
             creditTotal,
             debitTotal
         }
         setSelectedAccount(statePackage);
     }
-
-    console.log(selectedAccount);
 
     return (
         <div>
@@ -251,7 +251,7 @@ export default function Home() {
                             </TableRow>
                             </TableHead>
                             <TableBody>
-                            {selectedAccount && selectedAccount.credits.map((transaction) => (
+                            {selectedAccount && selectedAccount.transactions.map((transaction) => (
                                 <TableRow
                                 key={transaction._id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
