@@ -223,7 +223,11 @@ async function createFromFE(data){
         // set the currency relation
         data.currency = currency;
     } else {
-        throw new Error(`There is no currency attached to this request: ${data}`);
+        let currencyId = data.currency
+        data.currency = await Currency.findOne({
+            '_id': currencyId
+        });
+        // throw new Error(`There is no currency attached to this request: ${data}`);
     }
 
     // if there are tags

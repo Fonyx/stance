@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useQuery } from '@apollo/client';
-import {Grid, Button, Chip, Container, IconButton, Typography, TableContainer, Table, TableHead, TableRow, TableCell, Paper, TableBody, Divider} from '@mui/material';
+import {Grid, Button, Chip, Container, IconButton, Typography, TableContainer, Table, TableHead, TableRow, TableCell, Paper, TableBody} from '@mui/material';
 import {QUERY_ALL_ACCOUNTS_AND_TRANSACTIONS} from '../utils/queries'
 import {ToggleButton, StateToggleButton} from '../components/toggleButton'
 import LineChart from '../components/LineChart';
