@@ -12,8 +12,8 @@ const connectTo = require('../config/connectTo');
 
 // get api key for currency updates from env file
 var RapidApiKey = process.env.RAPID_API_KEY;
-// var prodURI = process.env.MONGODB_URI;
-var prodURI = 'mongodb://localhost/stance';
+var prodURI = process.env.MONGODB_URI;
+// var prodURI = 'mongodb://localhost/stance';
 var testURI = process.env.MONGODB_TEST_URI;
 
 if(!RapidApiKey){

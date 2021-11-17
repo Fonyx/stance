@@ -80,7 +80,7 @@ async function updateUnitPriceAndValuation(account){
             
             // if these is no market open price, use previous close
             account.unitPrice = data.open !== 'NA' ? data.open : data.previousClose;
-            account.changeP = data.change_p !== 'NA' ? data.change_p : null;
+            account.changeP = data.change_p !== 'NA' ? data.change_p : 0;
 
         } else {
             throw new Error(`Can't collect crypto value since ${account.name} has no code`);
