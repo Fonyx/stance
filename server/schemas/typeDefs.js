@@ -92,7 +92,7 @@ const typeDefs = gql`
     volume: Float
     previousClose: Float
     change: Float
-    change_p: Float
+    change_p: String
   }
 
   type AssetEodPackage {

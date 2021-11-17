@@ -12,7 +12,7 @@ export default function Asset() {
 
     console.log(params.id);
 
-    const {loading, data} = useQuery(QUERY_GET_ASSET_DETAILS, {
+    const {loading, error, data} = useQuery(QUERY_GET_ASSET_DETAILS, {
         variables: {
             'accountId': params.id
         }
@@ -29,6 +29,12 @@ export default function Asset() {
             </Container>
         )
     }
+
+    if (error) {
+        // since the apollo client returns a weird error derivative we need custom logging
+        console.log(JSON.stringify(error, null, 2));
+        // console.log(accountReturn.error.networkError.result.errors)
+    };
     
     console.log(data.assetEODDetails);
 
@@ -51,7 +57,7 @@ export default function Asset() {
                 <Grid item xs={12} md={6}>
                     <Typography variant="h3" color="primary">{account.assetCode}</Typography>
                     <Typography variant="h5" color="primary">{account.currency.symbol}{current.open? current.open : current.previousClose} {account.currency.code}</Typography>
-                    <Typography variant="h5" color="primary">{current.change_p}% In the last day</Typography>
+                    <Typography variant="h5" color="primary">{current.change_p}% In the 30 minutes</Typography>
                 </Grid>
                 <Grid item xs={12} md={6}>
                     {data && 
