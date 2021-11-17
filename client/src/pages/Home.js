@@ -220,11 +220,11 @@ export default function Home() {
                         }
                     </Grid>
                 </Grid>
-                <Grid container xs={12} textAlign="center" justifyContent="center" alignItems="center">
-                    <Grid item>
+                <Grid container xs={12}>
+                    <Grid item padding="10px">
                         <Typography variant="h3" color="primary">Transactions</Typography>
                     </Grid>
-                    <Grid item>
+                    <Grid item padding="10px">
                         <IconButton color="secondary" href="/createTransaction">
                             <AddIcon/>
                         </IconButton>
