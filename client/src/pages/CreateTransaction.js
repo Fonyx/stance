@@ -130,7 +130,7 @@ export default function CreateTransaction() {
         let errorBuffer = [];
 
         //check at least one account
-        if(!formState.toAccount?.balance && !formState.fromAccount?.balance){
+        if(!formState.toAccount && !formState.fromAccount){
             errorBuffer.push('You need to choose at least one account');
         }
 
@@ -197,8 +197,8 @@ export default function CreateTransaction() {
                 // convert the payload to accountId strings because bad design downstream
                 let payload = {
                     ...formState,
-                    toAccount: formState.toAccount._id,
-                    fromAccount: formState.fromAccount._id,
+                    toAccount: formState.toAccount? formState.toAccount._id: null,
+                    fromAccount: formState.fromAccount? formState.fromAccount._id: null,
                     amount: parseFloat(formState.amount)
                 }
 

@@ -145,15 +145,23 @@ async function applyToday(){
  */
 async function getTransactionValueTransfer(transaction, fromAccount, toAccount){
     let result = 0;
+    let usdTransactionValue = 0;
 
-    // determine exchange ratio from Usd/Unit comparison
-    let exchangeRatio = toAccount.currency.usdValue/fromAccount.currency.usdValue;
+    //  determine USD vaLue of transaction
+    usdTransactionValue = fromAccount.unitPrice*transaction.amount
 
+    // get toAccount balance in usd and determine usd/unit ratio
+    let toAccountUsdValue = await accountSvc.exportValuation(toAccount, 'USD');
+    let toAccountUsdRatio = toAccountUsdValue/toAccount.balance
 
-    Logger.info(`Exchange Ratio: ${exchangeRatio}`);
+    if(toAccountUsdValue !== 0){
+        result = usdTransactionValue/toAccountUsdRatio
+    } else {
+        // unit price is listed in the currency linked to the account, not necessarily to usd
+        result = usdTransactionValue/toAccount.unitPrice
+    }
 
-    // calculate new balance in destination account after transaction
-    result = exchangeRatio * transaction.amount - transaction.amount
+    Logger.info(`Transferring usd Value: ${usdTransactionValue} To account with usd Value: ${toAccountUsdValue}`);
 
     Logger.info(`Resulting balance change at destination account is: ${result}`)
 

@@ -32,8 +32,8 @@ export const SIGN_UP = gql`
 
 export const CREATE_TRANSACTION = gql`
     mutation createTransaction(
-        $toAccount: String!,
-        $fromAccount: String!,
+        $toAccount: String,
+        $fromAccount: String,
         $description: String!,
         $date: String!,
         $amount: Float,

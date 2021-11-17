@@ -237,6 +237,9 @@ export default function Home() {
                                     <Typography variant="h6" color="primary">Date</Typography>
                                 </TableCell>
                                 <TableCell align="right">
+                                    <Typography variant="h6" color="primary">Description</Typography>
+                                </TableCell>
+                                <TableCell align="right">
                                     <Typography variant="h6" color="primary">Amount</Typography>
                                 </TableCell>
                                 <TableCell align="right">
@@ -257,6 +260,9 @@ export default function Home() {
                                         <Typography variant="p" color="primary">{convertStringToDateString(transaction.date)}</Typography>
                                     </TableCell>
                                     <TableCell align="right">
+                                        <Typography variant="p" color="primary">{transaction.description}</Typography>
+                                    </TableCell>
+                                    <TableCell align="right">
                                         <Typography variant="p" color="primary">{transaction.amount}</Typography>
                                     </TableCell>
                                     {transaction?.toAccount && 
@@ -273,6 +279,7 @@ export default function Home() {
                             ))}
                             {selectedAccount && <TableRow>
                                 <TableCell>Total</TableCell>
+                                <TableCell></TableCell>
                                 <TableCell align="right">{selectedAccount.creditTotal.toFixed(4)}</TableCell>
                             </TableRow>}
                             </TableBody>
